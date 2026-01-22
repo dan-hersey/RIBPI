@@ -1,4 +1,3 @@
-[README.md](https://github.com/user-attachments/files/24784605/README.md)
 # RI Bitcoin Policy Institute - Legislative Education Portal
 
 An interactive educational resource for Rhode Island legislators exploring Bitcoin and digital asset policy.
