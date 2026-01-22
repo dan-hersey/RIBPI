@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bitcoin Policy News & Updates | RI Bitcoin Policy Institute</title>
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --ri-blue: #002D72;
+            --ri-gold: #C5A648;
+            --ri-light-blue: #4A7BB7;
+            --ri-dark: #1a1a2e;
+            --ri-white: #ffffff;
+            --ri-gray: #f5f5f7;
+            --ri-text: #333333;
+            --bitcoin-orange: #F7931A;
+            --success-green: #28a745;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Open Sans', sans-serif;
+            background: var(--ri-gray);
+            color: var(--ri-text);
+            line-height: 1.6;
+        }
+
+        h1, h2, h3, h4 { font-family: 'Merriweather', serif; }
+
+        /* Header */
+        .header {
+            background: var(--ri-blue);
+            color: var(--ri-white);
+            padding: 15px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .header-left img {
+            height: 45px;
+            border-radius: 4px;
+        }
+
+        .header-left h1 {
+            font-size: 18px;
+        }
+
+        .header-left span {
+            font-size: 12px;
+            opacity: 0.8;
+        }
+
+        .back-link {
+            color: var(--ri-gold);
+            text-decoration: none;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+
+        /* Main Content */
+        .main-content {
+            margin-top: 80px;
+            padding: 40px;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .page-title {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .page-title h2 {
+            font-size: 36px;
+            color: var(--ri-blue);
+            margin-bottom: 10px;
+        }
+
+        .page-title p {
+            color: #666;
+            font-size: 16px;
+        }
+
+        /* Filter Tabs */
+        .filter-tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .filter-tab {
+            padding: 10px 20px;
+            border: 2px solid var(--ri-blue);
+            border-radius: 25px;
+            background: white;
+            color: var(--ri-blue);
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+
+        .filter-tab:hover, .filter-tab.active {
+            background: var(--ri-blue);
+            color: white;
+        }
+
+        /* News Grid */
+        .news-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 25px;
+        }
+
+        /* News Card */
+        .news-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .news-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+        }
+
+        .news-card.hidden {
+            display: none;
+        }
+
+        .news-card-header {
+            padding: 20px 25px 15px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .news-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .news-date {
+            font-size: 13px;
+            color: #888;
+        }
+
+        .news-tag {
+            padding: 4px 12px;
+            border-radius: 15px;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .tag-ri {
+            background: #e3f2fd;
+            color: var(--ri-blue);
+        }
+
+        .tag-national {
+            background: #fff3e0;
+            color: #e65100;
+        }
+
+        .tag-state {
+            background: #e8f5e9;
+            color: #2e7d32;
+        }
+
+        .tag-federal {
+            background: #fce4ec;
+            color: #c2185b;
+        }
+
+        .news-title {
+            font-size: 18px;
+            color: var(--ri-dark);
+            line-height: 1.4;
+        }
+
+        .news-card-body {
+            padding: 15px 25px 20px;
+        }
+
+        .news-excerpt {
+            font-size: 14px;
+            color: #555;
+            margin-bottom: 15px;
+        }
+
+        .news-source {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .source-name {
+            font-size: 12px;
+            color: #888;
+        }
+
+        .read-more {
+            color: var(--ri-blue);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .read-more:hover {
+            text-decoration: underline;
+        }
+
+        /* Featured Story */
+        .featured-story {
+            background: linear-gradient(135deg, var(--ri-blue) 0%, var(--ri-dark) 100%);
+            color: white;
+            border-radius: 16px;
+            padding: 40px;
+            margin-bottom: 40px;
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 30px;
+            align-items: center;
+        }
+
+        .featured-content h3 {
+            font-size: 28px;
+            margin-bottom: 15px;
+        }
+
+        .featured-content p {
+            font-size: 16px;
+            opacity: 0.9;
+            margin-bottom: 20px;
+        }
+
+        .featured-content .news-date {
+            color: var(--ri-gold);
+        }
+
+        .featured-cta {
+            display: inline-block;
+            background: var(--ri-gold);
+            color: var(--ri-dark);
+            padding: 12px 25px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: background 0.3s ease;
+        }
+
+        .featured-cta:hover {
+            background: #d4b558;
+        }
+
+        .featured-stats {
+            text-align: center;
+        }
+
+        .stat-item {
+            margin-bottom: 25px;
+        }
+
+        .stat-number {
+            font-size: 48px;
+            font-weight: 700;
+            color: var(--ri-gold);
+        }
+
+        .stat-label {
+            font-size: 14px;
+            opacity: 0.8;
+        }
+
+        /* Resources Section */
+        .resources-section {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            margin-top: 40px;
+        }
+
+        .resources-section h3 {
+            color: var(--ri-blue);
+            margin-bottom: 20px;
+            font-size: 22px;
+        }
+
+        .resource-links {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+        }
+
+        .resource-link {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 15px;
+            background: var(--ri-gray);
+            border-radius: 8px;
+            text-decoration: none;
+            color: var(--ri-text);
+            transition: background 0.3s ease;
+        }
+
+        .resource-link:hover {
+            background: #e0e0e0;
+        }
+
+        .resource-link .icon {
+            font-size: 24px;
+        }
+
+        .resource-link span {
+            font-weight: 600;
+            color: var(--ri-blue);
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 30px;
+            color: #888;
+            font-size: 13px;
+        }
+
+        .footer a {
+            color: var(--ri-blue);
+            text-decoration: none;
+        }
+
+        /* Last Updated Notice */
+        .last-updated {
+            text-align: center;
+            padding: 15px;
+            background: #fff3cd;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            font-size: 14px;
+            color: #856404;
+        }
+
+        @media (max-width: 768px) {
+            .main-content { padding: 20px; margin-top: 70px; }
+            .page-title h2 { font-size: 28px; }
+            .featured-story { grid-template-columns: 1fr; }
+            .news-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-left">
+            <img src="https://images.squarespace-cdn.com/content/v1/6838936a68f7263f6cc56c83/5c7d360d-41e4-44fd-926e-0b57254a4bc1/Image.jpg?format=500w" alt="RIBPI Logo">
+            <div>
+                <h1>News & Updates</h1>
+                <span>Bitcoin Policy Developments</span>
+            </div>
+        </div>
+        <a href="ri-bitcoin-policy-prototype.html" class="back-link">← Back to Main Portal</a>
+    </header>
+
+    <main class="main-content">
+        <div class="page-title">
+            <h2>Bitcoin Policy News</h2>
+            <p>Stay informed on the latest Bitcoin and blockchain policy developments in Rhode Island, across the nation, and at the federal level.</p>
+        </div>
+
+        <div class="last-updated">
+            📰 Last updated: January 21, 2026 | For real-time updates, follow <a href="https://bitcoinlaws.io" target="_blank">BitcoinLaws.io</a>
+        </div>
+
+        <!-- Featured Story -->
+        <div class="featured-story">
+            <div class="featured-content">
+                <span class="news-date">January 17, 2026</span>
+                <h3>Texas Becomes First State to Purchase Bitcoin for Strategic Reserve</h3>
+                <p>Texas has made history by purchasing approximately $5 million in BlackRock's iShares Bitcoin Trust (IBIT), becoming the first U.S. state to fund its Strategic Bitcoin Reserve. This follows legislation signed by Governor Abbott in June 2025.</p>
+                <a href="https://www.cnbc.com/2026/01/17/texas-us-states-budgets-bitcoin-crypto-strategic-reserve.html" target="_blank" class="featured-cta">Read Full Story →</a>
+            </div>
+            <div class="featured-stats">
+                <div class="stat-item">
+                    <div class="stat-number">$5M</div>
+                    <div class="stat-label">Texas BTC Purchase</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">3</div>
+                    <div class="stat-label">States with SBR Laws</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Filter Tabs -->
+        <div class="filter-tabs">
+            <button class="filter-tab active" data-filter="all">All News</button>
+            <button class="filter-tab" data-filter="ri">Rhode Island</button>
+            <button class="filter-tab" data-filter="state">Other States</button>
+            <button class="filter-tab" data-filter="federal">Federal</button>
+        </div>
+
+        <!-- News Grid -->
+        <div class="news-grid">
+            <!-- RI News -->
+            <div class="news-card" data-category="ri">
+                <div class="news-card-header">
+                    <div class="news-meta">
+                        <span class="news-date">January 2026</span>
+                        <span class="news-tag tag-ri">Rhode Island</span>
+                    </div>
+                    <h4 class="news-title">S.2021 Bitcoin Tax Exemption Bill Introduced in RI Senate</h4>
+                </div>
+                <div class="news-card-body">
+                    <p class="news-excerpt">Senator Peter A. Appollonio introduces legislation to exempt small Bitcoin transactions (up to $5,000/month) from state income taxes, positioning RI as potentially the first state with such an exemption.</p>
+                    <div class="news-source">
+                        <span class="source-name">LegiScan</span>
+                        <a href="https://legiscan.com/RI/bill/S2021/2026" target="_blank" class="read-more">Read Bill →</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="news-card" data-category="ri">
+                <div class="news-card-header">
+                    <div class="news-meta">
+                        <span class="news-date">January 20, 2026</span>
+                        <span class="news-tag tag-ri">Rhode Island</span>
+                    </div>
+                    <h4 class="news-title">WalletHub: Rhode Island Ranks Dead Last for Starting a Business</h4>
+                </div>
+                <div class="news-card-body">
+                    <p class="news-excerpt">Rhode Island ranked #50 in WalletHub's 2026 report, citing high costs, limited resources, and sluggish innovation. Bitcoin-friendly policies could help differentiate the state and attract new businesses.</p>
+                    <div class="news-source">
+                        <span class="source-name">WalletHub</span>
+                        <a href="https://wallethub.com/edu/best-states-to-start-a-business/36934" target="_blank" class="read-more">Read Report →</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="news-card" data-category="ri">
+                <div class="news-card-header">
+                    <div class="news-meta">
+                        <span class="news-date">June 10, 2025</span>
+                        <span class="news-tag tag-ri">Rhode Island</span>
+                    </div>
+                    <h4 class="news-title">RI Blockchain Study Bill (H.5810) Engrossed — Furthest 2025 Progress</h4>
+                </div>
+                <div class="news-card-body">
+                    <p class="news-excerpt">Rhode Island's bill to create a legislative commission studying blockchain technology reached 50% progression before dying in chamber. Strong foundation for 2026 reintroduction.</p>
+                    <div class="news-source">
+                        <span class="source-name">LegiScan</span>
+                        <a href="https://legiscan.com/RI/bill/H5810/2025" target="_blank" class="read-more">View Bill →</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- State News -->
+            <div class="news-card" data-category="state">
+                <div class="news-card-header">
+                    <div class="news-meta">
+                        <span class="news-date">January 17, 2026</span>
+                        <span class="news-tag tag-state">Texas</span>
+                    </div>
+                    <h4 class="news-title">Texas Makes First State Bitcoin Purchase — $5M in IBIT</h4>
+                </div>
+                <div class="news-card-body">
+                    <p class="news-excerpt">Texas Comptroller's office purchased approximately $5 million in BlackRock's iShares Bitcoin Trust when BTC was priced at $91,336, becoming the first state to fund its Strategic Bitcoin Reserve.</p>
+                    <div class="news-source">
+                        <span class="source-name">CNBC</span>
+                        <a href="https://www.cnbc.com/2026/01/17/texas-us-states-budgets-bitcoin-crypto-strategic-reserve.html" target="_blank" class="read-more">Read More →</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="news-card" data-category="state">
+                <div class="news-card-header">
+                    <div class="news-meta">
+                        <span class="news-date">June 2025</span>
+                        <span class="news-tag tag-state">Texas</span>
+                    </div>
+                    <h4 class="news-title">Governor Abbott Signs Texas Strategic Bitcoin Reserve (SB 21)</h4>
+                </div>
+                <div class="news-card-body">
+                    <p class="news-excerpt">Texas establishes Strategic Bitcoin Reserve with SB 21 and HB 4488, including robust legal protections ensuring the reserve cannot be easily dismantled by future legislatures.</p>
+                    <div class="news-source">
+                        <span class="source-name">LegiScan</span>
+                        <a href="https://legiscan.com/TX/bill/SB21/2025" target="_blank" class="read-more">View Bill →</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="news-card" data-category="state">
+                <div class="news-card-header">
+                    <div class="news-meta">
+                        <span class="news-date">May 6, 2025</span>
+                        <span class="news-tag tag-state">New Hampshire</span>
+                    </div>
+                    <h4 class="news-title">New Hampshire Passes First Strategic Bitcoin Reserve Law (HB 302)</h4>
+                </div>
+                <div class="news-card-body">
+                    <p class="news-excerpt">Governor Kelly Ayotte signs HB 302, allowing the state treasurer to invest up to 5% of public funds in precious metals or digital assets with market cap over $500 billion.</p>
+                    <div class="news-source">
+                        <span class="source-name">LegiScan</span>
+                        <a href="https://legiscan.com/NH/bill/HB302/2025" target="_blank" class="read-more">View Bill →</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="news-card" data-category="state">
+                <div class="news-card-header">
+                    <div class="news-meta">
+                        <span class="news-date">May 5, 2025</span>
+                        <span class="news-tag tag-state">Arizona</span>
+                    </div>
+                    <h4 class="news-title">Arizona Passes Crypto Custody Law (HB 2749)</h4>
+                </div>
+                <div class="news-card-body">
+                    <p class="news-excerpt">Arizona updates unclaimed property laws to allow crypto assets to be held in their original form rather than liquidated, creating a pathway to maintain custody of seized Bitcoin.</p>
+                    <div class="news-source">
+                        <span class="source-name">LegiScan</span>
+                        <a href="https://legiscan.com/AZ/bill/HB2749/2025" target="_blank" class="read-more">View Bill →</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Federal News -->
+            <div class="news-card" data-category="federal">
+                <div class="news-card-header">
+                    <div class="news-meta">
+                        <span class="news-date">March 6, 2025</span>
+                        <span class="news-tag tag-federal">Federal</span>
+                    </div>
+                    <h4 class="news-title">Presidential Executive Order Establishes Strategic Bitcoin Reserve</h4>
+                </div>
+                <div class="news-card-body">
+                    <p class="news-excerpt">Executive order creates federal Strategic Bitcoin Reserve and Digital Asset Stockpile, signaling federal government's recognition of Bitcoin as a strategic asset.</p>
+                    <div class="news-source">
+                        <span class="source-name">White House</span>
+                        <a href="https://www.whitehouse.gov/presidential-actions/2025/03/strategic-bitcoin-reserve" target="_blank" class="read-more">Read Order →</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="news-card" data-category="federal">
+                <div class="news-card-header">
+                    <div class="news-meta">
+                        <span class="news-date">November 2025</span>
+                        <span class="news-tag tag-federal">Federal</span>
+                    </div>
+                    <h4 class="news-title">Bitcoin Policy Institute Releases $14 Trillion Model</h4>
+                </div>
+                <div class="news-card-body">
+                    <p class="news-excerpt">BPI projects that if 1% of federal taxes were paid in Bitcoin over 20 years, the U.S. could generate up to $14 trillion in cumulative value—a net advantage of ~$13 trillion vs. cash.</p>
+                    <div class="news-source">
+                        <span class="source-name">Bitcoin Policy Institute</span>
+                        <a href="https://www.btcpolicy.org/research" target="_blank" class="read-more">Read Research →</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="news-card" data-category="federal">
+                <div class="news-card-header">
+                    <div class="news-meta">
+                        <span class="news-date">April 2025</span>
+                        <span class="news-tag tag-federal">Federal</span>
+                    </div>
+                    <h4 class="news-title">SEC Chair Signals Major Shift Toward Crypto Innovation</h4>
+                </div>
+                <div class="news-card-body">
+                    <p class="news-excerpt">New SEC leadership indicates regulatory approach will focus on enabling innovation while protecting consumers, a significant shift from previous enforcement-heavy stance.</p>
+                    <div class="news-source">
+                        <span class="source-name">PYMNTS</span>
+                        <a href="https://www.pymnts.com/cryptocurrency/2025/new-sec-chair-signals-major-shift-toward-innovation-in-crypto-policy/" target="_blank" class="read-more">Read More →</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Resources Section -->
+        <div class="resources-section">
+            <h3>Stay Updated — Live Resources</h3>
+            <div class="resource-links">
+                <a href="https://bitcoinlaws.io/rhode-island" target="_blank" class="resource-link">
+                    <span class="icon">🗺️</span>
+                    <div>
+                        <span>RI Legislation Tracker</span>
+                        <p style="font-size: 12px; color: #666; margin: 0;">bitcoinlaws.io</p>
+                    </div>
+                </a>
+                <a href="https://bitcoinlaws.io/reserve-race" target="_blank" class="resource-link">
+                    <span class="icon">🏁</span>
+                    <div>
+                        <span>State Reserve Race</span>
+                        <p style="font-size: 12px; color: #666; margin: 0;">Track all 50 states</p>
+                    </div>
+                </a>
+                <a href="https://www.btcpolicy.org/research" target="_blank" class="resource-link">
+                    <span class="icon">📚</span>
+                    <div>
+                        <span>BPI Research</span>
+                        <p style="font-size: 12px; color: #666; margin: 0;">Policy analysis & reports</p>
+                    </div>
+                </a>
+                <a href="https://bitcoinreservemonitor.com/" target="_blank" class="resource-link">
+                    <span class="icon">📊</span>
+                    <div>
+                        <span>Reserve Monitor</span>
+                        <p style="font-size: 12px; color: #666; margin: 0;">State & federal reserves</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <p>© 2026 RI Bitcoin Policy Institute | <a href="ri-bitcoin-policy-prototype.html">Return to Main Portal</a></p>
+        <p style="margin-top: 8px;">This is an educational resource. Not financial or legal advice.</p>
+    </footer>
+
+    <script>
+        // Filter functionality
+        document.querySelectorAll('.filter-tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+
+                const filter = tab.dataset.filter;
+                document.querySelectorAll('.news-card').forEach(card => {
+                    if (filter === 'all' || card.dataset.category === filter) {
+                        card.classList.remove('hidden');
+                    } else {
+                        card.classList.add('hidden');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
