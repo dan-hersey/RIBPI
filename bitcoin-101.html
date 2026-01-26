@@ -329,11 +329,148 @@
         }
 
         @media (max-width: 768px) {
-            .main-content { padding: 20px; margin-top: 70px; }
-            .slide { padding: 30px; }
-            .myth-fact { grid-template-columns: 1fr; }
-            .comparison-grid { grid-template-columns: 1fr; }
-            .slide h2 { font-size: 26px; }
+            .header {
+                padding: 12px 15px;
+                flex-wrap: wrap;
+                gap: 10px;
+            }
+
+            .header-left {
+                gap: 10px;
+            }
+
+            .header-left img {
+                height: 35px;
+            }
+
+            .header-left h1 {
+                font-size: 14px;
+            }
+
+            .header-left span {
+                font-size: 10px;
+            }
+
+            .back-link {
+                font-size: 13px;
+            }
+
+            .main-content {
+                padding: 15px;
+                margin-top: 85px;
+            }
+
+            .slide {
+                padding: 25px 20px;
+                min-height: auto;
+            }
+
+            .slide-number {
+                font-size: 12px;
+                padding: 6px 12px;
+            }
+
+            .slide h2 {
+                font-size: 22px;
+            }
+
+            .slide h3 {
+                font-size: 18px;
+            }
+
+            .slide p {
+                font-size: 15px;
+            }
+
+            .slide li {
+                font-size: 14px;
+            }
+
+            .key-point {
+                padding: 20px 15px;
+            }
+
+            .key-point h4 {
+                font-size: 16px;
+            }
+
+            .key-point p {
+                font-size: 14px;
+            }
+
+            .myth-fact {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+
+            .myth, .fact {
+                padding: 15px;
+            }
+
+            .myth h4, .fact h4 {
+                font-size: 15px;
+            }
+
+            .myth p, .fact p {
+                font-size: 14px;
+            }
+
+            .comparison-grid {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+
+            .comparison-item {
+                padding: 15px;
+            }
+
+            .comparison-item .icon {
+                font-size: 32px;
+            }
+
+            .comparison-item h4 {
+                font-size: 16px;
+            }
+
+            .slide-nav {
+                padding: 15px 20px;
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .nav-btn {
+                width: 100%;
+                justify-content: center;
+                padding: 12px 20px;
+            }
+
+            .slide-dots {
+                order: -1;
+            }
+
+            .quote {
+                padding-left: 15px;
+                font-size: 15px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .main-content {
+                margin-top: 80px;
+                padding: 10px;
+            }
+
+            .header-left h1 {
+                font-size: 12px;
+            }
+
+            .slide {
+                padding: 20px 15px;
+            }
+
+            .slide h2 {
+                font-size: 20px;
+            }
         }
     </style>
 </head>

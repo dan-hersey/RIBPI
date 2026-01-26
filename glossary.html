@@ -266,10 +266,118 @@
         }
 
         @media (max-width: 768px) {
-            .main-content { padding: 20px; margin-top: 70px; }
-            .page-title h2 { font-size: 28px; }
-            .category-tabs { justify-content: center; }
-            .term-header { flex-direction: column; gap: 10px; }
+            .header {
+                padding: 12px 15px;
+                flex-wrap: wrap;
+                gap: 10px;
+            }
+
+            .header-left {
+                gap: 10px;
+            }
+
+            .header-left img {
+                height: 35px;
+            }
+
+            .header-left h1 {
+                font-size: 14px;
+            }
+
+            .header-left span {
+                font-size: 10px;
+            }
+
+            .back-link {
+                font-size: 13px;
+            }
+
+            .main-content {
+                padding: 15px;
+                margin-top: 85px;
+            }
+
+            .page-title h2 {
+                font-size: 26px;
+            }
+
+            .page-title p {
+                font-size: 14px;
+            }
+
+            .search-container input {
+                padding: 12px 15px;
+                font-size: 14px;
+            }
+
+            .category-tabs {
+                justify-content: flex-start;
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+                padding-bottom: 10px;
+            }
+
+            .category-tab {
+                white-space: nowrap;
+                padding: 8px 14px;
+                font-size: 13px;
+            }
+
+            .alpha-nav {
+                flex-wrap: wrap;
+                gap: 5px;
+            }
+
+            .alpha-link {
+                padding: 6px 10px;
+                font-size: 13px;
+            }
+
+            .term-card {
+                padding: 20px 15px;
+            }
+
+            .term-header {
+                flex-direction: column;
+                gap: 10px;
+                align-items: flex-start;
+            }
+
+            .term-name {
+                font-size: 18px;
+            }
+
+            .term-category {
+                font-size: 11px;
+            }
+
+            .term-definition {
+                font-size: 14px;
+            }
+
+            .term-example {
+                font-size: 13px;
+                padding: 12px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .main-content {
+                margin-top: 80px;
+                padding: 10px;
+            }
+
+            .header-left h1 {
+                font-size: 12px;
+            }
+
+            .page-title h2 {
+                font-size: 22px;
+            }
+
+            .term-card {
+                padding: 15px 12px;
+            }
         }
     </style>
 </head>
