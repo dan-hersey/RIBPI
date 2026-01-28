@@ -554,6 +554,19 @@
             border: 1px solid rgba(197, 166, 72, 0.3);
         }
 
+        /* Email button */
+        .tag.email-link {
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-decoration: none;
+        }
+
+        .tag.email-link:hover {
+            background: rgba(247, 147, 26, 0.2);
+            color: var(--bitcoin-orange);
+            border: 1px solid rgba(247, 147, 26, 0.3);
+        }
+
         /* Map Modal */
         .map-modal-overlay {
             display: none;
@@ -1221,6 +1234,37 @@
             return `https://www.rilegislature.gov/${chamberPath}/${lastName}/Pages/Biography.aspx`;
         }
 
+        // Email address helper
+        function getLegislatorEmail(name, chamber) {
+            const nameParts = name.split(' ');
+            let lastName = nameParts[nameParts.length - 1];
+
+            // Handle suffixes
+            const suffixes = ['Jr.', 'Jr', 'III', 'II', 'IV', 'Sr.', 'Sr'];
+            if (suffixes.includes(lastName) || suffixes.includes(lastName.replace(',', ''))) {
+                lastName = nameParts[nameParts.length - 2].replace(',', '');
+            }
+
+            // Clean up and lowercase
+            lastName = lastName.replace(/[^a-zA-Z]/g, '').toLowerCase();
+
+            // Special cases for email addresses
+            const emailOverrides = {
+                "Jessica de la Cruz": "delacruz",
+                "K. Joseph Shekarchi": "shekarchi",
+                "William O'Brien": "obrien",
+                "Earl A. Read, III": "read",
+                "Robert E. Craven, Sr.": "craven"
+            };
+
+            if (emailOverrides[name]) {
+                lastName = emailOverrides[name];
+            }
+
+            const prefix = chamber === 'Senate' ? 'sen' : 'rep';
+            return `${prefix}-${lastName}@rilegislature.gov`;
+        }
+
         // Photo URL helper
         function getPhotoUrl(name, chamber) {
             const nameMap = {
@@ -1848,6 +1892,7 @@
             const initials = legislator.name.split(' ').map(n => n[0]).join('').substring(0, 2);
 
             const legislatorUrl = getLegislatorUrl(legislator.name, legislator.chamber);
+            const legislatorEmail = getLegislatorEmail(legislator.name, legislator.chamber);
 
             const billsHtml = legislator.bills.length > 0
                 ? `<div class="bills-list">
@@ -1873,6 +1918,7 @@
                                 <span class="tag ${getPartyClass(legislator.party)}">${getPartyName(legislator.party)}</span>
                                 <span class="tag">${legislator.chamber}</span>
                                 <span class="tag district-link" onclick="event.stopPropagation(); showDistrictMap('${legislator.name}', ${legislator.district}, '${legislator.chamber}', '${legislator.party}');">📍 Dist. ${legislator.district}</span>
+                                <a href="mailto:${legislatorEmail}" class="tag email-link" onclick="event.stopPropagation();" title="Email ${legislator.name}">✉️ Email</a>
                             </div>
                         </div>
                     </div>
@@ -1967,6 +2013,7 @@
         function showModal(legislator) {
             const photoUrl = getPhotoUrl(legislator.name, legislator.chamber);
             const legislatorUrl = getLegislatorUrl(legislator.name, legislator.chamber);
+            const legislatorEmail = getLegislatorEmail(legislator.name, legislator.chamber);
             const initials = legislator.name.split(' ').map(n => n[0]).join('').substring(0, 2);
             const modalPhoto = document.getElementById('modal-photo');
             const modalPhotoPlaceholder = document.getElementById('modal-photo-placeholder');
@@ -1983,6 +2030,7 @@
                 <span class="tag">${legislator.chamber}</span>
                 <span class="tag">District ${legislator.district}</span>
                 <a href="${legislatorUrl}" target="_blank" rel="noopener" class="tag" style="background: rgba(197, 166, 72, 0.2); color: var(--ri-gold); border: 1px solid rgba(197, 166, 72, 0.3);">View Official Page ↗</a>
+                <a href="mailto:${legislatorEmail}" class="tag" style="background: rgba(247, 147, 26, 0.2); color: var(--bitcoin-orange); border: 1px solid rgba(247, 147, 26, 0.3);">✉️ Email Legislator</a>
             `;
             document.getElementById('modal-grade').innerHTML = `
                 <div class="grade-badge grade-${getGradeClass(legislator.grade)}" style="display: inline-flex;">${legislator.grade}</div>
