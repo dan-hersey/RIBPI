@@ -1818,13 +1818,13 @@
             "Tina L. Spears", "Jennifer A. Stewart", "Teresa A. Tanzi"
         ];
 
-        additionalSenators.forEach((name, i) => {
+        const REP_DATA = {"Alex Marszalkowski":{district:52,party:"D"},"Alex S. Finkelman":{district:74,party:"D"},"Anthony J. DeSimone":{district:5,party:"D"},"Arthur Handy":{district:18,party:"D"},"Arthur J. Corvese":{district:55,party:"D"},"Brandon C. Potter":{district:16,party:"D"},"Brandon T. Voas":{district:57,party:"D"},"Brian C. Newberry":{district:48,party:"R"},"Brian Patrick Kennedy":{district:38,party:"D"},"Carol Hagan McEntee":{district:33,party:"D"},"Charlene Lima":{district:14,party:"D"},"Cherie L. Cruz":{district:58,party:"D"},"Christopher G. Paplauskas":{district:15,party:"R"},"Christopher R. Blazejewski":{district:2,party:"D"},"David A. Bennett":{district:20,party:"D"},"David J. Place":{district:47,party:"R"},"David Morales":{district:7,party:"D"},"Deborah A. Fellela":{district:43,party:"D"},"Earl A. Read, III":{district:26,party:"D"},"Edith H. Ajello":{district:1,party:"D"},"Enrique Sanchez":{district:9,party:"D"},"Evan P. Shanley":{district:24,party:"D"},"George A. Nardone":{district:28,party:"R"},"Grace Diaz":{district:11,party:"D"},"Gregory J. Costantino":{district:44,party:"D"},"Jacquelyn M. Baginski":{district:17,party:"D"},"Jason Knight":{district:67,party:"D"},"Jenni A. Furtado":{district:64,party:"D"},"Jennifer A. Stewart":{district:59,party:"D"},"Jennifer Boylan":{district:66,party:"D"},"John G. Edwards":{district:70,party:"D"},"John J. Lombardi":{district:8,party:"D"},"Jon D. Brien":{district:49,party:"I"},"Joseph J. Solomon, Jr.":{district:22,party:"D"},"Joseph M. McNamara":{district:19,party:"D"},"Joshua J. Giraldo":{district:56,party:"D"},"José F. Batista":{district:12,party:"D"},"Julie A. Casimiro":{district:31,party:"D"},"June Speakman":{district:68,party:"D"},"Justine A. Caldwell":{district:30,party:"D"},"K. Joseph Shekarchi":{district:23,party:"D"},"Karen Alzate":{district:60,party:"D"},"Katherine S. Kazarian":{district:63,party:"D"},"Kathleen A. Fogarty":{district:35,party:"D"},"Lauren H. Carson":{district:75,party:"D"},"Leonela Felix":{district:61,party:"D"},"Marie A. Hopkins":{district:21,party:"R"},"Marvin L. Abney":{district:73,party:"D"},"Mary Ann Shallcross Smith":{district:46,party:"D"},"Mary Messier":{district:62,party:"D"},"Matthew S. Dawson":{district:65,party:"D"},"Megan L. Cotter":{district:39,party:"D"},"Mia A. Ackerman":{district:45,party:"D"},"Michael W. Chippendale":{district:40,party:"R"},"Michelle E. McGaw":{district:71,party:"D"},"Nathan W. Biah":{district:3,party:"D"},"Patricia A. Serpa":{district:27,party:"D"},"Paul M. Santucci":{district:53,party:"R"},"Ramon A. Perez":{district:13,party:"D"},"Raymond A. Hull":{district:6,party:"D"},"Rebecca M. Kislak":{district:4,party:"D"},"Richard R. Fascia":{district:42,party:"R"},"Robert D. Phillips":{district:51,party:"D"},"Robert E. Craven, Sr.":{district:32,party:"D"},"Robert J. Quattrocchi":{district:41,party:"R"},"Samuel A. Azzinaro":{district:37,party:"D"},"Scott A. Slater":{district:10,party:"D"},"Sherry Roberts":{district:29,party:"R"},"Stephen M. Casey":{district:50,party:"D"},"Susan R. Donovan":{district:69,party:"D"},"Teresa A. Tanzi":{district:34,party:"D"},"Terri Cortvriend":{district:72,party:"D"},"Thomas E. Noret":{district:25,party:"D"},"Tina L. Spears":{district:36,party:"D"},"William W. O'Brien":{district:54,party:"D"}};const SENATOR_DATA = {"Alana M. DiMario":{district:36,party:"D"},"Ana B. Quezada":{district:2,party:"D"},"Andrew R. Dimitri":{district:25,party:"D"},"Brian J. Thompson":{district:20,party:"D"},"Bridget Valverde":{district:35,party:"D"},"David P. Tikoian":{district:22,party:"D"},"Dawn Euer":{district:13,party:"D"},"Elaine J. Morgan":{district:34,party:"R"},"Frank A. Ciccone III":{district:7,party:"D"},"Gordon E. Rogers":{district:21,party:"R"},"Hanna M. Gallo":{district:27,party:"D"},"Jacob Bissaillon":{district:1,party:"D"},"Jessica de la Cruz":{district:23,party:"R"},"John P. Burke":{district:9,party:"D"},"Jonathon Acosta":{district:16,party:"D"},"Lammis J. Vargas":{district:28,party:"D"},"Leonidas P. Raptakis":{district:33,party:"D"},"Linda L. Ujifusa":{district:11,party:"D"},"Lori Urso":{district:8,party:"D"},"Louis P. DiPalma":{district:12,party:"D"},"Mark P. McKenney":{district:30,party:"D"},"Matthew L. LaMountain":{district:31,party:"D"},"Meghan E. Kallman":{district:15,party:"D"},"Melissa A. Murray":{district:24,party:"D"},"Pamela J. Lauria":{district:32,party:"D"},"Peter A. Appollonio":{district:29,party:"D"},"Robert Britto":{district:18,party:"D"},"Ryan W. Pearson":{district:19,party:"D"},"Samuel D. Zurier":{district:3,party:"D"},"Samuel W. Bell":{district:5,party:"D"},"Stefano V. Famiglietti":{district:4,party:"D"},"Thomas J. Paolino":{district:17,party:"R"},"Tiara T. Mack":{district:6,party:"D"},"Todd M. Patalano":{district:26,party:"D"},"V. Susan Sosnowski":{district:37,party:"D"},"Valarie J. Lawson":{district:14,party:"D"},"Victoria Gu":{district:38,party:"D"},"Walter S. Felag Jr.":{district:10,party:"D"}};additionalSenators.forEach((name) => {
             if (!legislators.find(l => l.name === name)) {
                 legislators.push({
                     name: name,
                     chamber: "Senate",
-                    district: i + 1,
-                    party: "D",
+                    district: SENATOR_DATA[name]?.district || 0,
+                    party: SENATOR_DATA[name]?.party || "D",
                     grade: "N/A",
                     notes: "No recorded blockchain/crypto position.",
                     bills: []
@@ -1832,13 +1832,13 @@
             }
         });
 
-        additionalReps.forEach((name, i) => {
+        additionalReps.forEach((name) => {
             if (!legislators.find(l => l.name === name)) {
                 legislators.push({
                     name: name,
                     chamber: "House",
-                    district: i + 1,
-                    party: i % 8 === 0 ? "R" : "D",
+                    district: REP_DATA[name]?.district || 0,
+                    party: REP_DATA[name]?.party || "D",
                     grade: "N/A",
                     notes: "No recorded blockchain/crypto position.",
                     bills: []
@@ -2095,7 +2095,8 @@
         // Get district coordinates
         function getDistrictCoords(district, chamber) {
             const chamberData = DISTRICT_DATA[chamber];
-            return chamberData ? chamberData[district] : null;
+            // Convert district to string since DISTRICT_DATA uses string keys
+            return chamberData ? chamberData[String(district)] : null;
         }
 
         // Show district map modal
