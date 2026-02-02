@@ -44,12 +44,26 @@
   <script type="text/babel">
     const { useState, useEffect, Fragment, useCallback } = React;
 
+    // Custom hook for responsive detection
+    const useIsMobile = () => {
+      const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+
+      useEffect(() => {
+        const handleResize = () => setIsMobile(window.innerWidth < 768);
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+      }, []);
+
+      return isMobile;
+    };
+
     const BitcoinWeatherChannel = () => {
       const [currentSlide, setCurrentSlide] = useState(0);
       const [tickerOffset, setTickerOffset] = useState(0);
       const [currentTime, setCurrentTime] = useState(new Date());
       const [isLoading, setIsLoading] = useState(true);
       const [lastUpdate, setLastUpdate] = useState(null);
+      const isMobile = useIsMobile();
 
       // Real-time data state
       const [priceData, setPriceData] = useState({
@@ -88,18 +102,14 @@
         const currentHalvingEra = Math.floor(blockHeight / halvingInterval);
         const nextHalvingBlock = (currentHalvingEra + 1) * halvingInterval;
         const blocksUntilHalving = nextHalvingBlock - blockHeight;
-
-        // Calculate current block reward (starts at 50, halves each era)
         const currentBlockReward = 50 / Math.pow(2, currentHalvingEra);
 
-        // Calculate total supply mined
         let totalSupply = 0;
         for (let era = 0; era < currentHalvingEra; era++) {
           totalSupply += halvingInterval * (50 / Math.pow(2, era));
         }
         totalSupply += (blockHeight % halvingInterval) * currentBlockReward;
 
-        // Estimate halving date (average 10 min per block)
         const minutesUntilHalving = blocksUntilHalving * 10;
         const halvingDate = new Date(Date.now() + minutesUntilHalving * 60 * 1000);
         const halvingDateStr = halvingDate.toLocaleDateString('en-US', {
@@ -142,7 +152,6 @@
       // Fetch network stats from Mempool.space
       const fetchNetworkStats = useCallback(async () => {
         try {
-          // Fetch multiple endpoints in parallel
           const [
             blockHeightRes,
             hashrateRes,
@@ -163,17 +172,8 @@
           const mempoolData = await mempoolRes.json();
           const feesData = await feesRes.json();
 
-          // Get latest hashrate (in H/s, convert to EH/s)
           const latestHashrate = hashrateData.currentHashrate || 0;
           const hashRateEH = (latestHashrate / 1e18).toFixed(2);
-
-          // Difficulty (convert to T)
-          const difficultyT = (difficultyData.difficultyChange !== undefined)
-            ? ((difficultyData.progressPercent / 100) * difficultyData.estimatedRetargetDate ?
-               difficultyData.difficultyChange : 0)
-            : 0;
-
-          // Get current difficulty from a different calculation
           const currentDifficulty = difficultyData.previousRetarget || 0;
           const diffInT = (currentDifficulty / 1e12).toFixed(2);
 
@@ -188,7 +188,6 @@
             lastBlockTime: new Date()
           });
 
-          // Calculate supply data from block height
           setSupplyData(calculateSupplyData(blockHeight));
           setLastUpdate(new Date());
           setIsLoading(false);
@@ -201,12 +200,8 @@
       useEffect(() => {
         fetchPriceData();
         fetchNetworkStats();
-
-        // Poll price every 30 seconds
         const priceInterval = setInterval(fetchPriceData, 30000);
-        // Poll network stats every 60 seconds
         const networkInterval = setInterval(fetchNetworkStats, 60000);
-
         return () => {
           clearInterval(priceInterval);
           clearInterval(networkInterval);
@@ -217,25 +212,19 @@
       const slides = [
         { type: 'title', title: 'BITCOIN ON THE 8s', subtitle: 'Your Digital Currency Forecast', icon: '₿' },
         { type: 'basics', title: 'WHAT IS BITCOIN?', points: [
-          'Digital money that works without banks',
-          'Created in 2009 by Satoshi Nakamoto',
-          'Limited supply: Only 21 million will ever exist',
-          'Secured by mathematics, not governments'
+          'Digital money without banks',
+          'Created 2009 by Satoshi Nakamoto',
+          'Only 21 million will ever exist',
+          'Secured by math, not governments'
         ]},
         { type: 'price', title: 'CURRENT CONDITIONS' },
         { type: 'transaction', title: 'HOW TRANSACTIONS WORK', steps: [
-          { label: 'WALLET', desc: 'You send BTC from your wallet' },
-          { label: 'MEMPOOL', desc: 'Transaction waits in the queue' },
-          { label: 'MINERS', desc: 'Miners include it in a block' },
-          { label: 'CONFIRMED', desc: 'Network confirms the transaction' }
+          { label: 'WALLET', desc: 'Send from wallet' },
+          { label: 'MEMPOOL', desc: 'Waits in queue' },
+          { label: 'MINERS', desc: 'Added to block' },
+          { label: 'CONFIRMED', desc: 'Network confirms' }
         ]},
         { type: 'network', title: 'NETWORK CONDITIONS' },
-        { type: 'basics', title: 'BITCOIN WALLETS', points: [
-          'Software wallets: Apps on your phone or computer',
-          'Hardware wallets: Physical devices for cold storage',
-          'Paper wallets: Printed keys for offline storage',
-          'Your keys = Your coins. Not your keys, not your coins!'
-        ]},
         { type: 'forecast', title: 'EXTENDED OUTLOOK' }
       ];
 
@@ -275,16 +264,415 @@
         return new Intl.NumberFormat('en-US', {
           style: 'currency',
           currency: 'USD',
-          minimumFractionDigits: 2,
-          maximumFractionDigits: 2
+          minimumFractionDigits: 0,
+          maximumFractionDigits: 0
         }).format(price);
       };
 
-      const tickerContent = `  ₿ BTC ${formatPrice(priceData.price)} ${priceData.change24h >= 0 ? '▲' : '▼'} ${Math.abs(priceData.change24h).toFixed(2)}%  •  BLOCK: ${networkStats.blockHeight.toLocaleString()}  •  MEMPOOL: ${networkStats.mempoolTxCount.toLocaleString()} txs  •  HASH RATE: ${networkStats.hashRate}  •  FEE: ${networkStats.avgFee} sat/vB  •  SUPPLY: ${formatNumber(supplyData.currentSupply, 1)} BTC  •  `;
+      const tickerContent = isMobile
+        ? `  ₿ ${formatPrice(priceData.price)} ${priceData.change24h >= 0 ? '▲' : '▼'}${Math.abs(priceData.change24h).toFixed(1)}%  •  BLK ${networkStats.blockHeight.toLocaleString()}  •  FEE ${networkStats.avgFee} sat/vB  •  `
+        : `  ₿ BTC ${formatPrice(priceData.price)} ${priceData.change24h >= 0 ? '▲' : '▼'} ${Math.abs(priceData.change24h).toFixed(2)}%  •  BLOCK: ${networkStats.blockHeight.toLocaleString()}  •  MEMPOOL: ${networkStats.mempoolTxCount.toLocaleString()} txs  •  HASH RATE: ${networkStats.hashRate}  •  FEE: ${networkStats.avgFee} sat/vB  •  SUPPLY: ${formatNumber(supplyData.currentSupply, 1)} BTC  •  `;
 
       const formatTime = (date) => {
         return date.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true });
       };
+
+      // Responsive styles generator
+      const getStyles = (mobile) => ({
+        container: {
+          width: '100%',
+          height: '100vh',
+          background: 'linear-gradient(180deg, #0a1628 0%, #0d2847 30%, #1a4a7a 70%, #0d2847 100%)',
+          fontFamily: '"Helvetica Neue", Arial, sans-serif',
+          color: '#ffffff',
+          position: 'relative',
+          overflow: 'hidden',
+          display: 'flex',
+          flexDirection: 'column'
+        },
+        scanlines: {
+          position: 'absolute',
+          top: 0, left: 0, right: 0, bottom: 0,
+          background: 'repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0, 0, 0, 0.1) 2px, rgba(0, 0, 0, 0.1) 4px)',
+          pointerEvents: 'none',
+          zIndex: 100
+        },
+        header: {
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          padding: mobile ? '8px 12px' : '12px 24px',
+          background: 'linear-gradient(180deg, #1a4a7a 0%, #0d2847 100%)',
+          borderBottom: '3px solid #ffd700'
+        },
+        logo: {
+          display: 'flex',
+          alignItems: 'center',
+          gap: mobile ? '6px' : '12px'
+        },
+        logoIcon: {
+          fontSize: mobile ? '20px' : '32px',
+          color: '#ffd700',
+          fontWeight: 'bold',
+          textShadow: '2px 2px 4px rgba(0,0,0,0.5)'
+        },
+        logoText: {
+          fontSize: mobile ? '12px' : '24px',
+          fontWeight: 'bold',
+          letterSpacing: mobile ? '1px' : '2px',
+          textShadow: '2px 2px 4px rgba(0,0,0,0.5)'
+        },
+        headerRight: {
+          display: 'flex',
+          alignItems: 'center',
+          gap: mobile ? '8px' : '20px'
+        },
+        liveTag: {
+          background: '#ff0000',
+          color: '#fff',
+          padding: mobile ? '2px 6px' : '4px 12px',
+          borderRadius: '4px',
+          fontSize: mobile ? '10px' : '14px',
+          fontWeight: 'bold',
+          animation: 'pulse 2s infinite'
+        },
+        headerTime: {
+          fontSize: mobile ? '16px' : '28px',
+          fontWeight: 'bold',
+          color: '#ffd700',
+          textShadow: '2px 2px 4px rgba(0,0,0,0.5)'
+        },
+        mainContent: {
+          flex: 1,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          padding: mobile ? '10px 12px' : '20px 40px',
+          minHeight: 0,
+          overflow: 'auto'
+        },
+        indicators: {
+          display: 'flex',
+          justifyContent: 'center',
+          gap: mobile ? '6px' : '8px',
+          padding: mobile ? '6px' : '10px'
+        },
+        indicator: {
+          width: mobile ? '8px' : '12px',
+          height: mobile ? '8px' : '12px',
+          borderRadius: '50%',
+          cursor: 'pointer',
+          transition: 'background-color 0.3s',
+          border: '2px solid #ffd700'
+        },
+        tickerContainer: {
+          display: 'flex',
+          background: 'linear-gradient(180deg, #0a1628 0%, #162d4a 100%)',
+          borderTop: '2px solid #ffd700',
+          borderBottom: '2px solid #ffd700',
+          overflow: 'hidden'
+        },
+        tickerLabel: {
+          background: '#ffd700',
+          color: '#0a1628',
+          padding: mobile ? '4px 8px' : '8px 16px',
+          fontWeight: 'bold',
+          fontSize: mobile ? '10px' : '14px',
+          display: 'flex',
+          alignItems: 'center',
+          whiteSpace: 'nowrap'
+        },
+        ticker: {
+          flex: 1,
+          overflow: 'hidden',
+          display: 'flex',
+          alignItems: 'center'
+        },
+        tickerText: {
+          whiteSpace: 'nowrap',
+          fontSize: mobile ? '12px' : '16px',
+          fontWeight: 'bold',
+          color: '#00ff00',
+          textShadow: '0 0 10px rgba(0, 255, 0, 0.5)'
+        },
+        footer: {
+          display: mobile ? 'none' : 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          gap: '8px',
+          padding: '8px',
+          background: '#0a1628',
+          fontSize: '12px',
+          color: '#7ab8ff',
+          letterSpacing: '1px'
+        },
+        footerDivider: {
+          color: '#ffd700'
+        },
+
+        // Title Slide
+        titleSlide: {
+          textAlign: 'center'
+        },
+        bigIcon: {
+          fontSize: mobile ? '60px' : '120px',
+          color: '#ffd700',
+          textShadow: '4px 4px 8px rgba(0,0,0,0.5), 0 0 40px rgba(255, 215, 0, 0.3)',
+          marginBottom: mobile ? '10px' : '20px'
+        },
+        mainTitle: {
+          fontSize: mobile ? '24px' : '56px',
+          fontWeight: 'bold',
+          margin: '0 0 8px 0',
+          textShadow: '3px 3px 6px rgba(0,0,0,0.5)',
+          letterSpacing: mobile ? '2px' : '4px'
+        },
+        subtitle: {
+          fontSize: mobile ? '14px' : '24px',
+          color: '#7ab8ff',
+          margin: 0,
+          letterSpacing: '2px'
+        },
+        timeDisplay: {
+          fontSize: mobile ? '28px' : '48px',
+          color: '#ffd700',
+          marginTop: mobile ? '15px' : '30px',
+          fontWeight: 'bold',
+          textShadow: '2px 2px 4px rgba(0,0,0,0.5)'
+        },
+        updateTime: {
+          fontSize: mobile ? '11px' : '14px',
+          color: '#7ab8ff',
+          marginTop: '8px'
+        },
+
+        // Basics Slide
+        basicsSlide: {
+          width: '100%',
+          maxWidth: '900px'
+        },
+        slideTitle: {
+          fontSize: mobile ? '20px' : '36px',
+          fontWeight: 'bold',
+          marginBottom: mobile ? '15px' : '30px',
+          textAlign: 'center',
+          color: '#ffd700',
+          textShadow: '2px 2px 4px rgba(0,0,0,0.5)',
+          letterSpacing: mobile ? '1px' : '3px'
+        },
+        pointsList: {
+          listStyle: 'none',
+          padding: 0,
+          margin: 0
+        },
+        point: {
+          fontSize: mobile ? '14px' : '24px',
+          marginBottom: mobile ? '10px' : '20px',
+          padding: mobile ? '10px 12px' : '16px 24px',
+          background: 'rgba(26, 74, 122, 0.6)',
+          borderRadius: '8px',
+          borderLeft: '4px solid #ffd700',
+          display: 'flex',
+          alignItems: 'center',
+          gap: mobile ? '8px' : '12px'
+        },
+        bullet: {
+          color: '#ffd700',
+          fontSize: mobile ? '14px' : '20px'
+        },
+
+        // Price Slide
+        priceSlide: {
+          textAlign: 'center',
+          width: '100%',
+          maxWidth: '900px'
+        },
+        priceContainer: {
+          background: 'rgba(26, 74, 122, 0.6)',
+          padding: mobile ? '15px' : '30px',
+          borderRadius: '16px',
+          marginBottom: mobile ? '15px' : '30px',
+          border: '2px solid #ffd700'
+        },
+        priceLabel: {
+          fontSize: mobile ? '14px' : '24px',
+          color: '#7ab8ff',
+          marginBottom: '6px',
+          letterSpacing: '4px'
+        },
+        priceValue: {
+          fontSize: mobile ? '36px' : '72px',
+          fontWeight: 'bold',
+          color: '#ffd700',
+          textShadow: '3px 3px 6px rgba(0,0,0,0.5)',
+          marginBottom: '6px'
+        },
+        priceChange: {
+          fontSize: mobile ? '18px' : '28px',
+          fontWeight: 'bold'
+        },
+        priceStats: {
+          display: 'grid',
+          gridTemplateColumns: mobile ? 'repeat(2, 1fr)' : 'repeat(4, 1fr)',
+          gap: mobile ? '10px' : '20px'
+        },
+        priceStat: {
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '4px',
+          background: mobile ? 'rgba(26, 74, 122, 0.4)' : 'transparent',
+          padding: mobile ? '8px' : '0',
+          borderRadius: '8px'
+        },
+        statLabel: {
+          fontSize: mobile ? '10px' : '14px',
+          color: '#7ab8ff',
+          letterSpacing: '1px'
+        },
+        statValue: {
+          fontSize: mobile ? '14px' : '22px',
+          fontWeight: 'bold',
+          color: '#ffffff'
+        },
+
+        // Transaction Slide
+        transactionSlide: {
+          width: '100%',
+          maxWidth: '1000px'
+        },
+        txFlow: {
+          display: 'grid',
+          gridTemplateColumns: mobile ? 'repeat(2, 1fr)' : 'repeat(4, 1fr)',
+          gap: mobile ? '10px' : '15px',
+          marginBottom: mobile ? '15px' : '30px'
+        },
+        txStep: {
+          background: 'rgba(26, 74, 122, 0.8)',
+          padding: mobile ? '12px 8px' : '20px',
+          borderRadius: '12px',
+          textAlign: 'center',
+          border: '2px solid #ffd700'
+        },
+        txStepNumber: {
+          width: mobile ? '24px' : '36px',
+          height: mobile ? '24px' : '36px',
+          background: '#ffd700',
+          color: '#0a1628',
+          borderRadius: '50%',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          margin: '0 auto 8px',
+          fontWeight: 'bold',
+          fontSize: mobile ? '14px' : '20px'
+        },
+        txStepLabel: {
+          fontSize: mobile ? '12px' : '18px',
+          fontWeight: 'bold',
+          color: '#ffd700',
+          marginBottom: '4px'
+        },
+        txStepDesc: {
+          fontSize: mobile ? '10px' : '14px',
+          color: '#7ab8ff'
+        },
+        txInfo: {
+          background: 'rgba(26, 74, 122, 0.4)',
+          padding: mobile ? '12px' : '20px',
+          borderRadius: '8px',
+          textAlign: 'center'
+        },
+        txInfoItem: {
+          marginBottom: '6px',
+          fontSize: mobile ? '12px' : '16px'
+        },
+        txInfoLabel: {
+          color: '#7ab8ff',
+          marginRight: '8px'
+        },
+        txInfoValue: {
+          color: '#ffffff',
+          fontWeight: 'bold'
+        },
+
+        // Network Slide
+        networkSlide: {
+          width: '100%',
+          maxWidth: '900px'
+        },
+        statsGrid: {
+          display: 'grid',
+          gridTemplateColumns: mobile ? 'repeat(2, 1fr)' : 'repeat(3, 1fr)',
+          gap: mobile ? '10px' : '20px'
+        },
+        statBox: {
+          background: 'rgba(26, 74, 122, 0.6)',
+          padding: mobile ? '12px' : '24px',
+          borderRadius: '12px',
+          textAlign: 'center',
+          borderTop: '3px solid #ffd700'
+        },
+        statBoxLabel: {
+          fontSize: mobile ? '10px' : '14px',
+          color: '#7ab8ff',
+          marginBottom: mobile ? '6px' : '12px',
+          letterSpacing: '1px'
+        },
+        statBoxValue: {
+          fontSize: mobile ? '16px' : '28px',
+          fontWeight: 'bold',
+          color: '#ffffff'
+        },
+        liveIndicator: {
+          marginTop: mobile ? '12px' : '20px',
+          textAlign: 'center',
+          color: '#7ab8ff',
+          fontSize: mobile ? '10px' : '14px'
+        },
+        liveDot: {
+          color: '#00ff00',
+          marginRight: '8px',
+          animation: 'pulse 1s infinite'
+        },
+
+        // Forecast Slide
+        forecastSlide: {
+          width: '100%',
+          maxWidth: '900px'
+        },
+        forecastList: {
+          display: 'flex',
+          flexDirection: 'column',
+          gap: mobile ? '10px' : '16px'
+        },
+        forecastItem: {
+          display: mobile ? 'flex' : 'grid',
+          flexDirection: mobile ? 'column' : undefined,
+          gridTemplateColumns: mobile ? undefined : '180px 200px 1fr',
+          gap: mobile ? '4px' : '20px',
+          alignItems: mobile ? 'flex-start' : 'center',
+          background: 'rgba(26, 74, 122, 0.6)',
+          padding: mobile ? '12px' : '18px 24px',
+          borderRadius: '8px',
+          borderLeft: '4px solid #ffd700'
+        },
+        forecastPeriod: {
+          fontSize: mobile ? '12px' : '16px',
+          fontWeight: 'bold',
+          color: '#ffd700'
+        },
+        forecastValue: {
+          fontSize: mobile ? '18px' : '22px',
+          fontWeight: 'bold',
+          color: '#ffffff'
+        },
+        forecastNote: {
+          fontSize: mobile ? '11px' : '14px',
+          color: '#7ab8ff'
+        }
+      });
+
+      const styles = getStyles(isMobile);
 
       const renderSlide = (slide) => {
         switch (slide.type) {
@@ -297,7 +685,7 @@
                 <div style={styles.timeDisplay}>{formatTime(currentTime)}</div>
                 {lastUpdate && (
                   <div style={styles.updateTime}>
-                    Data updated: {formatTime(lastUpdate)}
+                    Updated: {formatTime(lastUpdate)}
                   </div>
                 )}
               </div>
@@ -324,13 +712,13 @@
                 <div style={styles.priceContainer}>
                   <div style={styles.priceLabel}>BITCOIN</div>
                   <div style={styles.priceValue}>
-                    {isLoading ? <span className="loading-dot">Loading...</span> : formatPrice(priceData.price)}
+                    {isLoading ? <span className="loading-dot">...</span> : formatPrice(priceData.price)}
                   </div>
                   <div style={{
                     ...styles.priceChange,
                     color: priceData.change24h >= 0 ? '#00ff00' : '#ff4444'
                   }}>
-                    {priceData.change24h >= 0 ? '▲' : '▼'} {Math.abs(priceData.change24h).toFixed(2)}% (24H)
+                    {priceData.change24h >= 0 ? '▲' : '▼'} {Math.abs(priceData.change24h).toFixed(2)}%
                   </div>
                 </div>
                 <div style={styles.priceStats}>
@@ -343,11 +731,11 @@
                     <span style={styles.statValue}>{formatPrice(priceData.low24h)}</span>
                   </div>
                   <div style={styles.priceStat}>
-                    <span style={styles.statLabel}>24H VOLUME</span>
+                    <span style={styles.statLabel}>VOLUME</span>
                     <span style={styles.statValue}>${formatNumber(priceData.volume24h)}</span>
                   </div>
                   <div style={styles.priceStat}>
-                    <span style={styles.statLabel}>MARKET CAP</span>
+                    <span style={styles.statLabel}>MKT CAP</span>
                     <span style={styles.statValue}>${formatNumber(priceData.marketCap)}</span>
                   </div>
                 </div>
@@ -360,26 +748,21 @@
                 <h2 style={styles.slideTitle}>{slide.title}</h2>
                 <div style={styles.txFlow}>
                   {slide.steps.map((step, i) => (
-                    <Fragment key={i}>
-                      <div style={styles.txStep}>
-                        <div style={styles.txStepNumber}>{i + 1}</div>
-                        <div style={styles.txStepLabel}>{step.label}</div>
-                        <div style={styles.txStepDesc}>{step.desc}</div>
-                      </div>
-                      {i < slide.steps.length - 1 && (
-                        <div style={styles.txArrow}>→</div>
-                      )}
-                    </Fragment>
+                    <div key={i} style={styles.txStep}>
+                      <div style={styles.txStepNumber}>{i + 1}</div>
+                      <div style={styles.txStepLabel}>{step.label}</div>
+                      <div style={styles.txStepDesc}>{step.desc}</div>
+                    </div>
                   ))}
                 </div>
                 <div style={styles.txInfo}>
                   <div style={styles.txInfoItem}>
-                    <span style={styles.txInfoLabel}>Current Mempool:</span>
-                    <span style={styles.txInfoValue}>{networkStats.mempoolTxCount.toLocaleString()} transactions</span>
+                    <span style={styles.txInfoLabel}>Mempool:</span>
+                    <span style={styles.txInfoValue}>{networkStats.mempoolTxCount.toLocaleString()} txs</span>
                   </div>
                   <div style={styles.txInfoItem}>
-                    <span style={styles.txInfoLabel}>Recommended Fee:</span>
-                    <span style={styles.txInfoValue}>{networkStats.avgFee} sat/vB (normal) • {networkStats.fastestFee} sat/vB (fast)</span>
+                    <span style={styles.txInfoLabel}>Fee:</span>
+                    <span style={styles.txInfoValue}>{networkStats.avgFee} sat/vB {!isMobile && `• Fast: ${networkStats.fastestFee} sat/vB`}</span>
                   </div>
                 </div>
               </div>
@@ -391,7 +774,7 @@
                 <h2 style={styles.slideTitle}>{slide.title}</h2>
                 <div style={styles.statsGrid}>
                   <div style={styles.statBox}>
-                    <div style={styles.statBoxLabel}>BLOCK HEIGHT</div>
+                    <div style={styles.statBoxLabel}>BLOCK</div>
                     <div style={styles.statBoxValue}>{networkStats.blockHeight.toLocaleString()}</div>
                   </div>
                   <div style={styles.statBox}>
@@ -403,20 +786,20 @@
                     <div style={styles.statBoxValue}>{networkStats.difficulty}</div>
                   </div>
                   <div style={styles.statBox}>
-                    <div style={styles.statBoxLabel}>MEMPOOL SIZE</div>
+                    <div style={styles.statBoxLabel}>MEMPOOL</div>
                     <div style={styles.statBoxValue}>{networkStats.mempoolSize} MB</div>
                   </div>
                   <div style={styles.statBox}>
-                    <div style={styles.statBoxLabel}>PENDING TXS</div>
+                    <div style={styles.statBoxLabel}>PENDING</div>
                     <div style={styles.statBoxValue}>{networkStats.mempoolTxCount.toLocaleString()}</div>
                   </div>
                   <div style={styles.statBox}>
-                    <div style={styles.statBoxLabel}>BLOCK REWARD</div>
+                    <div style={styles.statBoxLabel}>REWARD</div>
                     <div style={styles.statBoxValue}>{supplyData.currentBlockReward} BTC</div>
                   </div>
                 </div>
                 <div style={styles.liveIndicator}>
-                  <span style={styles.liveDot}>●</span> LIVE DATA FROM MEMPOOL.SPACE
+                  <span style={styles.liveDot}>●</span> LIVE FROM MEMPOOL.SPACE
                 </div>
               </div>
             );
@@ -430,28 +813,28 @@
                     <div style={styles.forecastPeriod}>Next Halving</div>
                     <div style={styles.forecastValue}>{supplyData.estimatedHalvingDate}</div>
                     <div style={styles.forecastNote}>
-                      Block {supplyData.nextHalvingBlock.toLocaleString()} • {supplyData.blocksUntilHalving.toLocaleString()} blocks away
+                      {isMobile ? `${supplyData.blocksUntilHalving.toLocaleString()} blocks away` : `Block ${supplyData.nextHalvingBlock.toLocaleString()} • ${supplyData.blocksUntilHalving.toLocaleString()} blocks away`}
                     </div>
                   </div>
                   <div style={styles.forecastItem}>
-                    <div style={styles.forecastPeriod}>Current Supply</div>
+                    <div style={styles.forecastPeriod}>Supply</div>
                     <div style={styles.forecastValue}>{formatNumber(supplyData.currentSupply, 2)} BTC</div>
                     <div style={styles.forecastNote}>
-                      {supplyData.percentMined.toFixed(3)}% of max supply mined
+                      {supplyData.percentMined.toFixed(2)}% mined
                     </div>
                   </div>
                   <div style={styles.forecastItem}>
                     <div style={styles.forecastPeriod}>Max Supply</div>
-                    <div style={styles.forecastValue}>21,000,000 BTC</div>
+                    <div style={styles.forecastValue}>21M BTC</div>
                     <div style={styles.forecastNote}>
-                      Expected to be fully mined by ~2140
+                      Fully mined by ~2140
                     </div>
                   </div>
                   <div style={styles.forecastItem}>
                     <div style={styles.forecastPeriod}>Block Reward</div>
                     <div style={styles.forecastValue}>{supplyData.currentBlockReward} BTC</div>
                     <div style={styles.forecastNote}>
-                      Will drop to {supplyData.currentBlockReward / 2} BTC after halving
+                      → {supplyData.currentBlockReward / 2} BTC after halving
                     </div>
                   </div>
                 </div>
@@ -470,7 +853,7 @@
           <div style={styles.header}>
             <div style={styles.logo}>
               <span style={styles.logoIcon}>₿</span>
-              <span style={styles.logoText}>THE BITCOIN CHANNEL</span>
+              <span style={styles.logoText}>{isMobile ? 'BITCOIN CHANNEL' : 'THE BITCOIN CHANNEL'}</span>
             </div>
             <div style={styles.headerRight}>
               <div style={styles.liveTag}>● LIVE</div>
@@ -496,13 +879,13 @@
           </div>
 
           <div style={styles.tickerContainer}>
-            <div style={styles.tickerLabel}>LIVE DATA</div>
+            <div style={styles.tickerLabel}>{isMobile ? 'LIVE' : 'LIVE DATA'}</div>
             <div style={styles.ticker}>
               <div style={{
                 ...styles.tickerText,
                 transform: `translateX(${tickerOffset % 2500}px)`
               }}>
-                {tickerContent.repeat(6)}
+                {tickerContent.repeat(8)}
               </div>
             </div>
           </div>
@@ -518,393 +901,6 @@
           </div>
         </div>
       );
-    };
-
-    const styles = {
-      container: {
-        width: '100%',
-        height: '100vh',
-        background: 'linear-gradient(180deg, #0a1628 0%, #0d2847 30%, #1a4a7a 70%, #0d2847 100%)',
-        fontFamily: '"Helvetica Neue", Arial, sans-serif',
-        color: '#ffffff',
-        position: 'relative',
-        overflow: 'hidden',
-        display: 'flex',
-        flexDirection: 'column'
-      },
-      scanlines: {
-        position: 'absolute',
-        top: 0,
-        left: 0,
-        right: 0,
-        bottom: 0,
-        background: 'repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0, 0, 0, 0.1) 2px, rgba(0, 0, 0, 0.1) 4px)',
-        pointerEvents: 'none',
-        zIndex: 100
-      },
-      header: {
-        display: 'flex',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        padding: '12px 24px',
-        background: 'linear-gradient(180deg, #1a4a7a 0%, #0d2847 100%)',
-        borderBottom: '3px solid #ffd700'
-      },
-      logo: {
-        display: 'flex',
-        alignItems: 'center',
-        gap: '12px'
-      },
-      logoIcon: {
-        fontSize: '32px',
-        color: '#ffd700',
-        fontWeight: 'bold',
-        textShadow: '2px 2px 4px rgba(0,0,0,0.5)'
-      },
-      logoText: {
-        fontSize: '24px',
-        fontWeight: 'bold',
-        letterSpacing: '2px',
-        textShadow: '2px 2px 4px rgba(0,0,0,0.5)'
-      },
-      headerRight: {
-        display: 'flex',
-        alignItems: 'center',
-        gap: '20px'
-      },
-      liveTag: {
-        background: '#ff0000',
-        color: '#fff',
-        padding: '4px 12px',
-        borderRadius: '4px',
-        fontSize: '14px',
-        fontWeight: 'bold',
-        animation: 'pulse 2s infinite'
-      },
-      headerTime: {
-        fontSize: '28px',
-        fontWeight: 'bold',
-        color: '#ffd700',
-        textShadow: '2px 2px 4px rgba(0,0,0,0.5)'
-      },
-      mainContent: {
-        flex: 1,
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        padding: '20px 40px',
-        minHeight: 0
-      },
-      indicators: {
-        display: 'flex',
-        justifyContent: 'center',
-        gap: '8px',
-        padding: '10px'
-      },
-      indicator: {
-        width: '12px',
-        height: '12px',
-        borderRadius: '50%',
-        cursor: 'pointer',
-        transition: 'background-color 0.3s',
-        border: '2px solid #ffd700'
-      },
-      tickerContainer: {
-        display: 'flex',
-        background: 'linear-gradient(180deg, #0a1628 0%, #162d4a 100%)',
-        borderTop: '2px solid #ffd700',
-        borderBottom: '2px solid #ffd700',
-        overflow: 'hidden'
-      },
-      tickerLabel: {
-        background: '#ffd700',
-        color: '#0a1628',
-        padding: '8px 16px',
-        fontWeight: 'bold',
-        fontSize: '14px',
-        display: 'flex',
-        alignItems: 'center',
-        whiteSpace: 'nowrap'
-      },
-      ticker: {
-        flex: 1,
-        overflow: 'hidden',
-        display: 'flex',
-        alignItems: 'center'
-      },
-      tickerText: {
-        whiteSpace: 'nowrap',
-        fontSize: '16px',
-        fontWeight: 'bold',
-        color: '#00ff00',
-        textShadow: '0 0 10px rgba(0, 255, 0, 0.5)'
-      },
-      footer: {
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        gap: '8px',
-        padding: '8px',
-        background: '#0a1628',
-        fontSize: '12px',
-        color: '#7ab8ff',
-        letterSpacing: '1px'
-      },
-      footerDivider: {
-        color: '#ffd700'
-      },
-      titleSlide: {
-        textAlign: 'center'
-      },
-      bigIcon: {
-        fontSize: '120px',
-        color: '#ffd700',
-        textShadow: '4px 4px 8px rgba(0,0,0,0.5), 0 0 40px rgba(255, 215, 0, 0.3)',
-        marginBottom: '20px'
-      },
-      mainTitle: {
-        fontSize: '56px',
-        fontWeight: 'bold',
-        margin: '0 0 16px 0',
-        textShadow: '3px 3px 6px rgba(0,0,0,0.5)',
-        letterSpacing: '4px'
-      },
-      subtitle: {
-        fontSize: '24px',
-        color: '#7ab8ff',
-        margin: 0,
-        letterSpacing: '2px'
-      },
-      timeDisplay: {
-        fontSize: '48px',
-        color: '#ffd700',
-        marginTop: '30px',
-        fontWeight: 'bold',
-        textShadow: '2px 2px 4px rgba(0,0,0,0.5)'
-      },
-      updateTime: {
-        fontSize: '14px',
-        color: '#7ab8ff',
-        marginTop: '10px'
-      },
-      basicsSlide: {
-        width: '100%',
-        maxWidth: '900px'
-      },
-      slideTitle: {
-        fontSize: '36px',
-        fontWeight: 'bold',
-        marginBottom: '30px',
-        textAlign: 'center',
-        color: '#ffd700',
-        textShadow: '2px 2px 4px rgba(0,0,0,0.5)',
-        letterSpacing: '3px'
-      },
-      pointsList: {
-        listStyle: 'none',
-        padding: 0,
-        margin: 0
-      },
-      point: {
-        fontSize: '24px',
-        marginBottom: '20px',
-        padding: '16px 24px',
-        background: 'rgba(26, 74, 122, 0.6)',
-        borderRadius: '8px',
-        borderLeft: '4px solid #ffd700',
-        display: 'flex',
-        alignItems: 'center',
-        gap: '12px'
-      },
-      bullet: {
-        color: '#ffd700',
-        fontSize: '20px'
-      },
-      priceSlide: {
-        textAlign: 'center',
-        width: '100%',
-        maxWidth: '900px'
-      },
-      priceContainer: {
-        background: 'rgba(26, 74, 122, 0.6)',
-        padding: '30px',
-        borderRadius: '16px',
-        marginBottom: '30px',
-        border: '2px solid #ffd700'
-      },
-      priceLabel: {
-        fontSize: '24px',
-        color: '#7ab8ff',
-        marginBottom: '10px',
-        letterSpacing: '4px'
-      },
-      priceValue: {
-        fontSize: '72px',
-        fontWeight: 'bold',
-        color: '#ffd700',
-        textShadow: '3px 3px 6px rgba(0,0,0,0.5)',
-        marginBottom: '10px'
-      },
-      priceChange: {
-        fontSize: '28px',
-        fontWeight: 'bold'
-      },
-      priceStats: {
-        display: 'flex',
-        justifyContent: 'center',
-        gap: '30px',
-        flexWrap: 'wrap'
-      },
-      priceStat: {
-        display: 'flex',
-        flexDirection: 'column',
-        gap: '8px'
-      },
-      statLabel: {
-        fontSize: '14px',
-        color: '#7ab8ff',
-        letterSpacing: '2px'
-      },
-      statValue: {
-        fontSize: '22px',
-        fontWeight: 'bold',
-        color: '#ffffff'
-      },
-      transactionSlide: {
-        width: '100%',
-        maxWidth: '1000px'
-      },
-      txFlow: {
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        flexWrap: 'wrap',
-        gap: '10px',
-        marginBottom: '30px'
-      },
-      txStep: {
-        background: 'rgba(26, 74, 122, 0.8)',
-        padding: '20px',
-        borderRadius: '12px',
-        textAlign: 'center',
-        minWidth: '160px',
-        border: '2px solid #ffd700'
-      },
-      txStepNumber: {
-        width: '36px',
-        height: '36px',
-        background: '#ffd700',
-        color: '#0a1628',
-        borderRadius: '50%',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        margin: '0 auto 12px',
-        fontWeight: 'bold',
-        fontSize: '20px'
-      },
-      txStepLabel: {
-        fontSize: '18px',
-        fontWeight: 'bold',
-        color: '#ffd700',
-        marginBottom: '8px'
-      },
-      txStepDesc: {
-        fontSize: '14px',
-        color: '#7ab8ff'
-      },
-      txArrow: {
-        fontSize: '32px',
-        color: '#ffd700'
-      },
-      txInfo: {
-        background: 'rgba(26, 74, 122, 0.4)',
-        padding: '20px',
-        borderRadius: '8px',
-        textAlign: 'center'
-      },
-      txInfoItem: {
-        marginBottom: '10px'
-      },
-      txInfoLabel: {
-        color: '#7ab8ff',
-        marginRight: '10px'
-      },
-      txInfoValue: {
-        color: '#ffffff',
-        fontWeight: 'bold'
-      },
-      networkSlide: {
-        width: '100%',
-        maxWidth: '900px'
-      },
-      statsGrid: {
-        display: 'grid',
-        gridTemplateColumns: 'repeat(3, 1fr)',
-        gap: '20px'
-      },
-      statBox: {
-        background: 'rgba(26, 74, 122, 0.6)',
-        padding: '24px',
-        borderRadius: '12px',
-        textAlign: 'center',
-        borderTop: '3px solid #ffd700'
-      },
-      statBoxLabel: {
-        fontSize: '14px',
-        color: '#7ab8ff',
-        marginBottom: '12px',
-        letterSpacing: '2px'
-      },
-      statBoxValue: {
-        fontSize: '28px',
-        fontWeight: 'bold',
-        color: '#ffffff'
-      },
-      liveIndicator: {
-        marginTop: '20px',
-        textAlign: 'center',
-        color: '#7ab8ff',
-        fontSize: '14px'
-      },
-      liveDot: {
-        color: '#00ff00',
-        marginRight: '8px',
-        animation: 'pulse 1s infinite'
-      },
-      forecastSlide: {
-        width: '100%',
-        maxWidth: '900px'
-      },
-      forecastList: {
-        display: 'flex',
-        flexDirection: 'column',
-        gap: '16px'
-      },
-      forecastItem: {
-        display: 'grid',
-        gridTemplateColumns: '180px 200px 1fr',
-        gap: '20px',
-        alignItems: 'center',
-        background: 'rgba(26, 74, 122, 0.6)',
-        padding: '18px 24px',
-        borderRadius: '8px',
-        borderLeft: '4px solid #ffd700'
-      },
-      forecastPeriod: {
-        fontSize: '16px',
-        fontWeight: 'bold',
-        color: '#ffd700'
-      },
-      forecastValue: {
-        fontSize: '22px',
-        fontWeight: 'bold',
-        color: '#ffffff'
-      },
-      forecastNote: {
-        fontSize: '14px',
-        color: '#7ab8ff'
-      }
     };
 
     ReactDOM.render(<BitcoinWeatherChannel />, document.getElementById('root'));
