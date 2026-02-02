@@ -1,0 +1,913 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bitcoin on the 8s - The Bitcoin Channel</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.5/babel.min.js"></script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    html, body, #root {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+    }
+    #root::after {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      pointer-events: none;
+      background: radial-gradient(ellipse at center, transparent 0%, transparent 60%, rgba(0,0,0,0.4) 100%);
+      z-index: 200;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+    .loading-dot {
+      animation: pulse 1s infinite;
+    }
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+
+  <script type="text/babel">
+    const { useState, useEffect, Fragment, useCallback } = React;
+
+    const BitcoinWeatherChannel = () => {
+      const [currentSlide, setCurrentSlide] = useState(0);
+      const [tickerOffset, setTickerOffset] = useState(0);
+      const [currentTime, setCurrentTime] = useState(new Date());
+      const [isLoading, setIsLoading] = useState(true);
+      const [lastUpdate, setLastUpdate] = useState(null);
+
+      // Real-time data state
+      const [priceData, setPriceData] = useState({
+        price: 0,
+        change24h: 0,
+        high24h: 0,
+        low24h: 0,
+        volume24h: 0,
+        marketCap: 0
+      });
+
+      const [networkStats, setNetworkStats] = useState({
+        blockHeight: 0,
+        hashRate: '0 EH/s',
+        difficulty: '0 T',
+        mempoolSize: 0,
+        mempoolTxCount: 0,
+        avgFee: 0,
+        fastestFee: 0,
+        lastBlockTime: null
+      });
+
+      const [supplyData, setSupplyData] = useState({
+        currentSupply: 0,
+        maxSupply: 21000000,
+        percentMined: 0,
+        nextHalvingBlock: 0,
+        blocksUntilHalving: 0,
+        estimatedHalvingDate: '',
+        currentBlockReward: 0
+      });
+
+      // Calculate supply and halving info from block height
+      const calculateSupplyData = useCallback((blockHeight) => {
+        const halvingInterval = 210000;
+        const currentHalvingEra = Math.floor(blockHeight / halvingInterval);
+        const nextHalvingBlock = (currentHalvingEra + 1) * halvingInterval;
+        const blocksUntilHalving = nextHalvingBlock - blockHeight;
+
+        // Calculate current block reward (starts at 50, halves each era)
+        const currentBlockReward = 50 / Math.pow(2, currentHalvingEra);
+
+        // Calculate total supply mined
+        let totalSupply = 0;
+        for (let era = 0; era < currentHalvingEra; era++) {
+          totalSupply += halvingInterval * (50 / Math.pow(2, era));
+        }
+        totalSupply += (blockHeight % halvingInterval) * currentBlockReward;
+
+        // Estimate halving date (average 10 min per block)
+        const minutesUntilHalving = blocksUntilHalving * 10;
+        const halvingDate = new Date(Date.now() + minutesUntilHalving * 60 * 1000);
+        const halvingDateStr = halvingDate.toLocaleDateString('en-US', {
+          month: 'long',
+          year: 'numeric'
+        });
+
+        return {
+          currentSupply: totalSupply,
+          maxSupply: 21000000,
+          percentMined: (totalSupply / 21000000) * 100,
+          nextHalvingBlock,
+          blocksUntilHalving,
+          estimatedHalvingDate: `~${halvingDateStr}`,
+          currentBlockReward
+        };
+      }, []);
+
+      // Fetch price data from CoinGecko
+      const fetchPriceData = useCallback(async () => {
+        try {
+          const response = await fetch(
+            'https://api.coingecko.com/api/v3/coins/bitcoin?localization=false&tickers=false&community_data=false&developer_data=false'
+          );
+          const data = await response.json();
+
+          setPriceData({
+            price: data.market_data.current_price.usd,
+            change24h: data.market_data.price_change_percentage_24h,
+            high24h: data.market_data.high_24h.usd,
+            low24h: data.market_data.low_24h.usd,
+            volume24h: data.market_data.total_volume.usd,
+            marketCap: data.market_data.market_cap.usd
+          });
+        } catch (error) {
+          console.error('Error fetching price data:', error);
+        }
+      }, []);
+
+      // Fetch network stats from Mempool.space
+      const fetchNetworkStats = useCallback(async () => {
+        try {
+          // Fetch multiple endpoints in parallel
+          const [
+            blockHeightRes,
+            hashrateRes,
+            difficultyRes,
+            mempoolRes,
+            feesRes
+          ] = await Promise.all([
+            fetch('https://mempool.space/api/blocks/tip/height'),
+            fetch('https://mempool.space/api/v1/mining/hashrate/3d'),
+            fetch('https://mempool.space/api/v1/difficulty-adjustment'),
+            fetch('https://mempool.space/api/mempool'),
+            fetch('https://mempool.space/api/v1/fees/recommended')
+          ]);
+
+          const blockHeight = await blockHeightRes.json();
+          const hashrateData = await hashrateRes.json();
+          const difficultyData = await difficultyRes.json();
+          const mempoolData = await mempoolRes.json();
+          const feesData = await feesRes.json();
+
+          // Get latest hashrate (in H/s, convert to EH/s)
+          const latestHashrate = hashrateData.currentHashrate || 0;
+          const hashRateEH = (latestHashrate / 1e18).toFixed(2);
+
+          // Difficulty (convert to T)
+          const difficultyT = (difficultyData.difficultyChange !== undefined)
+            ? ((difficultyData.progressPercent / 100) * difficultyData.estimatedRetargetDate ?
+               difficultyData.difficultyChange : 0)
+            : 0;
+
+          // Get current difficulty from a different calculation
+          const currentDifficulty = difficultyData.previousRetarget || 0;
+          const diffInT = (currentDifficulty / 1e12).toFixed(2);
+
+          setNetworkStats({
+            blockHeight: blockHeight,
+            hashRate: `${hashRateEH} EH/s`,
+            difficulty: `${diffInT} T`,
+            mempoolSize: (mempoolData.vsize / 1e6).toFixed(2),
+            mempoolTxCount: mempoolData.count,
+            avgFee: feesData.halfHourFee,
+            fastestFee: feesData.fastestFee,
+            lastBlockTime: new Date()
+          });
+
+          // Calculate supply data from block height
+          setSupplyData(calculateSupplyData(blockHeight));
+          setLastUpdate(new Date());
+          setIsLoading(false);
+        } catch (error) {
+          console.error('Error fetching network stats:', error);
+        }
+      }, [calculateSupplyData]);
+
+      // Initial data fetch and polling
+      useEffect(() => {
+        fetchPriceData();
+        fetchNetworkStats();
+
+        // Poll price every 30 seconds
+        const priceInterval = setInterval(fetchPriceData, 30000);
+        // Poll network stats every 60 seconds
+        const networkInterval = setInterval(fetchNetworkStats, 60000);
+
+        return () => {
+          clearInterval(priceInterval);
+          clearInterval(networkInterval);
+        };
+      }, [fetchPriceData, fetchNetworkStats]);
+
+      // Slide content
+      const slides = [
+        { type: 'title', title: 'BITCOIN ON THE 8s', subtitle: 'Your Digital Currency Forecast', icon: '₿' },
+        { type: 'basics', title: 'WHAT IS BITCOIN?', points: [
+          'Digital money that works without banks',
+          'Created in 2009 by Satoshi Nakamoto',
+          'Limited supply: Only 21 million will ever exist',
+          'Secured by mathematics, not governments'
+        ]},
+        { type: 'price', title: 'CURRENT CONDITIONS' },
+        { type: 'transaction', title: 'HOW TRANSACTIONS WORK', steps: [
+          { label: 'WALLET', desc: 'You send BTC from your wallet' },
+          { label: 'MEMPOOL', desc: 'Transaction waits in the queue' },
+          { label: 'MINERS', desc: 'Miners include it in a block' },
+          { label: 'CONFIRMED', desc: 'Network confirms the transaction' }
+        ]},
+        { type: 'network', title: 'NETWORK CONDITIONS' },
+        { type: 'basics', title: 'BITCOIN WALLETS', points: [
+          'Software wallets: Apps on your phone or computer',
+          'Hardware wallets: Physical devices for cold storage',
+          'Paper wallets: Printed keys for offline storage',
+          'Your keys = Your coins. Not your keys, not your coins!'
+        ]},
+        { type: 'forecast', title: 'EXTENDED OUTLOOK' }
+      ];
+
+      // Auto-advance slides
+      useEffect(() => {
+        const slideTimer = setInterval(() => {
+          setCurrentSlide((prev) => (prev + 1) % slides.length);
+        }, 8000);
+        return () => clearInterval(slideTimer);
+      }, []);
+
+      // Ticker animation
+      useEffect(() => {
+        const tickerTimer = setInterval(() => {
+          setTickerOffset((prev) => prev - 1);
+        }, 30);
+        return () => clearInterval(tickerTimer);
+      }, []);
+
+      // Update time every second
+      useEffect(() => {
+        const timeTimer = setInterval(() => {
+          setCurrentTime(new Date());
+        }, 1000);
+        return () => clearInterval(timeTimer);
+      }, []);
+
+      const formatNumber = (num, decimals = 2) => {
+        if (num >= 1e12) return (num / 1e12).toFixed(decimals) + 'T';
+        if (num >= 1e9) return (num / 1e9).toFixed(decimals) + 'B';
+        if (num >= 1e6) return (num / 1e6).toFixed(decimals) + 'M';
+        if (num >= 1e3) return (num / 1e3).toFixed(decimals) + 'K';
+        return num.toFixed(decimals);
+      };
+
+      const formatPrice = (price) => {
+        return new Intl.NumberFormat('en-US', {
+          style: 'currency',
+          currency: 'USD',
+          minimumFractionDigits: 2,
+          maximumFractionDigits: 2
+        }).format(price);
+      };
+
+      const tickerContent = `  ₿ BTC ${formatPrice(priceData.price)} ${priceData.change24h >= 0 ? '▲' : '▼'} ${Math.abs(priceData.change24h).toFixed(2)}%  •  BLOCK: ${networkStats.blockHeight.toLocaleString()}  •  MEMPOOL: ${networkStats.mempoolTxCount.toLocaleString()} txs  •  HASH RATE: ${networkStats.hashRate}  •  FEE: ${networkStats.avgFee} sat/vB  •  SUPPLY: ${formatNumber(supplyData.currentSupply, 1)} BTC  •  `;
+
+      const formatTime = (date) => {
+        return date.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true });
+      };
+
+      const renderSlide = (slide) => {
+        switch (slide.type) {
+          case 'title':
+            return (
+              <div style={styles.titleSlide}>
+                <div style={styles.bigIcon}>{slide.icon}</div>
+                <h1 style={styles.mainTitle}>{slide.title}</h1>
+                <p style={styles.subtitle}>{slide.subtitle}</p>
+                <div style={styles.timeDisplay}>{formatTime(currentTime)}</div>
+                {lastUpdate && (
+                  <div style={styles.updateTime}>
+                    Data updated: {formatTime(lastUpdate)}
+                  </div>
+                )}
+              </div>
+            );
+
+          case 'basics':
+            return (
+              <div style={styles.basicsSlide}>
+                <h2 style={styles.slideTitle}>{slide.title}</h2>
+                <ul style={styles.pointsList}>
+                  {slide.points.map((point, i) => (
+                    <li key={i} style={styles.point}>
+                      <span style={styles.bullet}>▸</span> {point}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            );
+
+          case 'price':
+            return (
+              <div style={styles.priceSlide}>
+                <h2 style={styles.slideTitle}>{slide.title}</h2>
+                <div style={styles.priceContainer}>
+                  <div style={styles.priceLabel}>BITCOIN</div>
+                  <div style={styles.priceValue}>
+                    {isLoading ? <span className="loading-dot">Loading...</span> : formatPrice(priceData.price)}
+                  </div>
+                  <div style={{
+                    ...styles.priceChange,
+                    color: priceData.change24h >= 0 ? '#00ff00' : '#ff4444'
+                  }}>
+                    {priceData.change24h >= 0 ? '▲' : '▼'} {Math.abs(priceData.change24h).toFixed(2)}% (24H)
+                  </div>
+                </div>
+                <div style={styles.priceStats}>
+                  <div style={styles.priceStat}>
+                    <span style={styles.statLabel}>24H HIGH</span>
+                    <span style={styles.statValue}>{formatPrice(priceData.high24h)}</span>
+                  </div>
+                  <div style={styles.priceStat}>
+                    <span style={styles.statLabel}>24H LOW</span>
+                    <span style={styles.statValue}>{formatPrice(priceData.low24h)}</span>
+                  </div>
+                  <div style={styles.priceStat}>
+                    <span style={styles.statLabel}>24H VOLUME</span>
+                    <span style={styles.statValue}>${formatNumber(priceData.volume24h)}</span>
+                  </div>
+                  <div style={styles.priceStat}>
+                    <span style={styles.statLabel}>MARKET CAP</span>
+                    <span style={styles.statValue}>${formatNumber(priceData.marketCap)}</span>
+                  </div>
+                </div>
+              </div>
+            );
+
+          case 'transaction':
+            return (
+              <div style={styles.transactionSlide}>
+                <h2 style={styles.slideTitle}>{slide.title}</h2>
+                <div style={styles.txFlow}>
+                  {slide.steps.map((step, i) => (
+                    <Fragment key={i}>
+                      <div style={styles.txStep}>
+                        <div style={styles.txStepNumber}>{i + 1}</div>
+                        <div style={styles.txStepLabel}>{step.label}</div>
+                        <div style={styles.txStepDesc}>{step.desc}</div>
+                      </div>
+                      {i < slide.steps.length - 1 && (
+                        <div style={styles.txArrow}>→</div>
+                      )}
+                    </Fragment>
+                  ))}
+                </div>
+                <div style={styles.txInfo}>
+                  <div style={styles.txInfoItem}>
+                    <span style={styles.txInfoLabel}>Current Mempool:</span>
+                    <span style={styles.txInfoValue}>{networkStats.mempoolTxCount.toLocaleString()} transactions</span>
+                  </div>
+                  <div style={styles.txInfoItem}>
+                    <span style={styles.txInfoLabel}>Recommended Fee:</span>
+                    <span style={styles.txInfoValue}>{networkStats.avgFee} sat/vB (normal) • {networkStats.fastestFee} sat/vB (fast)</span>
+                  </div>
+                </div>
+              </div>
+            );
+
+          case 'network':
+            return (
+              <div style={styles.networkSlide}>
+                <h2 style={styles.slideTitle}>{slide.title}</h2>
+                <div style={styles.statsGrid}>
+                  <div style={styles.statBox}>
+                    <div style={styles.statBoxLabel}>BLOCK HEIGHT</div>
+                    <div style={styles.statBoxValue}>{networkStats.blockHeight.toLocaleString()}</div>
+                  </div>
+                  <div style={styles.statBox}>
+                    <div style={styles.statBoxLabel}>HASH RATE</div>
+                    <div style={styles.statBoxValue}>{networkStats.hashRate}</div>
+                  </div>
+                  <div style={styles.statBox}>
+                    <div style={styles.statBoxLabel}>DIFFICULTY</div>
+                    <div style={styles.statBoxValue}>{networkStats.difficulty}</div>
+                  </div>
+                  <div style={styles.statBox}>
+                    <div style={styles.statBoxLabel}>MEMPOOL SIZE</div>
+                    <div style={styles.statBoxValue}>{networkStats.mempoolSize} MB</div>
+                  </div>
+                  <div style={styles.statBox}>
+                    <div style={styles.statBoxLabel}>PENDING TXS</div>
+                    <div style={styles.statBoxValue}>{networkStats.mempoolTxCount.toLocaleString()}</div>
+                  </div>
+                  <div style={styles.statBox}>
+                    <div style={styles.statBoxLabel}>BLOCK REWARD</div>
+                    <div style={styles.statBoxValue}>{supplyData.currentBlockReward} BTC</div>
+                  </div>
+                </div>
+                <div style={styles.liveIndicator}>
+                  <span style={styles.liveDot}>●</span> LIVE DATA FROM MEMPOOL.SPACE
+                </div>
+              </div>
+            );
+
+          case 'forecast':
+            return (
+              <div style={styles.forecastSlide}>
+                <h2 style={styles.slideTitle}>{slide.title}</h2>
+                <div style={styles.forecastList}>
+                  <div style={styles.forecastItem}>
+                    <div style={styles.forecastPeriod}>Next Halving</div>
+                    <div style={styles.forecastValue}>{supplyData.estimatedHalvingDate}</div>
+                    <div style={styles.forecastNote}>
+                      Block {supplyData.nextHalvingBlock.toLocaleString()} • {supplyData.blocksUntilHalving.toLocaleString()} blocks away
+                    </div>
+                  </div>
+                  <div style={styles.forecastItem}>
+                    <div style={styles.forecastPeriod}>Current Supply</div>
+                    <div style={styles.forecastValue}>{formatNumber(supplyData.currentSupply, 2)} BTC</div>
+                    <div style={styles.forecastNote}>
+                      {supplyData.percentMined.toFixed(3)}% of max supply mined
+                    </div>
+                  </div>
+                  <div style={styles.forecastItem}>
+                    <div style={styles.forecastPeriod}>Max Supply</div>
+                    <div style={styles.forecastValue}>21,000,000 BTC</div>
+                    <div style={styles.forecastNote}>
+                      Expected to be fully mined by ~2140
+                    </div>
+                  </div>
+                  <div style={styles.forecastItem}>
+                    <div style={styles.forecastPeriod}>Block Reward</div>
+                    <div style={styles.forecastValue}>{supplyData.currentBlockReward} BTC</div>
+                    <div style={styles.forecastNote}>
+                      Will drop to {supplyData.currentBlockReward / 2} BTC after halving
+                    </div>
+                  </div>
+                </div>
+              </div>
+            );
+
+          default:
+            return null;
+        }
+      };
+
+      return (
+        <div style={styles.container}>
+          <div style={styles.scanlines} />
+
+          <div style={styles.header}>
+            <div style={styles.logo}>
+              <span style={styles.logoIcon}>₿</span>
+              <span style={styles.logoText}>THE BITCOIN CHANNEL</span>
+            </div>
+            <div style={styles.headerRight}>
+              <div style={styles.liveTag}>● LIVE</div>
+              <div style={styles.headerTime}>{formatTime(currentTime)}</div>
+            </div>
+          </div>
+
+          <div style={styles.mainContent}>
+            {renderSlide(slides[currentSlide])}
+          </div>
+
+          <div style={styles.indicators}>
+            {slides.map((_, i) => (
+              <div
+                key={i}
+                style={{
+                  ...styles.indicator,
+                  backgroundColor: i === currentSlide ? '#ffd700' : '#1a4a7a'
+                }}
+                onClick={() => setCurrentSlide(i)}
+              />
+            ))}
+          </div>
+
+          <div style={styles.tickerContainer}>
+            <div style={styles.tickerLabel}>LIVE DATA</div>
+            <div style={styles.ticker}>
+              <div style={{
+                ...styles.tickerText,
+                transform: `translateX(${tickerOffset % 2500}px)`
+              }}>
+                {tickerContent.repeat(6)}
+              </div>
+            </div>
+          </div>
+
+          <div style={styles.footer}>
+            <span>BITCOIN ON THE 8s</span>
+            <span style={styles.footerDivider}>•</span>
+            <span>PRICE: COINGECKO</span>
+            <span style={styles.footerDivider}>•</span>
+            <span>NETWORK: MEMPOOL.SPACE</span>
+            <span style={styles.footerDivider}>•</span>
+            <span>UPDATES EVERY 30s</span>
+          </div>
+        </div>
+      );
+    };
+
+    const styles = {
+      container: {
+        width: '100%',
+        height: '100vh',
+        background: 'linear-gradient(180deg, #0a1628 0%, #0d2847 30%, #1a4a7a 70%, #0d2847 100%)',
+        fontFamily: '"Helvetica Neue", Arial, sans-serif',
+        color: '#ffffff',
+        position: 'relative',
+        overflow: 'hidden',
+        display: 'flex',
+        flexDirection: 'column'
+      },
+      scanlines: {
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        background: 'repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0, 0, 0, 0.1) 2px, rgba(0, 0, 0, 0.1) 4px)',
+        pointerEvents: 'none',
+        zIndex: 100
+      },
+      header: {
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        padding: '12px 24px',
+        background: 'linear-gradient(180deg, #1a4a7a 0%, #0d2847 100%)',
+        borderBottom: '3px solid #ffd700'
+      },
+      logo: {
+        display: 'flex',
+        alignItems: 'center',
+        gap: '12px'
+      },
+      logoIcon: {
+        fontSize: '32px',
+        color: '#ffd700',
+        fontWeight: 'bold',
+        textShadow: '2px 2px 4px rgba(0,0,0,0.5)'
+      },
+      logoText: {
+        fontSize: '24px',
+        fontWeight: 'bold',
+        letterSpacing: '2px',
+        textShadow: '2px 2px 4px rgba(0,0,0,0.5)'
+      },
+      headerRight: {
+        display: 'flex',
+        alignItems: 'center',
+        gap: '20px'
+      },
+      liveTag: {
+        background: '#ff0000',
+        color: '#fff',
+        padding: '4px 12px',
+        borderRadius: '4px',
+        fontSize: '14px',
+        fontWeight: 'bold',
+        animation: 'pulse 2s infinite'
+      },
+      headerTime: {
+        fontSize: '28px',
+        fontWeight: 'bold',
+        color: '#ffd700',
+        textShadow: '2px 2px 4px rgba(0,0,0,0.5)'
+      },
+      mainContent: {
+        flex: 1,
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        padding: '20px 40px',
+        minHeight: 0
+      },
+      indicators: {
+        display: 'flex',
+        justifyContent: 'center',
+        gap: '8px',
+        padding: '10px'
+      },
+      indicator: {
+        width: '12px',
+        height: '12px',
+        borderRadius: '50%',
+        cursor: 'pointer',
+        transition: 'background-color 0.3s',
+        border: '2px solid #ffd700'
+      },
+      tickerContainer: {
+        display: 'flex',
+        background: 'linear-gradient(180deg, #0a1628 0%, #162d4a 100%)',
+        borderTop: '2px solid #ffd700',
+        borderBottom: '2px solid #ffd700',
+        overflow: 'hidden'
+      },
+      tickerLabel: {
+        background: '#ffd700',
+        color: '#0a1628',
+        padding: '8px 16px',
+        fontWeight: 'bold',
+        fontSize: '14px',
+        display: 'flex',
+        alignItems: 'center',
+        whiteSpace: 'nowrap'
+      },
+      ticker: {
+        flex: 1,
+        overflow: 'hidden',
+        display: 'flex',
+        alignItems: 'center'
+      },
+      tickerText: {
+        whiteSpace: 'nowrap',
+        fontSize: '16px',
+        fontWeight: 'bold',
+        color: '#00ff00',
+        textShadow: '0 0 10px rgba(0, 255, 0, 0.5)'
+      },
+      footer: {
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        gap: '8px',
+        padding: '8px',
+        background: '#0a1628',
+        fontSize: '12px',
+        color: '#7ab8ff',
+        letterSpacing: '1px'
+      },
+      footerDivider: {
+        color: '#ffd700'
+      },
+      titleSlide: {
+        textAlign: 'center'
+      },
+      bigIcon: {
+        fontSize: '120px',
+        color: '#ffd700',
+        textShadow: '4px 4px 8px rgba(0,0,0,0.5), 0 0 40px rgba(255, 215, 0, 0.3)',
+        marginBottom: '20px'
+      },
+      mainTitle: {
+        fontSize: '56px',
+        fontWeight: 'bold',
+        margin: '0 0 16px 0',
+        textShadow: '3px 3px 6px rgba(0,0,0,0.5)',
+        letterSpacing: '4px'
+      },
+      subtitle: {
+        fontSize: '24px',
+        color: '#7ab8ff',
+        margin: 0,
+        letterSpacing: '2px'
+      },
+      timeDisplay: {
+        fontSize: '48px',
+        color: '#ffd700',
+        marginTop: '30px',
+        fontWeight: 'bold',
+        textShadow: '2px 2px 4px rgba(0,0,0,0.5)'
+      },
+      updateTime: {
+        fontSize: '14px',
+        color: '#7ab8ff',
+        marginTop: '10px'
+      },
+      basicsSlide: {
+        width: '100%',
+        maxWidth: '900px'
+      },
+      slideTitle: {
+        fontSize: '36px',
+        fontWeight: 'bold',
+        marginBottom: '30px',
+        textAlign: 'center',
+        color: '#ffd700',
+        textShadow: '2px 2px 4px rgba(0,0,0,0.5)',
+        letterSpacing: '3px'
+      },
+      pointsList: {
+        listStyle: 'none',
+        padding: 0,
+        margin: 0
+      },
+      point: {
+        fontSize: '24px',
+        marginBottom: '20px',
+        padding: '16px 24px',
+        background: 'rgba(26, 74, 122, 0.6)',
+        borderRadius: '8px',
+        borderLeft: '4px solid #ffd700',
+        display: 'flex',
+        alignItems: 'center',
+        gap: '12px'
+      },
+      bullet: {
+        color: '#ffd700',
+        fontSize: '20px'
+      },
+      priceSlide: {
+        textAlign: 'center',
+        width: '100%',
+        maxWidth: '900px'
+      },
+      priceContainer: {
+        background: 'rgba(26, 74, 122, 0.6)',
+        padding: '30px',
+        borderRadius: '16px',
+        marginBottom: '30px',
+        border: '2px solid #ffd700'
+      },
+      priceLabel: {
+        fontSize: '24px',
+        color: '#7ab8ff',
+        marginBottom: '10px',
+        letterSpacing: '4px'
+      },
+      priceValue: {
+        fontSize: '72px',
+        fontWeight: 'bold',
+        color: '#ffd700',
+        textShadow: '3px 3px 6px rgba(0,0,0,0.5)',
+        marginBottom: '10px'
+      },
+      priceChange: {
+        fontSize: '28px',
+        fontWeight: 'bold'
+      },
+      priceStats: {
+        display: 'flex',
+        justifyContent: 'center',
+        gap: '30px',
+        flexWrap: 'wrap'
+      },
+      priceStat: {
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '8px'
+      },
+      statLabel: {
+        fontSize: '14px',
+        color: '#7ab8ff',
+        letterSpacing: '2px'
+      },
+      statValue: {
+        fontSize: '22px',
+        fontWeight: 'bold',
+        color: '#ffffff'
+      },
+      transactionSlide: {
+        width: '100%',
+        maxWidth: '1000px'
+      },
+      txFlow: {
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        flexWrap: 'wrap',
+        gap: '10px',
+        marginBottom: '30px'
+      },
+      txStep: {
+        background: 'rgba(26, 74, 122, 0.8)',
+        padding: '20px',
+        borderRadius: '12px',
+        textAlign: 'center',
+        minWidth: '160px',
+        border: '2px solid #ffd700'
+      },
+      txStepNumber: {
+        width: '36px',
+        height: '36px',
+        background: '#ffd700',
+        color: '#0a1628',
+        borderRadius: '50%',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        margin: '0 auto 12px',
+        fontWeight: 'bold',
+        fontSize: '20px'
+      },
+      txStepLabel: {
+        fontSize: '18px',
+        fontWeight: 'bold',
+        color: '#ffd700',
+        marginBottom: '8px'
+      },
+      txStepDesc: {
+        fontSize: '14px',
+        color: '#7ab8ff'
+      },
+      txArrow: {
+        fontSize: '32px',
+        color: '#ffd700'
+      },
+      txInfo: {
+        background: 'rgba(26, 74, 122, 0.4)',
+        padding: '20px',
+        borderRadius: '8px',
+        textAlign: 'center'
+      },
+      txInfoItem: {
+        marginBottom: '10px'
+      },
+      txInfoLabel: {
+        color: '#7ab8ff',
+        marginRight: '10px'
+      },
+      txInfoValue: {
+        color: '#ffffff',
+        fontWeight: 'bold'
+      },
+      networkSlide: {
+        width: '100%',
+        maxWidth: '900px'
+      },
+      statsGrid: {
+        display: 'grid',
+        gridTemplateColumns: 'repeat(3, 1fr)',
+        gap: '20px'
+      },
+      statBox: {
+        background: 'rgba(26, 74, 122, 0.6)',
+        padding: '24px',
+        borderRadius: '12px',
+        textAlign: 'center',
+        borderTop: '3px solid #ffd700'
+      },
+      statBoxLabel: {
+        fontSize: '14px',
+        color: '#7ab8ff',
+        marginBottom: '12px',
+        letterSpacing: '2px'
+      },
+      statBoxValue: {
+        fontSize: '28px',
+        fontWeight: 'bold',
+        color: '#ffffff'
+      },
+      liveIndicator: {
+        marginTop: '20px',
+        textAlign: 'center',
+        color: '#7ab8ff',
+        fontSize: '14px'
+      },
+      liveDot: {
+        color: '#00ff00',
+        marginRight: '8px',
+        animation: 'pulse 1s infinite'
+      },
+      forecastSlide: {
+        width: '100%',
+        maxWidth: '900px'
+      },
+      forecastList: {
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '16px'
+      },
+      forecastItem: {
+        display: 'grid',
+        gridTemplateColumns: '180px 200px 1fr',
+        gap: '20px',
+        alignItems: 'center',
+        background: 'rgba(26, 74, 122, 0.6)',
+        padding: '18px 24px',
+        borderRadius: '8px',
+        borderLeft: '4px solid #ffd700'
+      },
+      forecastPeriod: {
+        fontSize: '16px',
+        fontWeight: 'bold',
+        color: '#ffd700'
+      },
+      forecastValue: {
+        fontSize: '22px',
+        fontWeight: 'bold',
+        color: '#ffffff'
+      },
+      forecastNote: {
+        fontSize: '14px',
+        color: '#7ab8ff'
+      }
+    };
+
+    ReactDOM.render(<BitcoinWeatherChannel />, document.getElementById('root'));
+  </script>
+</body>
+</html>
