@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bitcoin on the 8s - The Bitcoin Channel</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.5/babel.min.js"></script>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body, #root { width: 100%; height: 100%; overflow: hidden; }
+    @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.6; } }
+    @keyframes tickerScroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+
+  <script type="text/babel">
+    const { useState, useEffect, useCallback, useRef } = React;
+
+    const useIsMobile = () => {
+      const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+      useEffect(() => {
+        const handleResize = () => setIsMobile(window.innerWidth < 768);
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+      }, []);
+      return isMobile;
+    };
+
+    const BitcoinWeatherChannel = () => {
+      const [currentSlide, setCurrentSlide] = useState(0);
+      const [currentTime, setCurrentTime] = useState(new Date());
+      const [isLoading, setIsLoading] = useState(true);
+      const isMobile = useIsMobile();
+
+      // Audio
+      const audioRef = useRef(null);
+      const [isPlaying, setIsPlaying] = useState(false);
+      const [showMusicPrompt, setShowMusicPrompt] = useState(false);
+      const [audioError, setAudioError] = useState(false);
+      const JAZZ_MUSIC_URL = './smooth-jazz.mp3';
+
+      // Data state
+      const [priceData, setPriceData] = useState({
+        price: 0, change24h: 0, high24h: 0, low24h: 0, volume24h: 0, marketCap: 0
+      });
+
+      const [networkStats, setNetworkStats] = useState({
+        blockHeight: 0, hashRate: '0', difficulty: '0',
+        mempoolSize: 0, mempoolTxCount: 0, avgFee: 0, fastestFee: 0
+      });
+
+      const [supplyData, setSupplyData] = useState({
+        currentSupply: 0, percentMined: 0, nextHalvingBlock: 0,
+        blocksUntilHalving: 0, estimatedHalvingDate: '', currentBlockReward: 0
+      });
+
+      // Audio controls
+      const toggleMusic = useCallback(() => {
+        if (!audioRef.current) return;
+        if (isPlaying) {
+          audioRef.current.pause();
+          setIsPlaying(false);
+        } else {
+          audioRef.current.play().then(() => {
+            setIsPlaying(true);
+            setShowMusicPrompt(false);
+          }).catch(() => setShowMusicPrompt(true));
+        }
+      }, [isPlaying]);
+
+      useEffect(() => {
+        const audio = audioRef.current;
+        if (!audio) return;
+        audio.volume = 0.4;
+        audio.loop = true;
+        const timer = setTimeout(() => {
+          audio.play().then(() => setIsPlaying(true)).catch(() => setShowMusicPrompt(true));
+        }, 1000);
+        return () => clearTimeout(timer);
+      }, []);
+
+      // Calculate supply data
+      const calculateSupplyData = useCallback((blockHeight) => {
+        const halvingInterval = 210000;
+        const era = Math.floor(blockHeight / halvingInterval);
+        const nextHalving = (era + 1) * halvingInterval;
+        const blocksLeft = nextHalving - blockHeight;
+        const reward = 50 / Math.pow(2, era);
+
+        let supply = 0;
+        for (let e = 0; e < era; e++) supply += halvingInterval * (50 / Math.pow(2, e));
+        supply += (blockHeight % halvingInterval) * reward;
+
+        const halvingDate = new Date(Date.now() + blocksLeft * 10 * 60 * 1000);
+        return {
+          currentSupply: supply,
+          percentMined: (supply / 21000000) * 100,
+          nextHalvingBlock: nextHalving,
+          blocksUntilHalving: blocksLeft,
+          estimatedHalvingDate: halvingDate.toLocaleDateString('en-US', { month: 'short', year: 'numeric' }),
+          currentBlockReward: reward
+        };
+      }, []);
+
+      // Fetch data
+      const fetchPriceData = useCallback(async () => {
+        try {
+          const res = await fetch('https://api.coingecko.com/api/v3/coins/bitcoin?localization=false&tickers=false&community_data=false&developer_data=false');
+          const data = await res.json();
+          setPriceData({
+            price: data.market_data.current_price.usd,
+            change24h: data.market_data.price_change_percentage_24h,
+            high24h: data.market_data.high_24h.usd,
+            low24h: data.market_data.low_24h.usd,
+            volume24h: data.market_data.total_volume.usd,
+            marketCap: data.market_data.market_cap.usd
+          });
+        } catch (e) { console.error(e); }
+      }, []);
+
+      const fetchNetworkStats = useCallback(async () => {
+        try {
+          const [blockRes, hashRes, diffRes, memRes, feeRes] = await Promise.all([
+            fetch('https://mempool.space/api/blocks/tip/height'),
+            fetch('https://mempool.space/api/v1/mining/hashrate/3d'),
+            fetch('https://mempool.space/api/v1/difficulty-adjustment'),
+            fetch('https://mempool.space/api/mempool'),
+            fetch('https://mempool.space/api/v1/fees/recommended')
+          ]);
+          const block = await blockRes.json();
+          const hash = await hashRes.json();
+          const diff = await diffRes.json();
+          const mem = await memRes.json();
+          const fee = await feeRes.json();
+
+          setNetworkStats({
+            blockHeight: block,
+            hashRate: ((hash.currentHashrate || 0) / 1e18).toFixed(1),
+            difficulty: ((diff.previousRetarget || 0) / 1e12).toFixed(1),
+            mempoolSize: (mem.vsize / 1e6).toFixed(1),
+            mempoolTxCount: mem.count,
+            avgFee: fee.halfHourFee,
+            fastestFee: fee.fastestFee
+          });
+          setSupplyData(calculateSupplyData(block));
+          setIsLoading(false);
+        } catch (e) { console.error(e); }
+      }, [calculateSupplyData]);
+
+      useEffect(() => {
+        fetchPriceData();
+        fetchNetworkStats();
+        const p = setInterval(fetchPriceData, 30000);
+        const n = setInterval(fetchNetworkStats, 60000);
+        return () => { clearInterval(p); clearInterval(n); };
+      }, [fetchPriceData, fetchNetworkStats]);
+
+      // Slides
+      const slides = [
+        { type: 'price' },
+        { type: 'network' },
+        { type: 'supply' },
+        { type: 'transaction' }
+      ];
+
+      useEffect(() => {
+        const timer = setInterval(() => setCurrentSlide(p => (p + 1) % slides.length), 10000);
+        return () => clearInterval(timer);
+      }, []);
+
+      useEffect(() => {
+        const timer = setInterval(() => setCurrentTime(new Date()), 1000);
+        return () => clearInterval(timer);
+      }, []);
+
+      const formatPrice = (p) => p.toLocaleString('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 });
+      const formatNum = (n) => {
+        if (n >= 1e12) return (n/1e12).toFixed(2) + 'T';
+        if (n >= 1e9) return (n/1e9).toFixed(2) + 'B';
+        if (n >= 1e6) return (n/1e6).toFixed(2) + 'M';
+        return n.toLocaleString();
+      };
+      const formatDate = (d) => d.toLocaleDateString('en-US', { weekday: 'long', month: 'short', day: 'numeric', year: 'numeric' }).toUpperCase();
+      const formatTime = (d) => d.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true });
+
+      const getCondition = () => {
+        const c = priceData.change24h;
+        if (c > 5) return { text: 'Surging', icon: '🚀' };
+        if (c > 2) return { text: 'Bullish', icon: '☀️' };
+        if (c > 0) return { text: 'Rising', icon: '⛅' };
+        if (c > -2) return { text: 'Falling', icon: '🌤️' };
+        if (c > -5) return { text: 'Bearish', icon: '☁️' };
+        return { text: 'Dumping', icon: '🌧️' };
+      };
+
+      const s = {
+        container: {
+          width: '100%', height: '100vh',
+          background: 'linear-gradient(180deg, #4a2c0a 0%, #1a3355 20%, #0f2847 50%, #1a3355 100%)',
+          fontFamily: 'Arial, Helvetica, sans-serif',
+          color: '#fff', display: 'flex', flexDirection: 'column', overflow: 'hidden'
+        },
+        header: {
+          position: 'relative', height: isMobile ? '50px' : '70px',
+          background: 'linear-gradient(180deg, #ff8c00 0%, #ff6600 100%)',
+          display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+          padding: isMobile ? '0 10px' : '0 20px',
+          borderBottom: '4px solid #cc5500'
+        },
+        headerLeft: { display: 'flex', alignItems: 'center', gap: isMobile ? '10px' : '20px' },
+        logoBadge: {
+          background: '#1a5a8a', padding: isMobile ? '6px 10px' : '10px 15px',
+          display: 'flex', flexDirection: 'column', alignItems: 'center',
+          borderRadius: '4px', lineHeight: 1.1
+        },
+        logoThe: { fontSize: isMobile ? '10px' : '14px', fontWeight: 'bold' },
+        logoBitcoin: { fontSize: isMobile ? '12px' : '16px', fontWeight: 'bold' },
+        logoChannel: { fontSize: isMobile ? '10px' : '14px', fontWeight: 'bold' },
+        headerTitle: {
+          fontSize: isMobile ? '18px' : '32px', fontStyle: 'italic', fontWeight: 'bold',
+          color: '#ffff00', textShadow: '2px 2px 4px rgba(0,0,0,0.5)'
+        },
+        headerRight: { display: 'flex', alignItems: 'center', gap: isMobile ? '8px' : '15px' },
+        headerDate: {
+          fontSize: isMobile ? '10px' : '16px', fontWeight: 'bold',
+          textAlign: 'right', lineHeight: 1.3, textShadow: '1px 1px 2px rgba(0,0,0,0.5)'
+        },
+        musicBtn: {
+          background: isPlaying ? 'rgba(255,255,0,0.3)' : 'rgba(255,255,255,0.2)',
+          border: 'none', borderRadius: '4px', padding: isMobile ? '4px 8px' : '8px 12px',
+          cursor: 'pointer', fontSize: isMobile ? '14px' : '18px'
+        },
+        mainArea: { flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: isMobile ? '15px 10px' : '30px' },
+        panel: {
+          background: 'linear-gradient(180deg, #1e4a6e 0%, #0d2847 50%, #1e4a6e 100%)',
+          border: '3px solid #2a5a8a', borderRadius: '15px',
+          width: '100%', maxWidth: '900px', minHeight: isMobile ? '280px' : '380px',
+          display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr',
+          padding: isMobile ? '15px' : '25px', gap: isMobile ? '15px' : '30px',
+          boxShadow: 'inset 0 0 30px rgba(0,0,0,0.3), 0 10px 30px rgba(0,0,0,0.5)'
+        },
+        panelLeft: { display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' },
+        panelRight: { display: 'flex', flexDirection: 'column' },
+        bigNumber: {
+          fontSize: isMobile ? '48px' : '80px', fontWeight: 'bold', color: '#fff',
+          textShadow: '3px 3px 6px rgba(0,0,0,0.5)', lineHeight: 1
+        },
+        condition: { fontSize: isMobile ? '20px' : '28px', color: '#fff', marginTop: '5px' },
+        icon: { fontSize: isMobile ? '50px' : '80px', margin: '15px 0' },
+        windRow: { fontSize: isMobile ? '16px' : '22px', color: '#fff' },
+        locationName: {
+          fontSize: isMobile ? '24px' : '36px', color: '#ffff00', fontWeight: 'bold',
+          marginBottom: '15px', textShadow: '2px 2px 4px rgba(0,0,0,0.5)'
+        },
+        statRow: {
+          display: 'flex', justifyContent: 'space-between', alignItems: 'baseline',
+          fontSize: isMobile ? '16px' : '24px', marginBottom: isMobile ? '8px' : '12px',
+          borderBottom: '1px solid rgba(255,255,255,0.1)', paddingBottom: '4px'
+        },
+        statLabel: { color: '#fff' },
+        statValue: { color: '#fff', fontWeight: 'bold', fontVariantNumeric: 'tabular-nums' },
+        statValueUp: { color: '#00ff00' },
+        statValueDown: { color: '#ff4444' },
+        indicators: {
+          display: 'flex', justifyContent: 'center', gap: '8px', padding: '10px'
+        },
+        indicator: {
+          width: isMobile ? '8px' : '10px', height: isMobile ? '8px' : '10px',
+          borderRadius: '50%', cursor: 'pointer', border: '2px solid #ffa500'
+        },
+        ticker: {
+          background: 'linear-gradient(180deg, #0a1a2e 0%, #152a44 100%)',
+          borderTop: '3px solid #ffa500', display: 'flex', alignItems: 'center',
+          height: isMobile ? '36px' : '45px', overflow: 'hidden'
+        },
+        tickerLogo: {
+          background: '#cc2200', padding: isMobile ? '4px 8px' : '8px 12px',
+          display: 'flex', flexDirection: 'column', alignItems: 'center',
+          fontSize: isMobile ? '8px' : '10px', fontWeight: 'bold', lineHeight: 1.2,
+          height: '100%', justifyContent: 'center', minWidth: isMobile ? '50px' : '70px'
+        },
+        tickerTime: {
+          background: '#1a3a5a', padding: isMobile ? '4px 10px' : '8px 15px',
+          fontSize: isMobile ? '12px' : '16px', fontWeight: 'bold', height: '100%',
+          display: 'flex', alignItems: 'center'
+        },
+        tickerScroll: {
+          flex: 1, overflow: 'hidden', display: 'flex', alignItems: 'center', paddingLeft: '15px'
+        },
+        tickerText: {
+          whiteSpace: 'nowrap', fontSize: isMobile ? '12px' : '16px',
+          animation: 'tickerScroll 30s linear infinite'
+        },
+        prompt: {
+          position: 'fixed', top: '50%', left: '50%', transform: 'translate(-50%,-50%)',
+          background: 'rgba(10,20,40,0.95)', border: '3px solid #ffa500', borderRadius: '15px',
+          padding: '30px', textAlign: 'center', zIndex: 999
+        },
+        promptBtn: {
+          background: '#ffa500', color: '#000', border: 'none', borderRadius: '8px',
+          padding: '12px 30px', fontSize: '16px', fontWeight: 'bold', cursor: 'pointer', margin: '5px'
+        }
+      };
+
+      const renderSlide = () => {
+        const cond = getCondition();
+
+        switch (slides[currentSlide].type) {
+          case 'price':
+            return (
+              <>
+                <div style={s.panelLeft}>
+                  <div style={s.bigNumber}>{isLoading ? '...' : formatPrice(priceData.price)}</div>
+                  <div style={s.condition}>{cond.text}</div>
+                  <div style={s.icon}>{cond.icon}</div>
+                  <div style={s.windRow}>24h: <span style={priceData.change24h >= 0 ? s.statValueUp : s.statValueDown}>
+                    {priceData.change24h >= 0 ? '▲' : '▼'} {Math.abs(priceData.change24h).toFixed(2)}%
+                  </span></div>
+                </div>
+                <div style={s.panelRight}>
+                  <div style={s.locationName}>Bitcoin</div>
+                  <div style={s.statRow}><span style={s.statLabel}>Market Cap:</span><span style={s.statValue}>${formatNum(priceData.marketCap)}</span></div>
+                  <div style={s.statRow}><span style={s.statLabel}>24h Volume:</span><span style={s.statValue}>${formatNum(priceData.volume24h)}</span></div>
+                  <div style={s.statRow}><span style={s.statLabel}>24h High:</span><span style={s.statValue}>{formatPrice(priceData.high24h)}</span></div>
+                  <div style={s.statRow}><span style={s.statLabel}>24h Low:</span><span style={s.statValue}>{formatPrice(priceData.low24h)}</span></div>
+                  <div style={s.statRow}><span style={s.statLabel}>Block:</span><span style={s.statValue}>{networkStats.blockHeight.toLocaleString()}</span></div>
+                  <div style={s.statRow}><span style={s.statLabel}>Dominance:</span><span style={s.statValue}>~54%</span></div>
+                </div>
+              </>
+            );
+
+          case 'network':
+            return (
+              <>
+                <div style={s.panelLeft}>
+                  <div style={s.bigNumber}>{networkStats.hashRate}</div>
+                  <div style={s.condition}>EH/s</div>
+                  <div style={s.icon}>⛏️</div>
+                  <div style={s.windRow}>Network: <span style={{color: '#00ff00'}}>Healthy</span></div>
+                </div>
+                <div style={s.panelRight}>
+                  <div style={s.locationName}>Network Stats</div>
+                  <div style={s.statRow}><span style={s.statLabel}>Block Height:</span><span style={s.statValue}>{networkStats.blockHeight.toLocaleString()}</span></div>
+                  <div style={s.statRow}><span style={s.statLabel}>Difficulty:</span><span style={s.statValue}>{networkStats.difficulty} T</span></div>
+                  <div style={s.statRow}><span style={s.statLabel}>Mempool:</span><span style={s.statValue}>{networkStats.mempoolSize} MB</span></div>
+                  <div style={s.statRow}><span style={s.statLabel}>Pending Txs:</span><span style={s.statValue}>{networkStats.mempoolTxCount.toLocaleString()}</span></div>
+                  <div style={s.statRow}><span style={s.statLabel}>Fast Fee:</span><span style={s.statValue}>{networkStats.fastestFee} sat/vB</span></div>
+                  <div style={s.statRow}><span style={s.statLabel}>Normal Fee:</span><span style={s.statValue}>{networkStats.avgFee} sat/vB</span></div>
+                </div>
+              </>
+            );
+
+          case 'supply':
+            return (
+              <>
+                <div style={s.panelLeft}>
+                  <div style={s.bigNumber}>{supplyData.percentMined.toFixed(1)}%</div>
+                  <div style={s.condition}>Mined</div>
+                  <div style={s.icon}>💰</div>
+                  <div style={s.windRow}>Reward: <span style={{color: '#ffd700'}}>{supplyData.currentBlockReward} BTC</span></div>
+                </div>
+                <div style={s.panelRight}>
+                  <div style={s.locationName}>Supply Outlook</div>
+                  <div style={s.statRow}><span style={s.statLabel}>Circulating:</span><span style={s.statValue}>{formatNum(supplyData.currentSupply)} BTC</span></div>
+                  <div style={s.statRow}><span style={s.statLabel}>Max Supply:</span><span style={s.statValue}>21,000,000 BTC</span></div>
+                  <div style={s.statRow}><span style={s.statLabel}>Next Halving:</span><span style={s.statValue}>~{supplyData.estimatedHalvingDate}</span></div>
+                  <div style={s.statRow}><span style={s.statLabel}>Halving Block:</span><span style={s.statValue}>{supplyData.nextHalvingBlock.toLocaleString()}</span></div>
+                  <div style={s.statRow}><span style={s.statLabel}>Blocks Until:</span><span style={s.statValue}>{supplyData.blocksUntilHalving.toLocaleString()}</span></div>
+                  <div style={s.statRow}><span style={s.statLabel}>New Reward:</span><span style={s.statValue}>{supplyData.currentBlockReward / 2} BTC</span></div>
+                </div>
+              </>
+            );
+
+          case 'transaction':
+            return (
+              <>
+                <div style={s.panelLeft}>
+                  <div style={s.bigNumber}>{networkStats.mempoolTxCount.toLocaleString()}</div>
+                  <div style={s.condition}>Pending</div>
+                  <div style={s.icon}>📡</div>
+                  <div style={s.windRow}>Status: <span style={{color: networkStats.mempoolTxCount > 100000 ? '#ffaa00' : '#00ff00'}}>
+                    {networkStats.mempoolTxCount > 100000 ? 'Congested' : 'Clear'}
+                  </span></div>
+                </div>
+                <div style={s.panelRight}>
+                  <div style={s.locationName}>Mempool</div>
+                  <div style={s.statRow}><span style={s.statLabel}>Size:</span><span style={s.statValue}>{networkStats.mempoolSize} MB</span></div>
+                  <div style={s.statRow}><span style={s.statLabel}>Transactions:</span><span style={s.statValue}>{networkStats.mempoolTxCount.toLocaleString()}</span></div>
+                  <div style={s.statRow}><span style={s.statLabel}>Priority Fee:</span><span style={s.statValue}>{networkStats.fastestFee} sat/vB</span></div>
+                  <div style={s.statRow}><span style={s.statLabel}>Normal Fee:</span><span style={s.statValue}>{networkStats.avgFee} sat/vB</span></div>
+                  <div style={s.statRow}><span style={s.statLabel}>Avg Block:</span><span style={s.statValue}>~10 minutes</span></div>
+                  <div style={s.statRow}><span style={s.statLabel}>Confirmations:</span><span style={s.statValue}>6 recommended</span></div>
+                </div>
+              </>
+            );
+
+          default: return null;
+        }
+      };
+
+      const tickerText = `Bitcoin ${formatPrice(priceData.price)} ${priceData.change24h >= 0 ? '▲' : '▼'}${Math.abs(priceData.change24h).toFixed(2)}%   •   Block ${networkStats.blockHeight.toLocaleString()}   •   Hash Rate ${networkStats.hashRate} EH/s   •   Fee ${networkStats.avgFee} sat/vB   •   Supply ${supplyData.percentMined.toFixed(2)}% mined   •   `;
+
+      return (
+        <div style={s.container}>
+          <audio ref={audioRef} src={JAZZ_MUSIC_URL} onError={() => setAudioError(true)} preload="auto" />
+
+          {showMusicPrompt && !audioError && (
+            <div style={s.prompt}>
+              <div style={{fontSize: '24px', marginBottom: '15px'}}>🎷 Smooth Jazz?</div>
+              <div style={{marginBottom: '20px', color: '#aaa'}}>Enable the authentic Weather Channel experience</div>
+              <button style={s.promptBtn} onClick={toggleMusic}>♪ Play Music</button>
+              <button style={{...s.promptBtn, background: 'transparent', color: '#aaa', border: '1px solid #aaa'}} onClick={() => setShowMusicPrompt(false)}>Skip</button>
+            </div>
+          )}
+
+          {/* HEADER */}
+          <div style={s.header}>
+            <div style={s.headerLeft}>
+              <div style={s.logoBadge}>
+                <span style={s.logoThe}>The</span>
+                <span style={s.logoBitcoin}>Bitcoin</span>
+                <span style={s.logoChannel}>Channel</span>
+              </div>
+              <div style={s.headerTitle}>Current Conditions</div>
+            </div>
+            <div style={s.headerRight}>
+              {!audioError && (
+                <button style={s.musicBtn} onClick={toggleMusic}>{isPlaying ? '🎷' : '🔇'}</button>
+              )}
+              <div style={s.headerDate}>
+                <div>{formatDate(currentTime).split(',')[0]}</div>
+                <div>{formatDate(currentTime).split(',').slice(1).join(',')}</div>
+              </div>
+            </div>
+          </div>
+
+          {/* MAIN CONTENT */}
+          <div style={s.mainArea}>
+            <div style={s.panel}>
+              {renderSlide()}
+            </div>
+          </div>
+
+          {/* INDICATORS */}
+          <div style={s.indicators}>
+            {slides.map((_, i) => (
+              <div key={i} style={{...s.indicator, background: i === currentSlide ? '#ffa500' : 'transparent'}}
+                onClick={() => setCurrentSlide(i)} />
+            ))}
+          </div>
+
+          {/* TICKER */}
+          <div style={s.ticker}>
+            <div style={s.tickerLogo}>
+              <span>The</span>
+              <span>Bitcoin</span>
+              <span>Channel</span>
+            </div>
+            <div style={s.tickerTime}>{formatTime(currentTime)}</div>
+            <div style={s.tickerScroll}>
+              <div style={s.tickerText}>{tickerText.repeat(4)}</div>
+            </div>
+          </div>
+        </div>
+      );
+    };
+
+    ReactDOM.render(<BitcoinWeatherChannel />, document.getElementById('root'));
+  </script>
+</body>
+</html>
