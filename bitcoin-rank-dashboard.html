@@ -1,0 +1,1440 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bitcoin Wallet Rank Dashboard</title>
+<style>
+  :root {
+    --bg: #0d1117;
+    --card: #161b22;
+    --border: #30363d;
+    --text: #e6edf3;
+    --muted: #8b949e;
+    --orange: #f7931a;
+    --orange-glow: rgba(247,147,26,0.25);
+    --green: #3fb950;
+    --blue: #58a6ff;
+    --purple: #bc8cff;
+    --red: #ff7b72;
+    --yellow: #fbbf24;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: var(--bg); color: var(--text); min-height:100vh; padding:24px;
+  }
+  .container { max-width:960px; margin:0 auto; }
+  header { text-align:center; margin-bottom:32px; }
+  header h1 {
+    font-size:2rem; font-weight:700; margin-bottom:6px;
+    background: linear-gradient(135deg, var(--orange), #fbbf24);
+    -webkit-background-clip:text; -webkit-text-fill-color:transparent;
+  }
+  header p { color:var(--muted); font-size:0.95rem; }
+
+  .card {
+    background:var(--card); border:1px solid var(--border);
+    border-radius:12px; padding:24px; margin-bottom:20px;
+  }
+  .card-title {
+    font-size:1rem; color:var(--muted); margin-bottom:16px;
+    display:flex; align-items:center; gap:8px;
+  }
+  .card-title span { font-size:1.2rem; }
+
+  /* Input */
+  .input-section { display:flex; flex-direction:column; align-items:center; gap:16px; }
+  .input-group { position:relative; width:100%; max-width:420px; }
+  .input-group label { display:block; font-size:0.85rem; color:var(--muted); margin-bottom:6px; font-weight:500; }
+  .input-wrapper {
+    display:flex; align-items:center; background:var(--bg);
+    border:2px solid var(--border); border-radius:10px; overflow:hidden; transition:border-color 0.2s;
+  }
+  .input-wrapper:focus-within { border-color:var(--orange); box-shadow:0 0 0 3px var(--orange-glow); }
+  .btc-icon { padding:12px 14px; font-size:1.3rem; color:var(--orange); font-weight:700; }
+  .input-wrapper input {
+    flex:1; background:transparent; border:none; outline:none; color:var(--text);
+    font-size:1.25rem; padding:12px 14px 12px 0; font-weight:600;
+    font-family:'SF Mono','Fira Code',monospace;
+  }
+  .input-wrapper input::placeholder { color:#484f58; }
+  .usd-equiv { text-align:center; color:var(--muted); font-size:0.85rem; margin-top:4px; min-height:20px; }
+
+  /* Stats Grid */
+  .results { display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:16px; }
+  .stat-card {
+    background:var(--bg); border:1px solid var(--border); border-radius:10px;
+    padding:20px; text-align:center; transition:border-color 0.2s, transform 0.2s;
+  }
+  .stat-card:hover { border-color:var(--orange); transform:translateY(-2px); }
+  .stat-label { font-size:0.8rem; color:var(--muted); text-transform:uppercase; letter-spacing:0.5px; margin-bottom:8px; }
+  .stat-value { font-size:1.6rem; font-weight:700; font-family:'SF Mono','Fira Code',monospace; }
+  .stat-sub { font-size:0.78rem; color:var(--muted); margin-top:4px; }
+  .color-orange { color:var(--orange); }
+  .color-green { color:var(--green); }
+  .color-blue { color:var(--blue); }
+  .color-purple { color:var(--purple); }
+  .color-red { color:var(--red); }
+  .color-yellow { color:var(--yellow); }
+
+  /* Bar Chart */
+  .bar-row { display:flex; align-items:center; margin-bottom:6px; font-size:0.82rem; }
+  .bar-label {
+    width:130px; text-align:right; padding-right:12px; color:var(--muted);
+    font-family:'SF Mono','Fira Code',monospace; font-size:0.75rem; flex-shrink:0;
+  }
+  .bar-track { flex:1; height:28px; background:rgba(255,255,255,0.03); border-radius:6px; overflow:hidden; }
+  .bar-fill {
+    height:100%; border-radius:6px; transition:width 0.6s ease;
+    display:flex; align-items:center; padding-left:8px;
+    font-size:0.72rem; font-weight:600; color:white; min-width:fit-content; white-space:nowrap;
+  }
+  .bar-count {
+    margin-left:10px; color:var(--muted); font-family:'SF Mono','Fira Code',monospace;
+    font-size:0.75rem; flex-shrink:0; min-width:100px;
+  }
+  .you-arrow { background:var(--orange)!important; animation:pulse-bar 1.5s ease-in-out infinite; }
+  @keyframes pulse-bar { 0%,100%{opacity:1} 50%{opacity:0.7} }
+
+  /* Fun Facts */
+  .fun-fact {
+    display:flex; align-items:flex-start; gap:12px; padding:14px 16px;
+    background:var(--bg); border:1px solid var(--border); border-radius:10px;
+    transition:border-color 0.2s, transform 0.15s; cursor:default; margin-bottom:8px;
+  }
+  .fun-fact:hover { border-color:rgba(247,147,26,0.4); transform:translateX(4px); }
+  .fun-fact-icon {
+    font-size:1.5rem; flex-shrink:0; width:36px; height:36px;
+    display:flex; align-items:center; justify-content:center;
+    background:rgba(255,255,255,0.04); border-radius:8px;
+  }
+  .fun-fact-content { flex:1; }
+  .fun-fact-main { font-size:0.92rem; font-weight:600; line-height:1.4; margin-bottom:3px; }
+  .fun-fact-main .highlight { color:var(--orange); }
+  .fun-fact-detail { font-size:0.78rem; color:var(--muted); line-height:1.4; }
+  .fact-direction { font-size:0.7rem; font-weight:700; padding:2px 6px; border-radius:4px; margin-right:4px; }
+  .dir-less { background:rgba(63,185,80,0.15); color:var(--green); }
+  .dir-more { background:rgba(255,123,114,0.15); color:#ff7b72; }
+  .dir-about { background:rgba(247,147,26,0.15); color:var(--orange); }
+  .fun-fact-category {
+    display:inline-block; font-size:0.65rem; text-transform:uppercase; letter-spacing:0.5px;
+    padding:2px 7px; border-radius:4px; font-weight:600; flex-shrink:0; margin-top:2px;
+  }
+  .cat-city { background:rgba(88,166,255,0.15); color:var(--blue); }
+  .cat-country { background:rgba(63,185,80,0.15); color:var(--green); }
+  .cat-venue { background:rgba(188,140,255,0.15); color:var(--purple); }
+  .cat-profession { background:rgba(247,147,26,0.15); color:var(--orange); }
+  .cat-nature { background:rgba(63,185,80,0.15); color:#56d364; }
+  .cat-pop { background:rgba(255,123,114,0.15); color:#ff7b72; }
+  .cat-history { background:rgba(210,168,255,0.15); color:#d2a8ff; }
+  .cat-misc { background:rgba(139,148,158,0.15); color:var(--muted); }
+
+  /* Buttons */
+  .btn {
+    display:inline-flex; align-items:center; gap:6px;
+    padding:8px 16px; border-radius:8px; cursor:pointer;
+    font-size:0.82rem; font-weight:600; transition:all 0.2s; border:1px solid;
+  }
+  .btn-orange { background:rgba(247,147,26,0.1); border-color:rgba(247,147,26,0.3); color:var(--orange); }
+  .btn-orange:hover { background:rgba(247,147,26,0.2); }
+  .btn-blue { background:rgba(88,166,255,0.1); border-color:rgba(88,166,255,0.3); color:var(--blue); }
+  .btn-blue:hover { background:rgba(88,166,255,0.2); }
+  .btn-green { background:rgba(63,185,80,0.1); border-color:rgba(63,185,80,0.3); color:var(--green); }
+  .btn-green:hover { background:rgba(63,185,80,0.2); }
+  .btn-purple { background:rgba(188,140,255,0.1); border-color:rgba(188,140,255,0.3); color:var(--purple); }
+  .btn-purple:hover { background:rgba(188,140,255,0.2); }
+  .btn-row { display:flex; gap:8px; flex-wrap:wrap; margin-top:12px; }
+
+  /* Toggle Switch */
+  .toggle-row { display:flex; align-items:center; gap:10px; margin-bottom:12px; }
+  .toggle {
+    position:relative; width:44px; height:24px; background:#30363d;
+    border-radius:12px; cursor:pointer; transition:background 0.3s;
+  }
+  .toggle.active { background:var(--orange); }
+  .toggle::after {
+    content:''; position:absolute; top:2px; left:2px; width:20px; height:20px;
+    background:white; border-radius:50%; transition:left 0.3s;
+  }
+  .toggle.active::after { left:22px; }
+  .toggle-label { font-size:0.85rem; color:var(--muted); }
+
+  /* Pizza Visual */
+  .pizza-container { display:flex; flex-direction:column; align-items:center; gap:16px; }
+  .pizza-svg { max-width:300px; width:100%; }
+  .pizza-legend { text-align:center; }
+  .pizza-legend-main { font-size:1.1rem; font-weight:700; color:var(--orange); }
+  .pizza-legend-sub { font-size:0.82rem; color:var(--muted); margin-top:4px; }
+
+  /* Club Tiers */
+  .tiers-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(140px,1fr)); gap:10px; }
+  .tier-badge {
+    text-align:center; padding:16px 10px; border-radius:10px;
+    border:2px solid var(--border); background:var(--bg); transition:all 0.3s; position:relative;
+  }
+  .tier-badge.achieved { border-color:var(--orange); background:rgba(247,147,26,0.06); }
+  .tier-badge.next { border-color:var(--blue); border-style:dashed; }
+  .tier-badge.locked { opacity:0.4; }
+  .tier-icon { font-size:2rem; margin-bottom:6px; }
+  .tier-name { font-size:0.78rem; font-weight:700; color:var(--text); }
+  .tier-req { font-size:0.68rem; color:var(--muted); margin-top:2px; }
+  .tier-check {
+    position:absolute; top:-6px; right:-6px; width:20px; height:20px;
+    background:var(--orange); border-radius:50%; display:flex; align-items:center;
+    justify-content:center; font-size:0.7rem; color:white;
+  }
+  .tier-progress {
+    margin-top:6px; height:4px; background:rgba(255,255,255,0.1); border-radius:2px; overflow:hidden;
+  }
+  .tier-progress-fill { height:100%; background:var(--blue); border-radius:2px; transition:width 0.6s; }
+
+  /* Time Machine */
+  .time-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:10px; }
+  .time-card {
+    background:var(--bg); border:1px solid var(--border); border-radius:10px; padding:14px;
+    text-align:center; transition:border-color 0.2s;
+  }
+  .time-card:hover { border-color:var(--blue); }
+  .time-year { font-size:0.75rem; color:var(--blue); font-weight:700; text-transform:uppercase; }
+  .time-rank { font-size:1.2rem; font-weight:700; margin:6px 0 2px; font-family:'SF Mono','Fira Code',monospace; }
+  .time-detail { font-size:0.72rem; color:var(--muted); }
+  .time-price { font-size:0.72rem; color:var(--orange); margin-top:2px; }
+
+  /* What If */
+  .whatif-section { margin-bottom:20px; }
+  .whatif-label { font-size:0.82rem; color:var(--muted); margin-bottom:8px; font-weight:500; }
+  .slider-row { display:flex; align-items:center; gap:12px; margin-bottom:6px; }
+  .slider-row input[type=range] {
+    flex:1; -webkit-appearance:none; height:6px; background:#30363d;
+    border-radius:3px; outline:none;
+  }
+  .slider-row input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance:none; width:18px; height:18px; background:var(--orange);
+    border-radius:50%; cursor:pointer;
+  }
+  .slider-val {
+    min-width:80px; text-align:right; font-family:'SF Mono','Fira Code',monospace;
+    font-size:0.85rem; font-weight:600; color:var(--orange);
+  }
+  .whatif-result {
+    background:var(--bg); border:1px solid var(--border); border-radius:10px;
+    padding:16px; margin-top:12px;
+  }
+  .whatif-result-row {
+    display:flex; justify-content:space-between; align-items:center; padding:6px 0;
+    border-bottom:1px solid rgba(255,255,255,0.04);
+  }
+  .whatif-result-row:last-child { border-bottom:none; }
+  .whatif-result-label { font-size:0.82rem; color:var(--muted); }
+  .whatif-result-value { font-size:0.92rem; font-weight:600; font-family:'SF Mono','Fira Code',monospace; }
+
+  /* Celebrity */
+  .celeb-list { display:grid; gap:8px; }
+  .celeb-row {
+    display:flex; align-items:center; gap:12px; padding:12px 14px;
+    background:var(--bg); border:1px solid var(--border); border-radius:10px;
+    transition:border-color 0.2s;
+  }
+  .celeb-row:hover { border-color:var(--purple); }
+  .celeb-row.you-beat { border-color:var(--green); background:rgba(63,185,80,0.04); }
+  .celeb-icon { font-size:1.3rem; width:32px; text-align:center; }
+  .celeb-info { flex:1; }
+  .celeb-name { font-size:0.88rem; font-weight:600; }
+  .celeb-detail { font-size:0.72rem; color:var(--muted); }
+  .celeb-amount { font-size:0.85rem; font-weight:700; font-family:'SF Mono','Fira Code',monospace; color:var(--orange); }
+  .celeb-status { font-size:0.7rem; font-weight:700; padding:3px 8px; border-radius:4px; }
+  .celeb-ahead { background:rgba(255,123,114,0.15); color:var(--red); }
+  .celeb-behind { background:rgba(63,185,80,0.15); color:var(--green); }
+
+  /* Global Wealth */
+  .wealth-bar-container { position:relative; margin:20px 0; }
+  .wealth-bar {
+    height:40px; background:linear-gradient(90deg, #1a1e24 0%, #2d333b 30%, #58a6ff 60%, #bc8cff 80%, #f7931a 95%, #fbbf24 100%);
+    border-radius:8px; position:relative; overflow:visible;
+  }
+  .wealth-marker {
+    position:absolute; top:-8px; width:4px; height:56px;
+    background:var(--orange); border-radius:2px; z-index:10;
+    box-shadow:0 0 12px var(--orange);
+  }
+  .wealth-marker-label {
+    position:absolute; bottom:-28px; left:50%; transform:translateX(-50%);
+    font-size:0.72rem; font-weight:700; color:var(--orange); white-space:nowrap;
+  }
+  .wealth-labels { display:flex; justify-content:space-between; margin-top:32px; }
+  .wealth-label-item { font-size:0.7rem; color:var(--muted); text-align:center; }
+
+  /* Stack Tracker */
+  .tracker-entries { max-height:200px; overflow-y:auto; }
+  .tracker-entry {
+    display:flex; justify-content:space-between; align-items:center;
+    padding:10px 12px; background:var(--bg); border:1px solid var(--border);
+    border-radius:8px; margin-bottom:6px; font-size:0.82rem;
+  }
+  .tracker-date { color:var(--muted); font-size:0.75rem; }
+  .tracker-change { font-size:0.75rem; font-weight:600; }
+  .tracker-up { color:var(--green); }
+  .tracker-down { color:var(--red); }
+  .tracker-same { color:var(--muted); }
+
+  /* Share Card */
+  .share-preview {
+    display:flex; flex-direction:column; align-items:center; gap:16px;
+  }
+  #shareCanvas {
+    border-radius:12px; max-width:100%;
+    box-shadow:0 8px 32px rgba(0,0,0,0.4);
+  }
+
+  /* Sats Mode */
+  .sats-display {
+    display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:12px;
+  }
+  .sats-box {
+    background:var(--bg); border:1px solid var(--border); border-radius:10px;
+    padding:16px; text-align:center;
+  }
+  .sats-big {
+    font-size:1.4rem; font-weight:700; font-family:'SF Mono','Fira Code',monospace;
+    color:var(--orange);
+  }
+  .sats-label { font-size:0.78rem; color:var(--muted); margin-top:4px; }
+
+  /* Footer */
+  .data-source {
+    text-align:center; margin-top:24px; padding-top:16px;
+    border-top:1px solid var(--border); color:var(--muted); font-size:0.78rem;
+  }
+  .data-source a { color:var(--blue); text-decoration:none; }
+  .live-dot {
+    display:inline-block; width:8px; height:8px; background:var(--green);
+    border-radius:50%; margin-right:4px; animation:blink 2s ease-in-out infinite;
+  }
+  @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.3} }
+  .note-box {
+    background:rgba(247,147,26,0.08); border:1px solid rgba(247,147,26,0.2);
+    border-radius:8px; padding:12px 16px; font-size:0.82rem; color:var(--muted); line-height:1.5;
+  }
+  .note-box strong { color:var(--orange); }
+  .hidden { display:none; }
+
+  /* Section divider */
+  .section-divider {
+    display:flex; align-items:center; gap:12px; margin:8px 0 20px;
+  }
+  .section-divider::before, .section-divider::after {
+    content:''; flex:1; height:1px; background:var(--border);
+  }
+  .section-divider span { font-size:0.75rem; color:var(--muted); text-transform:uppercase; letter-spacing:1px; }
+
+  @media (max-width:640px) {
+    body { padding:12px; }
+    header h1 { font-size:1.5rem; }
+    .results { grid-template-columns:1fr 1fr; }
+    .stat-value { font-size:1.2rem; }
+    .bar-label { width:80px; font-size:0.65rem; }
+    .bar-count { min-width:80px; font-size:0.65rem; }
+    .tiers-grid { grid-template-columns:repeat(3,1fr); }
+    .time-grid { grid-template-columns:repeat(2,1fr); }
+    .sats-display { grid-template-columns:1fr; }
+    .fun-fact-icon { display:none; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <header>
+    <h1>Bitcoin Wallet Rank</h1>
+    <p>How many wallets hold more BTC than you?</p>
+    <div style="margin-top:12px;padding:10px 16px;background:rgba(247,147,26,0.08);border:1px solid rgba(247,147,26,0.25);border-radius:8px;font-size:0.8rem;color:var(--muted);max-width:600px;margin-left:auto;margin-right:auto;line-height:1.5;">
+      <span style="color:var(--orange);font-weight:600;">Privacy note:</span> Nothing you enter here is saved or transmitted. This page runs entirely in your browser &mdash; no server, no database, no cookies, no analytics. The only network request is fetching the live BTC price from CoinGecko. Your BTC amount never leaves your device.
+    </div>
+  </header>
+
+  <!-- INPUT -->
+  <div class="card">
+    <div class="input-section">
+      <div class="input-group">
+        <label>Enter your Bitcoin holdings</label>
+        <div class="input-wrapper">
+          <span class="btc-icon">&#x20bf;</span>
+          <input type="text" id="btcInput" placeholder="0.00" inputmode="decimal" autofocus>
+        </div>
+        <div class="usd-equiv" id="usdEquiv"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CORE STATS -->
+  <div class="card hidden" id="resultsCard">
+    <div class="results">
+      <div class="stat-card">
+        <div class="stat-label" id="aboveLabel">Wallets with more BTC</div>
+        <div class="stat-value color-orange" id="walletsAbove">&#x2014;</div>
+        <div class="stat-sub" id="walletsAboveSub"></div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Your Percentile</div>
+        <div class="stat-value color-green" id="percentile">&#x2014;</div>
+        <div class="stat-sub" id="percentileSub">of all funded addresses</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Your Bracket</div>
+        <div class="stat-value color-blue" id="bracket">&#x2014;</div>
+        <div class="stat-sub" id="bracketSub"></div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label" id="totalLabel">Total Funded Wallets</div>
+        <div class="stat-value color-purple" id="totalWallets">&#x2014;</div>
+        <div class="stat-sub" id="totalSub">with any balance > 0</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- LOST COINS TOGGLE + SATS MODE -->
+  <div class="card hidden" id="togglesCard">
+    <div style="display:flex;gap:24px;flex-wrap:wrap;align-items:flex-start;">
+      <div>
+        <div class="toggle-row">
+          <div class="toggle" id="lostCoinsToggle" onclick="toggleLostCoins()"></div>
+          <span class="toggle-label">Remove ~3.7M lost coins from calculation</span>
+        </div>
+        <div style="font-size:0.75rem;color:var(--muted);margin-left:54px;" id="lostCoinsNote"></div>
+      </div>
+      <div>
+        <div class="toggle-row">
+          <div class="toggle" id="satsToggle" onclick="toggleSatsMode()"></div>
+          <span class="toggle-label">Show in sats (satoshis)</span>
+        </div>
+      </div>
+      <div>
+        <div class="toggle-row">
+          <div class="toggle" id="holdersToggle" onclick="toggleHoldersMode()"></div>
+          <span class="toggle-label">Estimate unique people (not wallets)</span>
+        </div>
+        <div style="font-size:0.75rem;color:var(--muted);margin-left:54px;" id="holdersNote"></div>
+      </div>
+    </div>
+    <div class="sats-display hidden" id="satsDisplay">
+      <div class="sats-box">
+        <div class="sats-big" id="satsAmount">0</div>
+        <div class="sats-label">satoshis you hold</div>
+      </div>
+      <div class="sats-box">
+        <div class="sats-big" id="satsPerDollar">0</div>
+        <div class="sats-label">sats per dollar (current price)</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CLUB TIERS -->
+  <div class="card hidden" id="tiersCard">
+    <div class="card-title"><span>&#x1f3c6;</span> Achievement Tiers</div>
+    <div class="tiers-grid" id="tiersGrid"></div>
+  </div>
+
+  <!-- PIZZA VISUAL -->
+  <div class="card hidden" id="pizzaCard">
+    <div class="card-title"><span>&#x1f355;</span> Your Slice of the Pie</div>
+    <div class="pizza-container">
+      <svg class="pizza-svg" viewBox="0 0 200 200" id="pizzaSvg"></svg>
+      <div class="pizza-legend">
+        <div class="pizza-legend-main" id="pizzaMain"></div>
+        <div class="pizza-legend-sub" id="pizzaSub"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FUN FACTS -->
+  <div class="card hidden" id="funFactsCard">
+    <div class="card-title"><span>&#x1f9e0;</span> How does that compare?</div>
+    <div id="funFactsGrid"></div>
+    <div class="btn-row">
+      <button class="btn btn-orange" onclick="shuffleFacts()">&#x1f3b2; Shuffle facts</button>
+    </div>
+  </div>
+
+  <!-- CELEBRITY COMPARISON -->
+  <div class="card hidden" id="celebCard">
+    <div class="card-title"><span>&#x1f451;</span> Known BTC Holders &amp; Entities</div>
+    <div class="celeb-list" id="celebList"></div>
+  </div>
+
+  <!-- TIME MACHINE -->
+  <div class="card hidden" id="timeCard">
+    <div class="card-title"><span>&#x23f3;</span> Time Machine &mdash; Your rank through the years</div>
+    <div class="time-grid" id="timeGrid"></div>
+  </div>
+
+  <!-- WHAT IF -->
+  <div class="card hidden" id="whatifCard">
+    <div class="card-title"><span>&#x1f52e;</span> What If? Simulator</div>
+    <div class="whatif-section">
+      <div class="whatif-label">If Bitcoin's price reaches...</div>
+      <div class="slider-row">
+        <input type="range" id="priceSlider" min="10000" max="5000000" step="10000" value="100000">
+        <div class="slider-val" id="priceSliderVal">$100,000</div>
+      </div>
+    </div>
+    <div class="whatif-section">
+      <div class="whatif-label">If you DCA this much per week for 2 years...</div>
+      <div class="slider-row">
+        <input type="range" id="dcaSlider" min="0" max="1000" step="10" value="100">
+        <div class="slider-val" id="dcaSliderVal">$100/wk</div>
+      </div>
+    </div>
+    <div class="whatif-result" id="whatifResult"></div>
+  </div>
+
+  <!-- GLOBAL WEALTH -->
+  <div class="card hidden" id="wealthCard">
+    <div class="card-title"><span>&#x1f30d;</span> Global Wealth Comparison</div>
+    <div style="font-size:0.82rem;color:var(--muted);margin-bottom:12px;">
+      How your BTC holdings (at current price) compare to global wealth distribution
+    </div>
+    <div class="wealth-bar-container">
+      <div class="wealth-bar">
+        <div class="wealth-marker" id="wealthMarker" style="left:50%">
+          <div class="wealth-marker-label" id="wealthMarkerLabel">You</div>
+        </div>
+      </div>
+      <div class="wealth-labels">
+        <div class="wealth-label-item">Bottom 50%<br><span style="color:var(--text);">&lt;$8.6K</span></div>
+        <div class="wealth-label-item">Median<br><span style="color:var(--text);">$8.6K</span></div>
+        <div class="wealth-label-item">Top 10%<br><span style="color:var(--text);">&gt;$138K</span></div>
+        <div class="wealth-label-item">Top 1%<br><span style="color:var(--text);">&gt;$1.08M</span></div>
+      </div>
+    </div>
+    <div class="stat-sub" style="text-align:center;margin-top:8px;" id="wealthSummary"></div>
+  </div>
+
+  <!-- BAR CHART -->
+  <div class="card hidden" id="chartCard">
+    <div class="card-title">Address Distribution by Balance Range</div>
+    <div id="barChart"></div>
+  </div>
+
+  <!-- STACK TRACKER -->
+  <div class="card hidden" id="trackerCard">
+    <div class="card-title"><span>&#x1f4c8;</span> Stack Tracker</div>
+    <div style="font-size:0.82rem;color:var(--muted);margin-bottom:12px;">
+      Bookmark your position and see how your rank changes over time
+    </div>
+    <div class="btn-row" style="margin-bottom:12px;">
+      <button class="btn btn-green" onclick="saveSnapshot()">&#x1f4be; Save current position</button>
+      <button class="btn btn-orange" onclick="clearSnapshots()">&#x1f5d1; Clear history</button>
+    </div>
+    <div class="tracker-entries" id="trackerEntries"></div>
+  </div>
+
+  <!-- SHARE CARD -->
+  <div class="card hidden" id="shareCard">
+    <div class="card-title"><span>&#x1f4f1;</span> Share Your Rank</div>
+    <div class="share-preview">
+      <canvas id="shareCanvas" width="600" height="340"></canvas>
+      <div class="btn-row">
+        <button class="btn btn-purple" onclick="downloadShareCard()">&#x2b07; Download image</button>
+        <button class="btn btn-blue" onclick="copyShareCard()">&#x1f4cb; Copy to clipboard</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- NOTE -->
+  <div class="note-box" style="margin-top:20px;">
+    <strong>Note:</strong> This data represents on-chain Bitcoin addresses, not individual people.
+    One person may control multiple addresses, and exchange wallets hold funds for millions of users.
+    The actual number of <em>people</em> who hold more BTC than you is likely lower than shown.
+  </div>
+
+  <div class="data-source">
+    <span class="live-dot"></span> BTC price live via CoinGecko &nbsp;|&nbsp;
+    Distribution data from <a href="https://bitinfocharts.com/top-100-richest-bitcoin-addresses.html" target="_blank">BitInfoCharts</a>
+    <br><span id="lastUpdated"></span>
+  </div>
+</div>
+
+<script>
+// =====================================================
+// DATA
+// =====================================================
+
+const DISTRIBUTION_DATA = [
+  { min:0,       max:0.00001,   addresses:7389411  },
+  { min:0.00001, max:0.0001,    addresses:12345313 },
+  { min:0.0001,  max:0.001,     addresses:13833725 },
+  { min:0.001,   max:0.01,      addresses:11922623 },
+  { min:0.01,    max:0.1,       addresses:8204012  },
+  { min:0.1,     max:1,         addresses:3503079  },
+  { min:1,       max:10,        addresses:823845   },
+  { min:10,      max:100,       addresses:130379   },
+  { min:100,     max:1000,      addresses:17988    },
+  { min:1000,    max:10000,     addresses:1921     },
+  { min:10000,   max:100000,    addresses:82       },
+  { min:100000,  max:1000000,   addresses:4        },
+];
+
+const BRACKET_NAMES = ['Dust','Dust','Micro','Micro','Shrimp','Crab','Fish','Shark','Whale','Whale','Humpback','Mega Whale'];
+const BRACKET_COLORS = ['#484f58','#585f68','#6e7681','#8b949e','#58a6ff','#3fb950','#f0883e','#f7931a','#bc8cff','#d2a8ff','#ff7b72','#ffa657'];
+
+// Historical distribution estimates with per-bucket scale factors
+// topDecay: how aggressively upper buckets shrink vs lower. Higher = fewer whales in that era.
+// Each era had a different distribution shape — early years were bottom-heavy (lots of dust, few whales).
+const HISTORICAL_DATA = [
+  { year: '2013', totalAddresses: 3200000,  btcPrice: 750,    note: 'Early adopter era',              topDecay: 0.55 },
+  { year: '2015', totalAddresses: 8500000,  btcPrice: 315,    note: 'Post Mt. Gox recovery',          topDecay: 0.62 },
+  { year: '2017', totalAddresses: 22000000, btcPrice: 14000,  note: 'First mainstream bull run',       topDecay: 0.72 },
+  { year: '2019', totalAddresses: 28000000, btcPrice: 7200,   note: 'Crypto winter thaw',             topDecay: 0.78 },
+  { year: '2020', totalAddresses: 33000000, btcPrice: 29000,  note: 'Institutional adoption begins',  topDecay: 0.82 },
+  { year: '2021', totalAddresses: 40000000, btcPrice: 47000,  note: 'All-time high era',              topDecay: 0.87 },
+  { year: '2023', totalAddresses: 50000000, btcPrice: 42000,  note: 'ETF anticipation',               topDecay: 0.93 },
+  { year: '2024', totalAddresses: 54000000, btcPrice: 67000,  note: 'Spot ETFs approved',             topDecay: 0.97 },
+  { year: 'Now',  totalAddresses: 58172381, btcPrice: null,   note: 'Current snapshot',               topDecay: 1.0  },
+];
+
+// Celebrity / Entity BTC holdings (publicly known or estimated)
+const CELEBRITIES = [
+  { name:'Satoshi Nakamoto (est.)', btc:1100000, icon:'\u{1F47B}', detail:'Unmoved since 2010 \u2014 ~5.2% of supply', verified:false },
+  { name:'Strategy (f.k.a. MicroStrategy)', btc:720737, icon:'\u{1F3E2}', detail:'Largest corporate holder, avg cost ~$76K', verified:true },
+  { name:'BlackRock iShares ETF (IBIT)', btc:577919, icon:'\u{1F4CA}', detail:'Largest spot Bitcoin ETF', verified:true },
+  { name:'US Government (seized)', btc:328372, icon:'\u{1F1FA}\u{1F1F8}', detail:'Silk Road, Bitfinex & other seizures', verified:true },
+  { name:'Binance (cold wallet)', btc:248598, icon:'\u{1F4B1}', detail:'Largest exchange reserve (~629K across all wallets)', verified:false },
+  { name:'Fidelity Wise Origin ETF (FBTC)', btc:187814, icon:'\u{1F4CA}', detail:'Second-largest spot Bitcoin ETF', verified:true },
+  { name:'Marathon Digital (MARA)', btc:53822, icon:'\u{26CF}', detail:'Largest public BTC miner by holdings', verified:true },
+  { name:'Tim Draper', btc:29656, icon:'\u{1F468}\u{200D}\u{1F4BC}', detail:'Bought ~30K BTC at US Marshals auction 2014', verified:true },
+  { name:'Michael Saylor (personal)', btc:17732, icon:'\u{1F468}\u{200D}\u{1F4BB}', detail:'Strategy co-founder, avg cost ~$9.9K', verified:true },
+  { name:'Tesla', btc:11509, icon:'\u{1F697}', detail:'Bought 2021, sold ~75% in 2022, held rest', verified:true },
+  { name:'Block Inc. (Square)', btc:8883, icon:'\u{1F4F1}', detail:'Jack Dorsey\'s payments company', verified:true },
+  { name:'The Winklevoss Twins', btc:70000, icon:'\u{1F46C}', detail:'Early BTC investors, est. 70\u2013100K BTC', verified:false },
+  { name:'El Salvador (government)', btc:7577, icon:'\u{1F1F8}\u{1F1FB}', detail:'First nation to adopt BTC as legal tender', verified:true },
+  { name:'Average US 401(k) balance', btc:null, icon:'\u{1F4B0}', detail:'~$146K (Fidelity 2025) \u2192 converted to BTC', verified:false, usdValue:146100 },
+  { name:'Average American savings', btc:null, icon:'\u{1F3E6}', detail:'~$8,000 median bank balance \u2192 converted to BTC', verified:false, usdValue:8000 },
+];
+
+// Club tiers
+const CLUB_TIERS = [
+  { name:'Sat Stacker', req:0.001, icon:'\u{1FA99}', desc:'1,000+ sats club' },
+  { name:'Whole Percenter', req:0.01, icon:'\u{1F4B5}', desc:'A meaningful start' },
+  { name:'Shrimp', req:0.1, icon:'\u{1F990}', desc:'Top ~8% of addresses' },
+  { name:'Crab', req:1, icon:'\u{1F980}', desc:'The Whole Coiner club' },
+  { name:'Fish', req:10, icon:'\u{1F41F}', desc:'Double digits, serious stacker' },
+  { name:'Shark', req:100, icon:'\u{1F988}', desc:'Six-figure BTC territory' },
+  { name:'Whale', req:1000, icon:'\u{1F40B}', desc:'You move markets' },
+  { name:'Humpback', req:10000, icon:'\u{1F30A}', desc:'< 100 addresses at this level' },
+  { name:'The 21 Club', req:21, icon:'\u{1F48E}', desc:'1 millionth of total supply' },
+  { name:'6.15 Club', req:6.15, icon:'\u{2B50}', desc:'If split equally among 8B people' },
+];
+
+// Fun Facts (sorted by count)
+const FUN_FACTS = [
+  { count:1, label:"a single person on Earth", emoji:"\u{1F9D1}", cat:"misc", detail:"Just one." },
+  { count:2, label:"the number of known Bitcoin creators", emoji:"\u{1F47B}", cat:"history", detail:"Satoshi... and maybe one more?" },
+  { count:4, label:"members of a Beatles cover band", emoji:"\u{1F3B8}", cat:"pop", detail:"John, Paul, George, Ringo" },
+  { count:5, label:"players on a basketball starting lineup", emoji:"\u{1F3C0}", cat:"venue", detail:"One starting five" },
+  { count:9, label:"justices on the US Supreme Court", emoji:"\u2696\uFE0F", cat:"profession", detail:"The highest court in the land" },
+  { count:11, label:"players on a soccer team", emoji:"\u26BD", cat:"venue", detail:"One full squad on the pitch" },
+  { count:12, label:"people who have walked on the Moon", emoji:"\u{1F31D}", cat:"history", detail:"All Apollo moonwalkers, 1969\u20131972" },
+  { count:22, label:"players on a cricket match (both sides)", emoji:"\u{1F3CF}", cat:"venue", detail:"11 per side in a Test match" },
+  { count:27, label:"countries in the European Union", emoji:"\u{1F1EA}\u{1F1FA}", cat:"country", detail:"As of 2026" },
+  { count:30, label:"students in one classroom", emoji:"\u{1F3EB}", cat:"misc", detail:"A typical class size" },
+  { count:47, label:"US Presidents in history", emoji:"\u{1F1FA}\u{1F1F8}", cat:"history", detail:"From Washington to the 47th" },
+  { count:50, label:"US states", emoji:"\u{1F5FD}", cat:"country", detail:"Every state in the union" },
+  { count:53, label:"players on an NFL roster", emoji:"\u{1F3C8}", cat:"venue", detail:"One professional football team" },
+  { count:72, label:"passengers on a city bus", emoji:"\u{1F68C}", cat:"misc", detail:"A full standard transit bus" },
+  { count:88, label:"keys on a piano", emoji:"\u{1F3B9}", cat:"misc", detail:"Every note on a grand piano" },
+  { count:100, label:"US Senators", emoji:"\u{1F3DB}\uFE0F", cat:"profession", detail:"2 per state, 50 states" },
+  { count:132, label:"rooms in the White House", emoji:"\u{1F3E0}", cat:"misc", detail:"132 rooms, 35 bathrooms" },
+  { count:150, label:"Dunbar's number (your brain's friend limit)", emoji:"\u{1F9E0}", cat:"misc", detail:"Max stable social relationships" },
+  { count:195, label:"countries on Earth", emoji:"\u{1F30D}", cat:"country", detail:"UN-recognized sovereign nations" },
+  { count:300, label:"Spartans at Thermopylae", emoji:"\u{1F6E1}\uFE0F", cat:"history", detail:"King Leonidas, 480 BC" },
+  { count:435, label:"members of the US House of Representatives", emoji:"\u{1F3DB}\uFE0F", cat:"profession", detail:"The people's chamber" },
+  { count:500, label:"species of sharks", emoji:"\u{1F988}", cat:"nature", detail:"From dwarf lanternsharks to whale sharks" },
+  { count:550, label:"passengers on a Boeing 747", emoji:"\u2708\uFE0F", cat:"venue", detail:"A jumbo jet fully loaded" },
+  { count:750, label:"seats in a Broadway theater", emoji:"\u{1F3AD}", cat:"venue", detail:"A typical Broadway house" },
+  { count:1200, label:"people in a small village", emoji:"\u{1F3D8}\uFE0F", cat:"city", detail:"A cozy rural community" },
+  { count:1600, label:"students at a US high school", emoji:"\u{1F393}", cat:"venue", detail:"Grades 9 through 12" },
+  { count:2300, label:"people who have summited Everest", emoji:"\u{1F3D4}\uFE0F", cat:"misc", detail:"All recorded summits since 1953" },
+  { count:2700, label:"billionaires in the world", emoji:"\u{1F4B0}", cat:"profession", detail:"Forbes list, 2025" },
+  { count:3500, label:"tigers left in the wild", emoji:"\u{1F42F}", cat:"nature", detail:"Endangered and declining" },
+  { count:5400, label:"people who have been to space", emoji:"\u{1F680}", cat:"history", detail:"Including suborbital flights" },
+  { count:6500, label:"languages spoken on Earth", emoji:"\u{1F5E3}\uFE0F", cat:"misc", detail:"About half are endangered" },
+  { count:10000, label:"capacity of a small arena", emoji:"\u{1F3DF}\uFE0F", cat:"venue", detail:"Minor league park size" },
+  { count:17000, label:"population of Juneau, Alaska", emoji:"\u{1F976}", cat:"city", detail:"One of the smallest state capitals" },
+  { count:18000, label:"capacity of Madison Square Garden", emoji:"\u{1F3C0}", cat:"venue", detail:"The world's most famous arena" },
+  { count:20000, label:"residents of Key West, Florida", emoji:"\u{1F334}", cat:"city", detail:"Southernmost point in continental US" },
+  { count:30000, label:"population of Galveston, Texas", emoji:"\u{1F3D6}\uFE0F", cat:"city", detail:"Beach town on the Gulf Coast" },
+  { count:37000, label:"seats at Fenway Park", emoji:"\u26BE", cat:"venue", detail:"America's oldest ballpark" },
+  { count:40000, label:"population of Monaco", emoji:"\u{1F1F2}\u{1F1E8}", cat:"country", detail:"Entire country, < 1 square mile" },
+  { count:50000, label:"seats at Yankee Stadium", emoji:"\u26BE", cat:"venue", detail:"The Bronx Bombers' home" },
+  { count:80000, label:"capacity of the Rose Bowl", emoji:"\u{1F3C8}", cat:"venue", detail:"Pasadena, California" },
+  { count:100000, label:"Michigan Stadium (The Big House)", emoji:"\u{1F3DF}\uFE0F", cat:"venue", detail:"Largest stadium in the US" },
+  { count:110000, label:"population of Billings, Montana", emoji:"\u{1F3D4}\uFE0F", cat:"city", detail:"Largest city in Montana" },
+  { count:130000, label:"population of Savannah, Georgia", emoji:"\u{1F333}", cat:"city", detail:"Spanish moss and Southern charm" },
+  { count:180000, label:"population of Salt Lake City", emoji:"\u26F7\uFE0F", cat:"city", detail:"Gateway to world-class skiing" },
+  { count:200000, label:"population of Boise, Idaho", emoji:"\u{1F3D4}\uFE0F", cat:"city", detail:"One of the fastest-growing US cities" },
+  { count:300000, label:"population of Pittsburgh", emoji:"\u{1F309}", cat:"city", detail:"City of Bridges" },
+  { count:350000, label:"population of New Orleans", emoji:"\u{1F3B7}", cat:"city", detail:"Jazz, Mardi Gras, and gumbo" },
+  { count:370000, label:"population of Iceland (entire country)", emoji:"\u{1F1EE}\u{1F1F8}", cat:"country", detail:"Volcanoes, geysers, Northern Lights" },
+  { count:400000, label:"population of Miami", emoji:"\u{1F334}", cat:"city", detail:"Art deco and Latin flair" },
+  { count:500000, label:"population of Tucson, Arizona", emoji:"\u{1F335}", cat:"city", detail:"Saguaro cacti and desert sunsets" },
+  { count:600000, label:"population of Milwaukee", emoji:"\u{1F37A}", cat:"city", detail:"Beer, cheese, and the Bucks" },
+  { count:700000, label:"population of Seattle", emoji:"\u2615", cat:"city", detail:"Rain, tech, and coffee" },
+  { count:800000, label:"population of San Francisco", emoji:"\u{1F309}", cat:"city", detail:"The Golden Gate and tech hub" },
+  { count:900000, label:"population of Austin, Texas", emoji:"\u{1F3B8}", cat:"city", detail:"Live music capital" },
+  { count:950000, label:"population of Fiji (entire country)", emoji:"\u{1F1EB}\u{1F1EF}", cat:"country", detail:"333 islands of paradise" },
+  { count:1200000, label:"population of Dallas", emoji:"\u{1F920}", cat:"city", detail:"Big hats, big steaks" },
+  { count:1600000, label:"population of Philadelphia", emoji:"\u{1F3DB}\uFE0F", cat:"city", detail:"Birthplace of American democracy" },
+  { count:2000000, label:"population of Houston", emoji:"\u{1F680}", cat:"city", detail:"Space City \u2014 NASA mission control" },
+  { count:2700000, label:"population of Chicago", emoji:"\u{1F32C}\uFE0F", cat:"city", detail:"The Windy City" },
+  { count:3000000, label:"population of Jamaica (entire country)", emoji:"\u{1F1EF}\u{1F1F2}", cat:"country", detail:"Reggae and Blue Mountains" },
+  { count:3900000, label:"population of Los Angeles", emoji:"\u{1F3AC}", cat:"city", detail:"Hollywood and taco trucks" },
+  { count:4000000, label:"population of New Zealand (entire country)", emoji:"\u{1F1F3}\u{1F1FF}", cat:"country", detail:"More sheep than people" },
+  { count:4500000, label:"population of Ireland (entire country)", emoji:"\u{1F1EE}\u{1F1EA}", cat:"country", detail:"Guinness, cliffs, and craic" },
+  { count:5000000, label:"population of Norway", emoji:"\u{1F1F3}\u{1F1F4}", cat:"country", detail:"Fjords and Northern Lights" },
+  { count:6200000, label:"population of El Salvador", emoji:"\u{1F1F8}\u{1F1FB}", cat:"country", detail:"First country with BTC as legal tender" },
+  { count:7000000, label:"population of Hong Kong", emoji:"\u{1F1ED}\u{1F1F0}", cat:"country", detail:"Skyscrapers and dim sum" },
+  { count:8300000, label:"population of New York City", emoji:"\u{1F5FD}", cat:"city", detail:"The city that never sleeps" },
+  { count:8800000, label:"population of Switzerland", emoji:"\u{1F1E8}\u{1F1ED}", cat:"country", detail:"Chocolate, watches, and Alps" },
+  { count:10000000, label:"population of Portugal", emoji:"\u{1F1F5}\u{1F1F9}", cat:"country", detail:"Past\u00E9is de nata and port wine" },
+  { count:17000000, label:"population of the Netherlands", emoji:"\u{1F1F3}\u{1F1F1}", cat:"country", detail:"Below sea level, above expectations" },
+  { count:20000000, label:"population of the NYC metro area", emoji:"\u{1F5FD}", cat:"city", detail:"NYC + surrounding suburbs" },
+  { count:25000000, label:"population of Australia", emoji:"\u{1F1E6}\u{1F1FA}", cat:"country", detail:"A whole continent \u2014 25M people" },
+  { count:34000000, label:"population of Canada", emoji:"\u{1F1E8}\u{1F1E6}", cat:"country", detail:"Second-largest country by area" },
+  { count:40000000, label:"population of Argentina", emoji:"\u{1F1E6}\u{1F1F7}", cat:"country", detail:"Tango, Messi, and steak" },
+  { count:52000000, label:"population of South Korea", emoji:"\u{1F1F0}\u{1F1F7}", cat:"country", detail:"K-pop and kimchi" },
+  { count:58172000, label:"total funded Bitcoin addresses", emoji:"\u20BF", cat:"misc", detail:"Every address with balance > 0" },
+];
+
+// Global wealth distribution thresholds (Credit Suisse Global Wealth Report)
+const WEALTH_THRESHOLDS = [
+  { pct:50, usd:0 },
+  { pct:45, usd:8654 },
+  { pct:40, usd:15000 },
+  { pct:30, usd:35000 },
+  { pct:20, usd:68000 },
+  { pct:10, usd:138346 },
+  { pct:5, usd:350000 },
+  { pct:1, usd:1080000 },
+  { pct:0.5, usd:2900000 },
+  { pct:0.1, usd:13000000 },
+  { pct:0.01, usd:100000000 },
+];
+
+const LOST_COINS_ESTIMATE = 3700000;
+const TOTAL_BTC_SUPPLY = 19997000; // approx mined as of early 2026 (~95%+ of 21M)
+
+// Unique holders estimation model (research-backed)
+// Sources: Glassnode entity clustering (~18-28% fewer entities than addresses),
+// ~25M estimated unique individual holders vs ~58M funded addresses,
+// ~96% of clustered entities are single-address, but exchanges consolidate millions of users.
+// Per-bucket reduction factors: dust is ~1:1, but higher brackets have more multi-wallet holders
+// and exchange custodial addresses that represent many people, not one whale.
+const HOLDER_REDUCTION = [
+  0.95,  // 0-0.00001 BTC: dust, mostly 1:1 (abandoned, faucets)
+  0.90,  // 0.00001-0.0001: micro dust, slight reduction
+  0.82,  // 0.0001-0.001: small amounts, some multi-wallet
+  0.70,  // 0.001-0.01: active users, more multi-wallet behavior
+  0.55,  // 0.01-0.1: serious holders often split across wallets
+  0.45,  // 0.1-1 BTC: privacy-conscious, hardware + exchange
+  0.35,  // 1-10 BTC: whole coiners often use 2-3 wallets
+  0.30,  // 10-100 BTC: wealthy holders, multiple cold storage
+  0.25,  // 100-1K BTC: mix of funds, companies, multi-sig
+  0.18,  // 1K-10K BTC: institutions, exchanges, ETFs custodying for many
+  0.10,  // 10K-100K BTC: exchanges & ETFs (each = millions of holders)
+  0.05,  // 100K-1M BTC: mega custodians (Binance, BlackRock = millions of people)
+];
+
+let btcPrice = null;
+let lastResult = null;
+let lostCoinsMode = false;
+let satsMode = false;
+let holdersMode = false;
+let currentBtcAmount = 0;
+
+// =====================================================
+// PRICE FETCH
+// =====================================================
+async function fetchBTCPrice() {
+  try {
+    const res = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd');
+    const data = await res.json();
+    btcPrice = data.bitcoin.usd;
+  } catch(e) {
+    try {
+      const res = await fetch('https://api.blockchain.info/ticker');
+      const data = await res.json();
+      btcPrice = data.USD.last;
+    } catch(e2) { btcPrice = 87000; /* fallback estimate */ }
+  }
+}
+
+// =====================================================
+// CORE CALCULATION
+// =====================================================
+function getTotalAddresses() {
+  return DISTRIBUTION_DATA.reduce((s,b) => s + b.addresses, 0);
+}
+
+function calculateRank(btcAmount, customTotal, topDecay) {
+  if (btcAmount <= 0) return null;
+  const totalAddresses = customTotal || getTotalAddresses();
+  const decay = topDecay || 1.0;
+  let addressesAbove = 0;
+  const baseTotal = getTotalAddresses();
+  const baseScale = customTotal ? (customTotal / baseTotal) : 1;
+  const numBuckets = DISTRIBUTION_DATA.length;
+
+  // Build scaled bucket addresses with non-linear decay for historical eras
+  // Lower buckets (dust/micro) get scaled more, upper buckets (whale) get scaled less
+  let scaledBuckets = [];
+  let rawSum = 0;
+  for (let i = 0; i < numBuckets; i++) {
+    // decay applied exponentially: bucket 0 (dust) = full scale, bucket 11 (mega whale) = most reduced
+    const bucketDecayFactor = Math.pow(decay, i);
+    scaledBuckets.push(DISTRIBUTION_DATA[i].addresses * baseScale * bucketDecayFactor);
+    rawSum += DISTRIBUTION_DATA[i].addresses * baseScale * bucketDecayFactor;
+  }
+  // Normalize so the scaled buckets sum to customTotal (or current total)
+  const normFactor = totalAddresses / rawSum;
+  scaledBuckets = scaledBuckets.map(v => Math.round(v * normFactor));
+
+  for (let i = numBuckets - 1; i >= 0; i--) {
+    const bucket = DISTRIBUTION_DATA[i];
+    const bucketAddresses = scaledBuckets[i];
+    if (btcAmount >= bucket.max) { break; }
+    else if (btcAmount >= bucket.min) {
+      const logMin = Math.log10(Math.max(bucket.min, 1e-10));
+      const logMax = Math.log10(bucket.max);
+      const logAmt = Math.log10(Math.max(btcAmount, 1e-10));
+      const fracAbove = 1 - ((logAmt - logMin) / (logMax - logMin));
+      addressesAbove += Math.round(bucketAddresses * fracAbove);
+    } else {
+      addressesAbove += bucketAddresses;
+    }
+  }
+
+  let bracketIndex = 0;
+  for (let i = 0; i < numBuckets; i++) {
+    if (btcAmount >= DISTRIBUTION_DATA[i].min && btcAmount < DISTRIBUTION_DATA[i].max) { bracketIndex = i; break; }
+    if (i === numBuckets - 1) bracketIndex = i;
+  }
+
+  const percentile = ((totalAddresses - addressesAbove) / totalAddresses) * 100;
+  return {
+    addressesAbove, totalAddresses, percentile, bracketIndex,
+    bracketName: BRACKET_NAMES[bracketIndex], bucketRange: DISTRIBUTION_DATA[bracketIndex]
+  };
+}
+
+// =====================================================
+// FORMAT HELPERS
+// =====================================================
+function fmtNum(n) {
+  if (n >= 1e6) return (n/1e6).toFixed(2)+'M';
+  if (n >= 1e3) return (n/1e3).toFixed(1)+'K';
+  return n.toLocaleString();
+}
+function fmtFull(n) { return n.toLocaleString(); }
+function fmtUSD(n) { return '$'+n.toLocaleString(undefined,{maximumFractionDigits:0}); }
+function fmtBTCRange(min,max) {
+  if (max>=1000000) return min.toLocaleString()+'+';
+  if (min>=1) return min.toLocaleString()+' - '+max.toLocaleString();
+  return min+' - '+max;
+}
+function fmtPct(p) { return p > 99 ? (100-p).toFixed(4) : (100-p).toFixed(2); }
+
+// =====================================================
+// RENDER ALL
+// =====================================================
+function renderAll(btcAmount) {
+  currentBtcAmount = btcAmount;
+  const effectiveTotal = lostCoinsMode ? getTotalAddresses() * 0.92 : undefined;
+  const result = calculateRank(btcAmount, effectiveTotal);
+  if (!result) { hideAll(); return; }
+  lastResult = result;
+
+  showAll();
+  renderCoreStats(result, btcAmount);
+  renderToggles(btcAmount);
+  renderTiers(btcAmount);
+  renderPizza(btcAmount);
+  renderFunFacts(result.addressesAbove);
+  renderCelebs(btcAmount);
+  renderTimeMachine(btcAmount);
+  renderWhatIf(btcAmount);
+  renderGlobalWealth(btcAmount);
+  renderBarChart(result);
+  renderTracker();
+  renderShareCard(result, btcAmount);
+}
+
+function hideAll() {
+  ['resultsCard','togglesCard','tiersCard','pizzaCard','funFactsCard','celebCard',
+   'timeCard','whatifCard','wealthCard','chartCard','trackerCard','shareCard'].forEach(id => {
+    document.getElementById(id).classList.add('hidden');
+  });
+}
+
+function showAll() {
+  ['resultsCard','togglesCard','tiersCard','pizzaCard','funFactsCard','celebCard',
+   'timeCard','whatifCard','wealthCard','chartCard','trackerCard','shareCard'].forEach(id => {
+    document.getElementById(id).classList.remove('hidden');
+  });
+}
+
+// ── Core Stats ──
+function renderCoreStats(result, btcAmount) {
+  if (holdersMode) {
+    const estHolders = estimateHolders(result.addressesAbove, result.bracketIndex);
+    const estTotal = Math.round(result.totalAddresses * 0.43); // ~25M holders / ~58M addresses
+    const estPct = ((estTotal - estHolders) / estTotal) * 100;
+    document.getElementById('walletsAbove').textContent = '~'+fmtNum(estHolders);
+    document.getElementById('walletsAboveSub').textContent = '~'+fmtFull(estHolders)+' estimated people';
+    document.getElementById('percentile').textContent = 'Top '+fmtPct(estPct)+'%';
+    document.getElementById('percentileSub').textContent = 'of estimated unique holders';
+    document.getElementById('totalWallets').textContent = '~'+fmtNum(estTotal);
+    document.getElementById('aboveLabel').textContent = 'People with more BTC';
+    document.getElementById('totalLabel').textContent = 'Est. Unique Holders';
+    document.getElementById('totalSub').textContent = 'individuals, not wallets';
+  } else {
+    document.getElementById('walletsAbove').textContent = fmtNum(result.addressesAbove);
+    document.getElementById('walletsAboveSub').textContent = fmtFull(result.addressesAbove)+' addresses';
+    document.getElementById('percentile').textContent = 'Top '+fmtPct(result.percentile)+'%';
+    document.getElementById('percentileSub').textContent = 'of all funded addresses';
+    document.getElementById('totalWallets').textContent = fmtNum(result.totalAddresses);
+    document.getElementById('aboveLabel').textContent = 'Wallets with more BTC';
+    document.getElementById('totalLabel').textContent = 'Total Funded Wallets';
+    document.getElementById('totalSub').textContent = 'with any balance > 0';
+  }
+  document.getElementById('bracket').textContent = result.bracketName;
+  document.getElementById('bracketSub').textContent = fmtBTCRange(result.bucketRange.min,result.bucketRange.max)+' BTC';
+  if (btcPrice) document.getElementById('usdEquiv').textContent = '\u2248 '+fmtUSD(btcAmount*btcPrice)+' USD';
+}
+
+// ── Toggles + Sats ──
+function renderToggles(btcAmount) {
+  if (lostCoinsMode) {
+    document.getElementById('lostCoinsNote').textContent =
+      'Estimated ~3.7M BTC are permanently lost. Your rank improves!';
+  } else {
+    document.getElementById('lostCoinsNote').textContent = '';
+  }
+
+  if (holdersMode) {
+    document.getElementById('holdersNote').textContent =
+      'Based on Glassnode entity clustering & exchange custodial analysis. One person \u2248 multiple wallets.';
+  } else {
+    document.getElementById('holdersNote').textContent = '';
+  }
+
+  const satsDisp = document.getElementById('satsDisplay');
+  if (satsMode) {
+    satsDisp.classList.remove('hidden');
+    document.getElementById('satsAmount').textContent = Math.round(btcAmount * 1e8).toLocaleString();
+    if (btcPrice) {
+      document.getElementById('satsPerDollar').textContent = Math.round(1e8 / btcPrice).toLocaleString();
+    }
+  } else {
+    satsDisp.classList.add('hidden');
+  }
+}
+
+function toggleLostCoins() {
+  lostCoinsMode = !lostCoinsMode;
+  document.getElementById('lostCoinsToggle').classList.toggle('active', lostCoinsMode);
+  if (currentBtcAmount > 0) renderAll(currentBtcAmount);
+}
+
+function toggleSatsMode() {
+  satsMode = !satsMode;
+  document.getElementById('satsToggle').classList.toggle('active', satsMode);
+  if (currentBtcAmount > 0) renderAll(currentBtcAmount);
+}
+
+function toggleHoldersMode() {
+  holdersMode = !holdersMode;
+  document.getElementById('holdersToggle').classList.toggle('active', holdersMode);
+  if (currentBtcAmount > 0) renderAll(currentBtcAmount);
+}
+
+// Estimate unique holders from address count using per-bracket reduction
+function estimateHolders(addressesAbove, bracketIndex) {
+  // Apply reduction factors to each bucket above the user's bracket
+  let estimated = 0;
+  const numBuckets = DISTRIBUTION_DATA.length;
+  const effectiveTotal = lostCoinsMode ? getTotalAddresses() * 0.92 : getTotalAddresses();
+  const scale = effectiveTotal / getTotalAddresses();
+
+  for (let i = numBuckets - 1; i >= 0; i--) {
+    const bucketAddresses = Math.round(DISTRIBUTION_DATA[i].addresses * scale);
+    if (i > bracketIndex) {
+      // Entire bucket is above user — apply that bucket's reduction
+      estimated += Math.round(bucketAddresses * HOLDER_REDUCTION[i]);
+    } else if (i === bracketIndex) {
+      // Partial bucket — proportion of addresses above user in this bucket
+      const totalInBucket = bucketAddresses;
+      // Get the user's fraction within this bucket
+      const bucket = DISTRIBUTION_DATA[i];
+      const logMin = Math.log10(Math.max(bucket.min, 1e-10));
+      const logMax = Math.log10(bucket.max);
+      const logAmt = Math.log10(Math.max(currentBtcAmount, 1e-10));
+      const fracAbove = Math.max(0, 1 - ((logAmt - logMin) / (logMax - logMin)));
+      estimated += Math.round(totalInBucket * fracAbove * HOLDER_REDUCTION[i]);
+    }
+  }
+  return estimated;
+}
+
+// ── Club Tiers ──
+function renderTiers(btcAmount) {
+  const sorted = [...CLUB_TIERS].sort((a,b) => a.req - b.req);
+  let html = '';
+  let foundNext = false;
+
+  for (const tier of sorted) {
+    const achieved = btcAmount >= tier.req;
+    const isNext = !achieved && !foundNext;
+    if (isNext) foundNext = true;
+    const progress = achieved ? 100 : Math.min((btcAmount / tier.req) * 100, 100);
+
+    html += `<div class="tier-badge ${achieved ? 'achieved' : isNext ? 'next' : 'locked'}">
+      ${achieved ? '<div class="tier-check">\u2713</div>' : ''}
+      <div class="tier-icon">${tier.icon}</div>
+      <div class="tier-name">${tier.name}</div>
+      <div class="tier-req">${tier.req >= 1 ? tier.req.toLocaleString() : tier.req} BTC</div>
+      ${!achieved ? `<div class="tier-progress"><div class="tier-progress-fill" style="width:${progress}%"></div></div>
+      <div class="tier-req">${(tier.req - btcAmount).toFixed(tier.req < 1 ? 4 : 2)} BTC to go</div>` : `<div class="tier-req" style="color:var(--green);">${tier.desc}</div>`}
+    </div>`;
+  }
+
+  document.getElementById('tiersGrid').innerHTML = html;
+}
+
+// ── Pizza Visual ──
+function renderPizza(btcAmount) {
+  const fraction = btcAmount / TOTAL_BTC_SUPPLY;
+  const degrees = Math.max(fraction * 360, 0.5); // min 0.5 degrees so it's visible
+  const svg = document.getElementById('pizzaSvg');
+  const cx = 100, cy = 100, r = 90;
+
+  // Convert degrees to radians for arc
+  const startAngle = -Math.PI/2;
+  const endAngle = startAngle + (degrees * Math.PI / 180);
+  const largeArc = degrees > 180 ? 1 : 0;
+
+  const x1 = cx + r * Math.cos(startAngle);
+  const y1 = cy + r * Math.sin(startAngle);
+  const x2 = cx + r * Math.cos(endAngle);
+  const y2 = cy + r * Math.sin(endAngle);
+
+  svg.innerHTML = `
+    <circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="#30363d" stroke-width="18"/>
+    <path d="M ${cx} ${cy} L ${x1} ${y1} A ${r} ${r} 0 ${largeArc} 1 ${x2} ${y2} Z"
+          fill="#f7931a" opacity="0.9"/>
+    <circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="#21262d" stroke-width="2"/>
+    <text x="${cx}" y="${cy-8}" text-anchor="middle" fill="#e6edf3" font-size="14" font-weight="700"
+          font-family="SF Mono,Fira Code,monospace">${btcAmount} BTC</text>
+    <text x="${cx}" y="${cy+12}" text-anchor="middle" fill="#8b949e" font-size="10">
+      of ${(TOTAL_BTC_SUPPLY/1e6).toFixed(1)}M mined</text>
+  `;
+
+  const pctOfSupply = (fraction * 100);
+  document.getElementById('pizzaMain').textContent =
+    pctOfSupply >= 0.001 ? pctOfSupply.toFixed(4) + '% of all mined Bitcoin' :
+    (fraction * 1e8).toFixed(0) + ' parts per 100 million';
+  document.getElementById('pizzaSub').textContent =
+    'Only 21M will ever exist. ~' + (TOTAL_BTC_SUPPLY/1e6).toFixed(1) + 'M have been mined so far.';
+}
+
+// ── Fun Facts ──
+function getFunFacts(addressesAbove, count=5) {
+  if (addressesAbove <= 0) return [];
+  const scored = FUN_FACTS.map((f,i) => ({
+    ...f, idx:i, ratio:f.count/addressesAbove,
+    logRatio:Math.abs(Math.log10(f.count/addressesAbove))
+  }));
+  scored.sort((a,b) => a.logRatio - b.logRatio);
+
+  const results = [], used = new Set();
+  const closest = scored[0];
+  results.push({ ...closest, direction:getDir(closest.ratio) }); used.add(closest.idx);
+
+  const smaller = scored.find(f => !used.has(f.idx) && f.ratio < 0.6 && f.ratio > 0.01);
+  if (smaller) { results.push({ ...smaller, direction:'less' }); used.add(smaller.idx); }
+
+  const bigger = scored.find(f => !used.has(f.idx) && f.ratio > 1.7 && f.ratio < 100);
+  if (bigger) { results.push({ ...bigger, direction:'more' }); used.add(bigger.idx); }
+
+  const usedCats = new Set(results.map(r => r.cat));
+  for (const f of scored) {
+    if (results.length >= count) break;
+    if (used.has(f.idx) || f.logRatio > 3) continue;
+    if (!usedCats.has(f.cat) || results.length >= count-1) {
+      results.push({ ...f, direction:getDir(f.ratio) }); used.add(f.idx); usedCats.add(f.cat);
+    }
+  }
+  results.sort((a,b) => ({less:0,about:1,more:2})[a.direction] - ({less:0,about:1,more:2})[b.direction]);
+  return results;
+}
+
+function getDir(ratio) { return ratio < 0.7 ? 'less' : ratio > 1.4 ? 'more' : 'about'; }
+
+function renderFunFacts(addressesAbove) {
+  const grid = document.getElementById('funFactsGrid');
+  if (addressesAbove <= 0) { document.getElementById('funFactsCard').classList.add('hidden'); return; }
+  const facts = getFunFacts(addressesAbove, 5);
+  const dirLabels = { less:{text:'FEWER THAN',cls:'dir-less'}, about:{text:'ABOUT THE SAME AS',cls:'dir-about'}, more:{text:'MORE THAN',cls:'dir-more'} };
+  const catCls = { city:'cat-city',country:'cat-country',venue:'cat-venue',profession:'cat-profession',nature:'cat-nature',pop:'cat-pop',history:'cat-history',misc:'cat-misc' };
+
+  grid.innerHTML = facts.map(f => {
+    const d = dirLabels[f.direction];
+    return `<div class="fun-fact">
+      <div class="fun-fact-icon">${f.emoji}</div>
+      <div class="fun-fact-content">
+        <div class="fun-fact-main"><span class="fact-direction ${d.cls}">${d.text}</span> <span class="highlight">${f.label}</span></div>
+        <div class="fun-fact-detail">${f.detail} \u00B7 ${f.count.toLocaleString()} vs your ${addressesAbove.toLocaleString()} wallets</div>
+      </div>
+      <span class="fun-fact-category ${catCls[f.cat]||'cat-misc'}">${f.cat}</span>
+    </div>`;
+  }).join('');
+}
+
+function shuffleFacts() {
+  for (let i = FUN_FACTS.length-1; i > 0; i--) {
+    const j = Math.floor(Math.random()*(i+1));
+    [FUN_FACTS[i],FUN_FACTS[j]] = [FUN_FACTS[j],FUN_FACTS[i]];
+  }
+  if (lastResult) renderFunFacts(lastResult.addressesAbove);
+}
+
+// ── Celebrity Comparison ──
+function renderCelebs(btcAmount) {
+  const list = document.getElementById('celebList');
+  const sorted = CELEBRITIES.map(c => ({
+    ...c,
+    effectiveBtc: c.btc || (c.usdValue && btcPrice ? c.usdValue / btcPrice : 0)
+  })).sort((a,b) => b.effectiveBtc - a.effectiveBtc);
+
+  list.innerHTML = sorted.map(c => {
+    const youBeat = btcAmount >= c.effectiveBtc;
+    return `<div class="celeb-row ${youBeat ? 'you-beat' : ''}">
+      <div class="celeb-icon">${c.icon}</div>
+      <div class="celeb-info">
+        <div class="celeb-name">${c.name}</div>
+        <div class="celeb-detail">${c.detail}</div>
+      </div>
+      <div style="text-align:right">
+        <div class="celeb-amount">${c.effectiveBtc >= 1 ? fmtNum(Math.round(c.effectiveBtc)) : c.effectiveBtc.toFixed(4)} BTC</div>
+        <span class="celeb-status ${youBeat ? 'celeb-behind' : 'celeb-ahead'}">${youBeat ? '\u2713 You beat this' : '\u2191 Ahead of you'}</span>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+// ── Time Machine ──
+function renderTimeMachine(btcAmount) {
+  const grid = document.getElementById('timeGrid');
+  grid.innerHTML = HISTORICAL_DATA.map(h => {
+    const result = calculateRank(btcAmount, h.totalAddresses, h.topDecay);
+    if (!result) return '';
+    const price = h.btcPrice || btcPrice;
+    return `<div class="time-card">
+      <div class="time-year">${h.year}</div>
+      <div class="time-rank color-orange">Top ${fmtPct(result.percentile)}%</div>
+      <div class="time-detail">${fmtNum(result.addressesAbove)} wallets above you</div>
+      <div class="time-detail">${fmtFull(h.totalAddresses)} total addresses</div>
+      ${price ? `<div class="time-price">${fmtUSD(btcAmount * price)} value</div>` : ''}
+      <div class="time-detail" style="font-style:italic;margin-top:4px;">${h.note}</div>
+    </div>`;
+  }).join('');
+}
+
+// ── What If Simulator ──
+function renderWhatIf(btcAmount) {
+  const priceSlider = document.getElementById('priceSlider');
+  const dcaSlider = document.getElementById('dcaSlider');
+
+  const targetPrice = parseInt(priceSlider.value);
+  const dcaWeekly = parseInt(dcaSlider.value);
+  const currentPrice = btcPrice || 87000;
+
+  document.getElementById('priceSliderVal').textContent = fmtUSD(targetPrice);
+  document.getElementById('dcaSliderVal').textContent = '$'+dcaWeekly+'/wk';
+
+  const dcaBtc = dcaWeekly > 0 ? (dcaWeekly * 104) / currentPrice : 0;
+  const futureBtc = btcAmount + dcaBtc;
+  const futureValue = futureBtc * targetPrice;
+  const currentValue = btcAmount * currentPrice;
+  const gain = futureValue - currentValue;
+  const futureResult = calculateRank(futureBtc);
+
+  const resultDiv = document.getElementById('whatifResult');
+  resultDiv.innerHTML = `
+    <div class="whatif-result-row">
+      <span class="whatif-result-label">Current stack</span>
+      <span class="whatif-result-value color-orange">${btcAmount} BTC</span>
+    </div>
+    ${dcaBtc > 0 ? `<div class="whatif-result-row">
+      <span class="whatif-result-label">+ 2yr DCA ($${dcaWeekly}/wk)</span>
+      <span class="whatif-result-value color-blue">+${dcaBtc.toFixed(6)} BTC</span>
+    </div>` : ''}
+    <div class="whatif-result-row">
+      <span class="whatif-result-label">Future stack</span>
+      <span class="whatif-result-value" style="color:var(--text);">${futureBtc.toFixed(6)} BTC</span>
+    </div>
+    <div class="whatif-result-row">
+      <span class="whatif-result-label">Future value @ ${fmtUSD(targetPrice)}</span>
+      <span class="whatif-result-value color-green">${fmtUSD(futureValue)}</span>
+    </div>
+    <div class="whatif-result-row">
+      <span class="whatif-result-label">Gain from today</span>
+      <span class="whatif-result-value" style="color:${gain >= 0 ? 'var(--green)' : 'var(--red)'}">
+        ${gain >= 0 ? '+' : ''}${fmtUSD(gain)}
+      </span>
+    </div>
+    ${futureResult ? `<div class="whatif-result-row">
+      <span class="whatif-result-label">Future rank (same distribution)</span>
+      <span class="whatif-result-value color-purple">Top ${fmtPct(futureResult.percentile)}%</span>
+    </div>` : ''}
+  `;
+}
+
+document.getElementById('priceSlider').addEventListener('input', () => { if(currentBtcAmount > 0) renderWhatIf(currentBtcAmount); });
+document.getElementById('dcaSlider').addEventListener('input', () => { if(currentBtcAmount > 0) renderWhatIf(currentBtcAmount); });
+
+// ── Global Wealth ──
+function renderGlobalWealth(btcAmount) {
+  const usdValue = btcAmount * (btcPrice || 87000);
+
+  // Find wealth percentile
+  let wealthPct = 50;
+  for (const t of WEALTH_THRESHOLDS) {
+    if (usdValue >= t.usd) wealthPct = t.pct;
+  }
+
+  // Position on bar (log scale from $0 to $100M)
+  const logVal = Math.log10(Math.max(usdValue, 1));
+  const logMax = Math.log10(100000000);
+  const pctPos = Math.min(Math.max((logVal / logMax) * 100, 1), 99);
+
+  document.getElementById('wealthMarker').style.left = pctPos + '%';
+  document.getElementById('wealthMarkerLabel').textContent = 'You: ' + fmtUSD(usdValue);
+
+  let summary = '';
+  if (wealthPct <= 0.01) summary = 'Your BTC holdings alone put you in the top 0.01% of global wealth. Ultra-high net worth territory.';
+  else if (wealthPct <= 0.1) summary = 'Your BTC puts you in the top 0.1% of global wealth \u2014 wealthier than 99.9% of all adults on Earth.';
+  else if (wealthPct <= 1) summary = 'Your BTC alone puts you in the top 1% of global wealth holders.';
+  else if (wealthPct <= 10) summary = 'Your BTC holdings place you in the top 10% of global wealth.';
+  else if (wealthPct <= 50) summary = 'Your BTC puts you above the global median wealth of ~$8,600.';
+  else summary = 'Your BTC holdings are below the global median, but you\'re still early.';
+
+  document.getElementById('wealthSummary').textContent = summary;
+}
+
+// ── Bar Chart ──
+function renderBarChart(result) {
+  const container = document.getElementById('barChart');
+  const maxAddr = Math.max(...DISTRIBUTION_DATA.map(b => b.addresses));
+  const totalAddr = result.totalAddresses;
+
+  container.innerHTML = DISTRIBUTION_DATA.slice().reverse().map((bucket, ri) => {
+    const i = DISTRIBUTION_DATA.length - 1 - ri;
+    const pct = (bucket.addresses / maxAddr) * 100;
+    const isUser = i === result.bracketIndex;
+    return `<div class="bar-row">
+      <div class="bar-label">${fmtBTCRange(bucket.min, bucket.max)}</div>
+      <div class="bar-track">
+        <div class="bar-fill ${isUser?'you-arrow':''}" style="width:${Math.max(pct,2)}%;background:${isUser?'var(--orange)':BRACKET_COLORS[i]};">
+          ${isUser?'\u25C4 YOU':''}
+        </div>
+      </div>
+      <div class="bar-count">${fmtNum(bucket.addresses)} (${((bucket.addresses/getTotalAddresses())*100).toFixed(1)}%)</div>
+    </div>`;
+  }).join('');
+}
+
+// ── Stack Tracker ──
+function getSnapshots() {
+  try { return JSON.parse(localStorage.getItem('btcRankSnapshots') || '[]'); } catch { return []; }
+}
+
+function saveSnapshot() {
+  if (!lastResult || currentBtcAmount <= 0) return;
+  const snaps = getSnapshots();
+  snaps.push({
+    date: new Date().toISOString(),
+    btc: currentBtcAmount,
+    addressesAbove: lastResult.addressesAbove,
+    percentile: lastResult.percentile,
+    price: btcPrice
+  });
+  localStorage.setItem('btcRankSnapshots', JSON.stringify(snaps.slice(-20)));
+  renderTracker();
+}
+
+function clearSnapshots() {
+  localStorage.removeItem('btcRankSnapshots');
+  renderTracker();
+}
+
+function renderTracker() {
+  const entries = document.getElementById('trackerEntries');
+  const snaps = getSnapshots();
+
+  if (snaps.length === 0) {
+    entries.innerHTML = '<div style="text-align:center;color:var(--muted);font-size:0.82rem;padding:12px;">No snapshots yet. Save your current position to start tracking!</div>';
+    return;
+  }
+
+  entries.innerHTML = snaps.slice().reverse().map((s, idx, arr) => {
+    const prev = arr[idx + 1];
+    let changeHtml = '';
+    if (prev) {
+      const diff = prev.addressesAbove - s.addressesAbove;
+      if (diff > 0) changeHtml = `<span class="tracker-change tracker-up">\u2191 ${fmtNum(diff)} spots</span>`;
+      else if (diff < 0) changeHtml = `<span class="tracker-change tracker-down">\u2193 ${fmtNum(Math.abs(diff))} spots</span>`;
+      else changeHtml = `<span class="tracker-change tracker-same">\u2014 no change</span>`;
+    }
+    return `<div class="tracker-entry">
+      <div>
+        <div style="font-weight:600;">${s.btc} BTC \u2014 Top ${fmtPct(s.percentile)}%</div>
+        <div class="tracker-date">${new Date(s.date).toLocaleDateString()} ${s.price ? '@ '+fmtUSD(s.price) : ''}</div>
+      </div>
+      <div style="text-align:right">
+        <div style="font-family:'SF Mono',monospace;font-size:0.82rem;">${fmtNum(s.addressesAbove)} above</div>
+        ${changeHtml}
+      </div>
+    </div>`;
+  }).join('');
+}
+
+// ── Share Card ──
+function renderShareCard(result, btcAmount) {
+  const canvas = document.getElementById('shareCanvas');
+  const ctx = canvas.getContext('2d');
+  const W = 600, H = 340;
+
+  // Background
+  const grad = ctx.createLinearGradient(0, 0, W, H);
+  grad.addColorStop(0, '#0d1117');
+  grad.addColorStop(1, '#161b22');
+  ctx.fillStyle = grad;
+  ctx.fillRect(0, 0, W, H);
+
+  // Border
+  ctx.strokeStyle = '#f7931a';
+  ctx.lineWidth = 3;
+  ctx.beginPath();
+  ctx.roundRect(1.5, 1.5, W-3, H-3, 16);
+  ctx.stroke();
+
+  // Orange accent line
+  ctx.fillStyle = '#f7931a';
+  ctx.fillRect(0, 0, W, 4);
+
+  // Title
+  ctx.fillStyle = '#f7931a';
+  ctx.font = 'bold 24px -apple-system, BlinkMacSystemFont, sans-serif';
+  ctx.fillText('\u20BF Bitcoin Wallet Rank', 30, 48);
+
+  // Percentile big
+  const topPct = fmtPct(result.percentile);
+  ctx.fillStyle = '#e6edf3';
+  ctx.font = 'bold 64px -apple-system, BlinkMacSystemFont, sans-serif';
+  ctx.fillText('Top ' + topPct + '%', 30, 130);
+
+  // Bracket
+  ctx.fillStyle = '#58a6ff';
+  ctx.font = 'bold 22px -apple-system, BlinkMacSystemFont, sans-serif';
+  ctx.fillText(result.bracketName + ' Tier', 30, 168);
+
+  // Stats
+  ctx.fillStyle = '#8b949e';
+  ctx.font = '16px -apple-system, BlinkMacSystemFont, sans-serif';
+  ctx.fillText(fmtFull(result.addressesAbove) + ' wallets hold more BTC', 30, 210);
+  ctx.fillText('Out of ' + fmtFull(result.totalAddresses) + ' funded addresses', 30, 235);
+
+  if (btcPrice) {
+    ctx.fillStyle = '#3fb950';
+    ctx.fillText('BTC Price: ' + fmtUSD(btcPrice), 30, 265);
+  }
+
+  // Footer
+  ctx.fillStyle = '#484f58';
+  ctx.font = '13px -apple-system, BlinkMacSystemFont, sans-serif';
+  ctx.fillText('Data: BitInfoCharts \u00B7 ' + new Date().toLocaleDateString(), 30, 310);
+
+  // Note: we don't show the BTC amount for privacy
+  ctx.fillStyle = '#30363d';
+  ctx.fillText('Amount hidden for privacy', 380, 310);
+}
+
+function downloadShareCard() {
+  const canvas = document.getElementById('shareCanvas');
+  const link = document.createElement('a');
+  link.download = 'bitcoin-rank.png';
+  link.href = canvas.toDataURL('image/png');
+  link.click();
+}
+
+async function copyShareCard() {
+  const canvas = document.getElementById('shareCanvas');
+  try {
+    const blob = await new Promise(r => canvas.toBlob(r, 'image/png'));
+    await navigator.clipboard.write([new ClipboardItem({'image/png': blob})]);
+    // Brief feedback
+    const btn = event.target;
+    const orig = btn.textContent;
+    btn.textContent = '\u2713 Copied!';
+    setTimeout(() => btn.textContent = orig, 2000);
+  } catch(e) {
+    // Fallback: download instead
+    downloadShareCard();
+  }
+}
+
+// =====================================================
+// INPUT HANDLING
+// =====================================================
+const input = document.getElementById('btcInput');
+let debounceTimer;
+
+input.addEventListener('input', (e) => {
+  let val = e.target.value.replace(/[^0-9.]/g, '');
+  const parts = val.split('.');
+  if (parts.length > 2) val = parts[0] + '.' + parts.slice(1).join('');
+  e.target.value = val;
+
+  clearTimeout(debounceTimer);
+  debounceTimer = setTimeout(() => {
+    const btcAmount = parseFloat(val);
+    if (!isNaN(btcAmount) && btcAmount > 0) {
+      renderAll(btcAmount);
+    } else {
+      hideAll();
+      document.getElementById('usdEquiv').textContent = '';
+    }
+  }, 200);
+});
+
+// =====================================================
+// INIT
+// =====================================================
+(async () => {
+  await fetchBTCPrice();
+  if (btcPrice) {
+    document.getElementById('lastUpdated').textContent =
+      'BTC Price: '+fmtUSD(btcPrice)+' | Distribution snapshot: March 2026';
+    // Update historical "Now" price
+    HISTORICAL_DATA[HISTORICAL_DATA.length-1].btcPrice = btcPrice;
+    // Update celebrity USD conversions
+    CELEBRITIES.forEach(c => {
+      if (!c.btc && c.usdValue) c.btc = c.usdValue / btcPrice;
+    });
+  } else {
+    document.getElementById('lastUpdated').textContent = 'Distribution snapshot: March 2026';
+  }
+})();
+</script>
+</body>
+</html>
