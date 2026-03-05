@@ -3,357 +3,936 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Bitcoin Wallet Rank Dashboard</title>
+<title>Bitcoin Wallet Rank</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg: #0d1117;
-    --card: #161b22;
-    --border: #30363d;
-    --text: #e6edf3;
-    --muted: #8b949e;
+    --bg: #06080c;
+    --bg2: #0b0f16;
+    --card: rgba(14,18,27,0.72);
+    --card-solid: #0e121b;
+    --card-hover: rgba(20,25,38,0.85);
+    --border: rgba(255,255,255,0.06);
+    --border-hover: rgba(255,255,255,0.12);
+    --text: #eaf0f6;
+    --text-secondary: #a0aec0;
+    --muted: #64748b;
     --orange: #f7931a;
-    --orange-glow: rgba(247,147,26,0.25);
-    --green: #3fb950;
-    --blue: #58a6ff;
-    --purple: #bc8cff;
-    --red: #ff7b72;
-    --yellow: #fbbf24;
+    --orange-dim: rgba(247,147,26,0.12);
+    --orange-glow: rgba(247,147,26,0.3);
+    --green: #22c55e;
+    --green-dim: rgba(34,197,94,0.12);
+    --blue: #3b82f6;
+    --blue-dim: rgba(59,130,246,0.12);
+    --purple: #a78bfa;
+    --purple-dim: rgba(167,139,250,0.12);
+    --red: #ef4444;
+    --red-dim: rgba(239,68,68,0.12);
+    --yellow: #eab308;
+    --radius: 16px;
+    --radius-sm: 10px;
+    --mono: 'JetBrains Mono', 'SF Mono', 'Fira Code', monospace;
+    --sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   }
+
   * { margin:0; padding:0; box-sizing:border-box; }
+
+  html { scroll-behavior:smooth; }
+
   body {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    background: var(--bg); color: var(--text); min-height:100vh; padding:24px;
+    font-family: var(--sans);
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
   }
-  .container { max-width:960px; margin:0 auto; }
-  header { text-align:center; margin-bottom:32px; }
+
+  /* Ambient background */
+  body::before {
+    content: '';
+    position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+    background:
+      radial-gradient(ellipse 80% 60% at 50% -10%, rgba(247,147,26,0.07) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 50% at 80% 50%, rgba(59,130,246,0.04) 0%, transparent 50%),
+      radial-gradient(ellipse 60% 50% at 20% 80%, rgba(167,139,250,0.03) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .page-wrapper {
+    position: relative;
+    z-index: 1;
+    max-width: 880px;
+    margin: 0 auto;
+    padding: 40px 24px 60px;
+  }
+
+  /* ── Header ── */
+  header {
+    text-align: center;
+    margin-bottom: 48px;
+    animation: fadeUp 0.6s ease;
+  }
+
+  .logo-mark {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 56px; height: 56px;
+    background: linear-gradient(135deg, var(--orange), #e88a0c);
+    border-radius: 16px;
+    font-size: 1.6rem;
+    color: white;
+    margin-bottom: 20px;
+    box-shadow: 0 8px 32px rgba(247,147,26,0.25);
+  }
+
   header h1 {
-    font-size:2rem; font-weight:700; margin-bottom:6px;
+    font-size: 2.4rem;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    line-height: 1.1;
+    color: var(--text);
+    margin-bottom: 8px;
+  }
+
+  header h1 .accent {
     background: linear-gradient(135deg, var(--orange), #fbbf24);
-    -webkit-background-clip:text; -webkit-text-fill-color:transparent;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
   }
-  header p { color:var(--muted); font-size:0.95rem; }
 
+  header .subtitle {
+    color: var(--muted);
+    font-size: 1rem;
+    font-weight: 400;
+    letter-spacing: -0.01em;
+  }
+
+  .privacy-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 16px;
+    padding: 6px 14px;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid var(--border);
+    border-radius: 100px;
+    font-size: 0.75rem;
+    color: var(--muted);
+    cursor: help;
+    transition: all 0.2s;
+  }
+  .privacy-pill:hover {
+    background: rgba(255,255,255,0.06);
+    border-color: var(--border-hover);
+    color: var(--text-secondary);
+  }
+  .privacy-pill .dot {
+    width: 6px; height: 6px;
+    background: var(--green);
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .privacy-tooltip {
+    display: none;
+    position: absolute;
+    top: calc(100% + 8px);
+    left: 50%;
+    transform: translateX(-50%);
+    width: 320px;
+    padding: 12px 16px;
+    background: var(--card-solid);
+    border: 1px solid var(--border-hover);
+    border-radius: var(--radius-sm);
+    font-size: 0.78rem;
+    line-height: 1.6;
+    color: var(--text-secondary);
+    z-index: 100;
+    box-shadow: 0 16px 48px rgba(0,0,0,0.5);
+  }
+  .privacy-wrap { position: relative; display: inline-block; }
+  .privacy-wrap:hover .privacy-tooltip { display: block; }
+
+  /* ── Cards ── */
   .card {
-    background:var(--card); border:1px solid var(--border);
-    border-radius:12px; padding:24px; margin-bottom:20px;
+    background: var(--card);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 28px;
+    margin-bottom: 16px;
+    transition: border-color 0.3s, box-shadow 0.3s;
   }
+  .card:hover {
+    border-color: var(--border-hover);
+  }
+
   .card-title {
-    font-size:1rem; color:var(--muted); margin-bottom:16px;
-    display:flex; align-items:center; gap:8px;
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
   }
-  .card-title span { font-size:1.2rem; }
+  .card-title span { font-size: 1rem; }
 
-  /* Input */
-  .input-section { display:flex; flex-direction:column; align-items:center; gap:16px; }
-  .input-group { position:relative; width:100%; max-width:420px; }
-  .input-group label { display:block; font-size:0.85rem; color:var(--muted); margin-bottom:6px; font-weight:500; }
+  .section-label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 32px 0 16px;
+    font-size: 0.68rem;
+    font-weight: 600;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+  .section-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  /* ── Input ── */
+  .input-card {
+    background: var(--card);
+    backdrop-filter: blur(20px);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 36px 28px;
+    margin-bottom: 16px;
+    animation: fadeUp 0.6s ease 0.1s both;
+  }
+
+  .input-section { display: flex; flex-direction: column; align-items: center; gap: 12px; }
+  .input-group { position: relative; width: 100%; max-width: 440px; }
+  .input-group label {
+    display: block;
+    font-size: 0.78rem;
+    font-weight: 500;
+    color: var(--muted);
+    margin-bottom: 8px;
+    letter-spacing: 0.02em;
+  }
   .input-wrapper {
-    display:flex; align-items:center; background:var(--bg);
-    border:2px solid var(--border); border-radius:10px; overflow:hidden; transition:border-color 0.2s;
+    display: flex;
+    align-items: center;
+    background: var(--bg);
+    border: 1.5px solid rgba(255,255,255,0.08);
+    border-radius: 12px;
+    overflow: hidden;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
-  .input-wrapper:focus-within { border-color:var(--orange); box-shadow:0 0 0 3px var(--orange-glow); }
-  .btc-icon { padding:12px 14px; font-size:1.3rem; color:var(--orange); font-weight:700; }
+  .input-wrapper:focus-within {
+    border-color: var(--orange);
+    box-shadow: 0 0 0 4px var(--orange-dim), 0 0 40px rgba(247,147,26,0.08);
+  }
+  .btc-icon {
+    padding: 14px 16px;
+    font-size: 1.2rem;
+    color: var(--orange);
+    font-weight: 700;
+    opacity: 0.8;
+  }
   .input-wrapper input {
-    flex:1; background:transparent; border:none; outline:none; color:var(--text);
-    font-size:1.25rem; padding:12px 14px 12px 0; font-weight:600;
-    font-family:'SF Mono','Fira Code',monospace;
+    flex: 1;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: var(--text);
+    font-size: 1.5rem;
+    padding: 14px 16px 14px 0;
+    font-weight: 700;
+    font-family: var(--mono);
+    letter-spacing: -0.02em;
   }
-  .input-wrapper input::placeholder { color:#484f58; }
-  .usd-equiv { text-align:center; color:var(--muted); font-size:0.85rem; margin-top:4px; min-height:20px; }
+  .input-wrapper input::placeholder { color: rgba(255,255,255,0.15); }
+  .usd-equiv {
+    text-align: center;
+    color: var(--muted);
+    font-size: 0.82rem;
+    margin-top: 6px;
+    min-height: 20px;
+    font-weight: 500;
+  }
 
-  /* Stats Grid */
-  .results { display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:16px; }
+  /* ── Stats Grid ── */
+  .results {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+  }
   .stat-card {
-    background:var(--bg); border:1px solid var(--border); border-radius:10px;
-    padding:20px; text-align:center; transition:border-color 0.2s, transform 0.2s;
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px 16px;
+    text-align: center;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
   }
-  .stat-card:hover { border-color:var(--orange); transform:translateY(-2px); }
-  .stat-label { font-size:0.8rem; color:var(--muted); text-transform:uppercase; letter-spacing:0.5px; margin-bottom:8px; }
-  .stat-value { font-size:1.6rem; font-weight:700; font-family:'SF Mono','Fira Code',monospace; }
-  .stat-sub { font-size:0.78rem; color:var(--muted); margin-top:4px; }
-  .color-orange { color:var(--orange); }
-  .color-green { color:var(--green); }
-  .color-blue { color:var(--blue); }
-  .color-purple { color:var(--purple); }
-  .color-red { color:var(--red); }
-  .color-yellow { color:var(--yellow); }
+  .stat-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: var(--orange);
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  .stat-card:hover {
+    border-color: var(--border-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+  }
+  .stat-card:hover::before { opacity: 1; }
+  .stat-label {
+    font-size: 0.68rem;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+  .stat-value {
+    font-size: 1.5rem;
+    font-weight: 700;
+    font-family: var(--mono);
+    letter-spacing: -0.03em;
+    line-height: 1.2;
+  }
+  .stat-sub {
+    font-size: 0.72rem;
+    color: var(--muted);
+    margin-top: 4px;
+    font-weight: 400;
+  }
+  .color-orange { color: var(--orange); }
+  .color-green { color: var(--green); }
+  .color-blue { color: var(--blue); }
+  .color-purple { color: var(--purple); }
+  .color-red { color: var(--red); }
+  .color-yellow { color: var(--yellow); }
 
-  /* Bar Chart */
-  .bar-row { display:flex; align-items:center; margin-bottom:6px; font-size:0.82rem; }
-  .bar-label {
-    width:130px; text-align:right; padding-right:12px; color:var(--muted);
-    font-family:'SF Mono','Fira Code',monospace; font-size:0.75rem; flex-shrink:0;
+  /* ── Toggles ── */
+  .toggles-row {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    align-items: flex-start;
   }
-  .bar-track { flex:1; height:28px; background:rgba(255,255,255,0.03); border-radius:6px; overflow:hidden; }
-  .bar-fill {
-    height:100%; border-radius:6px; transition:width 0.6s ease;
-    display:flex; align-items:center; padding-left:8px;
-    font-size:0.72rem; font-weight:600; color:white; min-width:fit-content; white-space:nowrap;
+  .toggle-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 8px;
   }
-  .bar-count {
-    margin-left:10px; color:var(--muted); font-family:'SF Mono','Fira Code',monospace;
-    font-size:0.75rem; flex-shrink:0; min-width:100px;
-  }
-  .you-arrow { background:var(--orange)!important; animation:pulse-bar 1.5s ease-in-out infinite; }
-  @keyframes pulse-bar { 0%,100%{opacity:1} 50%{opacity:0.7} }
-
-  /* Fun Facts */
-  .fun-fact {
-    display:flex; align-items:flex-start; gap:12px; padding:14px 16px;
-    background:var(--bg); border:1px solid var(--border); border-radius:10px;
-    transition:border-color 0.2s, transform 0.15s; cursor:default; margin-bottom:8px;
-  }
-  .fun-fact:hover { border-color:rgba(247,147,26,0.4); transform:translateX(4px); }
-  .fun-fact-icon {
-    font-size:1.5rem; flex-shrink:0; width:36px; height:36px;
-    display:flex; align-items:center; justify-content:center;
-    background:rgba(255,255,255,0.04); border-radius:8px;
-  }
-  .fun-fact-content { flex:1; }
-  .fun-fact-main { font-size:0.92rem; font-weight:600; line-height:1.4; margin-bottom:3px; }
-  .fun-fact-main .highlight { color:var(--orange); }
-  .fun-fact-detail { font-size:0.78rem; color:var(--muted); line-height:1.4; }
-  .fact-direction { font-size:0.7rem; font-weight:700; padding:2px 6px; border-radius:4px; margin-right:4px; }
-  .dir-less { background:rgba(63,185,80,0.15); color:var(--green); }
-  .dir-more { background:rgba(255,123,114,0.15); color:#ff7b72; }
-  .dir-about { background:rgba(247,147,26,0.15); color:var(--orange); }
-  .fun-fact-category {
-    display:inline-block; font-size:0.65rem; text-transform:uppercase; letter-spacing:0.5px;
-    padding:2px 7px; border-radius:4px; font-weight:600; flex-shrink:0; margin-top:2px;
-  }
-  .cat-city { background:rgba(88,166,255,0.15); color:var(--blue); }
-  .cat-country { background:rgba(63,185,80,0.15); color:var(--green); }
-  .cat-venue { background:rgba(188,140,255,0.15); color:var(--purple); }
-  .cat-profession { background:rgba(247,147,26,0.15); color:var(--orange); }
-  .cat-nature { background:rgba(63,185,80,0.15); color:#56d364; }
-  .cat-pop { background:rgba(255,123,114,0.15); color:#ff7b72; }
-  .cat-history { background:rgba(210,168,255,0.15); color:#d2a8ff; }
-  .cat-misc { background:rgba(139,148,158,0.15); color:var(--muted); }
-
-  /* Buttons */
-  .btn {
-    display:inline-flex; align-items:center; gap:6px;
-    padding:8px 16px; border-radius:8px; cursor:pointer;
-    font-size:0.82rem; font-weight:600; transition:all 0.2s; border:1px solid;
-  }
-  .btn-orange { background:rgba(247,147,26,0.1); border-color:rgba(247,147,26,0.3); color:var(--orange); }
-  .btn-orange:hover { background:rgba(247,147,26,0.2); }
-  .btn-blue { background:rgba(88,166,255,0.1); border-color:rgba(88,166,255,0.3); color:var(--blue); }
-  .btn-blue:hover { background:rgba(88,166,255,0.2); }
-  .btn-green { background:rgba(63,185,80,0.1); border-color:rgba(63,185,80,0.3); color:var(--green); }
-  .btn-green:hover { background:rgba(63,185,80,0.2); }
-  .btn-purple { background:rgba(188,140,255,0.1); border-color:rgba(188,140,255,0.3); color:var(--purple); }
-  .btn-purple:hover { background:rgba(188,140,255,0.2); }
-  .btn-row { display:flex; gap:8px; flex-wrap:wrap; margin-top:12px; }
-
-  /* Toggle Switch */
-  .toggle-row { display:flex; align-items:center; gap:10px; margin-bottom:12px; }
   .toggle {
-    position:relative; width:44px; height:24px; background:#30363d;
-    border-radius:12px; cursor:pointer; transition:background 0.3s;
+    position: relative;
+    width: 40px;
+    height: 22px;
+    background: rgba(255,255,255,0.08);
+    border-radius: 11px;
+    cursor: pointer;
+    transition: background 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    flex-shrink: 0;
   }
-  .toggle.active { background:var(--orange); }
+  .toggle.active { background: var(--orange); }
   .toggle::after {
-    content:''; position:absolute; top:2px; left:2px; width:20px; height:20px;
-    background:white; border-radius:50%; transition:left 0.3s;
+    content: '';
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 18px;
+    height: 18px;
+    background: white;
+    border-radius: 50%;
+    transition: left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.3);
   }
-  .toggle.active::after { left:22px; }
-  .toggle-label { font-size:0.85rem; color:var(--muted); }
-
-  /* Pizza Visual */
-  .pizza-container { display:flex; flex-direction:column; align-items:center; gap:16px; }
-  .pizza-svg { max-width:300px; width:100%; }
-  .pizza-legend { text-align:center; }
-  .pizza-legend-main { font-size:1.1rem; font-weight:700; color:var(--orange); }
-  .pizza-legend-sub { font-size:0.82rem; color:var(--muted); margin-top:4px; }
-
-  /* Club Tiers */
-  .tiers-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(140px,1fr)); gap:10px; }
-  .tier-badge {
-    text-align:center; padding:16px 10px; border-radius:10px;
-    border:2px solid var(--border); background:var(--bg); transition:all 0.3s; position:relative;
+  .toggle.active::after { left: 20px; }
+  .toggle-label {
+    font-size: 0.82rem;
+    color: var(--text-secondary);
+    font-weight: 500;
   }
-  .tier-badge.achieved { border-color:var(--orange); background:rgba(247,147,26,0.06); }
-  .tier-badge.next { border-color:var(--blue); border-style:dashed; }
-  .tier-badge.locked { opacity:0.4; }
-  .tier-icon { font-size:2rem; margin-bottom:6px; }
-  .tier-name { font-size:0.78rem; font-weight:700; color:var(--text); }
-  .tier-req { font-size:0.68rem; color:var(--muted); margin-top:2px; }
-  .tier-check {
-    position:absolute; top:-6px; right:-6px; width:20px; height:20px;
-    background:var(--orange); border-radius:50%; display:flex; align-items:center;
-    justify-content:center; font-size:0.7rem; color:white;
-  }
-  .tier-progress {
-    margin-top:6px; height:4px; background:rgba(255,255,255,0.1); border-radius:2px; overflow:hidden;
-  }
-  .tier-progress-fill { height:100%; background:var(--blue); border-radius:2px; transition:width 0.6s; }
-
-  /* Time Machine */
-  .time-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:10px; }
-  .time-card {
-    background:var(--bg); border:1px solid var(--border); border-radius:10px; padding:14px;
-    text-align:center; transition:border-color 0.2s;
-  }
-  .time-card:hover { border-color:var(--blue); }
-  .time-year { font-size:0.75rem; color:var(--blue); font-weight:700; text-transform:uppercase; }
-  .time-rank { font-size:1.2rem; font-weight:700; margin:6px 0 2px; font-family:'SF Mono','Fira Code',monospace; }
-  .time-detail { font-size:0.72rem; color:var(--muted); }
-  .time-price { font-size:0.72rem; color:var(--orange); margin-top:2px; }
-
-  /* What If */
-  .whatif-section { margin-bottom:20px; }
-  .whatif-label { font-size:0.82rem; color:var(--muted); margin-bottom:8px; font-weight:500; }
-  .slider-row { display:flex; align-items:center; gap:12px; margin-bottom:6px; }
-  .slider-row input[type=range] {
-    flex:1; -webkit-appearance:none; height:6px; background:#30363d;
-    border-radius:3px; outline:none;
-  }
-  .slider-row input[type=range]::-webkit-slider-thumb {
-    -webkit-appearance:none; width:18px; height:18px; background:var(--orange);
-    border-radius:50%; cursor:pointer;
-  }
-  .slider-val {
-    min-width:80px; text-align:right; font-family:'SF Mono','Fira Code',monospace;
-    font-size:0.85rem; font-weight:600; color:var(--orange);
-  }
-  .whatif-result {
-    background:var(--bg); border:1px solid var(--border); border-radius:10px;
-    padding:16px; margin-top:12px;
-  }
-  .whatif-result-row {
-    display:flex; justify-content:space-between; align-items:center; padding:6px 0;
-    border-bottom:1px solid rgba(255,255,255,0.04);
-  }
-  .whatif-result-row:last-child { border-bottom:none; }
-  .whatif-result-label { font-size:0.82rem; color:var(--muted); }
-  .whatif-result-value { font-size:0.92rem; font-weight:600; font-family:'SF Mono','Fira Code',monospace; }
-
-  /* Celebrity */
-  .celeb-list { display:grid; gap:8px; }
-  .celeb-row {
-    display:flex; align-items:center; gap:12px; padding:12px 14px;
-    background:var(--bg); border:1px solid var(--border); border-radius:10px;
-    transition:border-color 0.2s;
-  }
-  .celeb-row:hover { border-color:var(--purple); }
-  .celeb-row.you-beat { border-color:var(--green); background:rgba(63,185,80,0.04); }
-  .celeb-icon { font-size:1.3rem; width:32px; text-align:center; }
-  .celeb-info { flex:1; }
-  .celeb-name { font-size:0.88rem; font-weight:600; }
-  .celeb-detail { font-size:0.72rem; color:var(--muted); }
-  .celeb-amount { font-size:0.85rem; font-weight:700; font-family:'SF Mono','Fira Code',monospace; color:var(--orange); }
-  .celeb-status { font-size:0.7rem; font-weight:700; padding:3px 8px; border-radius:4px; }
-  .celeb-ahead { background:rgba(255,123,114,0.15); color:var(--red); }
-  .celeb-behind { background:rgba(63,185,80,0.15); color:var(--green); }
-
-  /* Global Wealth */
-  .wealth-bar-container { position:relative; margin:20px 0; }
-  .wealth-bar {
-    height:40px; background:linear-gradient(90deg, #1a1e24 0%, #2d333b 30%, #58a6ff 60%, #bc8cff 80%, #f7931a 95%, #fbbf24 100%);
-    border-radius:8px; position:relative; overflow:visible;
-  }
-  .wealth-marker {
-    position:absolute; top:-8px; width:4px; height:56px;
-    background:var(--orange); border-radius:2px; z-index:10;
-    box-shadow:0 0 12px var(--orange);
-  }
-  .wealth-marker-label {
-    position:absolute; bottom:-28px; left:50%; transform:translateX(-50%);
-    font-size:0.72rem; font-weight:700; color:var(--orange); white-space:nowrap;
-  }
-  .wealth-labels { display:flex; justify-content:space-between; margin-top:32px; }
-  .wealth-label-item { font-size:0.7rem; color:var(--muted); text-align:center; }
-
-  /* Stack Tracker */
-  .tracker-entries { max-height:200px; overflow-y:auto; }
-  .tracker-entry {
-    display:flex; justify-content:space-between; align-items:center;
-    padding:10px 12px; background:var(--bg); border:1px solid var(--border);
-    border-radius:8px; margin-bottom:6px; font-size:0.82rem;
-  }
-  .tracker-date { color:var(--muted); font-size:0.75rem; }
-  .tracker-change { font-size:0.75rem; font-weight:600; }
-  .tracker-up { color:var(--green); }
-  .tracker-down { color:var(--red); }
-  .tracker-same { color:var(--muted); }
-
-  /* Share Card */
-  .share-preview {
-    display:flex; flex-direction:column; align-items:center; gap:16px;
-  }
-  #shareCanvas {
-    border-radius:12px; max-width:100%;
-    box-shadow:0 8px 32px rgba(0,0,0,0.4);
+  .toggle-note {
+    font-size: 0.72rem;
+    color: var(--muted);
+    margin-left: 50px;
+    margin-top: -4px;
+    margin-bottom: 8px;
   }
 
   /* Sats Mode */
-  .sats-display {
-    display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:12px;
-  }
+  .sats-display { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 16px; }
   .sats-box {
-    background:var(--bg); border:1px solid var(--border); border-radius:10px;
-    padding:16px; text-align:center;
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 16px;
+    text-align: center;
   }
   .sats-big {
-    font-size:1.4rem; font-weight:700; font-family:'SF Mono','Fira Code',monospace;
-    color:var(--orange);
+    font-size: 1.3rem;
+    font-weight: 700;
+    font-family: var(--mono);
+    color: var(--orange);
+    letter-spacing: -0.02em;
   }
-  .sats-label { font-size:0.78rem; color:var(--muted); margin-top:4px; }
+  .sats-label { font-size: 0.72rem; color: var(--muted); margin-top: 4px; }
 
-  /* Footer */
-  .data-source {
-    text-align:center; margin-top:24px; padding-top:16px;
-    border-top:1px solid var(--border); color:var(--muted); font-size:0.78rem;
+  /* ── Bar Chart ── */
+  .bar-row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 4px;
+    font-size: 0.78rem;
   }
-  .data-source a { color:var(--blue); text-decoration:none; }
+  .bar-label {
+    width: 120px;
+    text-align: right;
+    padding-right: 12px;
+    color: var(--muted);
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    flex-shrink: 0;
+    font-weight: 500;
+  }
+  .bar-track {
+    flex: 1;
+    height: 28px;
+    background: rgba(255,255,255,0.02);
+    border-radius: 6px;
+    overflow: hidden;
+  }
+  .bar-fill {
+    height: 100%;
+    border-radius: 6px;
+    transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    display: flex;
+    align-items: center;
+    padding-left: 10px;
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: white;
+    min-width: fit-content;
+    white-space: nowrap;
+  }
+  .bar-count {
+    margin-left: 10px;
+    color: var(--muted);
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    flex-shrink: 0;
+    min-width: 100px;
+    font-weight: 500;
+  }
+  .you-arrow {
+    background: var(--orange) !important;
+    box-shadow: 0 0 20px rgba(247,147,26,0.3);
+    animation: pulseGlow 2s ease-in-out infinite;
+  }
+  @keyframes pulseGlow {
+    0%, 100% { box-shadow: 0 0 20px rgba(247,147,26,0.3); }
+    50% { box-shadow: 0 0 30px rgba(247,147,26,0.5); }
+  }
+
+  /* ── Fun Facts ── */
+  .fun-fact {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 14px 16px;
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    cursor: default;
+    margin-bottom: 8px;
+  }
+  .fun-fact:hover {
+    border-color: rgba(247,147,26,0.25);
+    transform: translateX(4px);
+    background: var(--card-hover);
+  }
+  .fun-fact-icon {
+    font-size: 1.4rem;
+    flex-shrink: 0;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255,255,255,0.03);
+    border-radius: 10px;
+  }
+  .fun-fact-content { flex: 1; }
+  .fun-fact-main { font-size: 0.88rem; font-weight: 600; line-height: 1.5; margin-bottom: 2px; }
+  .fun-fact-main .highlight { color: var(--orange); }
+  .fun-fact-detail { font-size: 0.75rem; color: var(--muted); line-height: 1.4; }
+  .fact-direction {
+    font-size: 0.65rem;
+    font-weight: 700;
+    padding: 2px 7px;
+    border-radius: 4px;
+    margin-right: 4px;
+    letter-spacing: 0.03em;
+  }
+  .dir-less { background: var(--green-dim); color: var(--green); }
+  .dir-more { background: var(--red-dim); color: var(--red); }
+  .dir-about { background: var(--orange-dim); color: var(--orange); }
+  .fun-fact-category {
+    display: inline-block;
+    font-size: 0.6rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    padding: 2px 7px;
+    border-radius: 4px;
+    font-weight: 600;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+  .cat-city { background: var(--blue-dim); color: var(--blue); }
+  .cat-country { background: var(--green-dim); color: var(--green); }
+  .cat-venue { background: var(--purple-dim); color: var(--purple); }
+  .cat-profession { background: var(--orange-dim); color: var(--orange); }
+  .cat-nature { background: var(--green-dim); color: #4ade80; }
+  .cat-pop { background: var(--red-dim); color: var(--red); }
+  .cat-history { background: var(--purple-dim); color: #c4b5fd; }
+  .cat-misc { background: rgba(100,116,139,0.12); color: var(--muted); }
+
+  /* ── Buttons ── */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.78rem;
+    font-weight: 600;
+    font-family: var(--sans);
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    border: 1px solid;
+    letter-spacing: 0.01em;
+  }
+  .btn:active { transform: scale(0.97); }
+  .btn-orange { background: var(--orange-dim); border-color: rgba(247,147,26,0.2); color: var(--orange); }
+  .btn-orange:hover { background: rgba(247,147,26,0.18); border-color: rgba(247,147,26,0.35); }
+  .btn-blue { background: var(--blue-dim); border-color: rgba(59,130,246,0.2); color: var(--blue); }
+  .btn-blue:hover { background: rgba(59,130,246,0.18); }
+  .btn-green { background: var(--green-dim); border-color: rgba(34,197,94,0.2); color: var(--green); }
+  .btn-green:hover { background: rgba(34,197,94,0.18); }
+  .btn-purple { background: var(--purple-dim); border-color: rgba(167,139,250,0.2); color: var(--purple); }
+  .btn-purple:hover { background: rgba(167,139,250,0.18); }
+  .btn-row { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 14px; }
+
+  /* ── Pizza Visual ── */
+  .pizza-container { display: flex; flex-direction: column; align-items: center; gap: 16px; }
+  .pizza-svg { max-width: 280px; width: 100%; }
+  .pizza-legend { text-align: center; }
+  .pizza-legend-main { font-size: 1.1rem; font-weight: 700; color: var(--orange); }
+  .pizza-legend-sub { font-size: 0.78rem; color: var(--muted); margin-top: 4px; }
+
+  /* ── Club Tiers ── */
+  .tiers-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+    gap: 8px;
+  }
+  .tier-badge {
+    text-align: center;
+    padding: 16px 8px;
+    border-radius: 12px;
+    border: 1.5px solid var(--border);
+    background: var(--bg2);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+  }
+  .tier-badge.achieved {
+    border-color: rgba(247,147,26,0.3);
+    background: rgba(247,147,26,0.04);
+  }
+  .tier-badge.next {
+    border-color: rgba(59,130,246,0.3);
+    border-style: dashed;
+  }
+  .tier-badge.locked { opacity: 0.3; }
+  .tier-icon { font-size: 1.8rem; margin-bottom: 6px; }
+  .tier-name { font-size: 0.75rem; font-weight: 700; color: var(--text); }
+  .tier-req { font-size: 0.65rem; color: var(--muted); margin-top: 2px; font-family: var(--mono); }
+  .tier-check {
+    position: absolute;
+    top: -5px; right: -5px;
+    width: 18px; height: 18px;
+    background: var(--orange);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.65rem;
+    color: white;
+    box-shadow: 0 2px 8px rgba(247,147,26,0.3);
+  }
+  .tier-progress {
+    margin-top: 8px;
+    height: 3px;
+    background: rgba(255,255,255,0.06);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+  .tier-progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--blue), var(--purple));
+    border-radius: 2px;
+    transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  /* ── Time Machine ── */
+  .time-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 8px;
+  }
+  .time-card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 16px 12px;
+    text-align: center;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .time-card:hover {
+    border-color: rgba(59,130,246,0.25);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+  }
+  .time-year {
+    font-size: 0.7rem;
+    color: var(--blue);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+  .time-rank {
+    font-size: 1.15rem;
+    font-weight: 700;
+    margin: 6px 0 4px;
+    font-family: var(--mono);
+    letter-spacing: -0.02em;
+  }
+  .time-detail { font-size: 0.7rem; color: var(--muted); }
+  .time-price { font-size: 0.7rem; color: var(--orange); margin-top: 2px; font-weight: 500; }
+
+  /* ── What If ── */
+  .whatif-section { margin-bottom: 20px; }
+  .whatif-label {
+    font-size: 0.82rem;
+    color: var(--text-secondary);
+    margin-bottom: 10px;
+    font-weight: 500;
+  }
+  .slider-row {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 6px;
+  }
+  .slider-row input[type=range] {
+    flex: 1;
+    -webkit-appearance: none;
+    height: 4px;
+    background: rgba(255,255,255,0.08);
+    border-radius: 2px;
+    outline: none;
+  }
+  .slider-row input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 20px;
+    height: 20px;
+    background: var(--orange);
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(247,147,26,0.3);
+    transition: transform 0.15s;
+  }
+  .slider-row input[type=range]::-webkit-slider-thumb:hover { transform: scale(1.15); }
+  .slider-val {
+    min-width: 90px;
+    text-align: right;
+    font-family: var(--mono);
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--orange);
+  }
+  .whatif-result {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 16px 20px;
+    margin-top: 12px;
+  }
+  .whatif-result-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .whatif-result-row:last-child { border-bottom: none; }
+  .whatif-result-label { font-size: 0.82rem; color: var(--muted); font-weight: 500; }
+  .whatif-result-value {
+    font-size: 0.92rem;
+    font-weight: 600;
+    font-family: var(--mono);
+    letter-spacing: -0.02em;
+  }
+
+  /* ── Celebrity ── */
+  .celeb-list { display: grid; gap: 6px; }
+  .celeb-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 16px;
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .celeb-row:hover {
+    border-color: var(--border-hover);
+    background: var(--card-hover);
+  }
+  .celeb-row.you-beat {
+    border-color: rgba(34,197,94,0.25);
+    background: rgba(34,197,94,0.03);
+  }
+  .celeb-icon {
+    font-size: 1.2rem;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255,255,255,0.03);
+    border-radius: 10px;
+    flex-shrink: 0;
+  }
+  .celeb-info { flex: 1; min-width: 0; }
+  .celeb-name { font-size: 0.85rem; font-weight: 600; }
+  .celeb-detail { font-size: 0.7rem; color: var(--muted); }
+  .celeb-amount {
+    font-size: 0.82rem;
+    font-weight: 700;
+    font-family: var(--mono);
+    color: var(--orange);
+    letter-spacing: -0.02em;
+    flex-shrink: 0;
+  }
+  .celeb-status {
+    font-size: 0.65rem;
+    font-weight: 700;
+    padding: 3px 8px;
+    border-radius: 4px;
+    flex-shrink: 0;
+    letter-spacing: 0.02em;
+  }
+  .celeb-ahead { background: var(--red-dim); color: var(--red); }
+  .celeb-behind { background: var(--green-dim); color: var(--green); }
+
+  /* ── Global Wealth ── */
+  .wealth-bar-container { position: relative; margin: 24px 0; }
+  .wealth-bar {
+    height: 40px;
+    background: linear-gradient(90deg, #0f1318 0%, #1a2030 25%, #1e3a5f 45%, #3b82f6 60%, #8b5cf6 75%, #f59e0b 90%, #f7931a 100%);
+    border-radius: 10px;
+    position: relative;
+    overflow: visible;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.3);
+  }
+  .wealth-marker {
+    position: absolute;
+    top: -6px;
+    width: 3px;
+    height: 52px;
+    background: white;
+    border-radius: 2px;
+    z-index: 10;
+    box-shadow: 0 0 12px rgba(255,255,255,0.4);
+  }
+  .wealth-marker-label {
+    position: absolute;
+    bottom: -28px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: var(--text);
+    white-space: nowrap;
+    font-family: var(--mono);
+  }
+  .wealth-labels {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 36px;
+  }
+  .wealth-label-item {
+    font-size: 0.68rem;
+    color: var(--muted);
+    text-align: center;
+    font-weight: 500;
+  }
+  .wealth-label-item span { color: var(--text-secondary); font-family: var(--mono); font-size: 0.72rem; }
+
+  /* ── Stack Tracker ── */
+  .tracker-entries { max-height: 220px; overflow-y: auto; }
+  .tracker-entries::-webkit-scrollbar { width: 4px; }
+  .tracker-entries::-webkit-scrollbar-track { background: transparent; }
+  .tracker-entries::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 2px; }
+  .tracker-entry {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 14px;
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    margin-bottom: 6px;
+    font-size: 0.82rem;
+    transition: border-color 0.2s;
+  }
+  .tracker-entry:hover { border-color: var(--border-hover); }
+  .tracker-date { color: var(--muted); font-size: 0.72rem; }
+  .tracker-change { font-size: 0.72rem; font-weight: 600; }
+  .tracker-up { color: var(--green); }
+  .tracker-down { color: var(--red); }
+  .tracker-same { color: var(--muted); }
+
+  /* ── Share Card ── */
+  .share-preview {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+  }
+  #shareCanvas {
+    border-radius: 12px;
+    max-width: 100%;
+    box-shadow: 0 12px 48px rgba(0,0,0,0.4);
+  }
+
+  /* ── Footer ── */
+  .footer {
+    text-align: center;
+    margin-top: 40px;
+    padding-top: 24px;
+    border-top: 1px solid var(--border);
+  }
+  .footer-source {
+    color: var(--muted);
+    font-size: 0.75rem;
+    font-weight: 500;
+  }
+  .footer-source a {
+    color: var(--blue);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .footer-source a:hover { color: var(--text); }
   .live-dot {
-    display:inline-block; width:8px; height:8px; background:var(--green);
-    border-radius:50%; margin-right:4px; animation:blink 2s ease-in-out infinite;
+    display: inline-block;
+    width: 6px; height: 6px;
+    background: var(--green);
+    border-radius: 50%;
+    margin-right: 4px;
+    animation: blink 2s ease-in-out infinite;
+    vertical-align: middle;
   }
-  @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.3} }
-  .note-box {
-    background:rgba(247,147,26,0.08); border:1px solid rgba(247,147,26,0.2);
-    border-radius:8px; padding:12px 16px; font-size:0.82rem; color:var(--muted); line-height:1.5;
+  @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+  .footer-note {
+    margin-top: 12px;
+    padding: 12px 20px;
+    background: rgba(255,255,255,0.02);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    font-size: 0.75rem;
+    color: var(--muted);
+    line-height: 1.6;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
   }
-  .note-box strong { color:var(--orange); }
-  .hidden { display:none; }
 
-  /* Section divider */
-  .section-divider {
-    display:flex; align-items:center; gap:12px; margin:8px 0 20px;
-  }
-  .section-divider::before, .section-divider::after {
-    content:''; flex:1; height:1px; background:var(--border);
-  }
-  .section-divider span { font-size:0.75rem; color:var(--muted); text-transform:uppercase; letter-spacing:1px; }
+  .hidden { display: none !important; }
 
-  @media (max-width:640px) {
-    body { padding:12px; }
-    header h1 { font-size:1.5rem; }
-    .results { grid-template-columns:1fr 1fr; }
-    .stat-value { font-size:1.2rem; }
-    .bar-label { width:80px; font-size:0.65rem; }
-    .bar-count { min-width:80px; font-size:0.65rem; }
-    .tiers-grid { grid-template-columns:repeat(3,1fr); }
-    .time-grid { grid-template-columns:repeat(2,1fr); }
-    .sats-display { grid-template-columns:1fr; }
-    .fun-fact-icon { display:none; }
+  /* ── Animations ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .animate-in {
+    animation: fadeUp 0.5s cubic-bezier(0.4, 0, 0.2, 1) both;
+  }
+
+  /* ── Responsive ── */
+  @media (max-width: 768px) {
+    .page-wrapper { padding: 24px 16px 48px; }
+    header h1 { font-size: 1.8rem; }
+    .results { grid-template-columns: 1fr 1fr; gap: 8px; }
+    .stat-value { font-size: 1.15rem; }
+    .stat-card { padding: 16px 12px; }
+    .card { padding: 20px; }
+    .input-card { padding: 24px 20px; }
+    .bar-label { width: 80px; font-size: 0.62rem; }
+    .bar-count { min-width: 80px; font-size: 0.62rem; }
+    .tiers-grid { grid-template-columns: repeat(3, 1fr); }
+    .time-grid { grid-template-columns: repeat(2, 1fr); }
+    .sats-display { grid-template-columns: 1fr; }
+    .fun-fact-icon { display: none; }
+    .privacy-tooltip { width: 260px; }
+    .celeb-icon { display: none; }
+    .toggles-row { gap: 12px; }
+  }
+
+  @media (max-width: 480px) {
+    .results { grid-template-columns: 1fr; }
+    header h1 { font-size: 1.5rem; }
+    .input-wrapper input { font-size: 1.2rem; }
   }
 </style>
 </head>
 <body>
-<div class="container">
+<div class="page-wrapper">
   <header>
-    <h1>Bitcoin Wallet Rank</h1>
-    <p>How many wallets hold more BTC than you?</p>
-    <div style="margin-top:12px;padding:10px 16px;background:rgba(247,147,26,0.08);border:1px solid rgba(247,147,26,0.25);border-radius:8px;font-size:0.8rem;color:var(--muted);max-width:600px;margin-left:auto;margin-right:auto;line-height:1.5;">
-      <span style="color:var(--orange);font-weight:600;">Privacy note:</span> Nothing you enter here is saved or transmitted. This page runs entirely in your browser &mdash; no server, no database, no cookies, no analytics. The only network request is fetching the live BTC price from CoinGecko. Your BTC amount never leaves your device.
+    <div class="logo-mark">&#x20bf;</div>
+    <h1>Bitcoin <span class="accent">Wallet Rank</span></h1>
+    <p class="subtitle">How many wallets hold more BTC than you?</p>
+    <div class="privacy-wrap">
+      <div class="privacy-pill">
+        <span class="dot"></span>
+        Client-side only &middot; Nothing saved
+      </div>
+      <div class="privacy-tooltip">
+        Nothing you enter here is saved or transmitted. This page runs entirely in your browser &mdash; no server, no database, no cookies, no analytics. The only network request is fetching the live BTC price from CoinGecko. Your BTC amount never leaves your device.
+      </div>
     </div>
   </header>
 
   <!-- INPUT -->
-  <div class="card">
+  <div class="input-card">
     <div class="input-section">
       <div class="input-group">
         <label>Enter your Bitcoin holdings</label>
@@ -387,33 +966,33 @@
       <div class="stat-card">
         <div class="stat-label" id="totalLabel">Total Funded Wallets</div>
         <div class="stat-value color-purple" id="totalWallets">&#x2014;</div>
-        <div class="stat-sub" id="totalSub">with any balance > 0</div>
+        <div class="stat-sub" id="totalSub">with any balance &gt; 0</div>
       </div>
     </div>
   </div>
 
-  <!-- LOST COINS TOGGLE + SATS MODE -->
+  <!-- TOGGLES -->
   <div class="card hidden" id="togglesCard">
-    <div style="display:flex;gap:24px;flex-wrap:wrap;align-items:flex-start;">
+    <div class="toggles-row">
       <div>
         <div class="toggle-row">
           <div class="toggle" id="lostCoinsToggle" onclick="toggleLostCoins()"></div>
-          <span class="toggle-label">Remove ~3.7M lost coins from calculation</span>
+          <span class="toggle-label">Remove ~3.7M lost coins</span>
         </div>
-        <div style="font-size:0.75rem;color:var(--muted);margin-left:54px;" id="lostCoinsNote"></div>
+        <div class="toggle-note" id="lostCoinsNote"></div>
       </div>
       <div>
         <div class="toggle-row">
           <div class="toggle" id="satsToggle" onclick="toggleSatsMode()"></div>
-          <span class="toggle-label">Show in sats (satoshis)</span>
+          <span class="toggle-label">Show in satoshis</span>
         </div>
       </div>
       <div>
         <div class="toggle-row">
           <div class="toggle" id="holdersToggle" onclick="toggleHoldersMode()"></div>
-          <span class="toggle-label">Estimate unique people (not wallets)</span>
+          <span class="toggle-label">Estimate unique people</span>
         </div>
-        <div style="font-size:0.75rem;color:var(--muted);margin-left:54px;" id="holdersNote"></div>
+        <div class="toggle-note" id="holdersNote"></div>
       </div>
     </div>
     <div class="sats-display hidden" id="satsDisplay">
@@ -451,7 +1030,7 @@
     <div class="card-title"><span>&#x1f9e0;</span> How does that compare?</div>
     <div id="funFactsGrid"></div>
     <div class="btn-row">
-      <button class="btn btn-orange" onclick="shuffleFacts()">&#x1f3b2; Shuffle facts</button>
+      <button class="btn btn-orange" onclick="shuffleFacts()">&#x1f3b2; Shuffle</button>
     </div>
   </div>
 
@@ -463,13 +1042,13 @@
 
   <!-- TIME MACHINE -->
   <div class="card hidden" id="timeCard">
-    <div class="card-title"><span>&#x23f3;</span> Time Machine &mdash; Your rank through the years</div>
+    <div class="card-title"><span>&#x23f3;</span> Time Machine</div>
     <div class="time-grid" id="timeGrid"></div>
   </div>
 
   <!-- WHAT IF -->
   <div class="card hidden" id="whatifCard">
-    <div class="card-title"><span>&#x1f52e;</span> What If? Simulator</div>
+    <div class="card-title"><span>&#x1f52e;</span> What If?</div>
     <div class="whatif-section">
       <div class="whatif-label">If Bitcoin's price reaches...</div>
       <div class="slider-row">
@@ -490,8 +1069,8 @@
   <!-- GLOBAL WEALTH -->
   <div class="card hidden" id="wealthCard">
     <div class="card-title"><span>&#x1f30d;</span> Global Wealth Comparison</div>
-    <div style="font-size:0.82rem;color:var(--muted);margin-bottom:12px;">
-      How your BTC holdings (at current price) compare to global wealth distribution
+    <div style="font-size:0.78rem;color:var(--muted);margin-bottom:14px;font-weight:400;">
+      How your BTC holdings compare to global wealth distribution
     </div>
     <div class="wealth-bar-container">
       <div class="wealth-bar">
@@ -500,30 +1079,30 @@
         </div>
       </div>
       <div class="wealth-labels">
-        <div class="wealth-label-item">Bottom 50%<br><span style="color:var(--text);">&lt;$8.6K</span></div>
-        <div class="wealth-label-item">Median<br><span style="color:var(--text);">$8.6K</span></div>
-        <div class="wealth-label-item">Top 10%<br><span style="color:var(--text);">&gt;$138K</span></div>
-        <div class="wealth-label-item">Top 1%<br><span style="color:var(--text);">&gt;$1.08M</span></div>
+        <div class="wealth-label-item">Bottom 50%<br><span>&lt;$8.6K</span></div>
+        <div class="wealth-label-item">Median<br><span>$8.6K</span></div>
+        <div class="wealth-label-item">Top 10%<br><span>&gt;$138K</span></div>
+        <div class="wealth-label-item">Top 1%<br><span>&gt;$1.08M</span></div>
       </div>
     </div>
-    <div class="stat-sub" style="text-align:center;margin-top:8px;" id="wealthSummary"></div>
+    <div class="stat-sub" style="text-align:center;margin-top:12px;" id="wealthSummary"></div>
   </div>
 
   <!-- BAR CHART -->
   <div class="card hidden" id="chartCard">
-    <div class="card-title">Address Distribution by Balance Range</div>
+    <div class="card-title">Address Distribution</div>
     <div id="barChart"></div>
   </div>
 
   <!-- STACK TRACKER -->
   <div class="card hidden" id="trackerCard">
     <div class="card-title"><span>&#x1f4c8;</span> Stack Tracker</div>
-    <div style="font-size:0.82rem;color:var(--muted);margin-bottom:12px;">
-      Bookmark your position and see how your rank changes over time
+    <div style="font-size:0.78rem;color:var(--muted);margin-bottom:14px;">
+      Bookmark your position and track changes over time
     </div>
     <div class="btn-row" style="margin-bottom:12px;">
-      <button class="btn btn-green" onclick="saveSnapshot()">&#x1f4be; Save current position</button>
-      <button class="btn btn-orange" onclick="clearSnapshots()">&#x1f5d1; Clear history</button>
+      <button class="btn btn-green" onclick="saveSnapshot()">&#x1f4be; Save position</button>
+      <button class="btn btn-orange" onclick="clearSnapshots()">&#x1f5d1; Clear</button>
     </div>
     <div class="tracker-entries" id="trackerEntries"></div>
   </div>
@@ -534,23 +1113,24 @@
     <div class="share-preview">
       <canvas id="shareCanvas" width="600" height="340"></canvas>
       <div class="btn-row">
-        <button class="btn btn-purple" onclick="downloadShareCard()">&#x2b07; Download image</button>
-        <button class="btn btn-blue" onclick="copyShareCard()">&#x1f4cb; Copy to clipboard</button>
+        <button class="btn btn-purple" onclick="downloadShareCard()">&#x2b07; Download</button>
+        <button class="btn btn-blue" onclick="copyShareCard()">&#x1f4cb; Copy</button>
       </div>
     </div>
   </div>
 
-  <!-- NOTE -->
-  <div class="note-box" style="margin-top:20px;">
-    <strong>Note:</strong> This data represents on-chain Bitcoin addresses, not individual people.
-    One person may control multiple addresses, and exchange wallets hold funds for millions of users.
-    The actual number of <em>people</em> who hold more BTC than you is likely lower than shown.
-  </div>
-
-  <div class="data-source">
-    <span class="live-dot"></span> BTC price live via CoinGecko &nbsp;|&nbsp;
-    Distribution data from <a href="https://bitinfocharts.com/top-100-richest-bitcoin-addresses.html" target="_blank">BitInfoCharts</a>
-    <br><span id="lastUpdated"></span>
+  <!-- FOOTER -->
+  <div class="footer">
+    <div class="footer-source">
+      <span class="live-dot"></span> BTC price live via CoinGecko &nbsp;&middot;&nbsp;
+      Distribution data from <a href="https://bitinfocharts.com/top-100-richest-bitcoin-addresses.html" target="_blank">BitInfoCharts</a>
+      <br><span id="lastUpdated"></span>
+    </div>
+    <div class="footer-note">
+      This data represents on-chain Bitcoin addresses, not individual people.
+      One person may control multiple addresses, and exchange wallets hold funds for millions of users.
+      Toggle "Estimate unique people" above for an adjusted view.
+    </div>
   </div>
 </div>
 
@@ -575,7 +1155,7 @@ const DISTRIBUTION_DATA = [
 ];
 
 const BRACKET_NAMES = ['Dust','Dust','Micro','Micro','Shrimp','Crab','Fish','Shark','Whale','Whale','Humpback','Mega Whale'];
-const BRACKET_COLORS = ['#484f58','#585f68','#6e7681','#8b949e','#58a6ff','#3fb950','#f0883e','#f7931a','#bc8cff','#d2a8ff','#ff7b72','#ffa657'];
+const BRACKET_COLORS = ['#334155','#475569','#64748b','#94a3b8','#3b82f6','#22c55e','#f97316','#f7931a','#a78bfa','#c4b5fd','#ef4444','#f59e0b'];
 
 // Historical distribution estimates with per-bucket scale factors
 // topDecay: how aggressively upper buckets shrink vs lower. Higher = fewer whales in that era.
@@ -720,29 +1300,13 @@ const WEALTH_THRESHOLDS = [
   { pct:0.01, usd:100000000 },
 ];
 
+// Unique holders estimation model (research-backed)
+const HOLDER_REDUCTION = [
+  0.95, 0.90, 0.82, 0.70, 0.55, 0.45, 0.35, 0.30, 0.25, 0.18, 0.10, 0.05,
+];
+
 const LOST_COINS_ESTIMATE = 3700000;
 const TOTAL_BTC_SUPPLY = 19997000; // approx mined as of early 2026 (~95%+ of 21M)
-
-// Unique holders estimation model (research-backed)
-// Sources: Glassnode entity clustering (~18-28% fewer entities than addresses),
-// ~25M estimated unique individual holders vs ~58M funded addresses,
-// ~96% of clustered entities are single-address, but exchanges consolidate millions of users.
-// Per-bucket reduction factors: dust is ~1:1, but higher brackets have more multi-wallet holders
-// and exchange custodial addresses that represent many people, not one whale.
-const HOLDER_REDUCTION = [
-  0.95,  // 0-0.00001 BTC: dust, mostly 1:1 (abandoned, faucets)
-  0.90,  // 0.00001-0.0001: micro dust, slight reduction
-  0.82,  // 0.0001-0.001: small amounts, some multi-wallet
-  0.70,  // 0.001-0.01: active users, more multi-wallet behavior
-  0.55,  // 0.01-0.1: serious holders often split across wallets
-  0.45,  // 0.1-1 BTC: privacy-conscious, hardware + exchange
-  0.35,  // 1-10 BTC: whole coiners often use 2-3 wallets
-  0.30,  // 10-100 BTC: wealthy holders, multiple cold storage
-  0.25,  // 100-1K BTC: mix of funds, companies, multi-sig
-  0.18,  // 1K-10K BTC: institutions, exchanges, ETFs custodying for many
-  0.10,  // 10K-100K BTC: exchanges & ETFs (each = millions of holders)
-  0.05,  // 100K-1M BTC: mega custodians (Binance, BlackRock = millions of people)
-];
 
 let btcPrice = null;
 let lastResult = null;
@@ -759,45 +1323,41 @@ async function fetchBTCPrice() {
     const res = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd');
     const data = await res.json();
     btcPrice = data.bitcoin.usd;
-  } catch(e) {
+  } catch {
     try {
-      const res = await fetch('https://api.blockchain.info/ticker');
-      const data = await res.json();
-      btcPrice = data.USD.last;
-    } catch(e2) { btcPrice = 87000; /* fallback estimate */ }
+      const res2 = await fetch('https://blockchain.info/ticker');
+      const data2 = await res2.json();
+      btcPrice = data2.USD.last;
+    } catch { btcPrice = null; }
   }
+}
+
+function getTotalAddresses() {
+  return DISTRIBUTION_DATA.reduce((sum, b) => sum + b.addresses, 0);
 }
 
 // =====================================================
 // CORE CALCULATION
 // =====================================================
-function getTotalAddresses() {
-  return DISTRIBUTION_DATA.reduce((s,b) => s + b.addresses, 0);
-}
-
 function calculateRank(btcAmount, customTotal, topDecay) {
   if (btcAmount <= 0) return null;
   const totalAddresses = customTotal || getTotalAddresses();
   const decay = topDecay || 1.0;
-  let addressesAbove = 0;
   const baseTotal = getTotalAddresses();
   const baseScale = customTotal ? (customTotal / baseTotal) : 1;
   const numBuckets = DISTRIBUTION_DATA.length;
 
-  // Build scaled bucket addresses with non-linear decay for historical eras
-  // Lower buckets (dust/micro) get scaled more, upper buckets (whale) get scaled less
   let scaledBuckets = [];
   let rawSum = 0;
   for (let i = 0; i < numBuckets; i++) {
-    // decay applied exponentially: bucket 0 (dust) = full scale, bucket 11 (mega whale) = most reduced
     const bucketDecayFactor = Math.pow(decay, i);
     scaledBuckets.push(DISTRIBUTION_DATA[i].addresses * baseScale * bucketDecayFactor);
     rawSum += DISTRIBUTION_DATA[i].addresses * baseScale * bucketDecayFactor;
   }
-  // Normalize so the scaled buckets sum to customTotal (or current total)
   const normFactor = totalAddresses / rawSum;
   scaledBuckets = scaledBuckets.map(v => Math.round(v * normFactor));
 
+  let addressesAbove = 0;
   for (let i = numBuckets - 1; i >= 0; i--) {
     const bucket = DISTRIBUTION_DATA[i];
     const bucketAddresses = scaledBuckets[i];
@@ -877,8 +1437,10 @@ function hideAll() {
 
 function showAll() {
   ['resultsCard','togglesCard','tiersCard','pizzaCard','funFactsCard','celebCard',
-   'timeCard','whatifCard','wealthCard','chartCard','trackerCard','shareCard'].forEach(id => {
-    document.getElementById(id).classList.remove('hidden');
+   'timeCard','whatifCard','wealthCard','chartCard','trackerCard','shareCard'].forEach((id, i) => {
+    const el = document.getElementById(id);
+    el.classList.remove('hidden');
+    el.style.animation = `fadeUp 0.4s cubic-bezier(0.4,0,0.2,1) ${i * 0.03}s both`;
   });
 }
 
@@ -886,7 +1448,7 @@ function showAll() {
 function renderCoreStats(result, btcAmount) {
   if (holdersMode) {
     const estHolders = estimateHolders(result.addressesAbove, result.bracketIndex);
-    const estTotal = Math.round(result.totalAddresses * 0.43); // ~25M holders / ~58M addresses
+    const estTotal = Math.round(result.totalAddresses * 0.43);
     const estPct = ((estTotal - estHolders) / estTotal) * 100;
     document.getElementById('walletsAbove').textContent = '~'+fmtNum(estHolders);
     document.getElementById('walletsAboveSub').textContent = '~'+fmtFull(estHolders)+' estimated people';
@@ -922,7 +1484,7 @@ function renderToggles(btcAmount) {
 
   if (holdersMode) {
     document.getElementById('holdersNote').textContent =
-      'Based on Glassnode entity clustering & exchange custodial analysis. One person \u2248 multiple wallets.';
+      'Based on Glassnode entity clustering & exchange custodial analysis.';
   } else {
     document.getElementById('holdersNote').textContent = '';
   }
@@ -957,9 +1519,7 @@ function toggleHoldersMode() {
   if (currentBtcAmount > 0) renderAll(currentBtcAmount);
 }
 
-// Estimate unique holders from address count using per-bracket reduction
 function estimateHolders(addressesAbove, bracketIndex) {
-  // Apply reduction factors to each bucket above the user's bracket
   let estimated = 0;
   const numBuckets = DISTRIBUTION_DATA.length;
   const effectiveTotal = lostCoinsMode ? getTotalAddresses() * 0.92 : getTotalAddresses();
@@ -968,18 +1528,14 @@ function estimateHolders(addressesAbove, bracketIndex) {
   for (let i = numBuckets - 1; i >= 0; i--) {
     const bucketAddresses = Math.round(DISTRIBUTION_DATA[i].addresses * scale);
     if (i > bracketIndex) {
-      // Entire bucket is above user — apply that bucket's reduction
       estimated += Math.round(bucketAddresses * HOLDER_REDUCTION[i]);
     } else if (i === bracketIndex) {
-      // Partial bucket — proportion of addresses above user in this bucket
-      const totalInBucket = bucketAddresses;
-      // Get the user's fraction within this bucket
       const bucket = DISTRIBUTION_DATA[i];
       const logMin = Math.log10(Math.max(bucket.min, 1e-10));
       const logMax = Math.log10(bucket.max);
       const logAmt = Math.log10(Math.max(currentBtcAmount, 1e-10));
       const fracAbove = Math.max(0, 1 - ((logAmt - logMin) / (logMax - logMin)));
-      estimated += Math.round(totalInBucket * fracAbove * HOLDER_REDUCTION[i]);
+      estimated += Math.round(bucketAddresses * fracAbove * HOLDER_REDUCTION[i]);
     }
   }
   return estimated;
@@ -995,138 +1551,107 @@ function renderTiers(btcAmount) {
     const achieved = btcAmount >= tier.req;
     const isNext = !achieved && !foundNext;
     if (isNext) foundNext = true;
-    const progress = achieved ? 100 : Math.min((btcAmount / tier.req) * 100, 100);
+    const pct = achieved ? 100 : Math.min((btcAmount / tier.req) * 100, 100);
 
-    html += `<div class="tier-badge ${achieved ? 'achieved' : isNext ? 'next' : 'locked'}">
-      ${achieved ? '<div class="tier-check">\u2713</div>' : ''}
+    html += `<div class="tier-badge ${achieved?'achieved':isNext?'next':'locked'}">
+      ${achieved?'<div class="tier-check">\u2713</div>':''}
       <div class="tier-icon">${tier.icon}</div>
       <div class="tier-name">${tier.name}</div>
-      <div class="tier-req">${tier.req >= 1 ? tier.req.toLocaleString() : tier.req} BTC</div>
-      ${!achieved ? `<div class="tier-progress"><div class="tier-progress-fill" style="width:${progress}%"></div></div>
-      <div class="tier-req">${(tier.req - btcAmount).toFixed(tier.req < 1 ? 4 : 2)} BTC to go</div>` : `<div class="tier-req" style="color:var(--green);">${tier.desc}</div>`}
+      <div class="tier-req">${tier.req} BTC</div>
+      ${!achieved?`<div class="tier-progress"><div class="tier-progress-fill" style="width:${pct}%"></div></div>`:''}
     </div>`;
   }
-
   document.getElementById('tiersGrid').innerHTML = html;
 }
 
 // ── Pizza Visual ──
 function renderPizza(btcAmount) {
-  const fraction = btcAmount / TOTAL_BTC_SUPPLY;
-  const degrees = Math.max(fraction * 360, 0.5); // min 0.5 degrees so it's visible
+  const totalSupply = lostCoinsMode ? TOTAL_BTC_SUPPLY - LOST_COINS_ESTIMATE : TOTAL_BTC_SUPPLY;
+  const fraction = btcAmount / totalSupply;
+  const ppmDisplay = fraction * 1e6;
+
   const svg = document.getElementById('pizzaSvg');
-  const cx = 100, cy = 100, r = 90;
+  const angle = Math.max(fraction * 360, 0.5);
+  const rad = (a) => (a - 90) * Math.PI / 180;
 
-  // Convert degrees to radians for arc
-  const startAngle = -Math.PI/2;
-  const endAngle = startAngle + (degrees * Math.PI / 180);
-  const largeArc = degrees > 180 ? 1 : 0;
-
-  const x1 = cx + r * Math.cos(startAngle);
-  const y1 = cy + r * Math.sin(startAngle);
-  const x2 = cx + r * Math.cos(endAngle);
-  const y2 = cy + r * Math.sin(endAngle);
+  const x1 = 100 + 90 * Math.cos(rad(0));
+  const y1 = 100 + 90 * Math.sin(rad(0));
+  const x2 = 100 + 90 * Math.cos(rad(angle));
+  const y2 = 100 + 90 * Math.sin(rad(angle));
+  const largeArc = angle > 180 ? 1 : 0;
 
   svg.innerHTML = `
-    <circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="#30363d" stroke-width="18"/>
-    <path d="M ${cx} ${cy} L ${x1} ${y1} A ${r} ${r} 0 ${largeArc} 1 ${x2} ${y2} Z"
-          fill="#f7931a" opacity="0.9"/>
-    <circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="#21262d" stroke-width="2"/>
-    <text x="${cx}" y="${cy-8}" text-anchor="middle" fill="#e6edf3" font-size="14" font-weight="700"
-          font-family="SF Mono,Fira Code,monospace">${btcAmount} BTC</text>
-    <text x="${cx}" y="${cy+12}" text-anchor="middle" fill="#8b949e" font-size="10">
-      of ${(TOTAL_BTC_SUPPLY/1e6).toFixed(1)}M mined</text>
+    <circle cx="100" cy="100" r="90" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+    <path d="M100,100 L${x1},${y1} A90,90 0 ${largeArc},1 ${x2},${y2} Z"
+      fill="var(--orange)" opacity="0.85"/>
+    <circle cx="100" cy="100" r="40" fill="var(--bg2)"/>
+    <text x="100" y="96" text-anchor="middle" fill="var(--orange)" font-size="12" font-weight="700" font-family="var(--mono)">${ppmDisplay < 1 ? ppmDisplay.toFixed(4) : ppmDisplay.toFixed(2)}</text>
+    <text x="100" y="112" text-anchor="middle" fill="var(--muted)" font-size="8" font-family="var(--sans)">ppm of supply</text>
   `;
 
-  const pctOfSupply = (fraction * 100);
-  document.getElementById('pizzaMain').textContent =
-    pctOfSupply >= 0.001 ? pctOfSupply.toFixed(4) + '% of all mined Bitcoin' :
-    (fraction * 1e8).toFixed(0) + ' parts per 100 million';
-  document.getElementById('pizzaSub').textContent =
-    'Only 21M will ever exist. ~' + (TOTAL_BTC_SUPPLY/1e6).toFixed(1) + 'M have been mined so far.';
+  document.getElementById('pizzaMain').textContent = btcAmount + ' of ' + fmtNum(totalSupply) + ' BTC';
+  document.getElementById('pizzaSub').textContent = fraction < 0.0001
+    ? (fraction * 1e6).toFixed(2) + ' parts per million'
+    : (fraction * 100).toFixed(6) + '% of all mined Bitcoin';
 }
 
 // ── Fun Facts ──
-function getFunFacts(addressesAbove, count=5) {
-  if (addressesAbove <= 0) return [];
-  const scored = FUN_FACTS.map((f,i) => ({
-    ...f, idx:i, ratio:f.count/addressesAbove,
-    logRatio:Math.abs(Math.log10(f.count/addressesAbove))
-  }));
-  scored.sort((a,b) => a.logRatio - b.logRatio);
+let currentFacts = [];
+function renderFunFacts(addressesAbove) {
+  const target = addressesAbove;
+  const scored = FUN_FACTS.map(f => ({
+    ...f,
+    dist: Math.abs(Math.log10(Math.max(f.count,1)) - Math.log10(Math.max(target,1)))
+  })).sort((a,b) => a.dist - b.dist);
 
-  const results = [], used = new Set();
-  const closest = scored[0];
-  results.push({ ...closest, direction:getDir(closest.ratio) }); used.add(closest.idx);
-
-  const smaller = scored.find(f => !used.has(f.idx) && f.ratio < 0.6 && f.ratio > 0.01);
-  if (smaller) { results.push({ ...smaller, direction:'less' }); used.add(smaller.idx); }
-
-  const bigger = scored.find(f => !used.has(f.idx) && f.ratio > 1.7 && f.ratio < 100);
-  if (bigger) { results.push({ ...bigger, direction:'more' }); used.add(bigger.idx); }
-
-  const usedCats = new Set(results.map(r => r.cat));
-  for (const f of scored) {
-    if (results.length >= count) break;
-    if (used.has(f.idx) || f.logRatio > 3) continue;
-    if (!usedCats.has(f.cat) || results.length >= count-1) {
-      results.push({ ...f, direction:getDir(f.ratio) }); used.add(f.idx); usedCats.add(f.cat);
-    }
-  }
-  results.sort((a,b) => ({less:0,about:1,more:2})[a.direction] - ({less:0,about:1,more:2})[b.direction]);
-  return results;
+  currentFacts = scored.slice(0, 20);
+  displayFacts(currentFacts.slice(0, 5), target);
 }
 
-function getDir(ratio) { return ratio < 0.7 ? 'less' : ratio > 1.4 ? 'more' : 'about'; }
+function shuffleFacts() {
+  if (currentFacts.length <= 5) return;
+  const shuffled = [...currentFacts].sort(() => Math.random() - 0.5);
+  displayFacts(shuffled.slice(0, 5), lastResult.addressesAbove);
+}
 
-function renderFunFacts(addressesAbove) {
-  const grid = document.getElementById('funFactsGrid');
-  if (addressesAbove <= 0) { document.getElementById('funFactsCard').classList.add('hidden'); return; }
-  const facts = getFunFacts(addressesAbove, 5);
-  const dirLabels = { less:{text:'FEWER THAN',cls:'dir-less'}, about:{text:'ABOUT THE SAME AS',cls:'dir-about'}, more:{text:'MORE THAN',cls:'dir-more'} };
-  const catCls = { city:'cat-city',country:'cat-country',venue:'cat-venue',profession:'cat-profession',nature:'cat-nature',pop:'cat-pop',history:'cat-history',misc:'cat-misc' };
+function displayFacts(facts, target) {
+  document.getElementById('funFactsGrid').innerHTML = facts.map(f => {
+    const ratio = target / f.count;
+    let dirClass, dirLabel;
+    if (ratio < 0.8) { dirClass = 'dir-less'; dirLabel = 'FEWER THAN'; }
+    else if (ratio > 1.2) { dirClass = 'dir-more'; dirLabel = 'MORE THAN'; }
+    else { dirClass = 'dir-about'; dirLabel = 'ABOUT'; }
 
-  grid.innerHTML = facts.map(f => {
-    const d = dirLabels[f.direction];
     return `<div class="fun-fact">
       <div class="fun-fact-icon">${f.emoji}</div>
       <div class="fun-fact-content">
-        <div class="fun-fact-main"><span class="fact-direction ${d.cls}">${d.text}</span> <span class="highlight">${f.label}</span></div>
-        <div class="fun-fact-detail">${f.detail} \u00B7 ${f.count.toLocaleString()} vs your ${addressesAbove.toLocaleString()} wallets</div>
+        <div class="fun-fact-main">
+          <span class="fact-direction ${dirClass}">${dirLabel}</span>
+          <span class="highlight">${f.count.toLocaleString()}</span> &mdash; ${f.label}
+        </div>
+        <div class="fun-fact-detail">${f.detail}</div>
       </div>
-      <span class="fun-fact-category ${catCls[f.cat]||'cat-misc'}">${f.cat}</span>
+      <span class="fun-fact-category cat-${f.cat}">${f.cat}</span>
     </div>`;
   }).join('');
 }
 
-function shuffleFacts() {
-  for (let i = FUN_FACTS.length-1; i > 0; i--) {
-    const j = Math.floor(Math.random()*(i+1));
-    [FUN_FACTS[i],FUN_FACTS[j]] = [FUN_FACTS[j],FUN_FACTS[i]];
-  }
-  if (lastResult) renderFunFacts(lastResult.addressesAbove);
-}
-
 // ── Celebrity Comparison ──
 function renderCelebs(btcAmount) {
-  const list = document.getElementById('celebList');
-  const sorted = CELEBRITIES.map(c => ({
-    ...c,
-    effectiveBtc: c.btc || (c.usdValue && btcPrice ? c.usdValue / btcPrice : 0)
-  })).sort((a,b) => b.effectiveBtc - a.effectiveBtc);
-
-  list.innerHTML = sorted.map(c => {
-    const youBeat = btcAmount >= c.effectiveBtc;
+  const sorted = [...CELEBRITIES].sort((a,b) => (b.btc||0) - (a.btc||0));
+  document.getElementById('celebList').innerHTML = sorted.map(c => {
+    const cBtc = c.btc || 0;
+    const youBeat = btcAmount >= cBtc && cBtc > 0;
     return `<div class="celeb-row ${youBeat ? 'you-beat' : ''}">
       <div class="celeb-icon">${c.icon}</div>
       <div class="celeb-info">
         <div class="celeb-name">${c.name}</div>
         <div class="celeb-detail">${c.detail}</div>
       </div>
-      <div style="text-align:right">
-        <div class="celeb-amount">${c.effectiveBtc >= 1 ? fmtNum(Math.round(c.effectiveBtc)) : c.effectiveBtc.toFixed(4)} BTC</div>
-        <span class="celeb-status ${youBeat ? 'celeb-behind' : 'celeb-ahead'}">${youBeat ? '\u2713 You beat this' : '\u2191 Ahead of you'}</span>
-      </div>
+      <div class="celeb-amount">${cBtc > 0 ? fmtNum(cBtc)+' BTC' : 'N/A'}</div>
+      ${cBtc > 0 ? `<span class="celeb-status ${youBeat?'celeb-behind':'celeb-ahead'}">
+        ${youBeat ? 'YOU WIN' : 'AHEAD'}
+      </span>` : ''}
     </div>`;
   }).join('');
 }
@@ -1206,13 +1731,11 @@ document.getElementById('dcaSlider').addEventListener('input', () => { if(curren
 function renderGlobalWealth(btcAmount) {
   const usdValue = btcAmount * (btcPrice || 87000);
 
-  // Find wealth percentile
   let wealthPct = 50;
   for (const t of WEALTH_THRESHOLDS) {
     if (usdValue >= t.usd) wealthPct = t.pct;
   }
 
-  // Position on bar (log scale from $0 to $100M)
   const logVal = Math.log10(Math.max(usdValue, 1));
   const logMax = Math.log10(100000000);
   const pctPos = Math.min(Math.max((logVal / logMax) * 100, 1), 99);
@@ -1221,8 +1744,8 @@ function renderGlobalWealth(btcAmount) {
   document.getElementById('wealthMarkerLabel').textContent = 'You: ' + fmtUSD(usdValue);
 
   let summary = '';
-  if (wealthPct <= 0.01) summary = 'Your BTC holdings alone put you in the top 0.01% of global wealth. Ultra-high net worth territory.';
-  else if (wealthPct <= 0.1) summary = 'Your BTC puts you in the top 0.1% of global wealth \u2014 wealthier than 99.9% of all adults on Earth.';
+  if (wealthPct <= 0.01) summary = 'Your BTC holdings alone put you in the top 0.01% of global wealth.';
+  else if (wealthPct <= 0.1) summary = 'Your BTC puts you in the top 0.1% of global wealth \u2014 wealthier than 99.9% of all adults.';
   else if (wealthPct <= 1) summary = 'Your BTC alone puts you in the top 1% of global wealth holders.';
   else if (wealthPct <= 10) summary = 'Your BTC holdings place you in the top 10% of global wealth.';
   else if (wealthPct <= 50) summary = 'Your BTC puts you above the global median wealth of ~$8,600.';
@@ -1235,7 +1758,6 @@ function renderGlobalWealth(btcAmount) {
 function renderBarChart(result) {
   const container = document.getElementById('barChart');
   const maxAddr = Math.max(...DISTRIBUTION_DATA.map(b => b.addresses));
-  const totalAddr = result.totalAddresses;
 
   container.innerHTML = DISTRIBUTION_DATA.slice().reverse().map((bucket, ri) => {
     const i = DISTRIBUTION_DATA.length - 1 - ri;
@@ -1282,7 +1804,7 @@ function renderTracker() {
   const snaps = getSnapshots();
 
   if (snaps.length === 0) {
-    entries.innerHTML = '<div style="text-align:center;color:var(--muted);font-size:0.82rem;padding:12px;">No snapshots yet. Save your current position to start tracking!</div>';
+    entries.innerHTML = '<div style="text-align:center;color:var(--muted);font-size:0.82rem;padding:16px;">No snapshots yet. Save your current position to start tracking.</div>';
     return;
   }
 
@@ -1301,7 +1823,7 @@ function renderTracker() {
         <div class="tracker-date">${new Date(s.date).toLocaleDateString()} ${s.price ? '@ '+fmtUSD(s.price) : ''}</div>
       </div>
       <div style="text-align:right">
-        <div style="font-family:'SF Mono',monospace;font-size:0.82rem;">${fmtNum(s.addressesAbove)} above</div>
+        <div style="font-family:var(--mono);font-size:0.82rem;">${fmtNum(s.addressesAbove)} above</div>
         ${changeHtml}
       </div>
     </div>`;
@@ -1314,59 +1836,65 @@ function renderShareCard(result, btcAmount) {
   const ctx = canvas.getContext('2d');
   const W = 600, H = 340;
 
-  // Background
+  // Background gradient
   const grad = ctx.createLinearGradient(0, 0, W, H);
-  grad.addColorStop(0, '#0d1117');
-  grad.addColorStop(1, '#161b22');
+  grad.addColorStop(0, '#06080c');
+  grad.addColorStop(0.5, '#0b0f16');
+  grad.addColorStop(1, '#0e121b');
   ctx.fillStyle = grad;
   ctx.fillRect(0, 0, W, H);
 
+  // Subtle orange glow
+  const glow = ctx.createRadialGradient(W*0.3, 0, 0, W*0.3, 0, 200);
+  glow.addColorStop(0, 'rgba(247,147,26,0.06)');
+  glow.addColorStop(1, 'transparent');
+  ctx.fillStyle = glow;
+  ctx.fillRect(0, 0, W, H);
+
   // Border
-  ctx.strokeStyle = '#f7931a';
-  ctx.lineWidth = 3;
+  ctx.strokeStyle = 'rgba(247,147,26,0.3)';
+  ctx.lineWidth = 2;
   ctx.beginPath();
-  ctx.roundRect(1.5, 1.5, W-3, H-3, 16);
+  ctx.roundRect(1, 1, W-2, H-2, 16);
   ctx.stroke();
 
   // Orange accent line
   ctx.fillStyle = '#f7931a';
-  ctx.fillRect(0, 0, W, 4);
+  ctx.fillRect(0, 0, W, 3);
 
   // Title
   ctx.fillStyle = '#f7931a';
-  ctx.font = 'bold 24px -apple-system, BlinkMacSystemFont, sans-serif';
-  ctx.fillText('\u20BF Bitcoin Wallet Rank', 30, 48);
+  ctx.font = 'bold 20px Inter, -apple-system, sans-serif';
+  ctx.fillText('\u20BF Bitcoin Wallet Rank', 30, 44);
 
   // Percentile big
   const topPct = fmtPct(result.percentile);
-  ctx.fillStyle = '#e6edf3';
-  ctx.font = 'bold 64px -apple-system, BlinkMacSystemFont, sans-serif';
-  ctx.fillText('Top ' + topPct + '%', 30, 130);
+  ctx.fillStyle = '#eaf0f6';
+  ctx.font = 'bold 56px Inter, -apple-system, sans-serif';
+  ctx.fillText('Top ' + topPct + '%', 30, 120);
 
   // Bracket
-  ctx.fillStyle = '#58a6ff';
-  ctx.font = 'bold 22px -apple-system, BlinkMacSystemFont, sans-serif';
-  ctx.fillText(result.bracketName + ' Tier', 30, 168);
+  ctx.fillStyle = '#3b82f6';
+  ctx.font = 'bold 20px Inter, -apple-system, sans-serif';
+  ctx.fillText(result.bracketName + ' Tier', 30, 156);
 
   // Stats
-  ctx.fillStyle = '#8b949e';
-  ctx.font = '16px -apple-system, BlinkMacSystemFont, sans-serif';
-  ctx.fillText(fmtFull(result.addressesAbove) + ' wallets hold more BTC', 30, 210);
-  ctx.fillText('Out of ' + fmtFull(result.totalAddresses) + ' funded addresses', 30, 235);
+  ctx.fillStyle = '#64748b';
+  ctx.font = '15px Inter, -apple-system, sans-serif';
+  ctx.fillText(fmtFull(result.addressesAbove) + ' wallets hold more BTC', 30, 200);
+  ctx.fillText('Out of ' + fmtFull(result.totalAddresses) + ' funded addresses', 30, 222);
 
   if (btcPrice) {
-    ctx.fillStyle = '#3fb950';
-    ctx.fillText('BTC Price: ' + fmtUSD(btcPrice), 30, 265);
+    ctx.fillStyle = '#22c55e';
+    ctx.fillText('BTC Price: ' + fmtUSD(btcPrice), 30, 254);
   }
 
   // Footer
-  ctx.fillStyle = '#484f58';
-  ctx.font = '13px -apple-system, BlinkMacSystemFont, sans-serif';
+  ctx.fillStyle = '#334155';
+  ctx.font = '12px Inter, -apple-system, sans-serif';
   ctx.fillText('Data: BitInfoCharts \u00B7 ' + new Date().toLocaleDateString(), 30, 310);
-
-  // Note: we don't show the BTC amount for privacy
-  ctx.fillStyle = '#30363d';
-  ctx.fillText('Amount hidden for privacy', 380, 310);
+  ctx.fillStyle = '#1e293b';
+  ctx.fillText('Amount hidden for privacy', 400, 310);
 }
 
 function downloadShareCard() {
@@ -1382,13 +1910,11 @@ async function copyShareCard() {
   try {
     const blob = await new Promise(r => canvas.toBlob(r, 'image/png'));
     await navigator.clipboard.write([new ClipboardItem({'image/png': blob})]);
-    // Brief feedback
     const btn = event.target;
     const orig = btn.textContent;
     btn.textContent = '\u2713 Copied!';
     setTimeout(() => btn.textContent = orig, 2000);
   } catch(e) {
-    // Fallback: download instead
     downloadShareCard();
   }
 }
@@ -1425,9 +1951,7 @@ input.addEventListener('input', (e) => {
   if (btcPrice) {
     document.getElementById('lastUpdated').textContent =
       'BTC Price: '+fmtUSD(btcPrice)+' | Distribution snapshot: March 2026';
-    // Update historical "Now" price
     HISTORICAL_DATA[HISTORICAL_DATA.length-1].btcPrice = btcPrice;
-    // Update celebrity USD conversions
     CELEBRITIES.forEach(c => {
       if (!c.btc && c.usdValue) c.btc = c.usdValue / btcPrice;
     });
