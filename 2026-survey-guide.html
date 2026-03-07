@@ -1,0 +1,833 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RIBPI — Blockchain Policy Survey Guide for Legislators</title>
+<meta name="description" content="A plain-language guide to the Rhode Island Bitcoin Policy Initiative's 2026 Legislator Blockchain Scorecard survey questions.">
+<link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700;900&family=Open+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ri-blue: #002D72;
+  --ri-blue-dark: #001a45;
+  --ri-gold: #C5A648;
+  --ri-gold-light: #d4ba6a;
+  --btc-orange: #F7931A;
+  --bg-primary: #0a0f1c;
+  --bg-secondary: #111827;
+  --bg-card: #1f2937;
+  --bg-card-hover: #283548;
+  --border: #374151;
+  --border-gold: rgba(197, 166, 72, 0.2);
+  --text-primary: #f8fafc;
+  --text-secondary: #94a3b8;
+  --grade-a: #10b981;
+  --grade-b: #22d3ee;
+  --grade-c: #fbbf24;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Open Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  line-height: 1.7;
+  min-height: 100vh;
+}
+
+/* NAV */
+nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: linear-gradient(135deg, var(--ri-blue), var(--ri-blue-dark));
+  box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+  padding: 0 24px;
+}
+.nav-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 64px;
+}
+.nav-brand {
+  font-family: 'Merriweather', serif;
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: var(--ri-gold);
+  text-decoration: none;
+  letter-spacing: 0.02em;
+}
+.nav-brand span { color: var(--text-primary); font-weight: 400; }
+.nav-links { display: flex; gap: 8px; align-items: center; }
+.nav-links a {
+  color: var(--text-secondary);
+  text-decoration: none;
+  font-size: 0.82rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 6px 12px;
+  border-radius: 8px;
+  transition: all 0.2s;
+}
+.nav-links a:hover { color: var(--text-primary); background: rgba(255,255,255,0.08); }
+.nav-cta {
+  background: linear-gradient(135deg, var(--btc-orange), #e8850f) !important;
+  color: #fff !important;
+  padding: 8px 18px !important;
+  border-radius: 8px !important;
+  font-weight: 700 !important;
+}
+.nav-cta:hover { opacity: 0.9; transform: translateY(-1px); }
+
+/* HAMBURGER */
+.hamburger { display: none; background: none; border: none; cursor: pointer; padding: 8px; }
+.hamburger span { display: block; width: 24px; height: 2px; background: var(--text-primary); margin: 5px 0; transition: 0.3s; border-radius: 2px; }
+
+/* HERO */
+.hero {
+  background: linear-gradient(180deg, var(--ri-blue-dark) 0%, var(--bg-primary) 100%);
+  padding: 80px 24px 60px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: radial-gradient(ellipse at 30% 20%, rgba(197,166,72,0.08) 0%, transparent 60%),
+              radial-gradient(ellipse at 70% 80%, rgba(247,147,26,0.06) 0%, transparent 60%);
+  pointer-events: none;
+}
+.hero-content { position: relative; max-width: 800px; margin: 0 auto; }
+.hero h1 {
+  font-family: 'Merriweather', serif;
+  font-size: 2.4rem;
+  font-weight: 900;
+  line-height: 1.3;
+  margin-bottom: 16px;
+  background: linear-gradient(90deg, var(--ri-gold), var(--btc-orange));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.hero p {
+  font-size: 1.1rem;
+  color: var(--text-secondary);
+  max-width: 640px;
+  margin: 0 auto 32px;
+}
+.hero-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: linear-gradient(135deg, var(--btc-orange), #e8850f);
+  color: #fff;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 1rem;
+  padding: 14px 32px;
+  border-radius: 12px;
+  transition: all 0.2s;
+  box-shadow: 0 4px 20px rgba(247,147,26,0.3);
+}
+.hero-cta:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(247,147,26,0.4); }
+
+/* TOC */
+.toc-section {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px 24px;
+}
+.toc-section h2 {
+  font-family: 'Merriweather', serif;
+  font-size: 1.5rem;
+  margin-bottom: 24px;
+  color: var(--ri-gold);
+}
+.toc-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 16px;
+}
+.toc-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 20px;
+  text-decoration: none;
+  color: var(--text-primary);
+  transition: all 0.2s;
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+}
+.toc-card:hover {
+  background: var(--bg-card-hover);
+  border-color: var(--border-gold);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(0,0,0,0.3);
+}
+.toc-num {
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 0.9rem;
+  background: linear-gradient(135deg, var(--ri-blue), var(--ri-blue-dark));
+  border: 1px solid rgba(197,166,72,0.3);
+  color: var(--ri-gold);
+}
+.toc-text h3 { font-size: 0.95rem; font-weight: 600; margin-bottom: 4px; }
+.toc-text p { font-size: 0.82rem; color: var(--text-secondary); line-height: 1.4; }
+
+/* MAIN CONTENT */
+.main { max-width: 840px; margin: 0 auto; padding: 20px 24px 80px; }
+
+.question-section {
+  margin-bottom: 48px;
+  scroll-margin-top: 80px;
+}
+.section-label {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--btc-orange);
+  margin-bottom: 8px;
+}
+.question-section h2 {
+  font-family: 'Merriweather', serif;
+  font-size: 1.6rem;
+  font-weight: 700;
+  margin-bottom: 8px;
+  color: var(--text-primary);
+  line-height: 1.35;
+}
+.question-section .bill-ref {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(197,166,72,0.12);
+  border: 1px solid var(--border-gold);
+  border-radius: 6px;
+  padding: 4px 10px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--ri-gold);
+  margin-bottom: 20px;
+}
+.question-section .bill-ref a {
+  color: var(--ri-gold);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.explainer-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 28px;
+  margin-bottom: 20px;
+}
+.explainer-card h3 {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--ri-gold);
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.explainer-card p {
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+  margin-bottom: 12px;
+  line-height: 1.7;
+}
+.explainer-card p:last-child { margin-bottom: 0; }
+.explainer-card strong { color: var(--text-primary); }
+.explainer-card ul {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 12px;
+}
+.explainer-card ul li {
+  padding: 6px 0 6px 20px;
+  position: relative;
+  color: var(--text-secondary);
+  font-size: 0.92rem;
+}
+.explainer-card ul li::before {
+  content: '▸';
+  position: absolute;
+  left: 0;
+  color: var(--btc-orange);
+  font-weight: 700;
+}
+
+.pros-cons {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin: 16px 0;
+}
+.pro-box, .con-box {
+  background: var(--bg-secondary);
+  border-radius: 10px;
+  padding: 16px;
+  border: 1px solid var(--border);
+}
+.pro-box h4, .con-box h4 {
+  font-size: 0.82rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 8px;
+  font-weight: 700;
+}
+.pro-box h4 { color: var(--grade-a); }
+.con-box h4 { color: var(--grade-c); }
+.pro-box p, .con-box p { font-size: 0.88rem; color: var(--text-secondary); margin: 0; line-height: 1.5; }
+
+.state-examples {
+  background: var(--bg-secondary);
+  border-left: 3px solid var(--ri-gold);
+  border-radius: 0 10px 10px 0;
+  padding: 16px 20px;
+  margin: 16px 0;
+}
+.state-examples h4 {
+  font-size: 0.82rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--ri-gold);
+  margin-bottom: 8px;
+}
+.state-examples p { font-size: 0.88rem; color: var(--text-secondary); margin: 0; line-height: 1.6; }
+
+.survey-link-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: linear-gradient(135deg, var(--btc-orange), #e8850f);
+  color: #fff;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 0.9rem;
+  padding: 12px 24px;
+  border-radius: 10px;
+  transition: all 0.2s;
+  margin-top: 8px;
+}
+.survey-link-btn:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(247,147,26,0.3); }
+
+.wp-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--ri-gold-light);
+  text-decoration: none;
+  font-size: 0.85rem;
+  font-weight: 600;
+  margin-top: 12px;
+  padding: 6px 0;
+  border-bottom: 1px dashed rgba(197,166,72,0.3);
+  transition: all 0.2s;
+}
+.wp-link:hover { color: var(--ri-gold); border-color: var(--ri-gold); }
+
+.divider {
+  border: none;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--border), transparent);
+  margin: 48px 0;
+}
+
+/* KEY TERMS */
+.term {
+  cursor: help;
+  border-bottom: 1px dashed var(--btc-orange);
+  color: var(--text-primary);
+}
+.term-def {
+  display: none;
+  background: var(--bg-card);
+  border: 1px solid var(--ri-gold);
+  border-radius: 10px;
+  padding: 12px 16px;
+  margin: 8px 0;
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+.term-def.visible { display: block; }
+
+/* FOOTER */
+footer {
+  background: var(--bg-secondary);
+  border-top: 1px solid var(--border);
+  padding: 40px 24px;
+  text-align: center;
+}
+footer p { color: var(--text-secondary); font-size: 0.85rem; margin-bottom: 8px; }
+footer a { color: var(--ri-gold); text-decoration: none; }
+footer a:hover { text-decoration: underline; }
+
+/* MOBILE */
+@media (max-width: 768px) {
+  .hamburger { display: block; }
+  .nav-links {
+    display: none;
+    position: absolute;
+    top: 64px;
+    left: 0;
+    right: 0;
+    background: var(--ri-blue-dark);
+    flex-direction: column;
+    padding: 16px;
+    gap: 4px;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.5);
+  }
+  .nav-links.open { display: flex; }
+  .nav-links a { padding: 12px 16px; width: 100%; }
+  .hero h1 { font-size: 1.75rem; }
+  .hero { padding: 60px 20px 40px; }
+  .pros-cons { grid-template-columns: 1fr; }
+  .toc-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <a href="https://ribpi.com" class="nav-brand">RIBPI <span>Survey Guide</span></a>
+    <button class="hamburger" onclick="document.querySelector('.nav-links').classList.toggle('open')" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+    <div class="nav-links">
+      <a href="#toc">Questions</a>
+      <a href="https://dan-hersey.github.io/RIBPI/ri-blockchain-scorecard.html">Scorecard</a>
+      <a href="https://ribpi.com">RIBPI.com</a>
+      <a href="#SURVEY_LINK" class="nav-cta">Take the Survey &#8594;</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-content">
+    <h1>Blockchain Policy Survey Guide</h1>
+    <p>A plain-language guide to every question on the RIBPI 2026 Legislator Blockchain Scorecard survey. We believe informed legislators make better policy &mdash; regardless of where they land.</p>
+    <a href="#SURVEY_LINK" class="hero-cta">Take the Survey (5 min) &#8594;</a>
+  </div>
+</section>
+
+<!-- TABLE OF CONTENTS -->
+<section class="toc-section" id="toc">
+  <h2>Survey Questions at a Glance</h2>
+  <div class="toc-grid">
+    <a href="#q3" class="toc-card"><div class="toc-num">Q3</div><div class="toc-text"><h3>Bitcoin Tax Exemption</h3><p>Small-transaction tax relief</p></div></a>
+    <a href="#q4" class="toc-card"><div class="toc-num">Q4</div><div class="toc-text"><h3>Digital Asset Tax Treatment</h3><p>Simplifying tax on everyday use</p></div></a>
+    <a href="#q5" class="toc-card"><div class="toc-num">Q5</div><div class="toc-text"><h3>Blockchain Act</h3><p>Regulatory sandbox &amp; SPDIs</p></div></a>
+    <a href="#q6" class="toc-card"><div class="toc-num">Q6</div><div class="toc-text"><h3>Study Commission</h3><p>Legislative research body</p></div></a>
+    <a href="#q7" class="toc-card"><div class="toc-num">Q7</div><div class="toc-text"><h3>State Bitcoin Reserve</h3><p>Treasury diversification</p></div></a>
+    <a href="#q8" class="toc-card"><div class="toc-num">Q8</div><div class="toc-text"><h3>Crypto-ATM Regulation</h3><p>Consumer protection balance</p></div></a>
+    <a href="#q9" class="toc-card"><div class="toc-num">Q9</div><div class="toc-text"><h3>Private Key Protection</h3><p>H7957 + S2196</p></div></a>
+    <a href="#q10" class="toc-card"><div class="toc-num">Q10</div><div class="toc-text"><h3>Digital Commons</h3><p>Bitcoin as public infrastructure</p></div></a>
+    <a href="#q11" class="toc-card"><div class="toc-num">Q11</div><div class="toc-text"><h3>CBDCs &amp; Privacy</h3><p>Financial surveillance concerns</p></div></a>
+    <a href="#q12" class="toc-card"><div class="toc-num">Q12</div><div class="toc-text"><h3>Mining &amp; Energy</h3><p>Bitcoin mining in Rhode Island</p></div></a>
+    <a href="#q13" class="toc-card"><div class="toc-num">Q13</div><div class="toc-text"><h3>Overall Stance</h3><p>Your general outlook</p></div></a>
+  </div>
+</section>
+
+<!-- QUESTIONS -->
+<main class="main">
+
+<!-- ===== Q3 ===== -->
+<article class="question-section" id="q3">
+  <span class="section-label">Section 2: Tax Policy</span>
+  <h2>Q3. Bitcoin Tax Exemption for Small Transactions</h2>
+  <div class="bill-ref">&#128220; Related bills: <a href="https://webserver.rilegislature.gov/BillText/BillText26/SenateText26/S2021.pdf" target="_blank">S2021 (2026)</a> &middot; <a href="https://webserver.rilegislature.gov/BillText/BillText25/SenateText25/S0451.pdf" target="_blank">S0451 (2025)</a></div>
+
+  <div class="explainer-card">
+    <h3>&#128161; What this is about</h3>
+    <p>When someone buys a cup of coffee or pays a vendor using Bitcoin, that transaction is currently subject to state income tax &mdash; even if the gain is just a few cents. <strong>S2021</strong> would create an exemption for Bitcoin transactions under $5,000/month ($20,000/year), meaning small everyday purchases wouldn't trigger a tax event. Think of it like how you don't pay sales tax on some small transactions in other contexts.</p>
+    <p><strong>Bitcoin</strong> is a digital currency that operates on a decentralized network. Unlike dollars, its supply is fixed at 21 million units, and transactions happen directly between people without a bank in the middle. It's been in operation since 2009.</p>
+  </div>
+
+  <div class="pros-cons">
+    <div class="pro-box">
+      <h4>Arguments For</h4>
+      <p>Simplifies tax compliance for small, everyday Bitcoin users. Removes a barrier to adoption that could attract fintech businesses and jobs to Rhode Island. Revenue impact is minimal since most small transactions generate negligible tax liability.</p>
+    </div>
+    <div class="con-box">
+      <h4>Arguments Against</h4>
+      <p>Creates a tax preference for one asset class over others. Could be exploited through structuring transactions to stay under the threshold. Sets a precedent for further exemptions that could erode the state tax base.</p>
+    </div>
+  </div>
+
+  <div class="state-examples">
+    <h4>What other states are doing</h4>
+    <p><strong>Arizona's</strong> Virtual Currency Tax Fairness Act (S.4808) proposes a de minimis exemption for transactions under $200. <strong>Minnesota's</strong> Bitcoin Act (HF 2946) would allow residents to pay state taxes in Bitcoin. At the federal level, the bipartisan Virtual Currency Tax Fairness Act has been introduced repeatedly to create a small-transaction exemption.</p>
+  </div>
+
+  <a href="#SURVEY_LINK_Q3" class="survey-link-btn">Answer Q3 in the Survey &#8594;</a>
+  <br>
+  <a href="https://ribpi.com/education" class="wp-link">&#128214; Read RIBPI's white paper: Bitcoin Microtransaction Exemption</a>
+</article>
+
+<hr class="divider">
+
+<!-- ===== Q4 ===== -->
+<article class="question-section" id="q4">
+  <span class="section-label">Section 2: Tax Policy</span>
+  <h2>Q4. State Tax Treatment of Digital Asset Payments</h2>
+
+  <div class="explainer-card">
+    <h3>&#128161; What this is about</h3>
+    <p><strong>Important context:</strong> Unlike the federal government, Rhode Island does <strong>not</strong> have a separate capital gains tax rate. All income &mdash; whether from wages, stock sales, or digital asset transactions &mdash; is taxed at the same rate as ordinary income. So the issue here isn't about creating a lower "capital gains rate" for crypto; RI doesn't have one for anything.</p>
+    <p>The real issue is the <strong>tax reporting burden</strong>. The federal government classifies Bitcoin and other digital assets as <strong>property</strong>. That means every time you spend Bitcoin &mdash; even to buy a sandwich &mdash; you technically owe tax on any gain in value since you acquired it. If you bought $10 of Bitcoin and it grew to $12, spending that $12 creates a $2 taxable event. Multiply this by dozens of daily transactions and the compliance burden becomes impractical.</p>
+    <p>S2021 (Q3) addresses this for small transactions. This question goes broader: should Rhode Island pursue <strong>additional simplifications</strong> to make everyday digital asset commerce practical?</p>
+  </div>
+
+  <div class="pros-cons">
+    <div class="pro-box">
+      <h4>Arguments For</h4>
+      <p>The current "property" treatment makes it nearly impossible to use Bitcoin for everyday purchases without expensive tax tracking software. Simplifying treatment stimulates small business adoption and keeps Rhode Island competitive. Other states are actively courting digital asset businesses with friendlier tax environments.</p>
+    </div>
+    <div class="con-box">
+      <h4>Arguments Against</h4>
+      <p>Tax treatment of digital assets is primarily a federal issue (IRS classification). State-level carveouts could create confusion or conflict with federal requirements. Any simplification benefits digital asset holders over people who use traditional payment methods.</p>
+    </div>
+  </div>
+
+  <div class="state-examples">
+    <h4>What other states are doing</h4>
+    <p><strong>Arizona's</strong> Virtual Currency Tax Fairness Act (S.4808) proposes a de minimis exemption for transactions under $200. <strong>Minnesota's</strong> Bitcoin Act (HF 2946) would allow residents to pay state taxes in Bitcoin. At the federal level, the bipartisan Virtual Currency Tax Fairness Act has been introduced repeatedly to create a small-transaction exemption.</p>
+  </div>
+
+  <a href="#SURVEY_LINK_Q4" class="survey-link-btn">Answer Q4 in the Survey &#8594;</a>
+</article>
+
+<hr class="divider">
+
+<!-- ===== Q5 ===== -->
+<article class="question-section" id="q5">
+  <span class="section-label">Section 3: Economic Development &amp; Innovation</span>
+  <h2>Q5. Rhode Island Economic Growth Blockchain Act</h2>
+  <div class="bill-ref">&#128220; Related bills: <a href="https://webserver.rilegislature.gov/BillText/BillText26/HouseText26/H7413.pdf" target="_blank">H7413 (2026)</a> &middot; <a href="https://www.billtrack50.com/billdetail/1847027" target="_blank">H5564 (2025)</a></div>
+
+  <div class="explainer-card">
+    <h3>&#128161; What this is about</h3>
+    <p>A <strong>regulatory sandbox</strong> is a controlled environment where new financial technology companies can test innovative products under relaxed regulations for a limited time, with government oversight. Think of it like a pilot program &mdash; companies get temporary permission to operate with lighter rules while the state evaluates whether permanent regulations are needed.</p>
+    <p>A <strong>Special Purpose Depository Institution (SPDI)</strong> is a new type of bank charter specifically designed to serve digital asset businesses &mdash; companies that currently struggle to get basic banking services because traditional banks view them as too risky or unfamiliar.</p>
+  </div>
+
+  <div class="pros-cons">
+    <div class="pro-box">
+      <h4>Arguments For</h4>
+      <p>Provides regulatory clarity that attracts blockchain businesses and jobs to Rhode Island. The sandbox model lets the state learn alongside industry rather than regulating blindly. SPDIs solve a real banking access problem for legitimate businesses.</p>
+    </div>
+    <div class="con-box">
+      <h4>Arguments Against</h4>
+      <p>Relaxed regulations could expose consumers to untested financial products. The state may lack the expertise to properly oversee novel financial technology. Could create regulatory arbitrage where companies choose Rhode Island specifically to avoid stricter rules elsewhere.</p>
+    </div>
+  </div>
+
+  <div class="state-examples">
+    <h4>What other states are doing</h4>
+    <p><strong>Wyoming</strong> pioneered this approach with HB74 (2019), creating SPDI charters that have attracted companies like Kraken and Custodia Bank. <strong>Nebraska</strong> enacted the Financial Innovation Act (LB648, 2021) enabling Digital Asset Depository Entities. <strong>Arizona's</strong> sandbox bill HB 2906 passed 57-0 in the House and 17-12 in the Senate before being vetoed by the Governor. So far, only Wyoming and Nebraska have enacted SPDIs.</p>
+  </div>
+
+  <a href="#SURVEY_LINK_Q5" class="survey-link-btn">Answer Q5 in the Survey &#8594;</a>
+  <br>
+  <a href="https://ribpi.com/education" class="wp-link">&#128214; Read RIBPI's white paper: Bitcoin Innovation Sandbox</a>
+</article>
+
+<hr class="divider">
+
+<!-- ===== Q6 ===== -->
+<article class="question-section" id="q6">
+  <span class="section-label">Section 3: Economic Development &amp; Innovation</span>
+  <h2>Q6. State-Level Bitcoin &amp; Blockchain Study Commission</h2>
+  <div class="bill-ref">&#128220; Related bills: <a href="https://webserver.rilegislature.gov/BillText/BillText26/HouseText26/H7956.pdf" target="_blank">H7956 (2026)</a> &middot; <a href="https://webserver.rilegislature.gov/BillText/BillText26/SenateText26/S2198.pdf" target="_blank">S2198 (2026)</a> &middot; <a href="https://webserver.rilegislature.gov/BillText/BillText25/HouseText25/H5810.pdf" target="_blank">H5810 (2025)</a></div>
+
+  <div class="explainer-card">
+    <h3>&#128161; What this is about</h3>
+    <p>A <strong>study commission</strong> is a temporary group of legislators, experts, and stakeholders tasked with researching a topic and making recommendations to the General Assembly. It doesn't create any new rules or spending &mdash; it produces a report. This is a common tool Rhode Island uses to study emerging issues before taking action (recent examples include commissions on AI, housing, and healthcare).</p>
+    <p>H7956 and S2198 (2026) would create a special legislative commission to study blockchain and cryptocurrency technology &mdash; including applications for <strong>voting, land registries, public records</strong>, and tax policy &mdash; and deliver recommendations to the General Assembly. A predecessor bill, H5810, was introduced in 2025.</p>
+  </div>
+
+  <div class="pros-cons">
+    <div class="pro-box">
+      <h4>Arguments For</h4>
+      <p>Low-cost, low-risk way to build legislative knowledge before making policy decisions. Brings together diverse stakeholders (industry, consumer advocates, academics) for balanced recommendations. Several questions on this very survey would benefit from commission-level research.</p>
+    </div>
+    <div class="con-box">
+      <h4>Arguments Against</h4>
+      <p>Study commissions can delay action on time-sensitive issues while the technology evolves rapidly. Resources spent on the commission could be directed toward existing legislative staff research. Some view it as a way to appear active without committing to policy.</p>
+    </div>
+  </div>
+
+  <div class="state-examples">
+    <h4>What other states are doing</h4>
+    <p><strong>Colorado</strong> passed SB18-086 in 2018 to study cryptography for government records. <strong>Mississippi</strong> passed HB1214 in 2024 to develop strategic policy recommendations for blockchain technology. As of October 2025, <strong>238 total blockchain-related measures</strong> have been introduced across 45 states.</p>
+  </div>
+
+  <a href="#SURVEY_LINK_Q6" class="survey-link-btn">Answer Q6 in the Survey &#8594;</a>
+</article>
+
+<hr class="divider">
+
+<!-- ===== Q7 ===== -->
+<article class="question-section" id="q7">
+  <span class="section-label">Section 3: Economic Development &amp; Innovation</span>
+  <h2>Q7. State Digital Asset Reserve / Treasury Diversification</h2>
+  <div class="bill-ref">&#128220; Related bill: H6007 &mdash; Rhode Island Digital Asset Retention Act (pending 2026 introduction)</div>
+
+  <div class="explainer-card">
+    <h3>&#128161; What this is about</h3>
+    <p><strong>H6007</strong> (the Rhode Island Digital Asset Retention Act) would authorize the state treasurer to invest <strong>up to 10% of uncommitted state funds</strong> in digital assets like Bitcoin, with assets held through <strong>qualified custodians</strong> using secure custody solutions.</p>
+    <p>State governments hold reserve funds (rainy day funds, general fund balances) typically invested in bonds, money market funds, and other traditional assets. The rationale for adding Bitcoin is similar to why some pension funds and endowments have: it is not correlated to traditional markets, has a fixed supply (unlike dollars, which can be printed), and has been the best-performing asset class over the last decade. The risk is that Bitcoin's price is volatile &mdash; it can lose 50% or more in a year.</p>
+  </div>
+
+  <div class="pros-cons">
+    <div class="pro-box">
+      <h4>Arguments For</h4>
+      <p>Diversifies state holdings against inflation and dollar devaluation. Even a 1&ndash;2% allocation limits downside risk while providing exposure to potential upside. Signals Rhode Island as forward-thinking and attracts Bitcoin-related economic activity.</p>
+    </div>
+    <div class="con-box">
+      <h4>Arguments Against</h4>
+      <p>Bitcoin's price volatility creates risk for funds that need stability (pensions, rainy day funds). State treasurers have a fiduciary duty to preserve capital, not speculate. Taxpayers may not be comfortable with public funds in a relatively new asset class.</p>
+    </div>
+  </div>
+
+  <div class="state-examples">
+    <h4>What other states are doing</h4>
+    <p><strong>New Hampshire</strong> became the first state to allow its treasury to invest in digital assets by passing HB302 (May 2025). The <strong>Texas</strong> Senate passed SB21 (25-5) to create a state-managed Strategic Bitcoin Reserve (March 2025). As of April 2025, <strong>26 states</strong> have introduced bills allowing their treasuries to invest in Bitcoin and other digital assets. At the federal level, President Trump signed an executive order establishing a Strategic Bitcoin Reserve in March 2025.</p>
+  </div>
+
+  <a href="#SURVEY_LINK_Q7" class="survey-link-btn">Answer Q7 in the Survey &#8594;</a>
+  <br>
+  <a href="https://ribpi.com/education" class="wp-link">&#128214; Read RIBPI's white paper: State Bitcoin Reserve as a Hedge</a>
+</article>
+
+<hr class="divider">
+
+<!-- ===== Q8 ===== -->
+<article class="question-section" id="q8">
+  <span class="section-label">Section 4: Consumer Protection &amp; Regulation</span>
+  <h2>Q8. Crypto-ATM Consumer Protection</h2>
+  <div class="bill-ref">&#128220; Related law: <a href="https://webserver.rilegislature.gov/BillText/BillText25/SenateText25/S0016A.pdf" target="_blank">S0016A</a> / <a href="https://webserver.rilegislature.gov/BillText/BillText25/HouseText25/H5121A.pdf" target="_blank">H5121A</a> (enacted June 2025)</div>
+
+  <div class="explainer-card">
+    <h3>&#128161; What this is about</h3>
+    <p>A <strong>cryptocurrency ATM (or kiosk)</strong> is a physical machine &mdash; often found in convenience stores, gas stations, and laundromats &mdash; where people can buy or sell Bitcoin using cash. There are approximately 200+ crypto ATMs in Rhode Island.</p>
+    <p>In 2025, Rhode Island enacted a law requiring kiosk operators to be <strong>licensed</strong> by the Department of Business Regulation, display <strong>clear fee disclosures and fraud warnings</strong>, and comply with <strong>daily transaction limits</strong>. This was in response to rising scam activity where victims (often elderly) were instructed by scammers to deposit cash into crypto ATMs.</p>
+    <p>This question asks whether the enacted law strikes the right balance, or whether it should be loosened or strengthened.</p>
+  </div>
+
+  <div class="pros-cons">
+    <div class="pro-box">
+      <h4>Case for Loosening</h4>
+      <p>Transaction limits and licensing requirements make it harder for legitimate users (particularly unbanked populations) to access Bitcoin. Excessive regulation could push operators out of Rhode Island entirely, reducing access.</p>
+    </div>
+    <div class="con-box">
+      <h4>Case for Strengthening</h4>
+      <p>Crypto ATM scams cost Americans over $114 million in 2023 (FTC data). Kiosk fees average 12&ndash;25%, which is significantly higher than traditional financial services. Stronger protections could include fee caps or mandatory cooling-off periods for large transactions.</p>
+    </div>
+  </div>
+
+  <a href="#SURVEY_LINK_Q8" class="survey-link-btn">Answer Q8 in the Survey &#8594;</a>
+</article>
+
+<hr class="divider">
+
+<!-- ===== Q9 ===== -->
+<article class="question-section" id="q9">
+  <span class="section-label">Section 4: Consumer Protection &amp; Regulation</span>
+  <h2>Q9. Private Key Protection &amp; Self-Custody</h2>
+  <div class="bill-ref">&#128220; Related bills: <a href="https://webserver.rilegislature.gov/BillText/BillText26/HouseText26/H7957.pdf" target="_blank">H7957 (2026)</a> &middot; <a href="https://webserver.rilegislature.gov/BillText/BillText26/SenateText26/S2196.pdf" target="_blank">S2196 (2026)</a> &middot; H5868 / S0375 (2025)</div>
+
+  <div class="explainer-card">
+    <h3>&#128161; What this is about</h3>
+    <p>A <strong>private cryptographic key</strong> is essentially the password that controls your Bitcoin or other digital assets. Whoever has the key controls the funds &mdash; there is no "forgot password" option and no bank to call. <strong>Self-custody</strong> means holding your own keys in a personal digital wallet rather than keeping assets on an exchange or with a third-party service (like Coinbase or Fidelity). Think of it as the difference between keeping cash in your own safe versus keeping it at a bank.</p>
+    <p><strong>H7957 and S2196</strong> would prohibit compelling individuals to disclose their private keys in legal proceedings related to digital assets, except in limited circumstances where a <strong>public key</strong> is unavailable or insufficient to access the necessary information. A public key is like your mailing address (anyone can see it), while a private key is like the key to your front door (only you should have it).</p>
+  </div>
+
+  <div class="pros-cons">
+    <div class="pro-box">
+      <h4>Arguments For</h4>
+      <p>Protects individual financial autonomy &mdash; a core American principle. Reduces reliance on third parties that can be hacked, go bankrupt (as with FTX in 2022), or freeze accounts. Aligns with Fourth Amendment protections against unreasonable search.</p>
+    </div>
+    <div class="con-box">
+      <h4>Arguments Against</h4>
+      <p>Self-custody makes it harder for law enforcement to trace illicit financial activity. Users who lose their keys permanently lose access to their funds (no recovery possible). Third-party custodians provide consumer protections like insurance and account recovery.</p>
+    </div>
+  </div>
+
+  <div class="state-examples">
+    <h4>What other states are doing</h4>
+    <p><strong>Wyoming</strong> passed HB0086 in 2023 specifically to protect individuals from being compelled to disclose private keys. <strong>Oklahoma</strong> enacted the Bitcoin Rights Act in 2024 with similar protections. <strong>Montana</strong> and <strong>Louisiana</strong> have passed related measures. At the federal level, the Keep Your Coins Act has been introduced in Congress.</p>
+  </div>
+
+  <a href="#SURVEY_LINK_Q9" class="survey-link-btn">Answer Q9 in the Survey &#8594;</a>
+  <br>
+  <a href="https://ribpi.com/education" class="wp-link">&#128214; Read RIBPI's white paper: Financial Censorship in the 21st Century</a>
+</article>
+
+<hr class="divider">
+
+<!-- ===== Q10 ===== -->
+<article class="question-section" id="q10">
+  <span class="section-label">Section 5: Digital Infrastructure &amp; Sovereignty</span>
+  <h2>Q10. Digital Commons Resolution</h2>
+
+  <div class="explainer-card">
+    <h3>&#128161; What this is about</h3>
+    <p>A <strong>Digital Commons Resolution</strong> is a non-binding legislative statement that would formally recognize Bitcoin and open blockchain protocols as <strong>public digital infrastructure</strong> &mdash; shared resources that belong to everyone, similar to how the internet, GPS, or public roads are treated.</p>
+    <p>The <strong>Bitcoin network</strong> is open-source software that no company or government controls. Anyone can participate, build on it, or verify its transactions. An <strong>open blockchain protocol</strong> refers to this type of transparent, publicly auditable system. The resolution wouldn't create any new laws or spending &mdash; it would simply establish a policy position that Rhode Island views these technologies as public infrastructure worth supporting.</p>
+  </div>
+
+  <div class="pros-cons">
+    <div class="pro-box">
+      <h4>Arguments For</h4>
+      <p>Establishes Rhode Island as a thought leader on digital infrastructure. A non-binding resolution is low-risk and low-cost. Signals to blockchain companies and developers that Rhode Island views their work as public good, not threat. Creates a policy foundation for future legislation.</p>
+    </div>
+    <div class="con-box">
+      <h4>Arguments Against</h4>
+      <p>Non-binding resolutions have no legal force and could be seen as symbolic rather than substantive. Comparing Bitcoin to public roads or the internet may be premature given Bitcoin's relatively narrow use case today. Could be perceived as state endorsement of a specific technology.</p>
+    </div>
+  </div>
+
+  <a href="#SURVEY_LINK_Q10" class="survey-link-btn">Answer Q10 in the Survey &#8594;</a>
+</article>
+
+<hr class="divider">
+
+<!-- ===== Q11 ===== -->
+<article class="question-section" id="q11">
+  <span class="section-label">Section 5: Digital Infrastructure &amp; Sovereignty</span>
+  <h2>Q11. Central Bank Digital Currencies (CBDCs) &amp; Financial Privacy</h2>
+
+  <div class="explainer-card">
+    <h3>&#128161; What this is about</h3>
+    <p>A <strong>Central Bank Digital Currency (CBDC)</strong> is a digital form of a country's official currency &mdash; in the US, it would be a "digital dollar" issued and controlled by the Federal Reserve. Unlike Bitcoin, which is decentralized and no one controls, a CBDC would be fully controlled by the central bank, meaning the government could potentially track, freeze, or restrict transactions.</p>
+    <p>This question asks whether Rhode Island should take a proactive position on protecting residents' <strong>financial privacy</strong> in the context of digital currencies &mdash; essentially whether the state should weigh in on the federal CBDC debate to protect its citizens.</p>
+  </div>
+
+  <div class="pros-cons">
+    <div class="pro-box">
+      <h4>Arguments for state action</h4>
+      <p>Financial privacy is a core civil liberty. A programmable CBDC could theoretically allow government to restrict what people spend money on. States have a role in protecting residents' rights, even when the policy originates at the federal level (as with data privacy laws). Multiple states are already taking positions.</p>
+    </div>
+    <div class="con-box">
+      <h4>Arguments against state action</h4>
+      <p>Monetary policy is a federal responsibility; state-level action may be preempted. A CBDC does not exist yet in the US, so legislation may be premature. Federal Reserve officials have stated any CBDC would require Congressional approval and privacy protections.</p>
+    </div>
+  </div>
+
+  <div class="state-examples">
+    <h4>What other states are doing</h4>
+    <p><strong>Florida, Texas, North Carolina, Indiana, and Louisiana</strong> have passed or introduced legislation restricting CBDCs or prohibiting their use as legal tender within the state. <strong>Over 20 states</strong> have introduced CBDC-related bills, making this one of the most active areas of state-level digital currency policy.</p>
+  </div>
+
+  <a href="#SURVEY_LINK_Q11" class="survey-link-btn">Answer Q11 in the Survey &#8594;</a>
+  <br>
+  <a href="https://ribpi.com/education" class="wp-link">&#128214; Read RIBPI's white paper: Case Against CBDCs</a>
+</article>
+
+<hr class="divider">
+
+<!-- ===== Q12 ===== -->
+<article class="question-section" id="q12">
+  <span class="section-label">Section 6: Mining, Energy &amp; Infrastructure</span>
+  <h2>Q12. Bitcoin Mining &amp; Energy Policy</h2>
+
+  <div class="explainer-card">
+    <h3>&#128161; What this is about</h3>
+    <p><strong>Bitcoin mining</strong> is the process of using specialized computers to validate Bitcoin transactions and secure the network. Miners compete to solve mathematical puzzles; the winner adds a new "block" of transactions to the blockchain and earns newly created Bitcoin as a reward. This process is called <strong>Proof of Work</strong> because it requires real computational effort (and therefore electricity) to participate.</p>
+    <p><strong>Right-to-mine</strong> legislation protects individuals and businesses who run mining equipment &mdash; including at home &mdash; from being shut down by local zoning restrictions or utility discrimination, as long as they comply with noise and environmental standards.</p>
+  </div>
+
+  <div class="pros-cons">
+    <div class="pro-box">
+      <h4>Arguments For</h4>
+      <p>Mining operations bring jobs, tax revenue, and infrastructure investment. Miners can stabilize energy grids by consuming excess power during off-peak hours. Some miners specifically seek renewable energy sources (hydro, solar, wind) because cheap energy is their primary cost. Home mining is a form of individual economic participation.</p>
+    </div>
+    <div class="con-box">
+      <h4>Arguments Against</h4>
+      <p>Mining consumes significant electricity &mdash; the entire Bitcoin network uses roughly as much energy as a small country. Rhode Island's small geography and limited energy infrastructure may not be suited to large-scale mining. Noise and heat from mining hardware can affect residential neighborhoods.</p>
+    </div>
+  </div>
+
+  <div class="state-examples">
+    <h4>What other states are doing</h4>
+    <p><strong>Montana</strong> and <strong>Missouri</strong> have enacted right-to-mine protections. <strong>Texas</strong> has attracted major mining operations by offering cheap energy and grid-stabilization incentives. <strong>New York</strong> imposed a two-year moratorium on new fossil-fuel-powered mining operations in 2022, taking the opposite approach.</p>
+  </div>
+
+  <a href="#SURVEY_LINK_Q12" class="survey-link-btn">Answer Q12 in the Survey &#8594;</a>
+  <br>
+  <a href="https://ribpi.com/education" class="wp-link">&#128214; Read RIBPI's white papers: Proof of Work Mining Realities &amp; Bitcoin Mining for Economic Revitalization</a>
+</article>
+
+<hr class="divider">
+
+<!-- ===== Q13 ===== -->
+<article class="question-section" id="q13">
+  <span class="section-label">Section 7: General Outlook</span>
+  <h2>Q13. Overall Stance on Blockchain / Bitcoin Policy</h2>
+
+  <div class="explainer-card">
+    <h3>&#128161; What this is about</h3>
+    <p>This question asks you to self-identify your overall approach to Bitcoin and blockchain policy. There are no right or wrong answers &mdash; the goal is to transparently represent your position to Rhode Island voters. The five options range from <strong>Champion</strong> (actively seeking to make RI a leader) to <strong>Opposed</strong> (believing RI should not encourage this activity), with <strong>Supportive</strong>, <strong>Cautious</strong>, and <strong>Skeptical</strong> in between.</p>
+    <p>Your answer here, combined with your responses to the specific policy questions above, will inform your grade on the RIBPI Legislator Blockchain Scorecard. The scorecard is public and available at <a href="https://dan-hersey.github.io/RIBPI/ri-blockchain-scorecard.html" style="color:var(--ri-gold)">dan-hersey.github.io/RIBPI</a>.</p>
+  </div>
+
+  <a href="#SURVEY_LINK_Q13" class="survey-link-btn">Answer Q13 in the Survey &#8594;</a>
+</article>
+
+<hr class="divider">
+
+<!-- ABOUT RIBPI -->
+<section class="question-section" id="about">
+  <span class="section-label">About</span>
+  <h2>About the Rhode Island Bitcoin Policy Initiative</h2>
+  <div class="explainer-card">
+    <p>RIBPI is a <strong>nonpartisan</strong> research and advocacy organization working to shape smart, forward-looking Bitcoin and blockchain policy in Rhode Island. We work across party lines &mdash; our current "A"-rated legislators include Democrats, Republicans, and Independents.</p>
+    <p>We operate across three pillars: <strong>Educate</strong> lawmakers about Bitcoin and related policy considerations, <strong>Empower</strong> local businesses to engage with Bitcoin opportunities, and <strong>Engage</strong> citizens in building a more sovereign financial future.</p>
+    <p>This survey guide was created because we believe informed legislators make better policy, regardless of where they land on any particular question. We encourage you to review these materials and reach out with any questions.</p>
+    <ul>
+      <li><strong>Website:</strong> <a href="https://ribpi.com" style="color:var(--ri-gold)">ribpi.com</a></li>
+      <li><strong>Email:</strong> <a href="mailto:Dan@RIBPI.com" style="color:var(--ri-gold)">Dan@RIBPI.com</a></li>
+      <li><strong>Scorecard:</strong> <a href="https://dan-hersey.github.io/RIBPI/ri-blockchain-scorecard.html" style="color:var(--ri-gold)">Legislator Blockchain Scorecard</a></li>
+      <li><strong>White Papers:</strong> <a href="https://ribpi.com/education" style="color:var(--ri-gold)">RIBPI Education Library</a></li>
+    </ul>
+  </div>
+</section>
+
+</main>
+
+<!-- FOOTER -->
+<footer>
+  <p><strong>Rhode Island Bitcoin Policy Initiative</strong> &middot; RI's Leading Bitcoin Think Tank</p>
+  <p><a href="https://ribpi.com">ribpi.com</a> &middot; <a href="mailto:Dan@RIBPI.com">Dan@RIBPI.com</a> &middot; <a href="https://x.com/RIBTCPolicy">@RIBTCPolicy</a></p>
+  <p style="margin-top:16px;font-size:0.78rem;color:#64748b;">&copy; 2026 Rhode Island Bitcoin Policy Initiative. All rights reserved.</p>
+</footer>
+
+</body>
+</html>
