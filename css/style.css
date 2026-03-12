@@ -2703,120 +2703,141 @@ footer {
 }
 
 /* ============================================================================
-   STATE COMPARISON TABLE
+   STATE COMPARISON CARDS
    ============================================================================ */
 
-.state-table-wrap {
-  overflow-x: auto;
-  border-radius: var(--radius-lg);
+.state-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: var(--spacing-lg);
+}
+
+.state-card {
+  background-color: var(--bg-card);
   border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  transition: all var(--transition-fast);
 }
 
-.state-table {
-  width: 100%;
-  border-collapse: collapse;
-  font-family: var(--font-sans);
-  font-size: var(--font-size-sm);
+.state-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+  border-color: rgba(255, 255, 255, 0.1);
 }
 
-.state-table thead {
-  background-color: var(--bg-card);
+.state-card--ri {
+  border-color: rgba(230, 122, 0, 0.3);
+  box-shadow: 0 0 20px rgba(230, 122, 0, 0.06);
 }
 
-.state-table th {
-  padding: 1rem 1.25rem;
-  text-align: left;
-  font-weight: 600;
-  color: var(--text-secondary);
-  font-size: 0.75rem;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
+.state-card--ri:hover {
+  border-color: var(--bitcoin-orange);
+  box-shadow: 0 8px 30px rgba(230, 122, 0, 0.15);
+}
+
+.state-card-header {
+  padding: 1.25rem 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   border-bottom: 1px solid var(--border-color);
 }
 
-.state-table td {
-  padding: 1rem 1.25rem;
-  border-bottom: 1px solid var(--border-color);
+.sc-wyoming { background: linear-gradient(135deg, rgba(34, 197, 94, 0.08) 0%, transparent 100%); }
+.sc-colorado { background: linear-gradient(135deg, rgba(59, 130, 246, 0.08) 0%, transparent 100%); }
+.sc-nh { background: linear-gradient(135deg, rgba(59, 130, 246, 0.08) 0%, transparent 100%); }
+.sc-nebraska { background: linear-gradient(135deg, rgba(168, 85, 247, 0.08) 0%, transparent 100%); }
+.sc-ri { background: linear-gradient(135deg, rgba(230, 122, 0, 0.12) 0%, transparent 100%); }
+
+.state-card-name {
+  font-family: var(--font-serif);
+  font-size: 1.15rem;
+  font-weight: 700;
   color: var(--text-primary);
+  margin: 0;
 }
 
-.state-table tbody tr:last-child td {
-  border-bottom: none;
-}
-
-.state-table tbody tr:hover {
-  background-color: var(--bg-card);
-}
-
-.state-name {
-  font-weight: 600;
-  white-space: nowrap;
-}
-
-.ri-row {
-  background-color: rgba(230, 122, 0, 0.06);
-}
-
-.ri-row:hover {
-  background-color: rgba(230, 122, 0, 0.1) !important;
-}
-
-.ri-row .state-name {
+.state-card--ri .state-card-name {
   color: var(--bitcoin-orange);
 }
 
-/* Status pills */
-.st-yes,
-.st-no,
-.st-partial {
-  display: inline-block;
-  padding: 0.2rem 0.65rem;
-  border-radius: var(--radius-full);
-  font-size: 0.75rem;
+.state-card-body {
+  padding: 1.25rem 1.5rem;
+}
+
+.state-card-note {
+  font-size: var(--font-size-sm);
+  color: var(--text-secondary);
+  margin: 0 0 1rem;
+  line-height: 1.5;
+}
+
+.state-checklist {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.state-check {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: var(--font-size-sm);
+  color: var(--text-primary);
+}
+
+.sc-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.sc-green { background-color: #4ade80; box-shadow: 0 0 6px rgba(74, 222, 128, 0.4); }
+.sc-red { background-color: #f87171; box-shadow: 0 0 6px rgba(248, 113, 113, 0.4); }
+.sc-yellow { background-color: #facc15; box-shadow: 0 0 6px rgba(250, 204, 21, 0.4); }
+
+.sc-label {
+  margin-left: auto;
+  font-size: 0.7rem;
   font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--text-secondary);
+  background-color: var(--bg-secondary);
+  padding: 0.15rem 0.5rem;
+  border-radius: var(--radius-full);
 }
 
-.st-yes {
-  background-color: rgba(34, 197, 94, 0.12);
-  color: #4ade80;
-}
-
-.st-no {
-  background-color: rgba(239, 68, 68, 0.1);
-  color: #f87171;
-}
-
-.st-partial {
-  background-color: rgba(234, 179, 8, 0.1);
-  color: #facc15;
-}
-
+/* Status pills (shared) */
 .st-status {
   display: inline-block;
-  padding: 0.25rem 0.75rem;
+  padding: 0.3rem 0.85rem;
   border-radius: var(--radius-full);
-  font-size: 0.75rem;
+  font-size: 0.7rem;
   font-weight: 700;
-  letter-spacing: 0.02em;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
 }
 
 .st-established {
-  background-color: rgba(34, 197, 94, 0.12);
+  background-color: rgba(34, 197, 94, 0.15);
   color: #4ade80;
 }
 
 .st-leading {
-  background-color: rgba(59, 130, 246, 0.12);
+  background-color: rgba(59, 130, 246, 0.15);
   color: #60a5fa;
 }
 
 .st-active {
-  background-color: rgba(168, 85, 247, 0.12);
+  background-color: rgba(168, 85, 247, 0.15);
   color: #c084fc;
 }
 
 .st-emerging {
-  background-color: rgba(230, 122, 0, 0.15);
+  background-color: rgba(230, 122, 0, 0.2);
   color: var(--bitcoin-orange);
 }
 
@@ -2833,7 +2854,7 @@ footer {
 .resource-card {
   display: flex;
   flex-direction: column;
-  padding: var(--spacing-xl);
+  padding: 1.75rem;
   background-color: var(--bg-card);
   border: 1px solid var(--border-color);
   border-radius: var(--radius-lg);
@@ -2844,8 +2865,26 @@ footer {
 
 .resource-card:hover {
   border-color: var(--bitcoin-orange);
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-lg);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 30px rgba(230, 122, 0, 0.1);
+}
+
+.resource-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, rgba(230, 122, 0, 0.12) 0%, rgba(230, 122, 0, 0.04) 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1rem;
+  color: var(--bitcoin-orange);
+  transition: all var(--transition-fast);
+}
+
+.resource-card:hover .resource-icon {
+  background: linear-gradient(135deg, rgba(230, 122, 0, 0.25) 0%, rgba(230, 122, 0, 0.1) 100%);
+  transform: scale(1.05);
 }
 
 .resource-title {
@@ -2854,6 +2893,7 @@ footer {
   font-weight: 700;
   color: var(--text-primary);
   margin: 0 0 var(--spacing-sm);
+  transition: color var(--transition-fast);
 }
 
 .resource-card:hover .resource-title {
@@ -2863,22 +2903,22 @@ footer {
 .resource-desc {
   font-size: var(--font-size-sm);
   color: var(--text-secondary);
-  line-height: 1.5;
+  line-height: 1.6;
   margin: 0;
   flex-grow: 1;
 }
 
 .resource-arrow {
   display: block;
-  margin-top: var(--spacing-md);
+  margin-top: 1rem;
   color: var(--bitcoin-orange);
-  font-size: var(--font-size-lg);
+  font-size: 1.2rem;
   font-weight: 600;
   transition: transform var(--transition-fast);
 }
 
 .resource-card:hover .resource-arrow {
-  transform: translateX(4px);
+  transform: translateX(6px);
 }
 
 /* ============================================================================

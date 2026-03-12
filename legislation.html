@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-ZYM5XCY723"></script>
+    <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag("js",new Date());gtag("config","G-ZYM5XCY723");</script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Track Rhode Island's Bitcoin and blockchain legislation. Explore 8 bills, state comparisons, and policy developments shaping RI's crypto future.">
@@ -275,55 +278,81 @@
                     <p>See how Rhode Island compares on Bitcoin and digital asset policy</p>
                 </div>
 
-                <div class="state-table-wrap">
-                    <table class="state-table">
-                        <thead>
-                            <tr>
-                                <th>State</th>
-                                <th>Study Commission</th>
-                                <th>Tax Exemption</th>
-                                <th>Consumer Protection</th>
-                                <th>Status</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td class="state-name">Wyoming</td>
-                                <td><span class="st-yes">Done</span></td>
-                                <td><span class="st-yes">Yes</span></td>
-                                <td><span class="st-yes">Yes</span></td>
-                                <td><span class="st-status st-established">Established</span></td>
-                            </tr>
-                            <tr>
-                                <td class="state-name">Colorado</td>
-                                <td><span class="st-yes">Done</span></td>
-                                <td><span class="st-no">No</span></td>
-                                <td><span class="st-yes">Yes</span></td>
-                                <td><span class="st-status st-leading">Leading</span></td>
-                            </tr>
-                            <tr>
-                                <td class="state-name">New Hampshire</td>
-                                <td><span class="st-partial">Partial</span></td>
-                                <td><span class="st-no">No</span></td>
-                                <td><span class="st-yes">Yes</span></td>
-                                <td><span class="st-status st-leading">Leading</span></td>
-                            </tr>
-                            <tr>
-                                <td class="state-name">Nebraska</td>
-                                <td><span class="st-yes">Done</span></td>
-                                <td><span class="st-no">No</span></td>
-                                <td><span class="st-yes">Yes</span></td>
-                                <td><span class="st-status st-active">Active</span></td>
-                            </tr>
-                            <tr class="ri-row">
-                                <td class="state-name">Rhode Island</td>
-                                <td><span class="st-partial">Proposed</span></td>
-                                <td><span class="st-partial">Proposed</span></td>
-                                <td><span class="st-yes">Enacted</span></td>
-                                <td><span class="st-status st-emerging">Emerging</span></td>
-                            </tr>
-                        </tbody>
-                    </table>
+                <div class="state-cards-grid">
+                    <div class="state-card">
+                        <div class="state-card-header sc-wyoming">
+                            <h3 class="state-card-name">Wyoming</h3>
+                            <span class="st-status st-established">Established</span>
+                        </div>
+                        <div class="state-card-body">
+                            <p class="state-card-note">SPDIs, comprehensive digital asset framework</p>
+                            <div class="state-checklist">
+                                <div class="state-check"><span class="sc-dot sc-green"></span> Study Commission</div>
+                                <div class="state-check"><span class="sc-dot sc-green"></span> Tax Exemption</div>
+                                <div class="state-check"><span class="sc-dot sc-green"></span> Consumer Protection</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="state-card">
+                        <div class="state-card-header sc-colorado">
+                            <h3 class="state-card-name">Colorado</h3>
+                            <span class="st-status st-leading">Leading</span>
+                        </div>
+                        <div class="state-card-body">
+                            <p class="state-card-note">Early blockchain study commission (SB18-086, 2018)</p>
+                            <div class="state-checklist">
+                                <div class="state-check"><span class="sc-dot sc-green"></span> Study Commission</div>
+                                <div class="state-check"><span class="sc-dot sc-red"></span> Tax Exemption</div>
+                                <div class="state-check"><span class="sc-dot sc-green"></span> Consumer Protection</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="state-card">
+                        <div class="state-card-header sc-nh">
+                            <h3 class="state-card-name">New Hampshire</h3>
+                            <span class="st-status st-leading">Leading</span>
+                        </div>
+                        <div class="state-card-body">
+                            <p class="state-card-note">First state Strategic Bitcoin Reserve law (HB 302)</p>
+                            <div class="state-checklist">
+                                <div class="state-check"><span class="sc-dot sc-yellow"></span> Study Commission</div>
+                                <div class="state-check"><span class="sc-dot sc-red"></span> Tax Exemption</div>
+                                <div class="state-check"><span class="sc-dot sc-green"></span> Consumer Protection</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="state-card">
+                        <div class="state-card-header sc-nebraska">
+                            <h3 class="state-card-name">Nebraska</h3>
+                            <span class="st-status st-active">Active</span>
+                        </div>
+                        <div class="state-card-body">
+                            <p class="state-card-note">Financial Innovation Act SPDIs (LB648)</p>
+                            <div class="state-checklist">
+                                <div class="state-check"><span class="sc-dot sc-green"></span> Study Commission</div>
+                                <div class="state-check"><span class="sc-dot sc-red"></span> Tax Exemption</div>
+                                <div class="state-check"><span class="sc-dot sc-green"></span> Consumer Protection</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="state-card state-card--ri">
+                        <div class="state-card-header sc-ri">
+                            <h3 class="state-card-name">Rhode Island</h3>
+                            <span class="st-status st-emerging">Emerging</span>
+                        </div>
+                        <div class="state-card-body">
+                            <p class="state-card-note">5 active bills in the 2026 session</p>
+                            <div class="state-checklist">
+                                <div class="state-check"><span class="sc-dot sc-yellow"></span> Study Commission <span class="sc-label">Proposed</span></div>
+                                <div class="state-check"><span class="sc-dot sc-yellow"></span> Tax Exemption <span class="sc-label">Proposed</span></div>
+                                <div class="state-check"><span class="sc-dot sc-green"></span> Consumer Protection <span class="sc-label">Enacted</span></div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
@@ -338,21 +367,33 @@
 
                 <div class="resources-grid">
                     <a href="https://webserver.rilegislature.gov/" target="_blank" rel="noopener noreferrer" class="resource-card">
+                        <div class="resource-icon">
+                            <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 21h18M3 7v14M21 7v14M6 7V4a1 1 0 011-1h10a1 1 0 011 1v3M9 21v-4a1 1 0 011-1h4a1 1 0 011 1v4"/><path d="M9 7h1M14 7h1M9 11h1M14 11h1"/></svg>
+                        </div>
                         <h3 class="resource-title">RI General Assembly</h3>
                         <p class="resource-desc">Official legislative website and bill texts</p>
                         <span class="resource-arrow">→</span>
                     </a>
                     <a href="https://bitcoinlaws.io/rhode-island" target="_blank" rel="noopener noreferrer" class="resource-card">
+                        <div class="resource-icon">
+                            <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+                        </div>
                         <h3 class="resource-title">BitcoinLaws.io — RI</h3>
                         <p class="resource-desc">Real-time digital asset legislation tracking</p>
                         <span class="resource-arrow">→</span>
                     </a>
                     <a href="https://bitcoinlaws.io/reserve-race" target="_blank" rel="noopener noreferrer" class="resource-card">
+                        <div class="resource-icon">
+                            <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+                        </div>
                         <h3 class="resource-title">State Reserve Race</h3>
                         <p class="resource-desc">Track all 50 states' Strategic Bitcoin Reserve laws</p>
                         <span class="resource-arrow">→</span>
                     </a>
                     <a href="https://www.btcpolicy.org/research" target="_blank" rel="noopener noreferrer" class="resource-card">
+                        <div class="resource-icon">
+                            <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/><path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/></svg>
+                        </div>
                         <h3 class="resource-title">Bitcoin Policy Institute</h3>
                         <p class="resource-desc">Research, analysis, and policy recommendations</p>
                         <span class="resource-arrow">→</span>
