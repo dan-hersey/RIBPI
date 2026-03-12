@@ -1,0 +1,14 @@
+<svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="shieldGradientNA" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#94a3b8;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#64748b;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+
+  <!-- Shield shape -->
+  <path d="M 32 8 L 48 16 L 48 32 Q 48 48 32 56 Q 16 48 16 32 L 16 16 Z" fill="url(#shieldGradientNA)" stroke="#475569" stroke-width="1"/>
+
+  <!-- Question mark text -->
+  <text x="32" y="42" font-family="system-ui, -apple-system, sans-serif" font-size="28" font-weight="700" fill="#FFFFFF" text-anchor="middle">?</text>
+</svg>

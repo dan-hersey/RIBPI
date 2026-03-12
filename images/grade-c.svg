@@ -1,0 +1,14 @@
+<svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="shieldGradientC" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#fcd34d;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#fbbf24;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+
+  <!-- Shield shape -->
+  <path d="M 32 8 L 48 16 L 48 32 Q 48 48 32 56 Q 16 48 16 32 L 16 16 Z" fill="url(#shieldGradientC)" stroke="#d97706" stroke-width="1"/>
+
+  <!-- Grade C text -->
+  <text x="32" y="42" font-family="system-ui, -apple-system, sans-serif" font-size="28" font-weight="700" fill="#FFFFFF" text-anchor="middle">C</text>
+</svg>

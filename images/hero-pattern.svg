@@ -1,0 +1,45 @@
+<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <filter id="softEdge">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="0.5"/>
+    </filter>
+  </defs>
+
+  <!-- Node circles -->
+  <circle cx="30" cy="30" r="2" fill="#F7931A" opacity="0.05" filter="url(#softEdge)"/>
+  <circle cx="100" cy="30" r="2" fill="#F7931A" opacity="0.05" filter="url(#softEdge)"/>
+  <circle cx="170" cy="30" r="2" fill="#F7931A" opacity="0.05" filter="url(#softEdge)"/>
+
+  <circle cx="30" cy="100" r="2" fill="#F7931A" opacity="0.05" filter="url(#softEdge)"/>
+  <circle cx="100" cy="100" r="2" fill="#F7931A" opacity="0.05" filter="url(#softEdge)"/>
+  <circle cx="170" cy="100" r="2" fill="#F7931A" opacity="0.05" filter="url(#softEdge)"/>
+
+  <circle cx="30" cy="170" r="2" fill="#F7931A" opacity="0.05" filter="url(#softEdge)"/>
+  <circle cx="100" cy="170" r="2" fill="#F7931A" opacity="0.05" filter="url(#softEdge)"/>
+  <circle cx="170" cy="170" r="2" fill="#F7931A" opacity="0.05" filter="url(#softEdge)"/>
+
+  <!-- Connecting lines -->
+  <line x1="30" y1="30" x2="100" y2="30" stroke="#F7931A" stroke-width="0.5" opacity="0.04"/>
+  <line x1="100" y1="30" x2="170" y2="30" stroke="#F7931A" stroke-width="0.5" opacity="0.04"/>
+
+  <line x1="30" y1="30" x2="30" y2="100" stroke="#F7931A" stroke-width="0.5" opacity="0.04"/>
+  <line x1="30" y1="100" x2="30" y2="170" stroke="#F7931A" stroke-width="0.5" opacity="0.04"/>
+
+  <line x1="100" y1="30" x2="100" y2="100" stroke="#F7931A" stroke-width="0.5" opacity="0.04"/>
+  <line x1="100" y1="100" x2="100" y2="170" stroke="#F7931A" stroke-width="0.5" opacity="0.04"/>
+
+  <line x1="170" y1="30" x2="170" y2="100" stroke="#F7931A" stroke-width="0.5" opacity="0.04"/>
+  <line x1="170" y1="100" x2="170" y2="170" stroke="#F7931A" stroke-width="0.5" opacity="0.04"/>
+
+  <line x1="30" y1="100" x2="100" y2="100" stroke="#F7931A" stroke-width="0.5" opacity="0.04"/>
+  <line x1="100" y1="100" x2="170" y2="100" stroke="#F7931A" stroke-width="0.5" opacity="0.04"/>
+
+  <line x1="30" y1="170" x2="100" y2="170" stroke="#F7931A" stroke-width="0.5" opacity="0.04"/>
+  <line x1="100" y1="170" x2="170" y2="170" stroke="#F7931A" stroke-width="0.5" opacity="0.04"/>
+
+  <!-- Diagonal connections -->
+  <line x1="30" y1="30" x2="100" y2="100" stroke="#F7931A" stroke-width="0.5" opacity="0.03"/>
+  <line x1="100" y1="30" x2="170" y2="100" stroke="#F7931A" stroke-width="0.5" opacity="0.03"/>
+  <line x1="100" y1="100" x2="170" y2="170" stroke="#F7931A" stroke-width="0.5" opacity="0.03"/>
+  <line x1="30" y1="100" x2="100" y2="170" stroke="#F7931A" stroke-width="0.5" opacity="0.03"/>
+</svg>
