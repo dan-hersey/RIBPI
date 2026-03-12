@@ -1695,6 +1695,14 @@ footer {
   .footer-bottom {
     text-align: center;
   }
+
+  .b101-basics-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .mvf-grid {
+    grid-template-columns: 1fr;
+  }
 }
 
 @media (max-width: 768px) {
@@ -1842,6 +1850,35 @@ footer {
   }
 
   .comparison-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .b101-basics-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .b101-flow-steps {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .b101-step {
+    max-width: 280px;
+  }
+
+  .b101-step-arrow {
+    transform: rotate(90deg);
+  }
+
+  .mvf-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .state-table-wrap {
+    font-size: var(--font-size-xs);
+  }
+
+  .resources-grid {
     grid-template-columns: 1fr;
   }
 }
@@ -3085,4 +3122,241 @@ footer {
     text-align: center;
     min-width: 100px;
   }
+}
+
+/* ============================================================================
+   BITCOIN 101 — PAGE-SPECIFIC COMPONENTS
+   ============================================================================ */
+
+/* Icon circles for feature cards */
+.b101-icon {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: rgba(230, 122, 0, 0.1);
+  border: 1px solid rgba(230, 122, 0, 0.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: var(--spacing-lg);
+  color: var(--bitcoin-orange);
+}
+
+/* Numbered basics grid (How Bitcoin Works) */
+.b101-basics-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--spacing-lg);
+}
+
+.b101-basics-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-xl);
+  position: relative;
+  transition: border-color 0.3s, transform 0.3s;
+}
+
+.b101-basics-card:hover {
+  border-color: rgba(230, 122, 0, 0.4);
+  transform: translateY(-2px);
+}
+
+.b101-basics-card h3 {
+  font-family: var(--font-serif);
+  font-size: var(--font-size-lg);
+  color: var(--text-primary);
+  margin-bottom: var(--spacing-sm);
+}
+
+.b101-basics-card p {
+  font-size: var(--font-size-sm);
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+.b101-basics-num {
+  display: block;
+  font-family: var(--font-serif);
+  font-size: var(--font-size-3xl);
+  font-weight: 700;
+  color: rgba(230, 122, 0, 0.15);
+  margin-bottom: var(--spacing-sm);
+  line-height: 1;
+}
+
+/* Transaction flow visualization */
+.b101-flow {
+  margin-top: var(--spacing-2xl);
+  padding: var(--spacing-2xl);
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+}
+
+.b101-flow-steps {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  gap: var(--spacing-md);
+}
+
+.b101-step {
+  flex: 1;
+  max-width: 160px;
+  text-align: center;
+}
+
+.b101-step-num {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(230, 122, 0, 0.15);
+  border: 1px solid rgba(230, 122, 0, 0.4);
+  color: var(--bitcoin-orange);
+  font-weight: 700;
+  font-size: var(--font-size-sm);
+  margin-bottom: var(--spacing-sm);
+}
+
+.b101-step p {
+  font-size: var(--font-size-xs);
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+.b101-step-arrow {
+  color: var(--bitcoin-orange);
+  font-size: 1.5rem;
+  margin-top: 0.25rem;
+  flex-shrink: 0;
+  opacity: 0.5;
+}
+
+/* Myth vs Fact cards */
+.mvf-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--spacing-lg);
+}
+
+.mvf-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  transition: border-color 0.3s, transform 0.3s;
+}
+
+.mvf-card:hover {
+  border-color: rgba(230, 122, 0, 0.4);
+  transform: translateY(-2px);
+}
+
+.mvf-myth,
+.mvf-fact {
+  padding: var(--spacing-lg) var(--spacing-xl);
+}
+
+.mvf-myth {
+  background: rgba(239, 68, 68, 0.05);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.mvf-fact {
+  background: rgba(16, 185, 129, 0.05);
+}
+
+.mvf-myth p,
+.mvf-fact p {
+  font-size: var(--font-size-sm);
+  line-height: 1.7;
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+.mvf-myth p {
+  font-style: italic;
+  color: var(--text-tertiary);
+}
+
+.mvf-label {
+  display: inline-block;
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  padding: 2px 10px;
+  border-radius: var(--radius-full);
+  margin-bottom: var(--spacing-sm);
+}
+
+.mvf-label--myth {
+  background: rgba(239, 68, 68, 0.15);
+  color: #f87171;
+}
+
+.mvf-label--fact {
+  background: rgba(16, 185, 129, 0.15);
+  color: #34d399;
+}
+
+/* Comparison table (Bitcoin vs Traditional Money) */
+.state-table-wrap {
+  overflow-x: auto;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-color);
+}
+
+.state-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--font-size-sm);
+}
+
+.state-table thead {
+  background: var(--bg-card);
+}
+
+.state-table th {
+  padding: var(--spacing-lg) var(--spacing-xl);
+  text-align: left;
+  font-family: var(--font-serif);
+  font-weight: 700;
+  color: var(--text-primary);
+  border-bottom: 2px solid var(--border-color);
+  white-space: nowrap;
+}
+
+.state-table td {
+  padding: var(--spacing-md) var(--spacing-xl);
+  color: var(--text-secondary);
+  border-bottom: 1px solid rgba(51, 51, 51, 0.5);
+  line-height: 1.6;
+}
+
+.state-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.state-table tbody tr:hover {
+  background: rgba(230, 122, 0, 0.03);
+}
+
+.state-table .state-name {
+  font-weight: 600;
+  color: var(--text-primary);
+  white-space: nowrap;
+}
+
+.btc-col {
+  background: rgba(230, 122, 0, 0.04);
+}
+
+th.btc-col {
+  color: var(--bitcoin-orange);
 }
