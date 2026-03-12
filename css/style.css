@@ -2703,6 +2703,185 @@ footer {
 }
 
 /* ============================================================================
+   STATE COMPARISON TABLE
+   ============================================================================ */
+
+.state-table-wrap {
+  overflow-x: auto;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-color);
+}
+
+.state-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: var(--font-sans);
+  font-size: var(--font-size-sm);
+}
+
+.state-table thead {
+  background-color: var(--bg-card);
+}
+
+.state-table th {
+  padding: 1rem 1.25rem;
+  text-align: left;
+  font-weight: 600;
+  color: var(--text-secondary);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.state-table td {
+  padding: 1rem 1.25rem;
+  border-bottom: 1px solid var(--border-color);
+  color: var(--text-primary);
+}
+
+.state-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.state-table tbody tr:hover {
+  background-color: var(--bg-card);
+}
+
+.state-name {
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.ri-row {
+  background-color: rgba(230, 122, 0, 0.06);
+}
+
+.ri-row:hover {
+  background-color: rgba(230, 122, 0, 0.1) !important;
+}
+
+.ri-row .state-name {
+  color: var(--bitcoin-orange);
+}
+
+/* Status pills */
+.st-yes,
+.st-no,
+.st-partial {
+  display: inline-block;
+  padding: 0.2rem 0.65rem;
+  border-radius: var(--radius-full);
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.st-yes {
+  background-color: rgba(34, 197, 94, 0.12);
+  color: #4ade80;
+}
+
+.st-no {
+  background-color: rgba(239, 68, 68, 0.1);
+  color: #f87171;
+}
+
+.st-partial {
+  background-color: rgba(234, 179, 8, 0.1);
+  color: #facc15;
+}
+
+.st-status {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  border-radius: var(--radius-full);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.st-established {
+  background-color: rgba(34, 197, 94, 0.12);
+  color: #4ade80;
+}
+
+.st-leading {
+  background-color: rgba(59, 130, 246, 0.12);
+  color: #60a5fa;
+}
+
+.st-active {
+  background-color: rgba(168, 85, 247, 0.12);
+  color: #c084fc;
+}
+
+.st-emerging {
+  background-color: rgba(230, 122, 0, 0.15);
+  color: var(--bitcoin-orange);
+}
+
+/* ============================================================================
+   RESOURCES GRID
+   ============================================================================ */
+
+.resources-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: var(--spacing-lg);
+}
+
+.resource-card {
+  display: flex;
+  flex-direction: column;
+  padding: var(--spacing-xl);
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  text-decoration: none;
+  transition: all var(--transition-fast);
+  position: relative;
+}
+
+.resource-card:hover {
+  border-color: var(--bitcoin-orange);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+}
+
+.resource-title {
+  font-family: var(--font-serif);
+  font-size: var(--font-size-base);
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0 0 var(--spacing-sm);
+}
+
+.resource-card:hover .resource-title {
+  color: var(--bitcoin-orange);
+}
+
+.resource-desc {
+  font-size: var(--font-size-sm);
+  color: var(--text-secondary);
+  line-height: 1.5;
+  margin: 0;
+  flex-grow: 1;
+}
+
+.resource-arrow {
+  display: block;
+  margin-top: var(--spacing-md);
+  color: var(--bitcoin-orange);
+  font-size: var(--font-size-lg);
+  font-weight: 600;
+  transition: transform var(--transition-fast);
+}
+
+.resource-card:hover .resource-arrow {
+  transform: translateX(4px);
+}
+
+/* ============================================================================
    FILTER TABS & NEWS COMPONENTS
    ============================================================================ */
 
