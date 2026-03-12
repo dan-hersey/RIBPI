@@ -34,12 +34,12 @@
             <ul class="nav-menu">
                 <li><a href="index.html">Home</a></li>
                 <li><a href="about.html">About</a></li>
-                <li><a href="scorecard.html">Scorecard</a></li>
                 <li><a href="legislation.html">Legislation</a></li>
                 <li><a href="bitcoin-101.html">Bitcoin 101</a></li>
                 <li><a href="research.html" class="active">Research</a></li>
                 <li><a href="glossary.html">Glossary</a></li>
                 <li><a href="news.html">News</a></li>
+                <li><a href="scorecard.html">Scorecard</a></li>
                 <li><a href="contact.html">Contact</a></li>
             </ul>
             <button class="hamburger-btn" data-hamburger aria-label="Toggle mobile menu">
@@ -51,12 +51,12 @@
         <ul>
             <li><a href="index.html">Home</a></li>
             <li><a href="about.html">About</a></li>
-            <li><a href="scorecard.html">Scorecard</a></li>
             <li><a href="legislation.html">Legislation</a></li>
             <li><a href="bitcoin-101.html">Bitcoin 101</a></li>
             <li><a href="research.html">Research</a></li>
             <li><a href="glossary.html">Glossary</a></li>
             <li><a href="news.html">News</a></li>
+            <li><a href="scorecard.html">Scorecard</a></li>
             <li><a href="contact.html">Contact</a></li>
         </ul>
     </nav>
@@ -71,38 +71,122 @@
 
     <!-- Main Content -->
     <main>
-        <!-- 2026 Legislative Priorities -->
-        <section class="legislative-report" data-animate-on-scroll>
+        <!-- 2026 Bill Analysis -->
+        <section class="research-section" data-animate-on-scroll>
             <div class="container">
-                <div class="report-highlight">
-                    <h2>2026 Legislative Priorities</h2>
-                    <div class="priority-item">
-                        <h3>Senate Bill S2021</h3>
-                        <p>De minimis tax exemption for small-scale Bitcoin sales with a $20,000 yearly exemption. Introduced January 9th by Senator Appollonio.</p>
-                        <div class="priority-links">
-                            <a href="docs/S2021.pdf" class="link" target="_blank">View Bill Text (PDF)</a>
+                <h2>2026 Legislative Analysis</h2>
+
+                <!-- S.2021 -->
+                <div class="research-category">
+                    <h3>S.2021 — Bitcoin Tax Exemption Act</h3>
+                    <div class="papers-grid">
+                        <div class="paper-card" data-animate-on-scroll>
+                            <div class="paper-header">
+                                <span class="paper-type-badge pdf">PDF</span>
+                            </div>
+                            <h4>S2021 Executive Summary</h4>
+                            <p>Overview of Senate Bill S2021, the de minimis tax exemption for small-scale Bitcoin transactions in Rhode Island.</p>
+                            <div class="paper-actions">
+                                <a href="docs/S2021_Executive_Summary.pdf" class="btn btn-secondary" target="_blank">Download Paper</a>
+                            </div>
+                        </div>
+
+                        <div class="paper-card" data-animate-on-scroll>
+                            <div class="paper-header">
+                                <span class="paper-type-badge pdf">PDF</span>
+                            </div>
+                            <h4>S2021 Fiscal Impact Analysis</h4>
+                            <p>Detailed fiscal analysis of the revenue implications and economic impact of the Bitcoin de minimis exemption.</p>
+                            <div class="paper-actions">
+                                <a href="docs/S2021_Fiscal_Impact_Analysis.pdf" class="btn btn-secondary" target="_blank">Download Paper</a>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- H.7956 / S.2198 -->
+                <div class="research-category">
+                    <h3>H.7956 / S.2198 — Blockchain Study Commission</h3>
+                    <div class="papers-grid">
+                        <div class="paper-card" data-animate-on-scroll>
+                            <div class="paper-header">
+                                <span class="paper-type-badge pdf">PDF</span>
+                            </div>
+                            <h4>H7956/S2198 Executive Summary</h4>
+                            <p>Overview of the proposed legislative commission to study blockchain technology applications for Rhode Island government and economy.</p>
+                            <div class="paper-actions">
+                                <a href="docs/H7956_S2198_Executive_Summary.pdf" class="btn btn-secondary" target="_blank">Download Paper</a>
+                            </div>
+                        </div>
+
+                        <div class="paper-card" data-animate-on-scroll>
+                            <div class="paper-header">
+                                <span class="paper-type-badge pdf">PDF</span>
+                            </div>
+                            <h4>H7956/S2198 Fiscal Impact Analysis</h4>
+                            <p>Cost-benefit analysis of the blockchain study commission including operating costs, comparative state outcomes, and economic development potential.</p>
+                            <div class="paper-actions">
+                                <a href="docs/H7956_S2198_Fiscal_Impact_Analysis.pdf" class="btn btn-secondary" target="_blank">Download Paper</a>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </section>
 
-        <!-- 2025 Legislative Report -->
-        <section class="research-section" data-animate-on-scroll>
-            <div class="container">
-                <h2>2025 Legislative Report</h2>
-                <div class="legislative-content">
-                    <p>Despite S0451 not advancing this session, RIBPI founder Dan Hersey reports significant progress in shifting Rhode Island's approach to blockchain policy. The state has moved from outright dismissal to serious legislative engagement.</p>
+                <!-- H.7413 -->
+                <div class="research-category">
+                    <h3>H.7413 — Economic Growth Blockchain Act</h3>
+                    <div class="papers-grid">
+                        <div class="paper-card" data-animate-on-scroll>
+                            <div class="paper-header">
+                                <span class="paper-type-badge pdf">PDF</span>
+                            </div>
+                            <h4>H7413 Executive Summary</h4>
+                            <p>Overview of the regulatory sandbox and Special Purpose Depository Institution (SPDI) framework to attract blockchain businesses to Rhode Island.</p>
+                            <div class="paper-actions">
+                                <a href="docs/H7413_Executive_Summary.pdf" class="btn btn-secondary" target="_blank">Download Paper</a>
+                            </div>
+                        </div>
 
-                    <h3>Bills Introduced</h3>
-                    <ul class="bills-list">
-                        <li><strong>S0373/H5810:</strong> Blockchain Study Commission</li>
-                        <li><strong>H5564:</strong> Economic Growth Blockchain Act</li>
-                        <li><strong>H6007:</strong> State Treasurer Digital Asset Investment</li>
-                        <li><strong>H5868/S0375:</strong> Cryptographic Key Protection</li>
-                    </ul>
+                        <div class="paper-card" data-animate-on-scroll>
+                            <div class="paper-header">
+                                <span class="paper-type-badge pdf">PDF</span>
+                            </div>
+                            <h4>H7413 Fiscal Impact Analysis</h4>
+                            <p>Comprehensive fiscal analysis of the regulatory sandbox and SPDI framework including startup costs, fee revenue projections, and job creation estimates.</p>
+                            <div class="paper-actions">
+                                <a href="docs/H7413_Fiscal_Impact_Analysis.pdf" class="btn btn-secondary" target="_blank">Download Paper</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-                    <p class="highlight-message">The key takeaway: Rhode Island is shifting from dismissal to serious engagement with blockchain technology and Bitcoin policy.</p>
+                <!-- H.7957 / S.2196 -->
+                <div class="research-category">
+                    <h3>H.7957 / S.2196 — Cryptographic Key Protection</h3>
+                    <div class="papers-grid">
+                        <div class="paper-card" data-animate-on-scroll>
+                            <div class="paper-header">
+                                <span class="paper-type-badge pdf">PDF</span>
+                            </div>
+                            <h4>H7957/S2196 Executive Summary</h4>
+                            <p>Overview of the bill protecting citizens' private cryptographic keys from compelled disclosure in legal proceedings.</p>
+                            <div class="paper-actions">
+                                <a href="docs/H7957_S2196_Executive_Summary.pdf" class="btn btn-secondary" target="_blank">Download Paper</a>
+                            </div>
+                        </div>
+
+                        <div class="paper-card" data-animate-on-scroll>
+                            <div class="paper-header">
+                                <span class="paper-type-badge pdf">PDF</span>
+                            </div>
+                            <h4>H7957/S2196 Fiscal Impact Analysis</h4>
+                            <p>Fiscal analysis examining the minimal costs of implementation, legal context, and comparative analysis with Wyoming's similar protections.</p>
+                            <div class="paper-actions">
+                                <a href="docs/H7957_S2196_Fiscal_Impact_Analysis.pdf" class="btn btn-secondary" target="_blank">Download Paper</a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
@@ -123,7 +207,7 @@
                             <h4>Bitcoin As Economic Sovereignty</h4>
                             <p>Understanding how Bitcoin provides economic sovereignty and financial independence to individuals and nations in the digital age.</p>
                             <div class="paper-actions">
-                                <a href="docs/Bitcoin_Energy_Research_Brief.pdf" class="btn btn-secondary" download>Download Paper</a>
+                                <a href="docs/Bitcoin_Energy_Research_Brief.pdf" class="btn btn-secondary" target="_blank">Download Paper</a>
                             </div>
                         </div>
 
@@ -134,7 +218,18 @@
                             <h4>Proof of Work Mining Realities</h4>
                             <p>An evidence-based examination of Bitcoin mining, its energy consumption, and its role in securing the network.</p>
                             <div class="paper-actions">
-                                <span class="btn btn-secondary" style="opacity:0.5;cursor:default">Coming Soon</span>
+                                <a href="docs/Proof_of_Work_Mining_Realities.pdf" class="btn btn-secondary" target="_blank">Download Paper</a>
+                            </div>
+                        </div>
+
+                        <div class="paper-card" data-animate-on-scroll>
+                            <div class="paper-header">
+                                <span class="paper-type-badge pdf">PDF</span>
+                            </div>
+                            <h4>Unit Bias and Bitcoin Adoption Barrier</h4>
+                            <p>How psychological unit bias affects Bitcoin adoption and strategies for overcoming perception barriers.</p>
+                            <div class="paper-actions">
+                                <a href="docs/Unit_Bias_Adoption_Barrier.pdf" class="btn btn-secondary" target="_blank">Download Paper</a>
                             </div>
                         </div>
                     </div>
@@ -146,23 +241,12 @@
                     <div class="papers-grid">
                         <div class="paper-card" data-animate-on-scroll>
                             <div class="paper-header">
-                                <span class="paper-type-badge docx">DOCX</span>
-                            </div>
-                            <h4>Bitcoin Microtransaction Exemption</h4>
-                            <p>Policy proposal for tax exemptions on small-scale Bitcoin transactions to encourage adoption and reduce compliance burden.</p>
-                            <div class="paper-actions">
-                                <span class="btn btn-secondary" style="opacity:0.5;cursor:default">Coming Soon</span>
-                            </div>
-                        </div>
-
-                        <div class="paper-card" data-animate-on-scroll>
-                            <div class="paper-header">
                                 <span class="paper-type-badge pdf">PDF</span>
                             </div>
                             <h4>Bitcoin Mining for Economic Revitalization</h4>
                             <p>Exploring how Bitcoin mining can contribute to economic growth, job creation, and energy infrastructure development.</p>
                             <div class="paper-actions">
-                                <span class="btn btn-secondary" style="opacity:0.5;cursor:default">Coming Soon</span>
+                                <a href="docs/Bitcoin_Mining_Economic_Revitalization.pdf" class="btn btn-secondary" target="_blank">Download Paper</a>
                             </div>
                         </div>
 
@@ -173,7 +257,18 @@
                             <h4>State Bitcoin Reserve as a Hedge</h4>
                             <p>Analysis of how state governments can strategically hold Bitcoin as a reserve asset for long-term financial security.</p>
                             <div class="paper-actions">
-                                <span class="btn btn-secondary" style="opacity:0.5;cursor:default">Coming Soon</span>
+                                <a href="docs/State_Bitcoin_Reserve_Hedge.pdf" class="btn btn-secondary" target="_blank">Download Paper</a>
+                            </div>
+                        </div>
+
+                        <div class="paper-card" data-animate-on-scroll>
+                            <div class="paper-header">
+                                <span class="paper-type-badge pdf">PDF</span>
+                            </div>
+                            <h4>Bitcoin Innovation Sandbox</h4>
+                            <p>Policy framework for creating regulatory sandboxes to foster Bitcoin and blockchain innovation while maintaining oversight.</p>
+                            <div class="paper-actions">
+                                <a href="docs/Bitcoin_Innovation_Sandbox.pdf" class="btn btn-secondary" target="_blank">Download Paper</a>
                             </div>
                         </div>
                     </div>
@@ -187,41 +282,13 @@
                             <div class="paper-header">
                                 <span class="paper-type-badge pdf">PDF</span>
                             </div>
-                            <h4>Teaching Bitcoin in Public Education</h4>
-                            <p>Curriculum proposals and educational frameworks for integrating Bitcoin literacy into public school systems.</p>
-                            <div class="paper-actions">
-                                <span class="btn btn-secondary" style="opacity:0.5;cursor:default">Coming Soon</span>
-                            </div>
-                        </div>
-
-                        <div class="paper-card" data-animate-on-scroll>
-                            <div class="paper-header">
-                                <span class="paper-type-badge pdf">PDF</span>
-                            </div>
                             <h4>Case Against CBDCs</h4>
                             <p>Critical examination of Central Bank Digital Currencies and their implications for privacy, freedom, and financial autonomy.</p>
                             <div class="paper-actions">
-                                <span class="btn btn-secondary" style="opacity:0.5;cursor:default">Coming Soon</span>
+                                <a href="docs/Case_Against_CBDCs.pdf" class="btn btn-secondary" target="_blank">Download Paper</a>
                             </div>
                         </div>
 
-                        <div class="paper-card" data-animate-on-scroll>
-                            <div class="paper-header">
-                                <span class="paper-type-badge docx">DOCX</span>
-                            </div>
-                            <h4>Unit Bias and Bitcoin Adoption Barrier</h4>
-                            <p>How psychological unit bias affects Bitcoin adoption and strategies for overcoming perception barriers.</p>
-                            <div class="paper-actions">
-                                <span class="btn btn-secondary" style="opacity:0.5;cursor:default">Coming Soon</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Education and Innovation -->
-                <div class="research-category">
-                    <h3>Education and Innovation</h3>
-                    <div class="papers-grid">
                         <div class="paper-card" data-animate-on-scroll>
                             <div class="paper-header">
                                 <span class="paper-type-badge pdf">PDF</span>
@@ -229,7 +296,7 @@
                             <h4>Financial Censorship in the 21st Century</h4>
                             <p>Exploring how Bitcoin provides protection against financial censorship and enables unrestricted economic participation.</p>
                             <div class="paper-actions">
-                                <span class="btn btn-secondary" style="opacity:0.5;cursor:default">Coming Soon</span>
+                                <a href="docs/Financial_Censorship_21st_Century.pdf" class="btn btn-secondary" target="_blank">Download Paper</a>
                             </div>
                         </div>
 
@@ -237,11 +304,52 @@
                             <div class="paper-header">
                                 <span class="paper-type-badge pdf">PDF</span>
                             </div>
-                            <h4>Bitcoin Innovation Sandbox</h4>
-                            <p>Policy framework for creating regulatory sandboxes to foster Bitcoin and blockchain innovation while maintaining oversight.</p>
+                            <h4>Teaching Bitcoin in Public Education</h4>
+                            <p>Curriculum proposals and educational frameworks for integrating Bitcoin literacy into public school systems.</p>
                             <div class="paper-actions">
-                                <span class="btn btn-secondary" style="opacity:0.5;cursor:default">Coming Soon</span>
+                                <a href="docs/Teaching_Bitcoin_Public_Education.pdf" class="btn btn-secondary" target="_blank">Download Paper</a>
                             </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Policy Briefs & One-Pagers -->
+        <section class="research-section" data-animate-on-scroll>
+            <div class="container">
+                <h2>Policy Briefs & One-Pagers</h2>
+                <div class="papers-grid">
+                    <div class="paper-card" data-animate-on-scroll>
+                        <div class="paper-header">
+                            <span class="paper-type-badge pdf">PDF</span>
+                        </div>
+                        <h4>Bretton Woods 2.0 White House Brief</h4>
+                        <p>One-page policy brief on Bitcoin's role in a modernized global monetary framework, prepared for White House consideration.</p>
+                        <div class="paper-actions">
+                            <a href="docs/Bretton_Woods_2.0_One_Pager_Whitehouse.pdf" class="btn btn-secondary" target="_blank">Download Brief</a>
+                        </div>
+                    </div>
+
+                    <div class="paper-card" data-animate-on-scroll>
+                        <div class="paper-header">
+                            <span class="paper-type-badge pdf">PDF</span>
+                        </div>
+                        <h4>Bretton Woods 2.0 Presentation</h4>
+                        <p>Full presentation deck exploring Bitcoin's potential role in reshaping the global monetary system for the 21st century.</p>
+                        <div class="paper-actions">
+                            <a href="docs/Bretton_Woods_2.0_Deck.pdf" class="btn btn-secondary" target="_blank">Download Deck</a>
+                        </div>
+                    </div>
+
+                    <div class="paper-card" data-animate-on-scroll>
+                        <div class="paper-header">
+                            <span class="paper-type-badge docx">DOCX</span>
+                        </div>
+                        <h4>Bitcoin Primer One-Sheeter</h4>
+                        <p>A concise introduction to Bitcoin designed for policymakers and stakeholders new to the technology.</p>
+                        <div class="paper-actions">
+                            <a href="docs/Bitcoin_Primer_One_Sheeter.docx" class="btn btn-secondary" download>Download One-Sheeter</a>
                         </div>
                     </div>
                 </div>

@@ -3354,9 +3354,16 @@ footer {
 }
 
 .btc-col {
-  background: rgba(230, 122, 0, 0.04);
+  color: var(--bitcoin-orange);
 }
 
 th.btc-col {
   color: var(--bitcoin-orange);
+}
+
+/* Bill action buttons */
+.bill-actions {
+  margin-top: var(--spacing-lg);
+  padding-top: var(--spacing-lg);
+  border-top: 1px solid var(--border-color);
 }
