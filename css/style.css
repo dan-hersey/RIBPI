@@ -362,6 +362,8 @@ pre code {
   border: none;
   cursor: pointer;
   padding: var(--spacing-sm);
+  z-index: calc(var(--z-sticky) + 20);
+  position: relative;
 }
 
 .hamburger-btn span {
@@ -373,7 +375,7 @@ pre code {
 }
 
 .hamburger-btn.active span:nth-child(1) {
-  transform: rotate(45deg) translateY(10px);
+  transform: rotate(45deg) translate(5px, 5px);
 }
 
 .hamburger-btn.active span:nth-child(2) {
@@ -381,44 +383,64 @@ pre code {
 }
 
 .hamburger-btn.active span:nth-child(3) {
-  transform: rotate(-45deg) translateY(-10px);
+  transform: rotate(-45deg) translate(5px, -5px);
 }
 
 /* Mobile Navigation */
 .mobile-nav {
-  position: absolute;
-  top: 70px;
+  position: fixed;
+  top: 0;
   left: 0;
   right: 0;
-  background: linear-gradient(180deg, var(--ri-blue-dark) 0%, var(--ri-blue-darker) 100%);
-  border-bottom: 1px solid var(--border-color);
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height var(--transition-base);
-  z-index: var(--z-sticky) - 1;
+  bottom: 0;
+  background: rgba(12, 12, 12, 0.97);
+  z-index: calc(var(--z-sticky) + 10);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+  pointer-events: none;
 }
 
 .mobile-nav.open {
-  max-height: 400px;
-  padding: var(--spacing-lg) 0;
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
 }
 
 .mobile-nav ul {
-  padding: 0 var(--spacing-lg);
+  padding: 0;
+  text-align: center;
+  list-style: none;
+  width: 100%;
+  max-width: 300px;
 }
 
 .mobile-nav li {
-  padding: var(--spacing-md) 0;
+  padding: 0;
   border-bottom: 1px solid var(--border-color);
 }
 
-.mobile-nav a {
-  color: var(--text-primary);
-  transition: color var(--transition-fast);
+.mobile-nav li:first-child {
+  border-top: 1px solid var(--border-color);
 }
 
-.mobile-nav a:hover {
-  color: var(--ri-gold);
+.mobile-nav a {
+  display: block;
+  padding: var(--spacing-md) var(--spacing-lg);
+  color: var(--text-primary);
+  font-size: 1.1rem;
+  font-weight: 500;
+  transition: color var(--transition-fast), background var(--transition-fast);
+}
+
+.mobile-nav a:hover,
+.mobile-nav a.active {
+  color: var(--bitcoin-orange);
+  background: rgba(255, 255, 255, 0.05);
 }
 
 /* ============================================================================
@@ -1782,9 +1804,7 @@ footer {
     padding: var(--spacing-sm) var(--spacing-md);
   }
 
-  .mobile-nav.open {
-    max-height: 600px;
-  }
+  /* mobile-nav is now fullscreen overlay, no max-height needed */
 
   .modal {
     width: 95%;
