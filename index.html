@@ -31,7 +31,7 @@
         "alternateName": "RIBPI",
         "url": "https://ribpi.com",
         "logo": "https://ribpi.com/images/ribpi-logo.png",
-        "description": "A nonpartisan research and advocacy organization committed to shaping smart, forward-looking Bitcoin policy at the state level in Rhode Island.",
+        "description": "A nonpartisan research and education organization committed to shaping smart, forward-looking Bitcoin policy at the state level in Rhode Island.",
         "sameAs": [
             "https://x.com/RIBTCPolicy",
             "https://github.com/dan-hersey/RIBPI"
@@ -224,8 +224,308 @@
                     </ul>
                 </div>
             </div>
+            <!-- Easter egg — interactive gold panning -->
+            <div class="ee-wrapper" id="eeWrapper">
+                <div class="ee-pan-zone" id="eePanZone" title="What's this?">
+                    <canvas id="eeCanvas" width="280" height="120"></canvas>
+                    <div class="ee-prompt" id="eePrompt">⛏</div>
+                </div>
+                <a href="btcgoldrush/index.html" class="ee-reveal" id="eeReveal">
+                    <span class="ee-reveal-text">You found gold!</span>
+                    <span class="ee-reveal-link">Explore the Bitcoin Gold Rush →</span>
+                </a>
+            </div>
         </div>
     </footer>
+
+    <style>
+    .ee-wrapper {
+        text-align: center;
+        margin-top: 2.5rem;
+        position: relative;
+    }
+    .ee-pan-zone {
+        display: inline-block;
+        position: relative;
+        cursor: grab;
+        opacity: 0.2;
+        transition: opacity 0.6s;
+        border-radius: 50%;
+        padding: 0.25rem;
+        user-select: none;
+        -webkit-user-select: none;
+    }
+    .ee-pan-zone:hover { opacity: 0.45; }
+    .ee-pan-zone.active { opacity: 1; cursor: grabbing; }
+    .ee-pan-zone.active .ee-prompt { opacity: 0; }
+    .ee-prompt {
+        position: absolute;
+        top: 50%; left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 1.1rem;
+        pointer-events: none;
+        transition: opacity 0.3s;
+    }
+    #eeCanvas { display: block; }
+
+    .ee-reveal {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.3rem;
+        margin-top: 0.8rem;
+        opacity: 0;
+        transform: translateY(8px);
+        transition: opacity 0.8s ease, transform 0.8s ease;
+        pointer-events: none;
+        text-decoration: none;
+    }
+    .ee-reveal.visible {
+        opacity: 1;
+        transform: translateY(0);
+        pointer-events: auto;
+    }
+    .ee-reveal-text {
+        font-family: 'Merriweather', Georgia, serif;
+        font-size: 0.78rem;
+        font-weight: 700;
+        color: #C5A648;
+        letter-spacing: 1px;
+    }
+    .ee-reveal-link {
+        font-size: 0.68rem;
+        letter-spacing: 1.5px;
+        text-transform: uppercase;
+        color: #e67a00;
+        transition: color 0.3s;
+    }
+    .ee-reveal:hover .ee-reveal-link { color: #C5A648; }
+    </style>
+
+    <script>
+    // ═══ Easter Egg: Interactive Gold Panning ═══
+    (function(){
+      const canvas = document.getElementById('eeCanvas');
+      const ctx = canvas.getContext('2d');
+      const zone = document.getElementById('eePanZone');
+      const reveal = document.getElementById('eeReveal');
+      const prompt = document.getElementById('eePrompt');
+      const W = canvas.width, H = canvas.height;
+
+      // State
+      let active = false;
+      let panX = 0, panAngle = 0, panVel = 0;
+      let progress = 0;
+      let nuggets = [];
+      let waterParticles = [];
+      let revealed = false;
+      let animId = null;
+
+      // Gold nugget class
+      function spawnNugget() {
+        nuggets.push({
+          x: W/2 + (Math.random()-0.5)*80,
+          y: 50 + Math.random()*20,
+          r: 2 + Math.random()*3,
+          vx: (Math.random()-0.5)*0.5,
+          vy: -0.3 - Math.random()*0.5,
+          life: 1,
+          glow: Math.random()*0.5 + 0.5
+        });
+      }
+
+      function spawnWater(x) {
+        for(let i=0;i<3;i++){
+          waterParticles.push({
+            x: x + (Math.random()-0.5)*40,
+            y: 55 + Math.random()*15,
+            r: 1 + Math.random()*2,
+            vx: (Math.random()-0.5)*2,
+            vy: -1 - Math.random()*2,
+            life: 1
+          });
+        }
+      }
+
+      // Draw pan (ellipse with rim)
+      function drawPan(offsetX, angle) {
+        ctx.save();
+        ctx.translate(W/2 + offsetX, 60);
+        ctx.rotate(angle);
+        // Shadow
+        ctx.beginPath();
+        ctx.ellipse(0, 8, 70, 18, 0, 0, Math.PI*2);
+        ctx.fillStyle = 'rgba(0,0,0,0.15)';
+        ctx.fill();
+        // Pan body
+        ctx.beginPath();
+        ctx.ellipse(0, 0, 65, 22, 0, 0, Math.PI*2);
+        ctx.fillStyle = '#1a1a2e';
+        ctx.strokeStyle = '#C5A648';
+        ctx.lineWidth = 2;
+        ctx.fill(); ctx.stroke();
+        // Inner rim
+        ctx.beginPath();
+        ctx.ellipse(0, -2, 50, 15, 0, 0, Math.PI*2);
+        ctx.strokeStyle = 'rgba(197,166,72,0.3)';
+        ctx.lineWidth = 1;
+        ctx.stroke();
+        // Water sheen
+        ctx.beginPath();
+        ctx.ellipse(0, 2, 40, 10, 0, 0, Math.PI*2);
+        ctx.fillStyle = 'rgba(58,124,194,0.12)';
+        ctx.fill();
+        // Handle
+        ctx.beginPath();
+        ctx.roundRect(-6, 22, 12, 18, 3);
+        ctx.fillStyle = '#2a2a3e';
+        ctx.strokeStyle = 'rgba(197,166,72,0.4)';
+        ctx.lineWidth = 1.5;
+        ctx.fill(); ctx.stroke();
+        ctx.restore();
+      }
+
+      // Draw nuggets
+      function drawNuggets() {
+        nuggets.forEach(n => {
+          ctx.save();
+          ctx.globalAlpha = n.life;
+          ctx.beginPath();
+          ctx.arc(n.x, n.y, n.r, 0, Math.PI*2);
+          ctx.fillStyle = '#C5A648';
+          ctx.shadowColor = '#C5A648';
+          ctx.shadowBlur = 8 * n.glow;
+          ctx.fill();
+          ctx.restore();
+        });
+      }
+
+      // Draw water splashes
+      function drawWater() {
+        waterParticles.forEach(p => {
+          ctx.save();
+          ctx.globalAlpha = p.life * 0.5;
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.r, 0, Math.PI*2);
+          ctx.fillStyle = '#3a7cc2';
+          ctx.fill();
+          ctx.restore();
+        });
+      }
+
+      // Progress bar
+      function drawProgress() {
+        if(progress <= 0) return;
+        const bw = 100, bh = 4, bx = W/2 - bw/2, by = H - 14;
+        ctx.fillStyle = 'rgba(197,166,72,0.15)';
+        ctx.beginPath(); ctx.roundRect(bx, by, bw, bh, 2); ctx.fill();
+        ctx.fillStyle = progress >= 1 ? '#e67a00' : '#C5A648';
+        ctx.beginPath(); ctx.roundRect(bx, by, bw * Math.min(progress, 1), bh, 2); ctx.fill();
+      }
+
+      function update() {
+        // Physics
+        panAngle = Math.sin(Date.now()/120) * panVel * 0.06;
+        panX = Math.sin(Date.now()/150) * panVel * 8;
+        panVel *= 0.95;
+
+        // Nuggets
+        nuggets.forEach(n => {
+          n.x += n.vx;
+          n.vy += 0.01;
+          n.y += n.vy;
+          n.life -= 0.008;
+        });
+        nuggets = nuggets.filter(n => n.life > 0);
+
+        // Water
+        waterParticles.forEach(p => {
+          p.x += p.vx;
+          p.y += p.vy;
+          p.vy += 0.08;
+          p.life -= 0.03;
+        });
+        waterParticles = waterParticles.filter(p => p.life > 0);
+      }
+
+      function draw() {
+        ctx.clearRect(0, 0, W, H);
+        drawWater();
+        drawPan(panX, panAngle);
+        drawNuggets();
+        drawProgress();
+      }
+
+      function loop() {
+        update();
+        draw();
+        animId = requestAnimationFrame(loop);
+      }
+
+      // Interaction — pointer drag to pan
+      let dragging = false, lastX = 0, moveCount = 0;
+
+      function onStart(e) {
+        if(revealed) return;
+        dragging = true;
+        active = true;
+        zone.classList.add('active');
+        lastX = (e.touches ? e.touches[0].clientX : e.clientX);
+        moveCount = 0;
+        if(!animId) loop();
+        e.preventDefault();
+      }
+
+      function onMove(e) {
+        if(!dragging) return;
+        const x = (e.touches ? e.touches[0].clientX : e.clientX);
+        const dx = x - lastX;
+        panVel = Math.min(Math.abs(dx), 15);
+        lastX = x;
+        moveCount++;
+
+        // Progress builds with swirling
+        if(Math.abs(dx) > 2) {
+          progress += 0.008;
+          spawnWater(W/2 + dx*2);
+          if(moveCount % 5 === 0 && progress > 0.3) spawnNugget();
+        }
+
+        // Reveal!
+        if(progress >= 1 && !revealed) {
+          revealed = true;
+          // Burst of nuggets
+          for(let i=0;i<12;i++) spawnNugget();
+          setTimeout(() => {
+            reveal.classList.add('visible');
+          }, 300);
+        }
+        e.preventDefault();
+      }
+
+      function onEnd() {
+        dragging = false;
+        if(!revealed) {
+          setTimeout(() => {
+            if(!dragging) {
+              zone.classList.remove('active');
+              active = false;
+            }
+          }, 800);
+        }
+      }
+
+      zone.addEventListener('mousedown', onStart);
+      zone.addEventListener('touchstart', onStart, {passive:false});
+      window.addEventListener('mousemove', onMove);
+      window.addEventListener('touchmove', onMove, {passive:false});
+      window.addEventListener('mouseup', onEnd);
+      window.addEventListener('touchend', onEnd);
+
+      // Initial draw (static pan, no animation loop until interaction)
+      draw();
+    })();
+    </script>
 
     <script src="js/main.js"></script>
 </body>

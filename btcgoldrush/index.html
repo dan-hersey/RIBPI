@@ -1,0 +1,2382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Bitcoin Gold Rush — 175 Years of History Repeating</title>
+<meta name="description" content="An interactive exploration of the striking parallels between the 1848 California Gold Rush and the Bitcoin era. Who mined? Who really got rich? And what changed forever.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400;700;900&family=Open+Sans:wght@300;400;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+/* ═══════════════════════════════════════
+   CSS RESET & VARIABLES
+   ═══════════════════════════════════════ */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --ri-blue: #0a4d8c;
+  --ri-blue-dark: #062f5c;
+  --ri-light-blue: #3a7cc2;
+  --accent-gold: #C5A648;
+  --btc-orange: #e67a00;
+  --text-light: #f0f0f0;
+  --text-muted: #a0b4c8;
+  --green: #10b981;
+  --bg-dark: #0b1120;
+  --bg-card: #111b2e;
+  --bg-card-hover: #162240;
+  --border-subtle: rgba(197,166,72,0.15);
+  --font-heading: 'Merriweather', Georgia, serif;
+  --font-body: 'Open Sans', -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+}
+
+html { scroll-behavior: smooth; font-size: 16px; }
+body {
+  font-family: var(--font-body);
+  background: var(--bg-dark);
+  color: var(--text-light);
+  line-height: 1.7;
+  overflow-x: hidden;
+}
+a { color: var(--ri-light-blue); text-decoration: none; }
+a:hover { color: var(--accent-gold); }
+img { max-width: 100%; }
+
+/* ═══════════════════════════════════════
+   UTILITY
+   ═══════════════════════════════════════ */
+.container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; }
+.container-narrow { max-width: 900px; margin: 0 auto; padding: 0 2rem; }
+.section-label {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--accent-gold);
+  margin-bottom: 1rem;
+  display: block;
+}
+.section-title {
+  font-family: var(--font-heading);
+  font-size: clamp(2rem, 4vw, 3.2rem);
+  font-weight: 900;
+  line-height: 1.2;
+  margin-bottom: 1.5rem;
+}
+.section-subtitle {
+  font-size: 1.15rem;
+  color: var(--text-muted);
+  max-width: 700px;
+  line-height: 1.8;
+  margin-bottom: 0.5rem;
+}
+.gold { color: var(--accent-gold); }
+.orange { color: var(--btc-orange); }
+.blue { color: var(--ri-light-blue); }
+.green { color: var(--green); }
+
+/* Reveal animation */
+.reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ═══════════════════════════════════════
+   NAVIGATION
+   ═══════════════════════════════════════ */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 1000;
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: background 0.3s, box-shadow 0.3s;
+}
+nav.scrolled {
+  background: rgba(6,47,92,0.95);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 2px 20px rgba(0,0,0,0.4);
+}
+.nav-logo {
+  font-family: var(--font-heading);
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--text-light);
+  display: flex; align-items: center; gap: 0.5rem;
+}
+.nav-logo .gold { color: var(--accent-gold); }
+.nav-links { display: flex; gap: 1.8rem; list-style: none; }
+.nav-links a {
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  transition: color 0.2s;
+}
+.nav-links a:hover, .nav-links a.active { color: var(--accent-gold); }
+.nav-mobile-toggle { display: none; background: none; border: none; color: var(--text-light); font-size: 1.5rem; cursor: pointer; }
+
+@media (max-width: 768px) {
+  .nav-links { display: none; }
+  .nav-links.open {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 100%; left: 0; right: 0;
+    background: rgba(6,47,92,0.98);
+    padding: 1rem 2rem 2rem;
+    gap: 1rem;
+  }
+  .nav-mobile-toggle { display: block; }
+}
+
+/* ═══════════════════════════════════════
+   HERO SECTION
+   ═══════════════════════════════════════ */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  padding: 6rem 2rem 7rem;
+}
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 80% 60% at 50% 40%, rgba(197,166,72,0.08) 0%, transparent 70%),
+    radial-gradient(ellipse 60% 50% at 30% 60%, rgba(230,122,0,0.06) 0%, transparent 60%),
+    radial-gradient(ellipse 50% 40% at 70% 30%, rgba(10,77,140,0.1) 0%, transparent 60%),
+    var(--bg-dark);
+  z-index: 0;
+}
+/* Animated gold particle field */
+.hero-particles {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  overflow: hidden;
+}
+.particle {
+  position: absolute;
+  width: 3px; height: 3px;
+  background: var(--accent-gold);
+  border-radius: 50%;
+  opacity: 0;
+  animation: float-up linear infinite;
+}
+@keyframes float-up {
+  0% { opacity: 0; transform: translateY(100vh) scale(0.5); }
+  10% { opacity: 0.8; }
+  90% { opacity: 0.6; }
+  100% { opacity: 0; transform: translateY(-10vh) scale(1.2); }
+}
+.hero-content {
+  position: relative;
+  z-index: 2;
+  max-width: 900px;
+}
+.hero-era-label {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  letter-spacing: 5px;
+  text-transform: uppercase;
+  color: var(--accent-gold);
+  margin-bottom: 2.5rem;
+  opacity: 0;
+  animation: fadeUp 1s ease 0.3s forwards;
+}
+.hero h1 {
+  font-family: var(--font-heading);
+  font-size: clamp(2.8rem, 6vw, 5.5rem);
+  font-weight: 900;
+  line-height: 1.15;
+  margin-bottom: 2rem;
+  opacity: 0;
+  animation: fadeUp 1s ease 0.5s forwards;
+}
+.hero h1 .line2 {
+  display: block;
+  background: linear-gradient(135deg, var(--accent-gold) 0%, var(--btc-orange) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.hero-sub {
+  font-size: 1.25rem;
+  color: var(--text-muted);
+  line-height: 1.8;
+  max-width: 650px;
+  margin: 0 auto 3rem;
+  opacity: 0;
+  animation: fadeUp 1s ease 0.7s forwards;
+}
+.hero-stats {
+  display: flex;
+  justify-content: center;
+  gap: 3rem;
+  flex-wrap: wrap;
+  margin-top: 1rem;
+  margin-bottom: 2rem;
+  opacity: 0;
+  animation: fadeUp 1s ease 0.9s forwards;
+}
+.hero-stat {
+  text-align: center;
+}
+.hero-stat-num {
+  font-family: var(--font-mono);
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: var(--accent-gold);
+}
+.hero-stat-label {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--text-muted);
+  margin-top: 0.3rem;
+}
+.scroll-hint {
+  position: absolute;
+  bottom: 2.5rem;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  width: fit-content;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  opacity: 0;
+  animation: fadeUp 1s ease 1.2s forwards;
+}
+.scroll-hint span {
+  font-size: 0.7rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+.scroll-line {
+  width: 1px; height: 40px;
+  background: linear-gradient(to bottom, var(--accent-gold), transparent);
+  animation: pulse-line 2s ease infinite;
+}
+@keyframes pulse-line {
+  0%,100% { opacity: 0.3; }
+  50% { opacity: 1; }
+}
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ═══════════════════════════════════════
+   ERA TOGGLE BAR
+   ═══════════════════════════════════════ */
+.era-divider {
+  padding: 4rem 0;
+  text-align: center;
+  position: relative;
+}
+.era-divider::before {
+  content: '';
+  position: absolute;
+  top: 50%; left: 5%; right: 5%;
+  height: 1px;
+  background: linear-gradient(to right, transparent, var(--accent-gold), transparent);
+}
+.era-badge {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 2rem;
+  background: var(--bg-dark);
+  padding: 0.8rem 2.5rem;
+  border: 1px solid var(--border-subtle);
+  border-radius: 100px;
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  letter-spacing: 2px;
+}
+.era-badge .era-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  display: inline-block;
+}
+.era-badge .era-dot.gold-dot { background: var(--accent-gold); }
+.era-badge .era-dot.btc-dot { background: var(--btc-orange); }
+
+/* ═══════════════════════════════════════
+   DUAL TIMELINE
+   ═══════════════════════════════════════ */
+#timeline { padding: 6rem 0; }
+.timeline-wrapper {
+  position: relative;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 2rem 0;
+}
+.timeline-center-line {
+  position: absolute;
+  left: 50%;
+  top: 0; bottom: 0;
+  width: 2px;
+  background: linear-gradient(to bottom, transparent, var(--accent-gold) 10%, var(--btc-orange) 90%, transparent);
+  transform: translateX(-50%);
+}
+.tl-item {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 3rem;
+  position: relative;
+}
+.tl-item.left { flex-direction: row; }
+.tl-item.right { flex-direction: row-reverse; }
+.tl-content {
+  width: 45%;
+  padding: 1.5rem;
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: 12px;
+  position: relative;
+  transition: border-color 0.3s, transform 0.3s;
+}
+.tl-content:hover {
+  border-color: var(--accent-gold);
+  transform: translateY(-3px);
+}
+.tl-item.left .tl-content { margin-right: auto; }
+.tl-item.right .tl-content { margin-left: auto; }
+.tl-year {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 2px;
+  color: var(--accent-gold);
+  margin-bottom: 0.5rem;
+}
+.tl-content.btc-era .tl-year { color: var(--btc-orange); }
+.tl-title {
+  font-family: var(--font-heading);
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+.tl-desc {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  line-height: 1.7;
+}
+.tl-dot {
+  position: absolute;
+  left: 50%;
+  top: 1.8rem;
+  width: 14px; height: 14px;
+  border-radius: 50%;
+  background: var(--accent-gold);
+  border: 3px solid var(--bg-dark);
+  transform: translateX(-50%);
+  z-index: 2;
+}
+.tl-item .tl-dot.btc-dot { background: var(--btc-orange); }
+
+@media (max-width: 768px) {
+  .timeline-center-line { left: 1.5rem; }
+  .tl-item, .tl-item.left, .tl-item.right { flex-direction: row; }
+  .tl-content { width: calc(100% - 3rem); margin-left: 3rem !important; margin-right: 0 !important; }
+  .tl-dot { left: 1.5rem; }
+}
+
+/* ═══════════════════════════════════════
+   MINERS SECTION — EVOLUTION COMPARISON
+   ═══════════════════════════════════════ */
+#miners { padding: 6rem 0; }
+.evo-grid {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap: 0;
+  margin-top: 0;
+}
+.evo-col-header {
+  text-align: center;
+  padding: 1rem;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  border-bottom: 2px solid var(--border-subtle);
+  margin-bottom: 1rem;
+}
+.evo-col-header.gold-h { color: var(--accent-gold); border-color: var(--accent-gold); }
+.evo-col-header.vs-h { color: var(--text-muted); border-color: transparent; }
+.evo-col-header.btc-h { color: var(--btc-orange); border-color: var(--btc-orange); }
+.evo-row {
+  display: contents;
+}
+.evo-card {
+  padding: 1.5rem;
+  margin: 0.5rem;
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: 10px;
+  transition: all 0.3s;
+}
+.evo-card:hover {
+  border-color: var(--accent-gold);
+  background: var(--bg-card-hover);
+  transform: scale(1.02);
+}
+.evo-card.btc-card:hover { border-color: var(--btc-orange); }
+.evo-card .evo-icon {
+  font-size: 2rem;
+  margin-bottom: 0.8rem;
+  display: block;
+}
+.evo-card .evo-name {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 1rem;
+  margin-bottom: 0.3rem;
+}
+.evo-card .evo-period {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  margin-bottom: 0.6rem;
+}
+.evo-card .evo-detail {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+.evo-vs {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem 0.5rem;
+  margin: 0.5rem 0;
+}
+.evo-vs-icon {
+  width: 40px; height: 40px;
+  border-radius: 50%;
+  border: 1px solid var(--border-subtle);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  background: var(--bg-dark);
+}
+
+@media (max-width: 768px) {
+  .evo-grid { grid-template-columns: 1fr; }
+  .evo-col-header.vs-h, .evo-vs { display: none; }
+}
+
+/* ═══════════════════════════════════════
+   STATS COUNTER BAR
+   ═══════════════════════════════════════ */
+.stats-bar {
+  padding: 4rem 0;
+  background: linear-gradient(135deg, var(--ri-blue-dark) 0%, #0d1a30 100%);
+  border-top: 1px solid var(--border-subtle);
+  border-bottom: 1px solid var(--border-subtle);
+}
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 2rem;
+  text-align: center;
+}
+.stat-item {}
+.stat-number {
+  font-family: var(--font-mono);
+  font-size: clamp(1.8rem, 3vw, 2.8rem);
+  font-weight: 700;
+  line-height: 1;
+  margin-bottom: 0.5rem;
+}
+.stat-number.gold-num { color: var(--accent-gold); }
+.stat-number.btc-num { color: var(--btc-orange); }
+.stat-label {
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--text-muted);
+}
+.stat-sub {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  opacity: 0.7;
+  margin-top: 0.2rem;
+}
+
+/* ═══════════════════════════════════════
+   PICK AND SHOVEL SECTION
+   ═══════════════════════════════════════ */
+#shovels { padding: 6rem 0; }
+.shovel-intro {
+  text-align: center;
+  max-width: 700px;
+  margin: 0 auto 2.5rem;
+}
+.shovel-quote {
+  font-family: var(--font-heading);
+  font-size: 1.6rem;
+  font-style: italic;
+  color: var(--accent-gold);
+  margin-bottom: 1rem;
+  line-height: 1.5;
+}
+.comparison-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+  gap: 1.5rem;
+}
+.comp-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: 14px;
+  overflow: hidden;
+  transition: all 0.4s;
+  cursor: pointer;
+}
+.comp-card:hover {
+  border-color: var(--accent-gold);
+  transform: translateY(-6px);
+  box-shadow: 0 12px 40px rgba(197,166,72,0.1);
+}
+.comp-card-header {
+  display: flex;
+  align-items: stretch;
+}
+.comp-side {
+  flex: 1;
+  padding: 1.2rem 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+.comp-side.gold-side {
+  background: linear-gradient(135deg, rgba(197,166,72,0.1), rgba(197,166,72,0.03));
+  border-right: 1px solid var(--border-subtle);
+}
+.comp-side.btc-side {
+  background: linear-gradient(135deg, rgba(230,122,0,0.1), rgba(230,122,0,0.03));
+}
+.comp-side-icon { font-size: 2.5rem; margin-bottom: 0.5rem; }
+.comp-side-name {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 0.95rem;
+}
+.comp-side-year {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  margin-top: 0.2rem;
+}
+.comp-vs-badge {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  background: var(--bg-dark);
+  border: 1px solid var(--accent-gold);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  color: var(--accent-gold);
+  z-index: 2;
+}
+.comp-card-header { position: relative; }
+.comp-card-body {
+  padding: 1.5rem;
+}
+.comp-function {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--accent-gold);
+  margin-bottom: 0.6rem;
+}
+.comp-desc {
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  line-height: 1.7;
+}
+.comp-stats-row {
+  display: flex;
+  gap: 1.5rem;
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border-subtle);
+}
+.comp-mini-stat {
+  flex: 1;
+}
+.comp-mini-val {
+  font-family: var(--font-mono);
+  font-size: 1rem;
+  font-weight: 700;
+}
+.comp-mini-val.gold-num { color: var(--accent-gold); }
+.comp-mini-val.btc-num { color: var(--btc-orange); }
+.comp-mini-label {
+  font-size: 0.68rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* ═══════════════════════════════════════
+   TRANSFORMATION SECTION
+   ═══════════════════════════════════════ */
+#transformation { padding: 6rem 0; }
+.transform-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+  margin-top: 0;
+}
+.transform-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: 14px;
+  padding: 2rem;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s;
+}
+.transform-card:hover {
+  border-color: var(--ri-light-blue);
+  transform: translateY(-4px);
+}
+.transform-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+}
+.transform-card.gold-card::before { background: linear-gradient(to right, var(--accent-gold), transparent); }
+.transform-card.btc-card::before { background: linear-gradient(to right, var(--btc-orange), transparent); }
+.transform-card.both-card::before { background: linear-gradient(to right, var(--accent-gold), var(--btc-orange)); }
+.transform-icon { font-size: 2rem; margin-bottom: 1rem; }
+.transform-title {
+  font-family: var(--font-heading);
+  font-size: 1.15rem;
+  font-weight: 700;
+  margin-bottom: 0.3rem;
+}
+.transform-era-tag {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  padding: 0.15rem 0.6rem;
+  border-radius: 4px;
+  display: inline-block;
+  margin-bottom: 0.8rem;
+}
+.transform-era-tag.gold-tag { color: var(--accent-gold); background: rgba(197,166,72,0.12); }
+.transform-era-tag.btc-tag { color: var(--btc-orange); background: rgba(230,122,0,0.12); }
+.transform-era-tag.both-tag { color: var(--ri-light-blue); background: rgba(58,124,194,0.12); }
+.transform-text {
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  line-height: 1.7;
+}
+.transform-stat {
+  margin-top: 1rem;
+  padding-top: 0.8rem;
+  border-top: 1px solid var(--border-subtle);
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+}
+
+/* ═══════════════════════════════════════
+   PATTERN SECTION — The Repeating Cycle
+   ═══════════════════════════════════════ */
+#pattern { padding: 6rem 0; }
+.pattern-table-wrap {
+  margin-top: 0;
+  overflow-x: auto;
+}
+.pattern-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  font-size: 0.88rem;
+}
+.pattern-table thead th {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  padding: 1rem 1.2rem;
+  text-align: left;
+  border-bottom: 2px solid var(--border-subtle);
+  color: var(--text-muted);
+  position: sticky;
+  top: 0;
+  background: var(--bg-dark);
+}
+.pattern-table thead th:nth-child(1) { color: var(--text-muted); }
+.pattern-table thead th:nth-child(2) { color: var(--accent-gold); }
+.pattern-table thead th:nth-child(3) { color: var(--btc-orange); }
+.pattern-table tbody td {
+  padding: 1rem 1.2rem;
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+  vertical-align: top;
+  color: var(--text-muted);
+}
+.pattern-table tbody tr:hover td {
+  background: var(--bg-card);
+}
+.pattern-table tbody td:first-child {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  color: var(--text-light);
+  white-space: nowrap;
+}
+.pattern-table tbody td:nth-child(2) { color: #d4c07a; }
+.pattern-table tbody td:nth-child(3) { color: #f0a040; }
+
+/* ═══════════════════════════════════════
+   DIFFERENCES SECTION
+   ═══════════════════════════════════════ */
+#differences { padding: 6rem 0; }
+.diff-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+  margin-top: 0;
+}
+.diff-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: 12px;
+  padding: 1.5rem;
+  transition: all 0.3s;
+}
+.diff-card:hover {
+  border-color: var(--ri-light-blue);
+}
+.diff-icon { font-size: 1.5rem; margin-bottom: 0.8rem; }
+.diff-title {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+}
+.diff-comparison {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.8rem;
+  margin-top: 0.8rem;
+}
+.diff-side {
+  font-size: 0.82rem;
+  padding: 0.6rem;
+  border-radius: 6px;
+  line-height: 1.5;
+}
+.diff-side.gold-diff {
+  background: rgba(197,166,72,0.08);
+  border-left: 2px solid var(--accent-gold);
+  color: #d4c07a;
+}
+.diff-side.btc-diff {
+  background: rgba(230,122,0,0.08);
+  border-left: 2px solid var(--btc-orange);
+  color: #f0a040;
+}
+
+/* ═══════════════════════════════════════
+   FOOTER / CTA
+   ═══════════════════════════════════════ */
+.cta-section {
+  padding: 6rem 0;
+  text-align: center;
+  background: linear-gradient(180deg, var(--bg-dark) 0%, var(--ri-blue-dark) 100%);
+  position: relative;
+}
+.cta-section::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 10%; right: 10%;
+  height: 1px;
+  background: linear-gradient(to right, transparent, var(--accent-gold), transparent);
+}
+.cta-pullquote {
+  font-family: var(--font-heading);
+  font-size: clamp(1.5rem, 3vw, 2.2rem);
+  font-weight: 700;
+  line-height: 1.4;
+  max-width: 750px;
+  margin: 0 auto 2rem;
+}
+.cta-sub {
+  font-size: 1rem;
+  color: var(--text-muted);
+  max-width: 550px;
+  margin: 0 auto 2.5rem;
+  line-height: 1.7;
+}
+.cta-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.85rem 2rem;
+  border-radius: 8px;
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  transition: all 0.3s;
+}
+.btn-primary {
+  background: linear-gradient(135deg, var(--accent-gold), #d4b44e);
+  color: var(--bg-dark);
+}
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(197,166,72,0.3);
+  color: var(--bg-dark);
+}
+.btn-outline {
+  background: transparent;
+  border: 1px solid var(--border-subtle);
+  color: var(--text-light);
+}
+.btn-outline:hover {
+  border-color: var(--accent-gold);
+  color: var(--accent-gold);
+}
+
+footer {
+  padding: 4rem 2rem;
+  text-align: center;
+  border-top: 1px solid rgba(255,255,255,0.05);
+}
+.footer-brand {
+  font-family: var(--font-heading);
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  margin-bottom: 0.5rem;
+}
+.footer-sub {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  opacity: 0.5;
+}
+
+/* ═══════════════════════════════════════
+   EASTER EGG — GOLD PANNING
+   ═══════════════════════════════════════ */
+.pan-trigger {
+  margin-top: 1.5rem;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  border-radius: 100px;
+  border: 1px solid transparent;
+  transition: all 0.4s;
+}
+.pan-trigger svg { opacity: 0.15; transition: opacity 0.4s; }
+.pan-trigger-label {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  opacity: 0;
+  transition: opacity 0.4s;
+}
+.pan-trigger:hover {
+  border-color: rgba(197,166,72,0.25);
+  background: rgba(197,166,72,0.04);
+}
+.pan-trigger:hover svg { opacity: 0.5; }
+.pan-trigger:hover .pan-trigger-label { opacity: 0.4; }
+
+/* Full-screen overlay */
+.pan-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: radial-gradient(ellipse at center, #0d1a2e 0%, #060e1a 100%);
+  display: none;
+  cursor: crosshair;
+}
+.pan-overlay.active { display: block; }
+.pan-overlay canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+.pan-close {
+  position: absolute;
+  top: 1.5rem;
+  right: 1.5rem;
+  z-index: 10001;
+  background: none;
+  border: 1px solid rgba(197,166,72,0.3);
+  color: var(--text-muted);
+  font-size: 1.5rem;
+  width: 40px; height: 40px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.pan-close:hover { border-color: var(--accent-gold); color: var(--accent-gold); }
+.pan-instructions {
+  position: absolute;
+  bottom: 3rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10001;
+  text-align: center;
+  transition: opacity 0.6s;
+}
+.pan-instructions span {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--accent-gold);
+  opacity: 0.7;
+}
+.pan-progress-track {
+  width: 200px;
+  height: 4px;
+  background: rgba(197,166,72,0.15);
+  border-radius: 2px;
+  margin-top: 0.8rem;
+  overflow: hidden;
+}
+.pan-progress-bar {
+  width: 0%;
+  height: 100%;
+  background: linear-gradient(90deg, var(--accent-gold), var(--btc-orange));
+  border-radius: 2px;
+  transition: width 0.15s ease;
+}
+/* Logo reveal */
+.pan-logo-reveal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.3);
+  z-index: 10000;
+  text-align: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.8s ease, transform 1s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.pan-logo-reveal.revealed {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
+  pointer-events: auto;
+}
+.pan-logo-img {
+  width: 220px;
+  height: 220px;
+  filter: drop-shadow(0 0 40px rgba(197,166,72,0.4)) drop-shadow(0 0 80px rgba(230,122,0,0.2));
+  animation: none;
+}
+.pan-logo-reveal.revealed .pan-logo-img {
+  animation: logo-glow 3s ease infinite alternate;
+}
+@keyframes logo-glow {
+  0% { filter: drop-shadow(0 0 30px rgba(197,166,72,0.3)) drop-shadow(0 0 60px rgba(230,122,0,0.15)); }
+  100% { filter: drop-shadow(0 0 50px rgba(197,166,72,0.6)) drop-shadow(0 0 100px rgba(230,122,0,0.3)); }
+}
+.pan-reveal-text {
+  font-family: var(--font-heading);
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--accent-gold);
+  margin-top: 1.5rem;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.8s ease 0.4s, transform 0.8s ease 0.4s;
+}
+.pan-logo-reveal.revealed .pan-reveal-text {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ═══════════════════════════════════════
+   COST OF LIVING SECTION
+   ═══════════════════════════════════════ */
+.prices-section {
+  padding: 5rem 0;
+}
+.price-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 1rem;
+  margin-top: 2rem;
+}
+.price-item {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: 10px;
+  padding: 1.2rem;
+  text-align: center;
+  transition: all 0.3s;
+}
+.price-item:hover {
+  border-color: var(--accent-gold);
+  transform: translateY(-3px);
+}
+.price-icon { font-size: 1.8rem; margin-bottom: 0.5rem; }
+.price-name {
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--text-muted);
+  margin-bottom: 0.3rem;
+}
+.price-rush {
+  font-family: var(--font-mono);
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--accent-gold);
+}
+.price-modern {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  opacity: 0.7;
+}
+.price-markup {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--green);
+  margin-top: 0.3rem;
+}
+
+/* ═══════════════════════════════════════
+   RESPONSIVE — TABLET (≤ 1024px)
+   ═══════════════════════════════════════ */
+@media (max-width: 1024px) {
+  .container, .container-narrow { padding: 0 1.5rem; }
+  .hero-stats { gap: 2rem; }
+  .comparison-cards { grid-template-columns: 1fr; }
+  .transform-grid { grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
+  .diff-grid { grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); }
+  .price-grid { grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); }
+}
+
+/* ═══════════════════════════════════════
+   RESPONSIVE — MOBILE (≤ 768px)
+   ═══════════════════════════════════════ */
+@media (max-width: 768px) {
+  /* --- Hero --- */
+  .hero { padding: 5rem 1.5rem 6rem; }
+  .hero h1 { font-size: clamp(2rem, 8vw, 3.2rem); line-height: 1.15; margin-bottom: 1.5rem; }
+  .hero-era-label { font-size: 0.7rem; letter-spacing: 3px; margin-bottom: 1.5rem; }
+  .hero-sub { font-size: 1.05rem; margin-bottom: 2rem; line-height: 1.7; }
+  .hero-stats { gap: 1.2rem; margin-bottom: 1.5rem; }
+  .hero-stat-num { font-size: 1.5rem; }
+  .hero-stat-label { font-size: 0.65rem; letter-spacing: 1.5px; }
+  .scroll-hint { bottom: 1.5rem; }
+  .scroll-hint span { font-size: 0.6rem; }
+  .scroll-line { height: 28px; }
+
+  /* --- Section spacing & typography --- */
+  #miners, #shovels, #transformation, #pattern, #differences { padding: 4rem 0; }
+  .section-title { font-size: clamp(1.6rem, 5vw, 2.4rem); margin-bottom: 1.5rem; }
+  .section-subtitle { font-size: 1rem; }
+  .section-label { font-size: 0.68rem; letter-spacing: 2px; }
+
+  /* --- Era divider --- */
+  .era-divider { padding: 2.5rem 0; }
+
+  /* --- Miners evolution grid --- */
+  .evo-grid { grid-template-columns: 1fr; gap: 0.5rem; }
+  .evo-col-header.vs-h, .evo-vs { display: none; }
+  .evo-card { padding: 1.2rem; }
+  .evo-card .evo-icon { font-size: 1.6rem; }
+  .evo-card .evo-name { font-size: 0.92rem; }
+
+  /* --- Stats bar --- */
+  .stats-bar { padding: 2.5rem 0; }
+  .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
+  .stat-number { font-size: clamp(1.5rem, 5vw, 2rem); }
+
+  /* --- Pick & shovel cards --- */
+  .comparison-cards { grid-template-columns: 1fr; gap: 1.2rem; }
+  .shovel-quote { font-size: 1.2rem; }
+  .comp-side { padding: 1rem 0.8rem; }
+  .comp-side-icon { font-size: 2rem; }
+  .comp-side-name { font-size: 0.88rem; }
+  .comp-card-body { padding: 1.2rem; }
+  .comp-stats-row { flex-direction: column; gap: 0.8rem; }
+
+  /* --- Transformation grid --- */
+  .transform-grid { grid-template-columns: 1fr; }
+  .transform-card { padding: 1.5rem; }
+
+  /* --- Pattern table --- */
+  .pattern-table { font-size: 0.78rem; }
+  .pattern-table thead th { padding: 0.8rem; font-size: 0.65rem; }
+  .pattern-table tbody td { padding: 0.8rem; }
+  .pattern-table tbody td:first-child { white-space: normal; }
+
+  /* --- Differences --- */
+  .diff-grid { grid-template-columns: 1fr; }
+  .diff-comparison { grid-template-columns: 1fr; }
+
+  /* --- Prices --- */
+  .prices-section { padding: 3.5rem 0; }
+  .price-grid { grid-template-columns: repeat(2, 1fr); gap: 0.8rem; }
+  .price-item { padding: 1rem; }
+  .price-icon { font-size: 1.4rem; }
+  .price-rush { font-size: 0.95rem; }
+
+  /* --- CTA & Footer --- */
+  .cta-section { padding: 4rem 0; }
+  .cta-pullquote { font-size: clamp(1.3rem, 4vw, 1.8rem); }
+  .cta-buttons { flex-direction: column; align-items: center; }
+  .btn { width: 100%; max-width: 280px; justify-content: center; }
+  footer { padding: 3rem 1.5rem; }
+
+  /* --- Easter egg panning overlay --- */
+  .pan-logo-img { width: 160px; height: 160px; }
+  .pan-reveal-text { font-size: 1.3rem; }
+  .pan-close { top: 1rem; right: 1rem; }
+}
+
+/* ═══════════════════════════════════════
+   RESPONSIVE — SMALL PHONE (≤ 480px)
+   ═══════════════════════════════════════ */
+@media (max-width: 480px) {
+  .hero { padding: 4.5rem 1rem 5.5rem; }
+  .hero h1 { font-size: clamp(1.7rem, 9vw, 2.4rem); }
+  .hero-sub { font-size: 0.95rem; }
+  .hero-stats { gap: 0.8rem; }
+  .hero-stat { min-width: 70px; }
+  .hero-stat-num { font-size: 1.25rem; }
+  .hero-stat-label { font-size: 0.6rem; letter-spacing: 1px; }
+  .container, .container-narrow { padding: 0 1rem; }
+  .section-title { font-size: clamp(1.4rem, 6vw, 2rem); }
+  .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+  .price-grid { grid-template-columns: 1fr 1fr; gap: 0.6rem; }
+  .shovel-quote { font-size: 1.05rem; }
+  .comp-side-icon { font-size: 1.6rem; }
+  .pan-logo-img { width: 120px; height: 120px; }
+  .pan-reveal-text { font-size: 1rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════
+     NAVIGATION
+     ══════════════════════════════════════ -->
+<nav id="mainNav">
+  <div class="nav-logo">
+    <span>BITCOIN <span class="gold">GOLD RUSH</span></span>
+  </div>
+  <button class="nav-mobile-toggle" onclick="document.querySelector('.nav-links').classList.toggle('open')" aria-label="Toggle menu">&#9776;</button>
+  <ul class="nav-links">
+    <li><a href="#timeline">Timeline</a></li>
+    <li><a href="#miners">Miners</a></li>
+    <li><a href="#shovels">Shovels</a></li>
+    <li><a href="#transformation">Transformation</a></li>
+    <li><a href="#pattern">The Pattern</a></li>
+    <li><a href="#differences">Differences</a></li>
+  </ul>
+</nav>
+
+<!-- ══════════════════════════════════════
+     HERO
+     ══════════════════════════════════════ -->
+<section class="hero" id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-particles" id="heroParticles"></div>
+  <div class="hero-content">
+    <div class="hero-era-label">1848 &mdash; 2026 &middot; A THOUGHT EXPERIMENT</div>
+    <h1>
+      History Doesn't Repeat.<span class="line2">But It Rhymes in Gold.</span>
+    </h1>
+    <p class="hero-sub">
+      The California Gold Rush and the Bitcoin era share striking structural parallels — from lone prospectors
+      to industrial operations, from Levi's jeans to Coinbase, from the birth of California to the
+      reshaping of global finance. Here's the story of two gold rushes, 175 years apart.
+    </p>
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <div class="hero-stat-num" data-count="750" data-suffix=" tons">0</div>
+        <div class="hero-stat-label">Gold Extracted (1848–55)</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-num" data-count="20" data-suffix="M BTC" data-decimals="0">0</div>
+        <div class="hero-stat-label">Bitcoin Mined (2009–26)</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-num" data-count="300" data-suffix="K" data-decimals="0">0</div>
+        <div class="hero-stat-label">49ers Migrated</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-num" data-count="100" data-suffix="M+" data-decimals="0">0</div>
+        <div class="hero-stat-label">Coinbase Users</div>
+      </div>
+    </div>
+  </div>
+  <div class="scroll-hint">
+    <span>Explore the parallels</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     ERA DIVIDER
+     ══════════════════════════════════════ -->
+<div class="era-divider">
+  <div class="era-badge">
+    <span><span class="era-dot gold-dot"></span> 1848</span>
+    <span style="color:var(--text-muted); font-size:0.7rem;">&#9876;</span>
+    <span><span class="era-dot btc-dot"></span> 2009</span>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     TIMELINE SECTION
+     ══════════════════════════════════════ -->
+<section id="timeline">
+  <div class="container">
+    <div class="reveal" style="text-align:center; margin-bottom: 2.5rem;">
+      <span class="section-label">Chapter I</span>
+      <h2 class="section-title">Two Rushes, One Timeline</h2>
+      <p class="section-subtitle" style="margin: 0 auto;">Every gold rush follows the same arc: discovery, FOMO, mass migration, industrialization, consolidation. Here's how they line up.</p>
+    </div>
+    <div class="timeline-wrapper">
+      <div class="timeline-center-line"></div>
+
+      <!-- Timeline items -->
+      <div class="tl-item left reveal">
+        <div class="tl-content">
+          <div class="tl-year">JANUARY 24, 1848</div>
+          <div class="tl-title">Gold Discovered at Sutter's Mill</div>
+          <div class="tl-desc">James Marshall finds gold flakes in the American River. Nine days later, the Treaty of Guadalupe Hidalgo transfers California from Mexico to the U.S. — perfect timing.</div>
+        </div>
+        <div class="tl-dot"></div>
+      </div>
+
+      <div class="tl-item right reveal">
+        <div class="tl-content btc-era">
+          <div class="tl-year">JANUARY 3, 2009</div>
+          <div class="tl-title">The Genesis Block</div>
+          <div class="tl-desc">Satoshi Nakamoto mines Bitcoin's first block on a standard CPU. The embedded message: "Chancellor on brink of second bailout for banks." The digital gold rush begins in silence.</div>
+        </div>
+        <div class="tl-dot btc-dot"></div>
+      </div>
+
+      <div class="tl-item left reveal">
+        <div class="tl-content">
+          <div class="tl-year">MAY 1848</div>
+          <div class="tl-title">Samuel Brannan Creates FOMO</div>
+          <div class="tl-desc">After buying every pick, shovel, and pan in San Francisco, Brannan runs through the streets waving a vial of gold, shouting about the discovery. He becomes California's first millionaire — without mining a single ounce.</div>
+        </div>
+        <div class="tl-dot"></div>
+      </div>
+
+      <div class="tl-item right reveal">
+        <div class="tl-content btc-era">
+          <div class="tl-year">MAY 22, 2010</div>
+          <div class="tl-title">The 10,000 BTC Pizza</div>
+          <div class="tl-desc">Laszlo Hanyecz pays 10,000 BTC for two Papa John's pizzas — the first real-world Bitcoin transaction. Those coins would be worth over $800 million today. Everyone starts paying attention.</div>
+        </div>
+        <div class="tl-dot btc-dot"></div>
+      </div>
+
+      <div class="tl-item left reveal">
+        <div class="tl-content">
+          <div class="tl-year">DECEMBER 5, 1848</div>
+          <div class="tl-title">President Polk Confirms Gold</div>
+          <div class="tl-desc">President James K. Polk addresses Congress, officially confirming the gold discovery. This triggers the mass migration. By 1849, 80,000–100,000 people flood California — the "49ers."</div>
+        </div>
+        <div class="tl-dot"></div>
+      </div>
+
+      <div class="tl-item right reveal">
+        <div class="tl-content btc-era">
+          <div class="tl-year">JANUARY 10, 2024</div>
+          <div class="tl-title">SEC Approves Bitcoin ETFs</div>
+          <div class="tl-desc">The SEC approves 11 spot Bitcoin ETPs. $10 billion flows in during the first month alone. 2,000+ advisory firms begin offering Bitcoin. The institutional 49ers arrive.</div>
+        </div>
+        <div class="tl-dot btc-dot"></div>
+      </div>
+
+      <div class="tl-item left reveal">
+        <div class="tl-content">
+          <div class="tl-year">SEPTEMBER 9, 1850</div>
+          <div class="tl-title">California Becomes a State</div>
+          <div class="tl-desc">Fastest path to statehood in U.S. history. Population exploded from 14,000 to 250,000 in just four years. Gold didn't just enrich miners — it built an entire state.</div>
+        </div>
+        <div class="tl-dot"></div>
+      </div>
+
+      <div class="tl-item right reveal">
+        <div class="tl-content btc-era">
+          <div class="tl-year">MARCH 6, 2025</div>
+          <div class="tl-title">U.S. Strategic Bitcoin Reserve</div>
+          <div class="tl-desc">Executive order establishes a federal Strategic Bitcoin Reserve holding ~325,000 BTC. 16 states introduce their own reserve legislation. The race for digital territory begins.</div>
+        </div>
+        <div class="tl-dot btc-dot"></div>
+      </div>
+
+      <div class="tl-item left reveal">
+        <div class="tl-content">
+          <div class="tl-year">1852 – 1853</div>
+          <div class="tl-title">Peak Gold &amp; Industrial Mining</div>
+          <div class="tl-desc">$81 million extracted in 1852 alone. Hydraulic mining arrives — high-pressure water cannons blast hillsides. Individual panners can no longer compete. Corporate mining takes over.</div>
+        </div>
+        <div class="tl-dot"></div>
+      </div>
+
+      <div class="tl-item right reveal">
+        <div class="tl-content btc-era">
+          <div class="tl-year">2013 – PRESENT</div>
+          <div class="tl-title">ASIC Era &amp; Mining Consolidation</div>
+          <div class="tl-desc">ASICs — chips built solely for Bitcoin mining — make CPUs and GPUs obsolete. Public mining companies (Marathon, Riot, CleanSpark) dominate. A modern ASIC is 100 billion times faster than a 2009 CPU.</div>
+        </div>
+        <div class="tl-dot btc-dot"></div>
+      </div>
+
+      <div class="tl-item left reveal">
+        <div class="tl-content">
+          <div class="tl-year">1869</div>
+          <div class="tl-title">Transcontinental Railroad</div>
+          <div class="tl-desc">Funded partly by Gold Rush wealth, the railroad connects California to the eastern U.S. Travel drops from months to days. The infrastructure outlasts the gold.</div>
+        </div>
+        <div class="tl-dot"></div>
+      </div>
+
+      <div class="tl-item right reveal">
+        <div class="tl-content btc-era">
+          <div class="tl-year">2024 – 2026</div>
+          <div class="tl-title">The Lightning Network &amp; ETF Rails</div>
+          <div class="tl-desc">Lightning enables instant, near-free Bitcoin transfers. Bitcoin ETFs connect crypto to $50+ trillion in traditional finance. The infrastructure is being built to outlast the volatility.</div>
+        </div>
+        <div class="tl-dot btc-dot"></div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     STATS BAR
+     ══════════════════════════════════════ -->
+<div class="stats-bar">
+  <div class="container">
+    <div class="stats-grid">
+      <div class="stat-item reveal">
+        <div class="stat-number gold-num" data-count="750" data-suffix=" tons">0</div>
+        <div class="stat-label">Gold Extracted</div>
+        <div class="stat-sub">California, 1848–1855</div>
+      </div>
+      <div class="stat-item reveal">
+        <div class="stat-number btc-num" data-count="20" data-suffix="M BTC">0</div>
+        <div class="stat-label">Bitcoin Mined</div>
+        <div class="stat-sub">95% of total supply</div>
+      </div>
+      <div class="stat-item reveal">
+        <div class="stat-number gold-num" data-count="50" data-suffix="%">0</div>
+        <div class="stat-label">Miners Who Profited</div>
+        <div class="stat-sub">After expenses, 1849</div>
+      </div>
+      <div class="stat-item reveal">
+        <div class="stat-number btc-num" data-count="17.2" data-suffix="B" data-decimals="1">0</div>
+        <div class="stat-label">Mining Revenue 2025</div>
+        <div class="stat-sub">$17.2 billion USD</div>
+      </div>
+      <div class="stat-item reveal">
+        <div class="stat-number gold-num" data-count="25" data-prefix="$" data-suffix="B">0</div>
+        <div class="stat-label">Gold Value (Modern $)</div>
+        <div class="stat-sub">$20–25 billion adjusted</div>
+      </div>
+      <div class="stat-item reveal">
+        <div class="stat-number btc-num" data-count="52" data-suffix="%" data-decimals="0">0</div>
+        <div class="stat-label">Sustainable Energy</div>
+        <div class="stat-sub">Bitcoin mining, 2025</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     MINERS SECTION — EVOLUTION
+     ══════════════════════════════════════ -->
+<section id="miners">
+  <div class="container">
+    <div class="reveal" style="text-align:center; margin-bottom:2.5rem;">
+      <span class="section-label">Chapter II</span>
+      <h2 class="section-title">The Miners: Then &amp; Now</h2>
+      <p class="section-subtitle" style="margin:0 auto;">From gold pans to ASIC chips — mining technology evolved along identical lines. Individual prospectors gave way to industrial operations in both eras.</p>
+    </div>
+
+    <div class="evo-grid">
+      <!-- Headers -->
+      <div class="evo-col-header gold-h">&#9874; Gold Mining</div>
+      <div class="evo-col-header vs-h">&nbsp;</div>
+      <div class="evo-col-header btc-h">&#8383; Bitcoin Mining</div>
+
+      <!-- Row 1 -->
+      <div class="evo-card reveal">
+        <span class="evo-icon">&#129683;</span>
+        <div class="evo-name">Gold Panning</div>
+        <div class="evo-period">1848 – 1849</div>
+        <div class="evo-detail">One person, one pan, one river. The most basic form of extraction — accessible to anyone willing to crouch in freezing water for 14 hours. Daily yield: $10–$15 in gold dust.</div>
+      </div>
+      <div class="evo-vs"><div class="evo-vs-icon">VS</div></div>
+      <div class="evo-card btc-card reveal">
+        <span class="evo-icon">&#128187;</span>
+        <div class="evo-name">CPU Mining</div>
+        <div class="evo-period">2009 – 2010</div>
+        <div class="evo-detail">One person, one laptop, one internet connection. Hal Finney mined blocks on his PC but quit because "the fan noise bothered me." Block reward: 50 BTC (worth ~$5 at the time).</div>
+      </div>
+
+      <!-- Row 2 -->
+      <div class="evo-card reveal">
+        <span class="evo-icon">&#9935;</span>
+        <div class="evo-name">Sluice Boxes &amp; Long Toms</div>
+        <div class="evo-period">1849 – 1852</div>
+        <div class="evo-detail">Small teams of 2–6 miners linked wooden troughs to process more sediment. 10× more efficient than panning — but required cooperation and modest capital.</div>
+      </div>
+      <div class="evo-vs"><div class="evo-vs-icon">VS</div></div>
+      <div class="evo-card btc-card reveal">
+        <span class="evo-icon">&#127918;</span>
+        <div class="evo-name">GPU Mining</div>
+        <div class="evo-period">2010 – 2013</div>
+        <div class="evo-detail">Graphics cards vastly outperformed CPUs. Small mining rigs with multiple GPUs became common. Still accessible to enthusiasts, but CPU miners were instantly obsolete.</div>
+      </div>
+
+      <!-- Row 3 -->
+      <div class="evo-card reveal">
+        <span class="evo-icon">&#128167;</span>
+        <div class="evo-name">Hydraulic Mining</div>
+        <div class="evo-period">1853 – 1884</div>
+        <div class="evo-detail">High-pressure water cannons blasted entire hillsides. Produced 1/3 of all California gold ($100M+). Required massive capital investment. Individual miners couldn't compete. Banned in 1884 for environmental devastation.</div>
+      </div>
+      <div class="evo-vs"><div class="evo-vs-icon">VS</div></div>
+      <div class="evo-card btc-card reveal">
+        <span class="evo-icon">&#9889;</span>
+        <div class="evo-name">ASIC Mining</div>
+        <div class="evo-period">2013 – Present</div>
+        <div class="evo-detail">Purpose-built chips 100 billion times faster than a 2009 CPU. A single machine costs $2,000–$20,000. Home mining becomes marginal at residential electricity rates. The individual era ends.</div>
+      </div>
+
+      <!-- Row 4 -->
+      <div class="evo-card reveal">
+        <span class="evo-icon">&#127981;</span>
+        <div class="evo-name">Corporate Hard-Rock Mining</div>
+        <div class="evo-period">1860s onward</div>
+        <div class="evo-detail">Tunneling, heavy machinery, wage laborers. Mining companies issued stock. The prospector with a pan was now an employee. The gold rush became an industry.</div>
+      </div>
+      <div class="evo-vs"><div class="evo-vs-icon">VS</div></div>
+      <div class="evo-card btc-card reveal">
+        <span class="evo-icon">&#128200;</span>
+        <div class="evo-name">Public Mining Companies</div>
+        <div class="evo-period">2020s</div>
+        <div class="evo-detail">Marathon, Riot, CleanSpark — publicly traded, $25B+ combined market cap, 16 firms on NASDAQ. Over 95% of hashrate comes from pools, not individuals. Bitcoin mining is now corporate.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     GOLD RUSH PRICES
+     ══════════════════════════════════════ -->
+<div class="prices-section">
+  <div class="container">
+    <div class="reveal" style="text-align:center; margin-bottom:2rem;">
+      <span class="section-label">Interlude</span>
+      <h2 class="section-title" style="font-size:clamp(1.5rem,3vw,2.2rem);">What Things Cost in Gold Country</h2>
+      <p class="section-subtitle" style="margin:0 auto;">Mining-town inflation was staggering. A miner earning $15/day could easily spend $12 just surviving.</p>
+    </div>
+    <div class="price-grid">
+      <div class="price-item reveal">
+        <div class="price-icon">&#129370;</div>
+        <div class="price-name">Eggs</div>
+        <div class="price-rush">$1–$3 each</div>
+        <div class="price-modern">~$90 / dozen today</div>
+      </div>
+      <div class="price-item reveal">
+        <div class="price-icon">&#9749;</div>
+        <div class="price-name">Coffee</div>
+        <div class="price-rush">~$40/lb</div>
+        <div class="price-modern">~$1,200 / lb today</div>
+      </div>
+      <div class="price-item reveal">
+        <div class="price-icon">&#129506;</div>
+        <div class="price-name">Boots</div>
+        <div class="price-rush">$100+</div>
+        <div class="price-modern">~$3,000 / pair today</div>
+      </div>
+      <div class="price-item reveal">
+        <div class="price-icon">&#9935;</div>
+        <div class="price-name">Pickaxe</div>
+        <div class="price-rush">$50</div>
+        <div class="price-modern">~$1,500 today</div>
+      </div>
+      <div class="price-item reveal">
+        <div class="price-icon">&#128373;</div>
+        <div class="price-name">Gold Pan</div>
+        <div class="price-rush">$8</div>
+        <div class="price-modern">Was $0.20 pre-rush</div>
+        <div class="price-markup">40&times; markup</div>
+      </div>
+      <div class="price-item reveal">
+        <div class="price-icon">&#127838;</div>
+        <div class="price-name">Breakfast</div>
+        <div class="price-rush">$43</div>
+        <div class="price-modern">~$1,200 today</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     PICK-AND-SHOVEL SECTION
+     ══════════════════════════════════════ -->
+<section id="shovels">
+  <div class="container">
+    <div class="shovel-intro reveal">
+      <span class="section-label">Chapter III</span>
+      <h2 class="section-title">Who Really Got Rich?</h2>
+      <p class="shovel-quote">"During a gold rush, sell shovels."</p>
+      <p class="section-subtitle" style="margin:0 auto;">In both eras, the biggest fortunes were made not by miners — but by those who sold tools, services, and infrastructure to miners. The pattern holds across 175 years.</p>
+    </div>
+
+    <div class="comparison-cards">
+
+      <!-- Card 1: Brannan / Block -->
+      <div class="comp-card reveal">
+        <div class="comp-card-header">
+          <div class="comp-side gold-side">
+            <div class="comp-side-icon">&#129297;</div>
+            <div class="comp-side-name">Samuel Brannan</div>
+            <div class="comp-side-year">1848</div>
+          </div>
+          <div class="comp-vs-badge">&#8644;</div>
+          <div class="comp-side btc-side">
+            <div class="comp-side-icon">&#128178;</div>
+            <div class="comp-side-name">Block / Cash App</div>
+            <div class="comp-side-year">2018</div>
+          </div>
+        </div>
+        <div class="comp-card-body">
+          <div class="comp-function">The FOMO Creator &amp; Retail Gateway</div>
+          <div class="comp-desc">Brannan bought every pick and pan in San Francisco, then ran through the streets announcing gold. He was the marketing genius and the monopoly supplier. Cash App is the simplest on-ramp for new Bitcoin buyers — and Block also accumulates BTC itself.</div>
+          <div class="comp-stats-row">
+            <div class="comp-mini-stat">
+              <div class="comp-mini-val gold-num">$5K/day</div>
+              <div class="comp-mini-label">Brannan's Sales</div>
+            </div>
+            <div class="comp-mini-stat">
+              <div class="comp-mini-val btc-num">$9.5B</div>
+              <div class="comp-mini-label">Cash App BTC Rev (2023)</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 2: Levi Strauss / Coinbase -->
+      <div class="comp-card reveal">
+        <div class="comp-card-header">
+          <div class="comp-side gold-side">
+            <div class="comp-side-icon">&#128086;</div>
+            <div class="comp-side-name">Levi Strauss</div>
+            <div class="comp-side-year">1853</div>
+          </div>
+          <div class="comp-vs-badge">&#8644;</div>
+          <div class="comp-side btc-side">
+            <div class="comp-side-icon">&#127974;</div>
+            <div class="comp-side-name">Coinbase</div>
+            <div class="comp-side-year">2012</div>
+          </div>
+        </div>
+        <div class="comp-card-body">
+          <div class="comp-function">Durable Infrastructure Everyone Needs</div>
+          <div class="comp-desc">Strauss didn't mine gold — he sold dry goods and then invented durable work pants. Every miner needed them regardless of success. Coinbase provides the financial rails every participant uses — exchange, custody, on-ramp — regardless of Bitcoin's price.</div>
+          <div class="comp-stats-row">
+            <div class="comp-mini-stat">
+              <div class="comp-mini-val gold-num">173 yrs</div>
+              <div class="comp-mini-label">Still Operating</div>
+            </div>
+            <div class="comp-mini-stat">
+              <div class="comp-mini-val btc-num">$7.18B</div>
+              <div class="comp-mini-label">2025 Revenue</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 3: Wells Fargo / BitGo + Fireblocks -->
+      <div class="comp-card reveal">
+        <div class="comp-card-header">
+          <div class="comp-side gold-side">
+            <div class="comp-side-icon">&#128270;</div>
+            <div class="comp-side-name">Wells Fargo</div>
+            <div class="comp-side-year">1852</div>
+          </div>
+          <div class="comp-vs-badge">&#8644;</div>
+          <div class="comp-side btc-side">
+            <div class="comp-side-icon">&#128274;</div>
+            <div class="comp-side-name">BitGo + Fireblocks</div>
+            <div class="comp-side-year">2013 / 2018</div>
+          </div>
+        </div>
+        <div class="comp-card-body">
+          <div class="comp-function">Custody, Settlement, Trusted Intermediary</div>
+          <div class="comp-desc">Wells Fargo accepted gold dust, issued banknotes, stored valuables, and ran the express mail. BitGo and Fireblocks do the same for Bitcoin — secure custody, settlement, and institutional-grade infrastructure. Within 15 years, Wells Fargo absorbed every rival.</div>
+          <div class="comp-stats-row">
+            <div class="comp-mini-stat">
+              <div class="comp-mini-val gold-num">15 yrs</div>
+              <div class="comp-mini-label">To Monopoly</div>
+            </div>
+            <div class="comp-mini-stat">
+              <div class="comp-mini-val btc-num">20%+</div>
+              <div class="comp-mini-label">BTC Tx Value (BitGo)</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 4: Studebaker / Bitmain -->
+      <div class="comp-card reveal">
+        <div class="comp-card-header">
+          <div class="comp-side gold-side">
+            <div class="comp-side-icon">&#128736;</div>
+            <div class="comp-side-name">Studebaker</div>
+            <div class="comp-side-year">1853</div>
+          </div>
+          <div class="comp-vs-badge">&#8644;</div>
+          <div class="comp-side btc-side">
+            <div class="comp-side-icon">&#9889;</div>
+            <div class="comp-side-name">Bitmain</div>
+            <div class="comp-side-year">2013</div>
+          </div>
+        </div>
+        <div class="comp-card-body">
+          <div class="comp-function">The Tool Maker — Profits Regardless</div>
+          <div class="comp-desc">"Wheelbarrow Johnny" Studebaker sold wheelbarrows to miners at $10 each, saved $8,000, then built America's largest wagon company (later cars). Bitmain sells ASIC miners — 80%+ global market share — and profits whether miners strike it rich or not.</div>
+          <div class="comp-stats-row">
+            <div class="comp-mini-stat">
+              <div class="comp-mini-val gold-num">$8K</div>
+              <div class="comp-mini-label">Saved by 1858</div>
+            </div>
+            <div class="comp-mini-stat">
+              <div class="comp-mini-val btc-num">$2.5B</div>
+              <div class="comp-mini-label">2017 Revenue</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 5: Railroad Barons / MicroStrategy -->
+      <div class="comp-card reveal">
+        <div class="comp-card-header">
+          <div class="comp-side gold-side">
+            <div class="comp-side-icon">&#128642;</div>
+            <div class="comp-side-name">Railroad Land Barons</div>
+            <div class="comp-side-year">1860s</div>
+          </div>
+          <div class="comp-vs-badge">&#8644;</div>
+          <div class="comp-side btc-side">
+            <div class="comp-side-icon">&#128202;</div>
+            <div class="comp-side-name">MicroStrategy</div>
+            <div class="comp-side-year">2020</div>
+          </div>
+        </div>
+        <div class="comp-card-body">
+          <div class="comp-function">The Capital Aggregator — Bet on the Asset</div>
+          <div class="comp-desc">The "Big Four" (Hopkins, Stanford, Crocker, Huntington) used capital markets and political connections to accumulate western land and infrastructure. MicroStrategy raises public funds and converts them to Bitcoin — 762,099 BTC and counting. Pure asset accumulation through financial engineering.</div>
+          <div class="comp-stats-row">
+            <div class="comp-mini-stat">
+              <div class="comp-mini-val gold-num">$25M</div>
+              <div class="comp-mini-label">Hopkins Fortune</div>
+            </div>
+            <div class="comp-mini-stat">
+              <div class="comp-mini-val btc-num">762K BTC</div>
+              <div class="comp-mini-label">MSTR Holdings</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 6: Assay Offices / Exchanges -->
+      <div class="comp-card reveal">
+        <div class="comp-card-header">
+          <div class="comp-side gold-side">
+            <div class="comp-side-icon">&#9878;</div>
+            <div class="comp-side-name">Assay Offices</div>
+            <div class="comp-side-year">1850s</div>
+          </div>
+          <div class="comp-vs-badge">&#8644;</div>
+          <div class="comp-side btc-side">
+            <div class="comp-side-icon">&#128177;</div>
+            <div class="comp-side-name">Binance &amp; Kraken</div>
+            <div class="comp-side-year">2013 / 2017</div>
+          </div>
+        </div>
+        <div class="comp-card-body">
+          <div class="comp-function">Verification, Valuation &amp; Conversion</div>
+          <div class="comp-desc">Miners brought gold dust to assay offices for weighing, verification, and conversion to paper money. Exchanges serve the same function — verify ownership, facilitate trades, convert between assets. The San Francisco Mint was built in 1854; Binance now processes $7.3T annually.</div>
+          <div class="comp-stats-row">
+            <div class="comp-mini-stat">
+              <div class="comp-mini-val gold-num">1854</div>
+              <div class="comp-mini-label">SF Mint Built</div>
+            </div>
+            <div class="comp-mini-stat">
+              <div class="comp-mini-val btc-num">$16.8B</div>
+              <div class="comp-mini-label">Binance Rev (2024)</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     TRANSFORMATION SECTION
+     ══════════════════════════════════════ -->
+<section id="transformation">
+  <div class="container">
+    <div class="reveal" style="text-align:center; margin-bottom:2.5rem;">
+      <span class="section-label">Chapter IV</span>
+      <h2 class="section-title">Building a State, Building a System</h2>
+      <p class="section-subtitle" style="margin:0 auto;">The Gold Rush didn't just produce gold — it built California. Bitcoin isn't just an asset — it's building new financial infrastructure. The pattern: discovery &#8594; infrastructure &#8594; diversification.</p>
+    </div>
+
+    <div class="transform-grid">
+
+      <div class="transform-card gold-card reveal">
+        <div class="transform-icon">&#127968;</div>
+        <div class="transform-era-tag gold-tag">Gold Rush</div>
+        <div class="transform-title">Population Explosion</div>
+        <div class="transform-text">California went from 14,000 residents to 250,000 in four years. San Francisco grew from 1,000 to 150,000 by 1870. The Gold Rush created the largest mass migration in American history.</div>
+        <div class="transform-stat"><span class="gold">14K &#8594; 250K</span> in 4 years</div>
+      </div>
+
+      <div class="transform-card btc-card reveal">
+        <div class="transform-icon">&#128101;</div>
+        <div class="transform-era-tag btc-tag">Bitcoin</div>
+        <div class="transform-title">User Explosion</div>
+        <div class="transform-text">Coinbase alone grew from 0 to 100M+ users. Over 2,000 U.S. advisory firms now offer Bitcoin (up from under 200 pre-ETF). Bitcoin job postings grew 26% in 2025 — 21,600+ new roles.</div>
+        <div class="transform-stat"><span class="orange">100M+</span> Coinbase users</div>
+      </div>
+
+      <div class="transform-card gold-card reveal">
+        <div class="transform-icon">&#127975;</div>
+        <div class="transform-era-tag gold-tag">Gold Rush</div>
+        <div class="transform-title">Banking from Nothing</div>
+        <div class="transform-text">Before 1848, California had no banks. By 1864, Wells Fargo, the Bank of California, private mints, and the San Francisco Mint (1854) formed a complete financial system — built from scratch in 16 years.</div>
+        <div class="transform-stat">Wells Fargo absorbed <span class="gold">every rival</span> in 15 years</div>
+      </div>
+
+      <div class="transform-card btc-card reveal">
+        <div class="transform-icon">&#128179;</div>
+        <div class="transform-era-tag btc-tag">Bitcoin</div>
+        <div class="transform-title">New Financial Infrastructure</div>
+        <div class="transform-text">BlackRock's IBIT holds ~$50B in Bitcoin. Fidelity offers BTC in 401(k)s. BitGo processes 20%+ of all Bitcoin transaction value. An entire parallel financial system — custody, settlement, lending — built in under a decade.</div>
+        <div class="transform-stat"><span class="orange">$35B+</span> ETF inflows in 2024</div>
+      </div>
+
+      <div class="transform-card gold-card reveal">
+        <div class="transform-icon">&#128645;</div>
+        <div class="transform-era-tag gold-tag">Gold Rush</div>
+        <div class="transform-title">The Railroad Boom</div>
+        <div class="transform-text">Gold Rush wealth funded 4,000+ miles of roads and railroads, culminating in the Transcontinental Railroad (1869). Travel from months to days. The telegraph (1861) added instant communication. Infrastructure outlasted the gold.</div>
+        <div class="transform-stat"><span class="gold">4,000+</span> miles of new infrastructure</div>
+      </div>
+
+      <div class="transform-card btc-card reveal">
+        <div class="transform-icon">&#9889;</div>
+        <div class="transform-era-tag btc-tag">Bitcoin</div>
+        <div class="transform-title">The Lightning Network</div>
+        <div class="transform-text">Lightning enables instant, near-free Bitcoin transfers globally. Remittance costs drop from 6.5% to under 2%. In Nairobi's Kibera, 200 residents use Bitcoin daily. The infrastructure is connecting 1.4 billion unbanked people to the financial system.</div>
+        <div class="transform-stat">Remittance savings: <span class="orange">$186/year</span> per user</div>
+      </div>
+
+      <div class="transform-card both-card reveal">
+        <div class="transform-icon">&#127463;</div>
+        <div class="transform-era-tag both-tag">Both Eras</div>
+        <div class="transform-title">The Race for Territory</div>
+        <div class="transform-text">California's rush to statehood (1850) was the fastest in U.S. history. Today, 16 states have introduced Bitcoin reserve legislation. New Hampshire, Arizona, and Texas have already enacted theirs. The competition isn't for geography — it's for regulatory positioning.</div>
+        <div class="transform-stat"><span class="blue">16 states</span> racing for digital territory</div>
+      </div>
+
+      <div class="transform-card both-card reveal">
+        <div class="transform-icon">&#128176;</div>
+        <div class="transform-era-tag both-tag">Both Eras</div>
+        <div class="transform-title">The Monetary Shock</div>
+        <div class="transform-text">California gold equaled ~2% of U.S. GDP and caused 30% wholesale price inflation — effectively a massive monetary expansion. Bitcoin offers the opposite: a fixed supply of 21M coins, acting as a deflationary counterweight in an era of unlimited fiat expansion. Both force us to ask: what is money?</div>
+        <div class="transform-stat"><span class="gold">$550M gold</span> vs. <span class="orange">21M BTC cap</span></div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     THE PATTERN — TABLE
+     ══════════════════════════════════════ -->
+<section id="pattern">
+  <div class="container">
+    <div class="reveal" style="text-align:center; margin-bottom:2.5rem;">
+      <span class="section-label">Chapter V</span>
+      <h2 class="section-title">The Repeating Pattern</h2>
+      <p class="section-subtitle" style="margin:0 auto;">Strip away the technology, and the arc is identical. Discovery. FOMO. Migration. Infrastructure. Consolidation. Transformation.</p>
+    </div>
+
+    <div class="pattern-table-wrap reveal">
+      <table class="pattern-table">
+        <thead>
+          <tr>
+            <th>Phase</th>
+            <th>&#9874; Gold Rush (1848)</th>
+            <th>&#8383; Bitcoin (2009)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Discovery</td>
+            <td>Gold at Sutter's Mill — Jan 24, 1848</td>
+            <td>Genesis block — Jan 3, 2009</td>
+          </tr>
+          <tr>
+            <td>Early Prospectors</td>
+            <td>Individual panners in rivers (1848–51)</td>
+            <td>CPU miners on laptops (2009–10)</td>
+          </tr>
+          <tr>
+            <td>FOMO Catalyst</td>
+            <td>President Polk's address (Dec 1848)</td>
+            <td>SEC approves Bitcoin ETFs (Jan 2024)</td>
+          </tr>
+          <tr>
+            <td>Mass Migration</td>
+            <td>300,000 "49ers" flood California</td>
+            <td>100M+ Coinbase users; 2,000+ advisory firms</td>
+          </tr>
+          <tr>
+            <td>Infrastructure</td>
+            <td>Wells Fargo, railroads, telegraph, banking</td>
+            <td>Coinbase, BitGo, Lightning, Bitcoin ETFs</td>
+          </tr>
+          <tr>
+            <td>Consolidation</td>
+            <td>Hydraulic mining; corporate operations</td>
+            <td>ASIC mining; public companies ($25B+ market cap)</td>
+          </tr>
+          <tr>
+            <td>Shovel Sellers</td>
+            <td>Levi's, Wells Fargo, Brannan, Studebaker</td>
+            <td>Coinbase, Bitmain, Block, Binance</td>
+          </tr>
+          <tr>
+            <td>Government Response</td>
+            <td>Statehood (1850); land claims; mining regulations</td>
+            <td>ETF approval; Strategic Reserve; state legislation</td>
+          </tr>
+          <tr>
+            <td>Territorial Race</td>
+            <td>California statehood — fastest in history</td>
+            <td>16 states with Bitcoin reserve bills (2025)</td>
+          </tr>
+          <tr>
+            <td>Monetary Impact</td>
+            <td>Gold supply shock → 30% price inflation</td>
+            <td>Fixed supply (21M) → deflationary counterweight</td>
+          </tr>
+          <tr>
+            <td>Diversification</td>
+            <td>Mining → agriculture, real estate, manufacturing</td>
+            <td>Mining → DeFi, compliance, AI/HPC, payments</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     DIFFERENCES
+     ══════════════════════════════════════ -->
+<section id="differences">
+  <div class="container">
+    <div class="reveal" style="text-align:center; margin-bottom:2.5rem;">
+      <span class="section-label">Chapter VI</span>
+      <h2 class="section-title">Where the Analogy Breaks</h2>
+      <p class="section-subtitle" style="margin:0 auto;">No analogy is perfect. Here's where Bitcoin fundamentally differs from gold — and why those differences matter.</p>
+    </div>
+
+    <div class="diff-grid">
+
+      <div class="diff-card reveal">
+        <div class="diff-icon">&#9200;</div>
+        <div class="diff-title">Speed</div>
+        <div class="diff-comparison">
+          <div class="diff-side gold-diff">Gold Rush took <strong>decades</strong> to fully transform California</div>
+          <div class="diff-side btc-diff">Bitcoin achieved institutional integration in <strong>under 5 years</strong></div>
+        </div>
+      </div>
+
+      <div class="diff-card reveal">
+        <div class="diff-icon">&#128270;</div>
+        <div class="diff-title">Supply Certainty</div>
+        <div class="diff-comparison">
+          <div class="diff-side gold-diff">Nobody knew how much gold was in the ground. <strong>Unknown supply.</strong></div>
+          <div class="diff-side btc-diff">Everyone knows: <strong>21 million BTC</strong>. Every coin's emission date is predetermined.</div>
+        </div>
+      </div>
+
+      <div class="diff-card reveal">
+        <div class="diff-icon">&#127758;</div>
+        <div class="diff-title">Accessibility</div>
+        <div class="diff-comparison">
+          <div class="diff-side gold-diff">Required physical migration across <strong>continents</strong> — months of travel</div>
+          <div class="diff-side btc-diff">Can be purchased from <strong>a phone with $1</strong> — anywhere on Earth</div>
+        </div>
+      </div>
+
+      <div class="diff-card reveal">
+        <div class="diff-icon">&#127793;</div>
+        <div class="diff-title">Environmental Profile</div>
+        <div class="diff-comparison">
+          <div class="diff-side gold-diff"><strong>12B tons</strong> excavated. <strong>7,600 tons</strong> of mercury released. Contamination persists today.</div>
+          <div class="diff-side btc-diff"><strong>52.4%</strong> sustainable energy. No physical waste. Incentivizes renewable energy development.</div>
+        </div>
+      </div>
+
+      <div class="diff-card reveal">
+        <div class="diff-icon">&#128181;</div>
+        <div class="diff-title">Monetary Role</div>
+        <div class="diff-comparison">
+          <div class="diff-side gold-diff">Gold <strong>expanded</strong> the money supply — effectively loose monetary policy</div>
+          <div class="diff-side btc-diff">Bitcoin <strong>constrains</strong> supply — a fixed-cap deflationary counterweight to fiat</div>
+        </div>
+      </div>
+
+      <div class="diff-card reveal">
+        <div class="diff-icon">&#128206;</div>
+        <div class="diff-title">Transparency</div>
+        <div class="diff-comparison">
+          <div class="diff-side gold-diff">Gold claims were murky, disputed, and often <strong>fraudulent</strong></div>
+          <div class="diff-side btc-diff">Every transaction on a <strong>permanent public ledger</strong> — fully auditable by anyone</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     CTA & FOOTER
+     ══════════════════════════════════════ -->
+<section class="cta-section">
+  <div class="container reveal">
+    <span class="section-label">The Question</span>
+    <h2 class="cta-pullquote">
+      In 1848, the smart money didn't pan for gold.<br>
+      <span class="gold">It built the infrastructure.</span>
+    </h2>
+    <p class="cta-sub">
+      The Bitcoin Gold Rush is happening now. The miners are mining. The shovel sellers are selling.
+      The question is: which side of history are you building on?
+    </p>
+    <div class="cta-buttons">
+      <a href="https://www.ribpi.org" class="btn btn-primary">Learn More at RIBPI &#8594;</a>
+      <a href="#hero" class="btn btn-outline">&#8593; Back to Top</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-brand">Rhode Island Bitcoin Policy Initiative</div>
+  <div class="footer-sub">Small state, big ideas. Bitcoin = money. &middot; Research &amp; Education &middot; &copy; 2026 RIBPI</div>
+  <!-- Easter egg trigger: the gold pan -->
+  <div class="pan-trigger" id="panTrigger">
+    <svg viewBox="0 0 64 64" width="22" height="22" fill="none" stroke="#C5A648" stroke-width="2.5">
+      <ellipse cx="32" cy="30" rx="24" ry="18"/>
+      <path d="M8,30 Q8,16 32,12 Q56,16 56,30" fill="none"/>
+      <rect x="29" y="48" width="6" height="12" rx="2"/>
+      <line x1="24" y1="58" x2="40" y2="58" stroke-linecap="round" stroke-width="3"/>
+      <circle cx="26" cy="28" r="2" fill="#C5A648" opacity="0.5"/>
+      <circle cx="36" cy="32" r="1.5" fill="#C5A648" opacity="0.4"/>
+      <circle cx="32" cy="26" r="1" fill="#C5A648" opacity="0.3"/>
+    </svg>
+    <span class="pan-trigger-label">Pan for gold</span>
+  </div>
+</footer>
+
+<!-- Easter Egg: Gold Panning Overlay -->
+<div class="pan-overlay" id="panOverlay">
+  <canvas id="panCanvas"></canvas>
+  <div class="pan-logo-reveal" id="panLogoReveal">
+    <img src="logo-icon.svg" alt="BTC Gold Rush" class="pan-logo-img" id="panLogoImg">
+    <div class="pan-reveal-text" id="panRevealText">You struck gold.</div>
+  </div>
+  <button class="pan-close" id="panClose">&times;</button>
+  <div class="pan-instructions" id="panInstructions">
+    <span>Swirl to pan for gold</span>
+    <div class="pan-progress-track">
+      <div class="pan-progress-bar" id="panProgressBar"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     JAVASCRIPT
+     ══════════════════════════════════════ -->
+<script>
+(function() {
+  'use strict';
+
+  // ─── Particle Generator ───
+  const particleContainer = document.getElementById('heroParticles');
+  if (particleContainer) {
+    for (let i = 0; i < 50; i++) {
+      const p = document.createElement('div');
+      p.className = 'particle';
+      p.style.left = Math.random() * 100 + '%';
+      p.style.animationDuration = (8 + Math.random() * 12) + 's';
+      p.style.animationDelay = Math.random() * 10 + 's';
+      p.style.width = p.style.height = (2 + Math.random() * 3) + 'px';
+      if (Math.random() > 0.6) {
+        p.style.background = '#e67a00';
+      }
+      particleContainer.appendChild(p);
+    }
+  }
+
+  // ─── Nav scroll effect ───
+  const nav = document.getElementById('mainNav');
+  window.addEventListener('scroll', function() {
+    nav.classList.toggle('scrolled', window.scrollY > 80);
+  });
+
+  // ─── Scroll reveal ───
+  const reveals = document.querySelectorAll('.reveal');
+  const revealObserver = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        revealObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+  reveals.forEach(function(el) { revealObserver.observe(el); });
+
+  // ─── Animated counters ───
+  function animateCounter(el) {
+    var target = parseFloat(el.getAttribute('data-count'));
+    var suffix = el.getAttribute('data-suffix') || '';
+    var prefix = el.getAttribute('data-prefix') || '';
+    var decimals = parseInt(el.getAttribute('data-decimals')) || 0;
+    var duration = 2000;
+    var start = 0;
+    var startTime = null;
+
+    function step(timestamp) {
+      if (!startTime) startTime = timestamp;
+      var progress = Math.min((timestamp - startTime) / duration, 1);
+      // Ease out cubic
+      var eased = 1 - Math.pow(1 - progress, 3);
+      var current = start + (target - start) * eased;
+      el.textContent = prefix + current.toFixed(decimals) + suffix;
+      if (progress < 1) {
+        requestAnimationFrame(step);
+      }
+    }
+    requestAnimationFrame(step);
+  }
+
+  var counterEls = document.querySelectorAll('[data-count]');
+  var counterObserver = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        animateCounter(entry.target);
+        counterObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.5 });
+  counterEls.forEach(function(el) { counterObserver.observe(el); });
+
+  // ─── Active nav link ───
+  var sections = document.querySelectorAll('section[id]');
+  var navLinks = document.querySelectorAll('.nav-links a');
+  window.addEventListener('scroll', function() {
+    var scrollY = window.scrollY + 200;
+    sections.forEach(function(section) {
+      var top = section.offsetTop;
+      var height = section.offsetHeight;
+      var id = section.getAttribute('id');
+      if (scrollY >= top && scrollY < top + height) {
+        navLinks.forEach(function(link) {
+          link.classList.remove('active');
+          if (link.getAttribute('href') === '#' + id) {
+            link.classList.add('active');
+          }
+        });
+      }
+    });
+  });
+
+  // ─── Close mobile nav on link click ───
+  navLinks.forEach(function(link) {
+    link.addEventListener('click', function() {
+      document.querySelector('.nav-links').classList.remove('open');
+    });
+  });
+
+  // ═══════════════════════════════════════
+  //  EASTER EGG — GOLD PANNING
+  // ═══════════════════════════════════════
+  (function initPanEasterEgg() {
+    var trigger = document.getElementById('panTrigger');
+    var overlay = document.getElementById('panOverlay');
+    var canvas = document.getElementById('panCanvas');
+    var ctx = canvas.getContext('2d');
+    var progressBar = document.getElementById('panProgressBar');
+    var instructions = document.getElementById('panInstructions');
+    var logoReveal = document.getElementById('panLogoReveal');
+    var closeBtn = document.getElementById('panClose');
+
+    var particles = [];
+    var progress = 0;
+    var revealed = false;
+    var isPanning = false;
+    var lastX = 0, lastY = 0;
+    var totalDistance = 0;
+    var animFrame = null;
+    var GOAL = 1800; // total swirl distance to reveal
+
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+
+    // Particle class
+    function Particle(x, y, isGold) {
+      this.x = x;
+      this.y = y;
+      this.vx = (Math.random() - 0.5) * 6;
+      this.vy = (Math.random() - 0.5) * 6 - 2;
+      this.life = 1;
+      this.decay = 0.008 + Math.random() * 0.015;
+      this.size = 2 + Math.random() * 4;
+      this.gravity = 0.06 + Math.random() * 0.04;
+      if (isGold) {
+        var hue = 38 + Math.random() * 20;
+        var light = 55 + Math.random() * 20;
+        this.color = 'hsl(' + hue + ', 80%, ' + light + '%)';
+      } else {
+        this.color = 'hsl(30, ' + (60 + Math.random()*30) + '%, ' + (40 + Math.random()*20) + '%)';
+      }
+    }
+    Particle.prototype.update = function() {
+      this.vx *= 0.98;
+      this.vy += this.gravity;
+      this.x += this.vx;
+      this.y += this.vy;
+      this.life -= this.decay;
+    };
+    Particle.prototype.draw = function(c) {
+      c.globalAlpha = Math.max(0, this.life);
+      c.fillStyle = this.color;
+      c.beginPath();
+      c.arc(this.x, this.y, this.size * this.life, 0, Math.PI * 2);
+      c.fill();
+    };
+
+    // Burst particle class for the reveal explosion
+    function BurstParticle(cx, cy) {
+      var angle = Math.random() * Math.PI * 2;
+      var speed = 2 + Math.random() * 10;
+      this.x = cx;
+      this.y = cy;
+      this.vx = Math.cos(angle) * speed;
+      this.vy = Math.sin(angle) * speed;
+      this.life = 1;
+      this.decay = 0.005 + Math.random() * 0.01;
+      this.size = 2 + Math.random() * 6;
+      this.gravity = 0.02;
+      var r = Math.random();
+      if (r < 0.5) {
+        this.color = '#C5A648';
+      } else if (r < 0.8) {
+        this.color = '#E67A00';
+      } else {
+        this.color = '#F5C542';
+      }
+    }
+    BurstParticle.prototype.update = Particle.prototype.update;
+    BurstParticle.prototype.draw = Particle.prototype.draw;
+
+    function spawnPanParticles(x, y, count) {
+      for (var i = 0; i < count; i++) {
+        var isGold = progress > GOAL * 0.3 && Math.random() < (progress / GOAL) * 0.7;
+        particles.push(new Particle(x, y, isGold));
+      }
+    }
+
+    function burstGold() {
+      var cx = canvas.width / 2;
+      var cy = canvas.height / 2;
+      for (var i = 0; i < 200; i++) {
+        particles.push(new BurstParticle(cx, cy));
+      }
+    }
+
+    function animate() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      for (var i = particles.length - 1; i >= 0; i--) {
+        particles[i].update();
+        particles[i].draw(ctx);
+        if (particles[i].life <= 0) {
+          particles.splice(i, 1);
+        }
+      }
+      ctx.globalAlpha = 1;
+      animFrame = requestAnimationFrame(animate);
+    }
+
+    function openPan() {
+      resizeCanvas();
+      overlay.classList.add('active');
+      progress = 0;
+      revealed = false;
+      totalDistance = 0;
+      particles = [];
+      progressBar.style.width = '0%';
+      logoReveal.classList.remove('revealed');
+      instructions.style.opacity = '1';
+      animate();
+    }
+
+    function closePan() {
+      overlay.classList.remove('active');
+      cancelAnimationFrame(animFrame);
+      particles = [];
+    }
+
+    function doReveal() {
+      if (revealed) return;
+      revealed = true;
+      instructions.style.opacity = '0';
+      burstGold();
+      setTimeout(function() {
+        logoReveal.classList.add('revealed');
+      }, 300);
+    }
+
+    function handleMove(x, y) {
+      if (!isPanning || revealed) return;
+      var dx = x - lastX;
+      var dy = y - lastY;
+      var dist = Math.sqrt(dx * dx + dy * dy);
+      if (dist < 2) return;
+      totalDistance += dist;
+      progress = Math.min(totalDistance, GOAL);
+      progressBar.style.width = (progress / GOAL * 100) + '%';
+      // Spawn particles along the swirl path — more as progress increases
+      var intensity = 2 + Math.floor((progress / GOAL) * 6);
+      spawnPanParticles(x, y, intensity);
+      lastX = x;
+      lastY = y;
+      if (progress >= GOAL) {
+        doReveal();
+      }
+    }
+
+    // Mouse events
+    canvas.addEventListener('mousedown', function(e) {
+      isPanning = true;
+      lastX = e.clientX;
+      lastY = e.clientY;
+    });
+    canvas.addEventListener('mousemove', function(e) {
+      handleMove(e.clientX, e.clientY);
+    });
+    canvas.addEventListener('mouseup', function() { isPanning = false; });
+    canvas.addEventListener('mouseleave', function() { isPanning = false; });
+
+    // Touch events
+    canvas.addEventListener('touchstart', function(e) {
+      isPanning = true;
+      var t = e.touches[0];
+      lastX = t.clientX;
+      lastY = t.clientY;
+    }, { passive: true });
+    canvas.addEventListener('touchmove', function(e) {
+      if (e.touches.length > 0) {
+        var t = e.touches[0];
+        handleMove(t.clientX, t.clientY);
+      }
+    }, { passive: true });
+    canvas.addEventListener('touchend', function() { isPanning = false; }, { passive: true });
+
+    // Open/close
+    trigger.addEventListener('click', openPan);
+    closeBtn.addEventListener('click', closePan);
+    overlay.addEventListener('click', function(e) {
+      if (revealed && e.target === canvas) closePan();
+    });
+    window.addEventListener('resize', function() {
+      if (overlay.classList.contains('active')) resizeCanvas();
+    });
+    window.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape' && overlay.classList.contains('active')) closePan();
+    });
+  })();
+
+})();
+</script>
+
+</body>
+</html>

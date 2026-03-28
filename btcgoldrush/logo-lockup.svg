@@ -1,0 +1,93 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 200" width="800" height="200">
+  <defs>
+    <linearGradient id="lkGoldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#DDBE54"/>
+      <stop offset="50%" stop-color="#C5A648"/>
+      <stop offset="100%" stop-color="#9E7E28"/>
+    </linearGradient>
+    <linearGradient id="lkBtcGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#F5992C"/>
+      <stop offset="100%" stop-color="#D46A00"/>
+    </linearGradient>
+    <linearGradient id="lkDarkBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#101D33"/>
+      <stop offset="100%" stop-color="#081020"/>
+    </linearGradient>
+    <linearGradient id="lkHandleGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#8B6914"/>
+      <stop offset="30%" stop-color="#C5A648"/>
+      <stop offset="70%" stop-color="#C5A648"/>
+      <stop offset="100%" stop-color="#8B6914"/>
+    </linearGradient>
+    <linearGradient id="lkTextGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#DDBE54"/>
+      <stop offset="100%" stop-color="#C5A648"/>
+    </linearGradient>
+    <filter id="lkGlow">
+      <feGaussianBlur stdDeviation="2" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+
+  <!-- === ICON (left side, scaled to fit 180x180 area centered vertically) === -->
+  <g transform="translate(95,100) scale(0.34)">
+    <!-- Outer circle -->
+    <circle cx="0" cy="0" r="250" fill="url(#lkDarkBg)" stroke="url(#lkGoldGrad)" stroke-width="6"/>
+    <circle cx="0" cy="0" r="230" fill="none" stroke="#C5A648" stroke-width="1" opacity="0.2"/>
+
+    <!-- Left pickaxe -->
+    <g transform="rotate(-45)">
+      <rect x="-8" y="-208" width="16" height="340" rx="8" fill="url(#lkHandleGrad)"/>
+      <rect x="-10" y="54" width="20" height="50" rx="4" fill="none" stroke="#A8882E" stroke-width="2" opacity="0.5"/>
+      <line x1="-8" y1="64" x2="8" y2="64" stroke="#7A6018" stroke-width="1.5" opacity="0.5"/>
+      <line x1="-8" y1="74" x2="8" y2="74" stroke="#7A6018" stroke-width="1.5" opacity="0.5"/>
+      <line x1="-8" y1="84" x2="8" y2="84" stroke="#7A6018" stroke-width="1.5" opacity="0.5"/>
+      <line x1="-8" y1="94" x2="8" y2="94" stroke="#7A6018" stroke-width="1.5" opacity="0.5"/>
+      <path d="M-4,-188 L-4,-204 L-116,-236 C-124,-238 -128,-232 -124,-226 L-26,-191 Z" fill="url(#lkGoldGrad)" stroke="#9E7E28" stroke-width="1.5" stroke-linejoin="round"/>
+      <path d="M4,-188 L4,-204 L116,-236 C124,-238 128,-232 124,-226 L26,-191 Z" fill="url(#lkGoldGrad)" stroke="#9E7E28" stroke-width="1.5" stroke-linejoin="round"/>
+      <rect x="-12" y="-206" width="24" height="24" rx="3" fill="#B89830" stroke="#8B6914" stroke-width="1.5"/>
+    </g>
+
+    <!-- Right pickaxe -->
+    <g transform="rotate(45)">
+      <rect x="-8" y="-208" width="16" height="340" rx="8" fill="url(#lkHandleGrad)"/>
+      <rect x="-10" y="54" width="20" height="50" rx="4" fill="none" stroke="#A8882E" stroke-width="2" opacity="0.5"/>
+      <line x1="-8" y1="64" x2="8" y2="64" stroke="#7A6018" stroke-width="1.5" opacity="0.5"/>
+      <line x1="-8" y1="74" x2="8" y2="74" stroke="#7A6018" stroke-width="1.5" opacity="0.5"/>
+      <line x1="-8" y1="84" x2="8" y2="84" stroke="#7A6018" stroke-width="1.5" opacity="0.5"/>
+      <line x1="-8" y1="94" x2="8" y2="94" stroke="#7A6018" stroke-width="1.5" opacity="0.5"/>
+      <path d="M-4,-188 L-4,-204 L-116,-236 C-124,-238 -128,-232 -124,-226 L-26,-191 Z" fill="url(#lkGoldGrad)" stroke="#9E7E28" stroke-width="1.5" stroke-linejoin="round"/>
+      <path d="M4,-188 L4,-204 L116,-236 C124,-238 128,-232 124,-226 L26,-191 Z" fill="url(#lkGoldGrad)" stroke="#9E7E28" stroke-width="1.5" stroke-linejoin="round"/>
+      <rect x="-12" y="-206" width="24" height="24" rx="3" fill="#B89830" stroke="#8B6914" stroke-width="1.5"/>
+    </g>
+
+    <!-- Central Bitcoin coin -->
+    <circle cx="0" cy="0" r="96" fill="url(#lkBtcGrad)" filter="url(#lkGlow)"/>
+    <circle cx="0" cy="0" r="96" fill="none" stroke="#FFBE50" stroke-width="2" opacity="0.35"/>
+    <circle cx="0" cy="0" r="82" fill="none" stroke="rgba(255,255,255,0.15)" stroke-width="2"/>
+
+    <!-- ₿ symbol -->
+    <g fill="#FFFFFF">
+      <rect x="-14" y="-62" width="8" rx="4" height="20"/>
+      <rect x="6" y="-62" width="8" rx="4" height="20"/>
+      <rect x="-14" y="42" width="8" rx="4" height="20"/>
+      <rect x="6" y="42" width="8" rx="4" height="20"/>
+      <path d="M-24,-44 L16,-44 C36,-44 46,-36 46,-24 C46,-12 36,-4 16,-4 L-24,-4 Z"/>
+      <path d="M-24,-4 L20,-4 C42,-4 54,6 54,20 C54,34 42,44 20,44 L-24,44 Z"/>
+      <path d="M-12,-32 L12,-32 C24,-32 30,-28 30,-24 C30,-16 24,-14 12,-14 L-12,-14 Z" fill="url(#lkBtcGrad)"/>
+      <path d="M-12,8 L16,8 C30,8 38,14 38,20 C38,28 30,32 16,32 L-12,32 Z" fill="url(#lkBtcGrad)"/>
+    </g>
+  </g>
+
+  <!-- === WORDMARK (right side) === -->
+  <!-- "BTC" — large, bold -->
+  <text x="210" y="92" font-family="'Merriweather', Georgia, serif" font-weight="900" font-size="68" fill="url(#lkTextGrad)" letter-spacing="4">BTC</text>
+  <!-- "GOLD RUSH" — below, spaced -->
+  <text x="212" y="148" font-family="'Merriweather', Georgia, serif" font-weight="900" font-size="54" fill="#f0f0f0" letter-spacing="6">GOLD RUSH</text>
+  <!-- Thin gold accent line between -->
+  <line x1="212" y1="103" x2="540" y2="103" stroke="url(#lkGoldGrad)" stroke-width="2" opacity="0.5"/>
+
+  <!-- Tagline -->
+  <text x="214" y="174" font-family="'Open Sans', sans-serif" font-weight="400" font-size="13" fill="#a0b4c8" letter-spacing="3.5">175 YEARS OF HISTORY REPEATING</text>
+
+</svg>

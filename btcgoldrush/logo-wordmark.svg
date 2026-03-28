@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 620 120" width="620" height="120">
+  <defs>
+    <linearGradient id="wmGoldGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#DDBE54"/>
+      <stop offset="50%" stop-color="#C5A648"/>
+      <stop offset="100%" stop-color="#B89430"/>
+    </linearGradient>
+    <linearGradient id="wmBtcGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#F5992C"/>
+      <stop offset="100%" stop-color="#D46A00"/>
+    </linearGradient>
+  </defs>
+
+  <!-- "BTC" — gold gradient, heavy serif -->
+  <text x="0" y="72" font-family="'Merriweather', Georgia, serif" font-weight="900" font-size="74" fill="url(#wmGoldGrad)" letter-spacing="2">BTC</text>
+
+  <!-- Small crossed pickaxes separator -->
+  <g transform="translate(230, 42) scale(0.38)">
+    <!-- Left pick -->
+    <line x1="-30" y1="50" x2="30" y2="-50" stroke="#C5A648" stroke-width="6" stroke-linecap="round"/>
+    <path d="M24,-44 L34,-60 L16,-52 Z" fill="#C5A648"/>
+    <!-- Right pick -->
+    <line x1="30" y1="50" x2="-30" y2="-50" stroke="#C5A648" stroke-width="6" stroke-linecap="round"/>
+    <path d="M-24,-44 L-34,-60 L-16,-52 Z" fill="#C5A648"/>
+  </g>
+
+  <!-- "GOLD RUSH" — white, heavy serif -->
+  <text x="252" y="72" font-family="'Merriweather', Georgia, serif" font-weight="900" font-size="74" fill="#f0f0f0" letter-spacing="3">GOLD RUSH</text>
+
+  <!-- Gold accent line below -->
+  <line x1="0" y1="88" x2="618" y2="88" stroke="url(#wmGoldGrad)" stroke-width="2.5" opacity="0.4"/>
+
+  <!-- Tagline below -->
+  <text x="0" y="112" font-family="'Open Sans', sans-serif" font-weight="400" font-size="14" fill="#a0b4c8" letter-spacing="4">175 YEARS OF HISTORY REPEATING</text>
+
+</svg>

@@ -1,0 +1,99 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#DDBE54"/>
+      <stop offset="50%" stop-color="#C5A648"/>
+      <stop offset="100%" stop-color="#9E7E28"/>
+    </linearGradient>
+    <linearGradient id="btcGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#F5992C"/>
+      <stop offset="100%" stop-color="#D46A00"/>
+    </linearGradient>
+    <linearGradient id="darkBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#101D33"/>
+      <stop offset="100%" stop-color="#081020"/>
+    </linearGradient>
+    <linearGradient id="handleGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#8B6914"/>
+      <stop offset="30%" stop-color="#C5A648"/>
+      <stop offset="70%" stop-color="#C5A648"/>
+      <stop offset="100%" stop-color="#8B6914"/>
+    </linearGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="4" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="innerShadow">
+      <feOffset dx="0" dy="2"/>
+      <feGaussianBlur stdDeviation="2" result="shadow"/>
+      <feComposite in="SourceGraphic" in2="shadow" operator="over"/>
+    </filter>
+  </defs>
+
+  <!-- === OUTER CIRCLE === -->
+  <circle cx="256" cy="256" r="250" fill="url(#darkBg)" stroke="url(#goldGrad)" stroke-width="6"/>
+  <!-- Thin inner ring -->
+  <circle cx="256" cy="256" r="230" fill="none" stroke="#C5A648" stroke-width="1" opacity="0.2"/>
+
+  <!-- === LEFT PICKAXE (angled upper-left to lower-right) === -->
+  <g transform="rotate(-45, 256, 256)">
+    <!-- Handle: long wooden shaft -->
+    <rect x="248" y="48" width="16" height="340" rx="8" fill="url(#handleGrad)"/>
+    <!-- Handle wrap / grip (bottom) -->
+    <rect x="246" y="310" width="20" height="50" rx="4" fill="none" stroke="#A8882E" stroke-width="2" opacity="0.5"/>
+    <line x1="248" y1="320" x2="264" y2="320" stroke="#7A6018" stroke-width="1.5" opacity="0.5"/>
+    <line x1="248" y1="330" x2="264" y2="330" stroke="#7A6018" stroke-width="1.5" opacity="0.5"/>
+    <line x1="248" y1="340" x2="264" y2="340" stroke="#7A6018" stroke-width="1.5" opacity="0.5"/>
+    <line x1="248" y1="350" x2="264" y2="350" stroke="#7A6018" stroke-width="1.5" opacity="0.5"/>
+    <!-- Pick head: pointed blade going LEFT -->
+    <path d="M252,68 L252,52 L140,20 C132,18 128,24 132,30 L230,65 Z" fill="url(#goldGrad)" stroke="#9E7E28" stroke-width="1.5" stroke-linejoin="round"/>
+    <!-- Pick head: chisel blade going RIGHT -->
+    <path d="M260,68 L260,52 L372,20 C380,18 384,24 380,30 L282,65 Z" fill="url(#goldGrad)" stroke="#9E7E28" stroke-width="1.5" stroke-linejoin="round"/>
+    <!-- Metal collar where head meets handle -->
+    <rect x="244" y="50" width="24" height="24" rx="3" fill="#B89830" stroke="#8B6914" stroke-width="1.5"/>
+  </g>
+
+  <!-- === RIGHT PICKAXE (angled upper-right to lower-left) === -->
+  <g transform="rotate(45, 256, 256)">
+    <!-- Handle -->
+    <rect x="248" y="48" width="16" height="340" rx="8" fill="url(#handleGrad)"/>
+    <!-- Handle wrap -->
+    <rect x="246" y="310" width="20" height="50" rx="4" fill="none" stroke="#A8882E" stroke-width="2" opacity="0.5"/>
+    <line x1="248" y1="320" x2="264" y2="320" stroke="#7A6018" stroke-width="1.5" opacity="0.5"/>
+    <line x1="248" y1="330" x2="264" y2="330" stroke="#7A6018" stroke-width="1.5" opacity="0.5"/>
+    <line x1="248" y1="340" x2="264" y2="340" stroke="#7A6018" stroke-width="1.5" opacity="0.5"/>
+    <line x1="248" y1="350" x2="264" y2="350" stroke="#7A6018" stroke-width="1.5" opacity="0.5"/>
+    <!-- Pick head: pointed blade going LEFT -->
+    <path d="M252,68 L252,52 L140,20 C132,18 128,24 132,30 L230,65 Z" fill="url(#goldGrad)" stroke="#9E7E28" stroke-width="1.5" stroke-linejoin="round"/>
+    <!-- Pick head: chisel blade going RIGHT -->
+    <path d="M260,68 L260,52 L372,20 C380,18 384,24 380,30 L282,65 Z" fill="url(#goldGrad)" stroke="#9E7E28" stroke-width="1.5" stroke-linejoin="round"/>
+    <!-- Metal collar -->
+    <rect x="244" y="50" width="24" height="24" rx="3" fill="#B89830" stroke="#8B6914" stroke-width="1.5"/>
+  </g>
+
+  <!-- === CENTRAL BITCOIN COIN === -->
+  <!-- Outer coin ring -->
+  <circle cx="256" cy="256" r="96" fill="url(#btcGrad)" filter="url(#glow)"/>
+  <!-- Coin bevel highlight -->
+  <circle cx="256" cy="256" r="96" fill="none" stroke="#FFBE50" stroke-width="2" opacity="0.35"/>
+  <!-- Inner coin face -->
+  <circle cx="256" cy="256" r="82" fill="none" stroke="rgba(255,255,255,0.15)" stroke-width="2"/>
+
+  <!-- Bitcoin ₿ symbol — clean white -->
+  <g fill="#FFFFFF" transform="translate(256,256)">
+    <!-- Top vertical bar extending above B -->
+    <rect x="-14" y="-62" width="8" rx="4" height="20" />
+    <rect x="6" y="-62" width="8" rx="4" height="20" />
+    <!-- Bottom vertical bar extending below B -->
+    <rect x="-14" y="42" width="8" rx="4" height="20" />
+    <rect x="6" y="42" width="8" rx="4" height="20" />
+    <!-- B body — upper lobe -->
+    <path d="M-24,-44 L16,-44 C36,-44 46,-36 46,-24 C46,-12 36,-4 16,-4 L-24,-4 Z" fill="#FFFFFF"/>
+    <!-- B body — lower lobe (wider) -->
+    <path d="M-24,-4 L20,-4 C42,-4 54,6 54,20 C54,34 42,44 20,44 L-24,44 Z" fill="#FFFFFF"/>
+    <!-- Interior cutouts to form the B shape -->
+    <path d="M-12,-32 L12,-32 C24,-32 30,-28 30,-24 C30,-16 24,-14 12,-14 L-12,-14 Z" fill="url(#btcGrad)"/>
+    <path d="M-12,8 L16,8 C30,8 38,14 38,20 C38,28 30,32 16,32 L-12,32 Z" fill="url(#btcGrad)"/>
+  </g>
+
+</svg>
