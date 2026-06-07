@@ -1,10 +1,10 @@
 /**
  * RIBPI.com - Rhode Island Bitcoin Policy Initiative
- * Comprehensive Stylesheet
- * Version 2.0
+ * Stylesheet
+ * Version 2.1 (Jun 2026)
  *
- * Design System: Dark professional theme with RI Blue, Gold, and Bitcoin Orange accents
- * Aesthetic: Bloomberg terminal meets government policy authority
+ * Design system: dark RI Blue base with Gold and Bitcoin Orange accents.
+ * Aesthetic target: statehouse-press document density, not Web3 landing page.
  */
 
 /* ============================================================================
@@ -3417,4 +3417,379 @@ th.btc-col {
   margin-top: var(--spacing-lg);
   padding-top: var(--spacing-lg);
   border-top: 1px solid var(--border-color);
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-sm);
 }
+
+/* ============================================================================
+   v2.1 — June 2026 additions: accessibility, a session ticker, and a small
+   set of components introduced during the comprehensive audit pass.
+   ============================================================================ */
+
+/* Screen-reader-only utility (used for labels we want assistive tech to read
+   but not display). */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Skip-to-content link. Hidden until focused. */
+.skip-link {
+  position: absolute;
+  top: -100px;
+  left: 0;
+  background: var(--ri-gold);
+  color: var(--text-inverse);
+  padding: 12px 18px;
+  font-weight: 700;
+  font-size: 0.875rem;
+  text-decoration: none;
+  letter-spacing: 0.02em;
+  z-index: 1000;
+  transition: top 0.15s ease-out;
+}
+.skip-link:focus {
+  top: 0;
+  outline: 3px solid var(--bitcoin-orange-light);
+  outline-offset: 2px;
+}
+
+/* Hamburger button — pump tap target to 44x44 per WCAG. */
+.hamburger-btn {
+  min-width: 44px;
+  min-height: 44px;
+  padding: 10px;
+}
+
+/* Bitcoin orange contrast fix on dark backgrounds. Use the lighter variant
+   for active nav and inline accent text so contrast lands above 4.5:1. */
+.nav-menu a.active,
+.mobile-nav a.active {
+  color: var(--bitcoin-orange-light);
+}
+
+/* Scope the universal card lift. Static info cards stay still. */
+.card,
+.benefit-card,
+.contact-info-card,
+.mission-card,
+.b101-basics-card {
+  transition: border-color var(--transition-fast);
+}
+.card:hover,
+.benefit-card:hover,
+.contact-info-card:hover,
+.mission-card:hover,
+.b101-basics-card:hover {
+  transform: none;
+}
+
+/* Interactive cards (anchors with .bill-card / .paper-card / .news-card /
+   .resource-card) do lift on hover — keep that affordance scoped to anchors. */
+a.bill-card:hover,
+a.paper-card:hover,
+a.news-card:hover,
+a.resource-card:hover,
+.paper-card:hover,
+.news-card:hover {
+  transform: translateY(-2px);
+  border-color: var(--ri-gold);
+}
+
+/* Action bar — calendar-driven, sits under the nav, only on key pages. */
+.action-bar {
+  background: var(--ri-blue-darker);
+  border-top: 1px solid rgba(197, 166, 72, 0.18);
+  border-bottom: 1px solid rgba(197, 166, 72, 0.18);
+  padding: 12px 24px;
+}
+.action-bar-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px 48px;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+}
+.action-bar-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.action-bar-when {
+  color: var(--ri-gold);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-size: 0.75rem;
+  white-space: nowrap;
+}
+.action-bar-what {
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+}
+.action-bar-what strong {
+  color: var(--bitcoin-orange-light);
+  font-family: var(--font-mono);
+}
+.action-bar-cta {
+  color: var(--ri-gold-light);
+  text-decoration: underline;
+  text-decoration-color: rgba(197, 166, 72, 0.4);
+  text-underline-offset: 3px;
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: 0.85rem;
+  transition: color 0.15s, text-decoration-color 0.15s;
+}
+.action-bar-cta:hover {
+  color: var(--bitcoin-orange-light);
+  text-decoration-color: var(--bitcoin-orange-light);
+}
+.action-bar-item--featured .action-bar-when {
+  color: var(--status-success);
+}
+
+@media (max-width: 768px) {
+  .action-bar {
+    padding: 10px 16px;
+  }
+  .action-bar-inner {
+    flex-direction: column;
+    gap: 14px;
+    align-items: flex-start;
+  }
+  .action-bar-item {
+    width: 100%;
+  }
+}
+
+/* Session ticker — Bloomberg-style strip showing current bill statuses. */
+.session-ticker {
+  background: #02152e;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  overflow: hidden;
+  position: relative;
+  height: 34px;
+  display: flex;
+  align-items: center;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+}
+.session-ticker-label {
+  flex: 0 0 auto;
+  background: var(--ri-blue-darker);
+  color: var(--ri-gold);
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 0 16px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  font-size: 0.7rem;
+  border-right: 1px solid rgba(197, 166, 72, 0.2);
+}
+.session-ticker-track {
+  flex: 1 1 auto;
+  overflow: hidden;
+  position: relative;
+}
+.session-ticker-inner {
+  display: inline-flex;
+  gap: 36px;
+  padding-left: 24px;
+  white-space: nowrap;
+  animation: tickerScroll 70s linear infinite;
+}
+.session-ticker:hover .session-ticker-inner {
+  animation-play-state: paused;
+}
+.session-ticker-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.session-ticker-bill {
+  color: var(--bitcoin-orange-light);
+  font-weight: 700;
+}
+.session-ticker-sep {
+  opacity: 0.4;
+}
+.session-ticker-status-floor {
+  color: var(--status-success);
+  font-weight: 700;
+}
+.session-ticker-status-hearing {
+  color: var(--ri-gold-light);
+  font-weight: 700;
+}
+.session-ticker-status-held {
+  color: var(--text-tertiary);
+}
+@keyframes tickerScroll {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+@media (max-width: 768px) {
+  .session-ticker { font-size: 0.7rem; }
+  .session-ticker-label { font-size: 0.65rem; padding: 0 12px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .session-ticker-inner { animation: none; }
+}
+
+/* Data card grid — replaces the three-card benefit grid pattern on the
+   home page. Stat-anchored, sourced. */
+.data-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: var(--spacing-lg);
+  margin-top: var(--spacing-xl);
+}
+.data-card {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--border-color);
+  border-left: 3px solid var(--ri-gold);
+  padding: var(--spacing-lg) var(--spacing-xl);
+  border-radius: var(--radius-sm);
+}
+.data-card-value {
+  font-family: var(--font-serif);
+  font-size: clamp(2rem, 4vw, 2.75rem);
+  font-weight: 700;
+  color: var(--ri-gold-light);
+  line-height: 1;
+  margin-bottom: var(--spacing-sm);
+  letter-spacing: -0.02em;
+}
+.data-card-label {
+  font-family: var(--font-sans);
+  font-size: 0.85rem;
+  color: var(--text-primary);
+  font-weight: 600;
+  margin-bottom: var(--spacing-sm);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+.data-card-note {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  margin: 0;
+  line-height: 1.5;
+}
+.data-card-note a {
+  color: var(--bitcoin-orange-light);
+}
+
+/* Leadership cards — for the about page Leadership section. */
+.leadership-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: var(--spacing-xl);
+  margin-top: var(--spacing-xl);
+}
+.leadership-card {
+  text-align: left;
+}
+.leadership-name {
+  font-family: var(--font-serif);
+  font-size: 1.5rem;
+  color: var(--text-primary);
+  margin: 0 0 4px;
+}
+.leadership-role {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--ri-gold);
+  margin-bottom: var(--spacing-md);
+}
+.leadership-bio {
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  line-height: 1.7;
+}
+
+/* Newsletter footer block */
+.footer-newsletter {
+  padding: var(--spacing-lg) 0;
+  margin-bottom: var(--spacing-lg);
+  border-bottom: 1px solid var(--border-color);
+}
+.footer-newsletter h4 {
+  font-family: var(--font-serif);
+  font-size: 1.1rem;
+  margin: 0 0 8px;
+  color: var(--text-primary);
+}
+.footer-newsletter p {
+  color: var(--text-secondary);
+  margin: 0 0 12px;
+  font-size: 0.9rem;
+}
+.footer-newsletter-form {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  max-width: 480px;
+}
+.footer-newsletter-form input[type="email"] {
+  flex: 1 1 220px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid var(--border-color);
+  color: var(--text-primary);
+  padding: 10px 14px;
+  border-radius: var(--radius-sm);
+  font-family: var(--font-sans);
+  font-size: 0.9rem;
+}
+.footer-newsletter-form input[type="email"]:focus {
+  outline: 2px solid var(--ri-gold);
+  outline-offset: 1px;
+}
+.footer-newsletter-form button {
+  background: var(--ri-gold);
+  color: var(--text-inverse);
+  border: none;
+  padding: 10px 18px;
+  font-weight: 700;
+  font-family: var(--font-sans);
+  cursor: pointer;
+  border-radius: var(--radius-sm);
+  transition: background 0.15s;
+}
+.footer-newsletter-form button:hover {
+  background: var(--bitcoin-orange-light);
+}
+
+/* Kill the gradient text treatment on H1s (still allow it elsewhere via
+   .gradient-text--accent if needed; H1 default is plain) */
+h1.gradient-text {
+  background: none;
+  -webkit-text-fill-color: currentColor;
+  color: var(--text-primary);
+}
+
+/* Section padding variation — break the uniform rhythm slightly */
+.featured-bills-section { padding-block: var(--spacing-3xl); }
+.why-bitcoin-section { padding-block: var(--spacing-4xl); }
+.cta-section { padding-block: var(--spacing-2xl); }
+.contact-section { padding-block: var(--spacing-3xl); }

@@ -57,6 +57,12 @@ const NavMenuController = {
 
     if (!this.toggleBtn || !this.mobileNav) return;
 
+    // Establish initial ARIA state for screen readers
+    if (!this.mobileNav.id) this.mobileNav.id = 'mobile-nav';
+    this.toggleBtn.setAttribute('aria-controls', this.mobileNav.id);
+    this.toggleBtn.setAttribute('aria-expanded', 'false');
+    this.mobileNav.setAttribute('aria-hidden', 'true');
+
     this.toggleBtn.addEventListener('click', () => this.toggle());
 
     // Close menu when clicking on nav links
@@ -70,6 +76,11 @@ const NavMenuController = {
       if (!this.toggleBtn.contains(e.target) && !this.mobileNav.contains(e.target)) {
         this.close();
       }
+    });
+
+    // Close on Escape
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && this.isOpen) this.close();
     });
   },
 
@@ -91,6 +102,8 @@ const NavMenuController = {
     this.isOpen = true;
     this.toggleBtn.classList.add('active');
     this.mobileNav.classList.add('open');
+    this.toggleBtn.setAttribute('aria-expanded', 'true');
+    this.mobileNav.setAttribute('aria-hidden', 'false');
     document.body.style.overflow = 'hidden';
   },
 
@@ -101,6 +114,8 @@ const NavMenuController = {
     this.isOpen = false;
     this.toggleBtn.classList.remove('active');
     this.mobileNav.classList.remove('open');
+    this.toggleBtn.setAttribute('aria-expanded', 'false');
+    this.mobileNav.setAttribute('aria-hidden', 'true');
     document.body.style.overflow = '';
   },
 };

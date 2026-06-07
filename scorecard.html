@@ -7,15 +7,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Scorecard | RIBPI</title>
-    <meta name="description" content="See where Rhode Island lawmakers stand on cryptocurrency and blockchain policy. Coming soon from the Rhode Island Bitcoin Policy Initiative.">
-    <meta property="og:title" content="Scorecard | RIBPI">
-    <meta property="og:description" content="Track Rhode Island lawmakers' positions on cryptocurrency and blockchain legislation.">
+    <meta name="description" content="RIBPI's Legislator Scorecard: grading all 113 Rhode Island lawmakers on Bitcoin and digital asset policy. Methodology preview &mdash; first scorecard publishes after the 2026 session adjourns.">
+    <meta property="og:title" content="Legislator Scorecard | RIBPI">
+    <meta property="og:description" content="How RIBPI will grade all 113 RI lawmakers on Bitcoin and digital asset policy. Rubric, sources, timeline.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://ribpi.com/scorecard">
     <meta property="og:image" content="https://ribpi.com/images/ribpi-banner.png">
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Scorecard | RIBPI">
-    <meta name="twitter:description" content="Track Rhode Island lawmakers' positions on cryptocurrency and blockchain legislation.">
+    <meta name="twitter:title" content="Legislator Scorecard | RIBPI">
+    <meta name="twitter:description" content="How RIBPI will grade all 113 RI lawmakers on Bitcoin and digital asset policy.">
     <meta name="twitter:site" content="@RIBTCPolicy">
     <link rel="canonical" href="https://ribpi.com/scorecard">
     <link rel="icon" type="image/jpeg" href="images/flavicon.jpg">
@@ -24,6 +24,7 @@
     <meta name="twitter:image" content="https://ribpi.com/images/ribpi-banner.png">
 </head>
 <body class="dark-theme">
+    <a href="#main" class="skip-link">Skip to main content</a>
     <!-- Navigation -->
     <nav class="nav-bar">
         <div class="nav-content">
@@ -61,24 +62,47 @@
     </nav>
 
     <!-- Hero Section -->
-    <section class="hero" data-hero>
+    <section class="hero" data-hero id="main">
         <div class="hero-content" data-hero-content>
             <h1 class="hero-title">Legislator Scorecard</h1>
-            <p class="hero-subtitle">Where Rhode Island lawmakers stand on cryptocurrency and blockchain policy.</p>
+            <p class="hero-subtitle">A letter grade for each of Rhode Island's 113 lawmakers on Bitcoin and digital asset policy. First scorecard publishes after the 2026 session adjourns.</p>
         </div>
     </section>
 
-    <!-- Coming Soon -->
-    <section style="text-align: center; padding: 6rem 2rem; max-width: 600px; margin: 0 auto;">
-        <h2 style="font-family: 'Merriweather', serif; font-size: 2rem; color: var(--text-primary); margin-bottom: 1rem;">Coming Soon</h2>
-        <p style="font-size: 1.1rem; color: var(--text-secondary); line-height: 1.7; margin-bottom: 2rem;">
-            We're building a comprehensive scorecard grading every Rhode Island legislator on their Bitcoin and blockchain policy positions. Check back soon.
-        </p>
-        <a href="contact.html" class="btn btn-primary">
-            Get Notified
-            <span class="link-arrow">→</span>
-        </a>
+    <!-- Methodology -->
+    <main class="main-content">
+    <section class="leg-bills" data-animate-on-scroll>
+        <div class="container">
+            <article class="leg-bill-card leg-bill-card--strong-support" style="max-width: 880px; margin: 0 auto;">
+                <div class="leg-bill-content">
+                    <h2 style="font-family: var(--font-serif); margin-top: 0;">What we grade</h2>
+                    <p>Four inputs per lawmaker. Each gets a letter grade (A through F) by chamber.</p>
+                    <ol>
+                        <li><strong>Co-sponsorship.</strong> Did the lawmaker put their name on a pro-Bitcoin bill? Bills tracked: S.2021, H.7956 / S.2198, H.7957 / S.2196, H.7413, H.7843.</li>
+                        <li><strong>Committee votes.</strong> How did the lawmaker vote in committee on every Bitcoin or digital asset bill that received a recorded vote in 2025 and 2026?</li>
+                        <li><strong>Floor votes.</strong> Same, on the chamber floor. S.2198 Sub A&rsquo;s June 10 Senate floor vote will be the first major test.</li>
+                        <li><strong>Public statements.</strong> Has the lawmaker spoken publicly on Bitcoin, digital property rights, CBDCs, or kiosk regulation? We track hearing testimony, press quotes, and floor speeches.</li>
+                    </ol>
+
+                    <h2 style="font-family: var(--font-serif);">How the letter grade works</h2>
+                    <p>Each input is scored 0&ndash;4. The four scores are averaged into a chamber-wide grade. Lawmakers who joined mid-session or who haven&rsquo;t had the chance to vote on a tracked bill are marked <strong>N/A</strong> rather than penalized.</p>
+                    <p>Source documents (testimony transcripts, recorded votes, press citations) are linked under every grade. If we can&rsquo;t source it, we don&rsquo;t score it.</p>
+
+                    <h2 style="font-family: var(--font-serif);">When it publishes</h2>
+                    <p>The first scorecard publishes within 30 days of the 2026 session&rsquo;s sine die adjournment (typically late June). Updates within 48 hours of any subsequent recorded vote.</p>
+
+                    <h2 style="font-family: var(--font-serif);">Want to be notified?</h2>
+                    <p>Email <a href="mailto:dan@ribpi.com?subject=Scorecard%20notification">dan@ribpi.com</a> with the subject &ldquo;Scorecard notification&rdquo; and you&rsquo;ll get a one-line message the morning the first grade list publishes.</p>
+
+                    <div class="bill-actions" style="margin-top: 24px;">
+                        <a href="legislation.html" class="btn btn-secondary">See the bills being graded <span class="link-arrow">&rarr;</span></a>
+                        <a href="mailto:dan@ribpi.com?subject=Scorecard%20notification" class="btn btn-secondary">Email Dan to be notified <span class="link-arrow">&rarr;</span></a>
+                    </div>
+                </div>
+            </article>
+        </div>
     </section>
+    </main>
 
     <!-- Footer -->
     <footer class="footer">
@@ -86,16 +110,21 @@
             <div class="footer-grid">
                 <div class="footer-section footer-brand">
                     <span class="footer-name">RIBPI</span>
-                    <p class="footer-tagline">Shaping sensible Bitcoin policy in Rhode Island</p>
+                    <p class="footer-tagline">Small state, big ideas. Bitcoin = money.</p>
+                    <p class="footer-sub" style="font-size: 0.78rem; color: var(--text-tertiary); margin-top: 6px;">Rhode Island Bitcoin Policy Initiative &middot; Research &amp; Education &middot; &copy; 2026</p>
                 </div>
                 <div class="footer-section footer-links">
-                    <h4>Quick Links</h4>
+                    <h4>Sitemap</h4>
                     <ul>
                         <li><a href="index.html">Home</a></li>
-                        <li><a href="scorecard.html">Scorecard</a></li>
+                        <li><a href="about.html">About</a></li>
                         <li><a href="legislation.html">Legislation</a></li>
                         <li><a href="bitcoin-101.html">Bitcoin 101</a></li>
                         <li><a href="research.html">Research</a></li>
+                        <li><a href="glossary.html">Glossary</a></li>
+                        <li><a href="news.html">News</a></li>
+                        <li><a href="scorecard.html">Scorecard</a></li>
+                        <li><a href="contact.html">Contact</a></li>
                     </ul>
                 </div>
                 <div class="footer-section footer-contact">
