@@ -6,10 +6,10 @@
     <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag("js",new Date());gtag("config","G-ZYM5XCY723");</script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="RIBPI educates legislators, drafts bills, and delivers testimony to advance sensible Bitcoin policy in Rhode Island.">
+    <meta name="description" content="RIBPI is a nonpartisan research organization drafting Bitcoin and digital asset policy for the Rhode Island General Assembly. Six bills in the 2026 session.">
     <meta name="theme-color" content="#062f5c">
     <meta property="og:title" content="RIBPI | Rhode Island Bitcoin Policy Initiative">
-    <meta property="og:description" content="Educating legislators, drafting bills, and delivering testimony to advance sensible Bitcoin policy in Rhode Island.">
+    <meta property="og:description" content="Bitcoin and digital asset policy for the Rhode Island General Assembly. Six bills in the 2026 session. Nonpartisan, founded by Dan Hersey.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://ribpi.com">
     <meta property="og:image" content="https://ribpi.com/images/ribpi-banner.png">
@@ -49,6 +49,7 @@
     </script>
 </head>
 <body class="dark-theme">
+    <a href="#main" class="skip-link">Skip to main content</a>
     <!-- Navigation -->
     <nav class="nav-bar">
         <div class="nav-content">
@@ -85,29 +86,81 @@
         </ul>
     </nav>
 
+    <!-- Action Bar — calendar-driven, current week only -->
+    <aside class="action-bar" role="region" aria-label="This week at the General Assembly">
+        <div class="action-bar-inner">
+            <div class="action-bar-item">
+                <span class="action-bar-when">Mon Jun 8</span>
+                <span class="action-bar-what"><strong>S.2021</strong> &middot; Senate Finance hearing</span>
+                <a href="mailto:senatefinance@rilegislature.gov?subject=Support%20S.2021%20%E2%80%94%20Bitcoin%20De%20Minimis%20Exemption&amp;body=Dear%20Senate%20Finance%20Committee%2C%0A%0AI%20write%20in%20support%20of%20S.2021..." class="action-bar-cta">Email committee</a>
+            </div>
+            <div class="action-bar-item action-bar-item--featured">
+                <span class="action-bar-when">Wed Jun 10</span>
+                <span class="action-bar-what"><strong>S.2198 Sub A</strong> &middot; Senate floor vote</span>
+                <a href="https://www.rilegislature.gov/Reports/Pages/SenateMembers.aspx" target="_blank" rel="noopener noreferrer" class="action-bar-cta">Find your senator</a>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Session ticker -->
+    <div class="session-ticker" role="region" aria-label="Current bill statuses">
+        <div class="session-ticker-label">RI 2026</div>
+        <div class="session-ticker-track">
+            <div class="session-ticker-inner">
+                <span class="session-ticker-item"><span class="session-ticker-bill">S.2198 Sub A</span> <span class="session-ticker-status-floor">SENATE FLOOR &middot; JUN 10</span></span>
+                <span class="session-ticker-sep">&bull;</span>
+                <span class="session-ticker-item"><span class="session-ticker-bill">S.2021</span> <span class="session-ticker-status-hearing">FINANCE HEARING &middot; JUN 8</span></span>
+                <span class="session-ticker-sep">&bull;</span>
+                <span class="session-ticker-item"><span class="session-ticker-bill">H.7957 / S.2196</span> <span class="session-ticker-status-held">HELD</span></span>
+                <span class="session-ticker-sep">&bull;</span>
+                <span class="session-ticker-item"><span class="session-ticker-bill">H.7413</span> <span class="session-ticker-status-held">HELD &middot; FEB 3</span></span>
+                <span class="session-ticker-sep">&bull;</span>
+                <span class="session-ticker-item"><span class="session-ticker-bill">H.7843</span> <span class="session-ticker-status-held">HELD &middot; APR 2</span></span>
+                <span class="session-ticker-sep">&bull;</span>
+                <span class="session-ticker-item"><span class="session-ticker-bill">H.7955 / S.2648</span> <span class="session-ticker-status-held">HELD</span></span>
+                <span class="session-ticker-sep">&bull;</span>
+                <span class="session-ticker-item">SINE DIE APPROX. JUN 28</span>
+                <span class="session-ticker-sep">&bull;</span>
+                <span class="session-ticker-item"><span class="session-ticker-bill">S.2198 Sub A</span> <span class="session-ticker-status-floor">SENATE FLOOR &middot; JUN 10</span></span>
+                <span class="session-ticker-sep">&bull;</span>
+                <span class="session-ticker-item"><span class="session-ticker-bill">S.2021</span> <span class="session-ticker-status-hearing">FINANCE HEARING &middot; JUN 8</span></span>
+                <span class="session-ticker-sep">&bull;</span>
+                <span class="session-ticker-item"><span class="session-ticker-bill">H.7957 / S.2196</span> <span class="session-ticker-status-held">HELD</span></span>
+                <span class="session-ticker-sep">&bull;</span>
+                <span class="session-ticker-item"><span class="session-ticker-bill">H.7413</span> <span class="session-ticker-status-held">HELD &middot; FEB 3</span></span>
+                <span class="session-ticker-sep">&bull;</span>
+                <span class="session-ticker-item"><span class="session-ticker-bill">H.7843</span> <span class="session-ticker-status-held">HELD &middot; APR 2</span></span>
+                <span class="session-ticker-sep">&bull;</span>
+                <span class="session-ticker-item"><span class="session-ticker-bill">H.7955 / S.2648</span> <span class="session-ticker-status-held">HELD</span></span>
+                <span class="session-ticker-sep">&bull;</span>
+                <span class="session-ticker-item">SINE DIE APPROX. JUN 28</span>
+                <span class="session-ticker-sep">&bull;</span>
+            </div>
+        </div>
+    </div>
+
     <!-- Hero Section -->
-    <section class="hero hero--home" data-hero>
+    <section class="hero hero--home" data-hero id="main">
         <div class="hero-overlay"></div>
         <div class="hero-content" data-hero-content>
             <h1 class="hero-title">
-                Shaping Sensible Bitcoin Policy in the
-                <span class="gradient-text">Ocean State</span>
+                Bitcoin Policy for the Ocean State
             </h1>
             <p class="hero-subtitle">
-                The Rhode Island Bitcoin Policy Initiative educates legislators, drafts bills, and delivers testimony to advance sound cryptocurrency and blockchain policy in Rhode Island's General Assembly.
+                The Rhode Island Bitcoin Policy Initiative drafts bills, writes fiscal analyses, and delivers testimony on digital asset policy at the Rhode Island General Assembly. Nonpartisan. Founded in 2025 by Dan Hersey.
             </p>
             <div class="session-badge">
                 <span class="badge-dot"></span>
-                2025-2026 Legislative Session
+                2025&ndash;2026 Legislative Session
             </div>
             <div class="hero-ctas">
-                <a href="bitcoin-101.html" class="btn btn-primary">
-                    Bitcoin 101
-                    <span class="link-arrow">→</span>
+                <a href="legislation.html" class="btn btn-primary">
+                    See the bills
+                    <span class="link-arrow">&rarr;</span>
                 </a>
-                <a href="legislation.html" class="btn btn-secondary">
-                    Our Legislation
-                    <span class="link-arrow">→</span>
+                <a href="bitcoin-101.html" class="btn btn-secondary">
+                    Bitcoin 101 for legislators
+                    <span class="link-arrow">&rarr;</span>
                 </a>
             </div>
         </div>
@@ -166,34 +219,34 @@
         </div>
     </section>
 
-    <!-- Why Bitcoin Matters Section -->
+    <!-- The Numbers — RIBPI's case in four data points -->
     <section class="why-bitcoin-section" data-animate-on-scroll>
         <div class="container">
             <div class="section-header">
-                <h2>Why Bitcoin Matters for Rhode Island</h2>
-                <p>How smart policy can position our state for growth</p>
+                <h2>The numbers behind the case</h2>
+                <p>Why Rhode Island sound-money policy is the cheapest national policy win available.</p>
             </div>
-            <div class="benefits-grid">
-                <div class="benefit-card">
-                    <h3 class="card-title">Economic Growth</h3>
-                    <p class="card-description">
-                        Smart Bitcoin and blockchain policies can attract businesses, create jobs, and generate tax revenue in Rhode Island's economy.
-                    </p>
-                </div>
-
-                <div class="benefit-card">
-                    <h3 class="card-title">Consumer Protection</h3>
-                    <p class="card-description">
-                        Clear regulations protect Rhode Island consumers from fraud and scams while enabling innovation in financial services.
-                    </p>
-                </div>
-
-                <div class="benefit-card">
-                    <h3 class="card-title">Innovation Leadership</h3>
-                    <p class="card-description">
-                        Proactive policy positions Rhode Island as a forward-thinking state that embraces emerging technologies and attracts talent.
-                    </p>
-                </div>
+            <div class="data-grid">
+                <article class="data-card">
+                    <div class="data-card-value">$500K&ndash;$2.5M</div>
+                    <div class="data-card-label">Annual fiscal cost of S.2021</div>
+                    <p class="data-card-note">0.01&ndash;0.04% of RI general revenue. <a href="research.html">Full analysis</a>.</p>
+                </article>
+                <article class="data-card">
+                    <div class="data-card-value">46<span style="font-size:0.55em; vertical-align:super;">th</span></div>
+                    <div class="data-card-label">RI on CNBC&rsquo;s 2025 business-climate index</div>
+                    <p class="data-card-note">Tied with Louisiana. 40<sup>th</sup> on the Tax Foundation 2026 index.</p>
+                </article>
+                <article class="data-card">
+                    <div class="data-card-value">$537M</div>
+                    <div class="data-card-label">Projected five-year RI structural deficit</div>
+                    <p class="data-card-note">RIPEC, March 2026. FY27 deficit projected at $101M.</p>
+                </article>
+                <article class="data-card">
+                    <div class="data-card-value">52.4%</div>
+                    <div class="data-card-label">Sustainable share of Bitcoin mining, Q4 2025</div>
+                    <p class="data-card-note">Bitcoin Mining Council. Up from 37.6% in 2022; coal share fell from 36.6% to 8.9%.</p>
+                </article>
             </div>
         </div>
     </section>
@@ -204,16 +257,21 @@
             <div class="footer-grid">
                 <div class="footer-section footer-brand">
                     <span class="footer-name">RIBPI</span>
-                    <p class="footer-tagline">Shaping sensible Bitcoin policy in Rhode Island</p>
+                    <p class="footer-tagline">Small state, big ideas. Bitcoin = money.</p>
+                    <p class="footer-sub" style="font-size: 0.78rem; color: var(--text-tertiary); margin-top: 6px;">Rhode Island Bitcoin Policy Initiative &middot; Research &amp; Education &middot; &copy; 2026</p>
                 </div>
                 <div class="footer-section footer-links">
-                    <h4>Quick Links</h4>
+                    <h4>Sitemap</h4>
                     <ul>
                         <li><a href="index.html">Home</a></li>
-                        <li><a href="scorecard.html">Scorecard</a></li>
+                        <li><a href="about.html">About</a></li>
                         <li><a href="legislation.html">Legislation</a></li>
                         <li><a href="bitcoin-101.html">Bitcoin 101</a></li>
                         <li><a href="research.html">Research</a></li>
+                        <li><a href="glossary.html">Glossary</a></li>
+                        <li><a href="news.html">News</a></li>
+                        <li><a href="scorecard.html">Scorecard</a></li>
+                        <li><a href="contact.html">Contact</a></li>
                     </ul>
                 </div>
                 <div class="footer-section footer-contact">

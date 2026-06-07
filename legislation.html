@@ -33,6 +33,7 @@
     <link rel="canonical" href="https://ribpi.com/legislation">
 </head>
 <body class="dark-theme">
+    <a href="#main" class="skip-link">Skip to main content</a>
     <!-- Navigation -->
     <nav class="nav-bar">
         <div class="nav-content">
@@ -69,8 +70,66 @@
         </ul>
     </nav>
 
+    <!-- Action Bar — calendar-driven, current week only -->
+    <aside class="action-bar" role="region" aria-label="This week at the General Assembly">
+        <div class="action-bar-inner">
+            <div class="action-bar-item">
+                <span class="action-bar-when">Mon Jun 8</span>
+                <span class="action-bar-what"><strong>S.2021</strong> &middot; Senate Finance hearing</span>
+                <a href="mailto:senatefinance@rilegislature.gov?subject=Support%20S.2021%20%E2%80%94%20Bitcoin%20De%20Minimis%20Exemption&amp;body=Dear%20Senate%20Finance%20Committee%2C%0A%0AI%20write%20in%20support%20of%20S.2021..." class="action-bar-cta">Email committee</a>
+            </div>
+            <div class="action-bar-item action-bar-item--featured">
+                <span class="action-bar-when">Wed Jun 10</span>
+                <span class="action-bar-what"><strong>S.2198 Sub A</strong> &middot; Senate floor vote</span>
+                <a href="https://www.rilegislature.gov/Reports/Pages/SenateMembers.aspx" target="_blank" rel="noopener noreferrer" class="action-bar-cta">Find your senator</a>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Session ticker — Bloomberg-style strip showing every tracked bill -->
+    <div class="session-ticker" role="region" aria-label="Current bill statuses">
+        <div class="session-ticker-label">RI 2026</div>
+        <div class="session-ticker-track">
+            <div class="session-ticker-inner">
+                <span class="session-ticker-item"><span class="session-ticker-bill">S.2198 Sub A</span> <span class="session-ticker-status-floor">SENATE FLOOR &middot; JUN 10</span></span>
+                <span class="session-ticker-sep">&bull;</span>
+                <span class="session-ticker-item"><span class="session-ticker-bill">S.2021</span> <span class="session-ticker-status-hearing">FINANCE HEARING &middot; JUN 8</span></span>
+                <span class="session-ticker-sep">&bull;</span>
+                <span class="session-ticker-item"><span class="session-ticker-bill">H.7956</span> <span class="session-ticker-status-held">HELD &middot; MAR 5</span></span>
+                <span class="session-ticker-sep">&bull;</span>
+                <span class="session-ticker-item"><span class="session-ticker-bill">H.7957 / S.2196</span> <span class="session-ticker-status-held">HELD</span></span>
+                <span class="session-ticker-sep">&bull;</span>
+                <span class="session-ticker-item"><span class="session-ticker-bill">H.7413</span> <span class="session-ticker-status-held">HELD &middot; FEB 3</span></span>
+                <span class="session-ticker-sep">&bull;</span>
+                <span class="session-ticker-item"><span class="session-ticker-bill">H.7843</span> <span class="session-ticker-status-held">HELD &middot; APR 2</span></span>
+                <span class="session-ticker-sep">&bull;</span>
+                <span class="session-ticker-item"><span class="session-ticker-bill">H.7955 / S.2648</span> <span class="session-ticker-status-held">HELD</span></span>
+                <span class="session-ticker-sep">&bull;</span>
+                <span class="session-ticker-item">SINE DIE APPROX. JUN 28</span>
+                <span class="session-ticker-sep">&bull;</span>
+                <!-- duplicate for seamless scroll -->
+                <span class="session-ticker-item"><span class="session-ticker-bill">S.2198 Sub A</span> <span class="session-ticker-status-floor">SENATE FLOOR &middot; JUN 10</span></span>
+                <span class="session-ticker-sep">&bull;</span>
+                <span class="session-ticker-item"><span class="session-ticker-bill">S.2021</span> <span class="session-ticker-status-hearing">FINANCE HEARING &middot; JUN 8</span></span>
+                <span class="session-ticker-sep">&bull;</span>
+                <span class="session-ticker-item"><span class="session-ticker-bill">H.7956</span> <span class="session-ticker-status-held">HELD &middot; MAR 5</span></span>
+                <span class="session-ticker-sep">&bull;</span>
+                <span class="session-ticker-item"><span class="session-ticker-bill">H.7957 / S.2196</span> <span class="session-ticker-status-held">HELD</span></span>
+                <span class="session-ticker-sep">&bull;</span>
+                <span class="session-ticker-item"><span class="session-ticker-bill">H.7413</span> <span class="session-ticker-status-held">HELD &middot; FEB 3</span></span>
+                <span class="session-ticker-sep">&bull;</span>
+                <span class="session-ticker-item"><span class="session-ticker-bill">H.7843</span> <span class="session-ticker-status-held">HELD &middot; APR 2</span></span>
+                <span class="session-ticker-sep">&bull;</span>
+                <span class="session-ticker-item"><span class="session-ticker-bill">H.7955 / S.2648</span> <span class="session-ticker-status-held">HELD</span></span>
+                <span class="session-ticker-sep">&bull;</span>
+                <span class="session-ticker-item">SINE DIE APPROX. JUN 28</span>
+                <span class="session-ticker-sep">&bull;</span>
+            </div>
+        </div>
+    </div>
+
     <!-- Main Content -->
-    <main class="main-content">
+    <main class="main-content" id="main">
         <!-- Hero Section -->
         <section class="hero hero--legislation" data-hero>
             <div class="hero-overlay"></div>
@@ -201,24 +260,27 @@
 
                         <div class="leg-bill-highlights">
                             <div class="leg-highlight">
-                                <span class="leg-highlight-label">Fiscal Impact</span>
+                                <span class="leg-highlight-label">Fiscal cost</span>
                                 <span class="leg-highlight-value">$500K–$2.5M/yr</span>
-                                <span class="leg-highlight-note">0.01%–0.04% of general revenue</span>
+                                <span class="leg-highlight-note">0.01–0.04% of general revenue</span>
                             </div>
                             <div class="leg-highlight">
                                 <span class="leg-highlight-label">Safeguard</span>
-                                <span class="leg-highlight-value">1-Year Pilot</span>
-                                <span class="leg-highlight-note">Automatic sunset provision</span>
+                                <span class="leg-highlight-value">One-year pilot</span>
+                                <span class="leg-highlight-note">Automatic sunset Jan 1, 2028</span>
                             </div>
                             <div class="leg-highlight">
-                                <span class="leg-highlight-label">Precedent</span>
-                                <span class="leg-highlight-value">First in U.S.</span>
-                                <span class="leg-highlight-note">RI would lead all 50 states</span>
+                                <span class="leg-highlight-label">National context</span>
+                                <span class="leg-highlight-value">Largest live</span>
+                                <span class="leg-highlight-note">No state has a comparable threshold in force</span>
                             </div>
                         </div>
 
                         <div class="bill-actions">
-                            <a href="https://webserver.rilegislature.gov/Billtext/BillText26/SenateText26/S2021.pdf" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">Read Full Bill <span class="link-arrow">&rarr;</span></a>
+                            <a href="https://webserver.rilegislature.gov/Billtext/BillText26/SenateText26/S2021.pdf" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">Read S.2021 <span class="link-arrow">&rarr;</span></a>
+                            <a href="https://www.rilegislature.gov/Pages/findlegislator.aspx" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">Find your senator <span class="link-arrow">&rarr;</span></a>
+                            <a href="mailto:?subject=Support%20S.2021%20%E2%80%94%20Bitcoin%20De%20Minimis%20Exemption&amp;body=I%E2%80%99m%20writing%20in%20support%20of%20S.2021%2C%20the%20Bitcoin%20de%20minimis%20tax%20exemption%20heard%20by%20Senate%20Finance%20on%20June%208.%20More%20at%20https%3A%2F%2Fribpi.com%2Flegislation%23bill-s2021" class="btn btn-secondary">Email your senator <span class="link-arrow">&rarr;</span></a>
+                            <a href="https://twitter.com/intent/tweet?text=Rhode%20Island%20S.2021%20%E2%80%94%20Bitcoin%20De%20Minimis%20Exemption%20%E2%80%94%20Senate%20Finance%20hearing%20June%208.%20%40RIBTCPolicy%20https%3A%2F%2Fribpi.com%2Flegislation%23bill-s2021" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">Share <span class="link-arrow">&rarr;</span></a>
                         </div>
                     </div>
                 </article>
@@ -252,25 +314,28 @@
 
                         <div class="leg-bill-highlights">
                             <div class="leg-highlight">
-                                <span class="leg-highlight-label">Scope</span>
-                                <span class="leg-highlight-value">Comprehensive</span>
-                                <span class="leg-highlight-note">Government, economic, regulatory</span>
+                                <span class="leg-highlight-label">Membership</span>
+                                <span class="leg-highlight-value">10 members</span>
+                                <span class="leg-highlight-note">DBR, Commerce, academia, securities, finance</span>
                             </div>
                             <div class="leg-highlight">
-                                <span class="leg-highlight-label">Timeline</span>
-                                <span class="leg-highlight-value">2 Years</span>
-                                <span class="leg-highlight-note">Interim + final report with draft legislation</span>
+                                <span class="leg-highlight-label">Reports due</span>
+                                <span class="leg-highlight-value">Jan 5, 2027 &amp; 2028</span>
+                                <span class="leg-highlight-note">Interim, then final with draft legislation</span>
                             </div>
                             <div class="leg-highlight">
-                                <span class="leg-highlight-label">Model</span>
-                                <span class="leg-highlight-value">CO SB18-086</span>
-                                <span class="leg-highlight-note">Colorado (2018), Mississippi HB1214 (2024)</span>
+                                <span class="leg-highlight-label">Operating cost</span>
+                                <span class="leg-highlight-value">~$25K&ndash;40K</span>
+                                <span class="leg-highlight-note">Mostly staff time; no per diem</span>
                             </div>
                         </div>
 
                         <div class="bill-actions">
                             <a href="https://webserver.rilegislature.gov/Billtext/BillText26/SenateText26/S2198A.pdf" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">Read S.2198 Sub A <span class="link-arrow">&rarr;</span></a>
                             <a href="https://webserver.rilegislature.gov/Billtext/BillText26/HouseText26/H7956.pdf" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">Read H.7956 <span class="link-arrow">&rarr;</span></a>
+                            <a href="https://www.rilegislature.gov/Pages/findlegislator.aspx" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">Find your senator <span class="link-arrow">&rarr;</span></a>
+                            <a href="mailto:?subject=Support%20S.2198%20Sub%20A%20%E2%80%94%20Senate%20floor%20vote%20June%2010&amp;body=I%E2%80%99m%20writing%20in%20support%20of%20S.2198%20Sub%20A%2C%20the%20Blockchain%20Study%20Commission.%20Senate%20floor%20vote%20is%20Wednesday%20June%2010.%20More%20at%20https%3A%2F%2Fribpi.com%2Flegislation%23bill-h7956" class="btn btn-secondary">Email your senator <span class="link-arrow">&rarr;</span></a>
+                            <a href="https://twitter.com/intent/tweet?text=Rhode%20Island%20S.2198%20Sub%20A%20%E2%80%94%20Blockchain%20Study%20Commission%20%E2%80%94%20Senate%20floor%20vote%20Wed%20Jun%2010.%20%40RIBTCPolicy%20https%3A%2F%2Fribpi.com%2Flegislation%23bill-h7956" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">Share <span class="link-arrow">&rarr;</span></a>
                         </div>
                     </div>
                 </article>
@@ -321,7 +386,10 @@
                         </div>
 
                         <div class="bill-actions">
-                            <a href="https://webserver.rilegislature.gov/Billtext/BillText26/HouseText26/H7957.pdf" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">Read Full Bill <span class="link-arrow">&rarr;</span></a>
+                            <a href="https://webserver.rilegislature.gov/Billtext/BillText26/HouseText26/H7957.pdf" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">Read H.7957 <span class="link-arrow">&rarr;</span></a>
+                            <a href="https://webserver.rilegislature.gov/Billtext/BillText26/SenateText26/S2196.pdf" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">Read S.2196 <span class="link-arrow">&rarr;</span></a>
+                            <a href="https://www.rilegislature.gov/Pages/findlegislator.aspx" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">Find your legislator <span class="link-arrow">&rarr;</span></a>
+                            <a href="https://twitter.com/intent/tweet?text=Rhode%20Island%20H.7957%20%2F%20S.2196%20%E2%80%94%20Private%20Key%20Protection.%20Modeled%20on%20Wyoming%E2%80%99s%202023%20law.%20%40RIBTCPolicy%20https%3A%2F%2Fribpi.com%2Flegislation%23bill-h7957" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">Share <span class="link-arrow">&rarr;</span></a>
                         </div>
                     </div>
                 </article>
@@ -373,7 +441,9 @@
                         </div>
 
                         <div class="bill-actions">
-                            <a href="https://webserver.rilegislature.gov/Billtext/BillText26/HouseText26/H7413.pdf" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">Read Full Bill <span class="link-arrow">&rarr;</span></a>
+                            <a href="https://webserver.rilegislature.gov/Billtext/BillText26/HouseText26/H7413.pdf" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">Read H.7413 <span class="link-arrow">&rarr;</span></a>
+                            <a href="https://www.rilegislature.gov/Pages/findlegislator.aspx" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">Find your rep <span class="link-arrow">&rarr;</span></a>
+                            <a href="https://twitter.com/intent/tweet?text=Rhode%20Island%20H.7413%20%E2%80%94%20Blockchain%20Economic%20Growth%20Act%20%E2%80%94%20regulatory%20sandbox%20%2B%20SPDIs.%20%40RIBTCPolicy%20https%3A%2F%2Fribpi.com%2Flegislation%23bill-h7413" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">Share <span class="link-arrow">&rarr;</span></a>
                         </div>
                     </div>
                 </article>
@@ -424,7 +494,9 @@
                         </div>
 
                         <div class="bill-actions">
-                            <a href="https://webserver.rilegislature.gov/Billtext/BillText26/HouseText26/H7843.pdf" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">Read Full Bill <span class="link-arrow">&rarr;</span></a>
+                            <a href="https://webserver.rilegislature.gov/Billtext/BillText26/HouseText26/H7843.pdf" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">Read H.7843 <span class="link-arrow">&rarr;</span></a>
+                            <a href="docs/H7843_Analysis.pdf" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">RIBPI analysis &amp; redline <span class="link-arrow">&rarr;</span></a>
+                            <a href="https://www.rilegislature.gov/Pages/findlegislator.aspx" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">Find your rep <span class="link-arrow">&rarr;</span></a>
                         </div>
                     </div>
                 </article>
@@ -480,8 +552,9 @@
                         </div>
 
                         <div class="bill-actions">
-                            <a href="https://webserver.rilegislature.gov/Billtext/BillText26/HouseText26/H7955.pdf" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">Read Full Bill <span class="link-arrow">&rarr;</span></a>
-                            <a href="docs/H7955_Policy_Brief.pdf" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">Policy Brief <span class="link-arrow">&rarr;</span></a>
+                            <a href="https://webserver.rilegislature.gov/Billtext/BillText26/HouseText26/H7955.pdf" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">Read H.7955 <span class="link-arrow">&rarr;</span></a>
+                            <a href="https://webserver.rilegislature.gov/Billtext/BillText26/SenateText26/S2648.pdf" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">Read S.2648 <span class="link-arrow">&rarr;</span></a>
+                            <a href="docs/H7955_Policy_Brief.pdf" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">RIBPI policy brief <span class="link-arrow">&rarr;</span></a>
                         </div>
                     </div>
                 </article>
@@ -606,7 +679,7 @@
                             <span class="st-status st-established">Established</span>
                         </div>
                         <div class="state-card-body">
-                            <p class="state-card-note">SPDIs, comprehensive digital asset framework</p>
+                            <p class="state-card-note">SPDIs, 50+ digital asset laws since 2018</p>
                             <div class="state-checklist">
                                 <div class="state-check"><span class="sc-dot sc-green"></span> Study Commission</div>
                                 <div class="state-check"><span class="sc-dot sc-green"></span> Tax Exemption</div>
@@ -714,16 +787,21 @@
             <div class="footer-grid">
                 <div class="footer-section footer-brand">
                     <span class="footer-name">RIBPI</span>
-                    <p class="footer-tagline">Shaping sensible Bitcoin policy in Rhode Island</p>
+                    <p class="footer-tagline">Small state, big ideas. Bitcoin = money.</p>
+                    <p class="footer-sub" style="font-size: 0.78rem; color: var(--text-tertiary); margin-top: 6px;">Rhode Island Bitcoin Policy Initiative &middot; Research &amp; Education &middot; &copy; 2026</p>
                 </div>
                 <div class="footer-section footer-links">
-                    <h4>Quick Links</h4>
+                    <h4>Sitemap</h4>
                     <ul>
                         <li><a href="index.html">Home</a></li>
-                        <li><a href="scorecard.html">Scorecard</a></li>
+                        <li><a href="about.html">About</a></li>
                         <li><a href="legislation.html">Legislation</a></li>
                         <li><a href="bitcoin-101.html">Bitcoin 101</a></li>
                         <li><a href="research.html">Research</a></li>
+                        <li><a href="glossary.html">Glossary</a></li>
+                        <li><a href="news.html">News</a></li>
+                        <li><a href="scorecard.html">Scorecard</a></li>
+                        <li><a href="contact.html">Contact</a></li>
                     </ul>
                 </div>
                 <div class="footer-section footer-contact">

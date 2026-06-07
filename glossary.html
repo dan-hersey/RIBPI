@@ -26,6 +26,7 @@
     <link rel="canonical" href="https://ribpi.com/glossary">
 </head>
 <body class="dark-theme">
+    <a href="#main" class="skip-link">Skip to main content</a>
     <nav class="nav-bar">
         <div class="nav-content">
             <a href="index.html" class="nav-logo">
@@ -61,16 +62,17 @@
         </ul>
     </nav>
 
-    <section class="hero" data-hero>
+    <section class="hero" data-hero id="main">
         <div class="hero-content">
-            <h1 class="gradient-text">Bitcoin & Blockchain Glossary</h1>
-            <p>A quick reference guide to Bitcoin and blockchain terminology for Rhode Island legislators and staff.</p>
+            <h1 class="hero-title">Glossary</h1>
+            <p class="hero-subtitle">Bitcoin and digital asset terminology used in Rhode Island legislative materials. Plain English. With policy notes where the term shows up in current bills.</p>
         </div>
     </section>
 
     <main class="main">
         <div class="search-container">
-            <input type="text" class="search-input" id="searchInput" placeholder="🔍 Search for a term...">
+            <label for="searchInput" class="sr-only">Search glossary terms</label>
+            <input type="text" class="search-input" id="searchInput" placeholder="Search a term…" aria-label="Search glossary terms">
         </div>
 
         <div class="category-filters">
@@ -115,7 +117,7 @@
                 <div class="term-name">Block Reward</div>
                 <span class="term-category">Technical</span>
                 <p class="term-definition">The amount of new Bitcoin given to miners for successfully adding a new block to the blockchain. This reward halves approximately every four years (an event called "halving").</p>
-                <div class="term-example"><strong>Example:</strong> As of 2024, the block reward is 3.125 BTC per block. It will halve to approximately 1.56 BTC around 2028.</div>
+                <div class="term-example"><strong>Example:</strong> The current block reward is 3.125 BTC per block (since the April 2024 halving) and will fall to roughly 1.56 BTC at the next halving in 2028.</div>
             </div>
         </div>
 
@@ -134,14 +136,14 @@
                 <div class="term-name">Custodian / Qualified Custodian</div>
                 <span class="term-category">Policy & Legal</span>
                 <p class="term-definition">A financial institution that holds and safeguards assets on behalf of clients. For Bitcoin, qualified custodians use enterprise-grade security, insurance, and regulatory compliance. Examples: Coinbase Custody, Fidelity Digital Assets, Anchorage.</p>
-                <div class="term-example"><strong>Policy Note:</strong> Strategic reserve legislation typically requires digital assets be held through qualified custodians with robust security measures.</div>
+                <div class="term-example"><strong>Policy Note:</strong> Strategic reserve legislation typically requires digital assets be held through qualified custodians with insurance and SOC 2 controls.</div>
             </div>
 
             <div class="glossary-item" data-category="basics" data-terms="cryptocurrency crypto digital asset altcoin">
                 <div class="term-name">Cryptocurrency</div>
                 <span class="term-category">Basics</span>
-                <p class="term-definition">A broad term for digital currencies that use cryptography for security. Bitcoin was the first; thousands of others (called "altcoins") have been created since. Not all cryptocurrencies share Bitcoin's properties.</p>
-                <div class="term-example"><strong>Note:</strong> Policy discussions often distinguish between Bitcoin (decentralized, fixed supply) and other cryptocurrencies which may have different characteristics.</div>
+                <p class="term-definition">A broad term for digital currencies that use cryptography for security. Bitcoin was the first; thousands of others (called "altcoins") have been created since. Most differ from Bitcoin in fundamental ways: supply schedule, decentralization, governance, and security model.</p>
+                <div class="term-example"><strong>RIBPI usage:</strong> We use "Bitcoin" and "digital assets" rather than "crypto" as a catch-all. The distinction matters in policy: a fixed-supply, decentralized network like Bitcoin raises very different questions than a corporate-issued token or a stablecoin.</div>
             </div>
         </div>
 
@@ -198,14 +200,14 @@
                 <div class="term-name">Mining</div>
                 <span class="term-category">Technical</span>
                 <p class="term-definition">The process by which new Bitcoin transactions are verified and added to the blockchain. Miners use specialized computers to solve complex mathematical problems; the first to solve it gets to add the next block and receives the block reward.</p>
-                <div class="term-example"><strong>Energy Note:</strong> Over 50% of Bitcoin mining uses renewable energy. Miners often use "stranded" energy that would otherwise be wasted.</div>
+                <div class="term-example"><strong>Energy Note:</strong> 52.4% of Bitcoin mining ran on sustainable energy in Q4 2025, up from 37.6% in 2022 (Bitcoin Mining Council). A meaningful share uses "stranded" energy that would otherwise be wasted &mdash; flared methane, curtailed wind, off-peak hydro.</div>
             </div>
 
             <div class="glossary-item" data-category="policy" data-terms="money transmitter mtl money services business msb">
                 <div class="term-name">Money Transmitter</div>
                 <span class="term-category">Policy & Legal</span>
                 <p class="term-definition">A business that transfers money or monetary value on behalf of the public. Cryptocurrency exchanges and certain Bitcoin businesses may be classified as money transmitters and require state licensing.</p>
-                <div class="term-example"><strong>Policy Note:</strong> Rhode Island's crypto kiosk legislation (H.5121) requires operators to register as money transmitters.</div>
+                <div class="term-example"><strong>Policy Note:</strong> Rhode Island's enacted virtual currency kiosk law (H.5121A / S.0016A, 2025) requires operators to register as money transmitters. H.7955 + S.2648 (2026) would expand this framework; see <a href="legislation.html#bill-h7955">Legislation</a> for RIBPI's concerns.</div>
             </div>
         </div>
 
@@ -217,7 +219,7 @@
                 <div class="term-name">Private Key</div>
                 <span class="term-category">Technical</span>
                 <p class="term-definition">A secret cryptographic code that proves ownership of Bitcoin and authorizes transactions. Whoever controls the private key controls the Bitcoin. Must be kept secure and never shared.</p>
-                <div class="term-example"><strong>Analogy:</strong> Like the combination to a safe—anyone who knows it can access what's inside.<br><strong>Policy Note:</strong> H.5868/S.0375 would protect Rhode Islanders from being compelled to disclose private keys.</div>
+                <div class="term-example"><strong>Analogy:</strong> Like the combination to a safe&mdash;anyone who knows it can access what's inside.<br><strong>Policy Note:</strong> H.7957 / S.2196 (2026) would protect Rhode Islanders from compelled disclosure of private keys. Modeled on Wyoming's 2023 law (passed 31&ndash;0 in the Senate). See <a href="legislation.html#bill-h7957">Legislation</a>.</div>
             </div>
 
             <div class="glossary-item" data-category="technical" data-terms="public key address bitcoin address receive">
@@ -257,7 +259,7 @@
                 <div class="term-name">Special Purpose Depository Institution (SPDI)</div>
                 <span class="term-category">Policy & Legal</span>
                 <p class="term-definition">A type of bank charter specifically designed to serve digital asset businesses. Requires 100% liquid reserves (no fractional reserve banking). Currently only available in Wyoming and Nebraska.</p>
-                <div class="term-example"><strong>Policy Note:</strong> Rhode Island's H.5564 would enable SPDIs, potentially attracting digital asset companies to the state.</div>
+                <div class="term-example"><strong>Policy Note:</strong> Rhode Island's H.7413 (2026) would enable SPDIs and a regulatory sandbox, building on the framework Wyoming and Nebraska use to attract digital asset companies. See <a href="legislation.html#bill-h7413">Legislation</a>.</div>
             </div>
         </div>
 
@@ -291,16 +293,21 @@
             <div class="footer-grid">
                 <div class="footer-section footer-brand">
                     <span class="footer-name">RIBPI</span>
-                    <p class="footer-tagline">Shaping sensible Bitcoin policy in Rhode Island</p>
+                    <p class="footer-tagline">Small state, big ideas. Bitcoin = money.</p>
+                    <p class="footer-sub" style="font-size: 0.78rem; color: var(--text-tertiary); margin-top: 6px;">Rhode Island Bitcoin Policy Initiative &middot; Research &amp; Education &middot; &copy; 2026</p>
                 </div>
                 <div class="footer-section footer-links">
-                    <h4>Quick Links</h4>
+                    <h4>Sitemap</h4>
                     <ul>
                         <li><a href="index.html">Home</a></li>
-                        <li><a href="scorecard.html">Scorecard</a></li>
+                        <li><a href="about.html">About</a></li>
                         <li><a href="legislation.html">Legislation</a></li>
                         <li><a href="bitcoin-101.html">Bitcoin 101</a></li>
                         <li><a href="research.html">Research</a></li>
+                        <li><a href="glossary.html">Glossary</a></li>
+                        <li><a href="news.html">News</a></li>
+                        <li><a href="scorecard.html">Scorecard</a></li>
+                        <li><a href="contact.html">Contact</a></li>
                     </ul>
                 </div>
                 <div class="footer-section footer-contact">
