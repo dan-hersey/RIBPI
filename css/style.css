@@ -3728,6 +3728,41 @@ a.resource-card:hover,
   line-height: 1.7;
 }
 
+/* Leadership card with photo: two-column layout. Photo on left, copy on right.
+   On mobile, photo stacks above copy. */
+.leadership-card--with-photo {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  gap: var(--spacing-xl);
+  align-items: start;
+}
+.leadership-photo {
+  position: relative;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  /* Subtle gold accent strip on the left edge */
+  box-shadow: -3px 0 0 var(--ri-gold);
+}
+.leadership-photo img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  object-position: center top;
+}
+@media (max-width: 640px) {
+  .leadership-card--with-photo {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-lg);
+  }
+  .leadership-photo {
+    max-width: 240px;
+  }
+}
+
 /* Newsletter footer block */
 .footer-newsletter {
   padding: var(--spacing-lg) 0;
