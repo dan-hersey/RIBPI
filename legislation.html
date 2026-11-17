@@ -5,15 +5,16 @@
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-ZYM5XCY723"></script>
     <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag("js",new Date());gtag("config","G-ZYM5XCY723");</script>
     <meta charset="UTF-8">
+    <script>try{var t=localStorage.getItem("ribpi-theme")||(window.matchMedia&&matchMedia("(prefers-color-scheme: light)").matches?"light":"dark");document.documentElement.setAttribute("data-theme",t)}catch(e){}</script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Track Rhode Island's Bitcoin and blockchain legislation. See RIBPI's stance on every active bill in the 2026 session, enacted laws, and state comparisons.">
-    <meta name="keywords" content="Rhode Island, Bitcoin legislation, blockchain bills, cryptocurrency policy, S.2021, H.7956, S.2198, H.7957, S.2196, H.7413, H.7843, H.7955, S.2648, DAO, virtual currency kiosk">
+    <meta name="description" content="Rhode Island Bitcoin and digital asset legislation: RIBPI's 2027 agenda, the Senate study commission, enacted laws, and the record of past sessions.">
+    <meta name="keywords" content="Rhode Island, Bitcoin legislation, blockchain bills, digital asset policy, 2027 session, S.2198, study commission, private key protection, de minimis, unclaimed digital assets, virtual currency kiosk">
     <meta name="author" content="Rhode Island Bitcoin Policy Initiative">
     <meta name="robots" content="index, follow">
 
     <!-- Open Graph -->
     <meta property="og:title" content="Legislation | RIBPI">
-    <meta property="og:description" content="Track every Bitcoin and blockchain bill in the Rhode Island General Assembly — with RIBPI's stance on each.">
+    <meta property="og:description" content="RIBPI's 2027 agenda, the Senate study commission, enacted laws, and the record of past sessions in the Rhode Island General Assembly.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://ribpi.com/legislation">
     <meta property="og:image" content="https://ribpi.com/images/ribpi-banner.png">
@@ -21,7 +22,7 @@
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Legislation | RIBPI">
-    <meta name="twitter:description" content="Track every Bitcoin and blockchain bill in the Rhode Island General Assembly — with RIBPI's stance on each.">
+    <meta name="twitter:description" content="RIBPI's 2027 agenda, the Senate study commission, enacted laws, and the record of past sessions in the Rhode Island General Assembly.">
     <meta name="twitter:image" content="https://ribpi.com/images/ribpi-banner.png">
     <meta name="twitter:site" content="@RIBTCPolicy">
 
@@ -48,9 +49,9 @@
                 <li><a href="research.html">Research</a></li>
                 <li><a href="glossary.html">Glossary</a></li>
                 <li><a href="news.html">News</a></li>
-                <li><a href="scorecard.html">Scorecard</a></li>
                 <li><a href="contact.html">Contact</a></li>
             </ul>
+            <button class="theme-toggle" data-theme-toggle aria-label="Switch color theme"><svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg><svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg></button>
             <button class="hamburger-btn" data-hamburger aria-label="Toggle mobile menu">
                 <span></span><span></span><span></span>
             </button>
@@ -65,59 +66,29 @@
             <li><a href="research.html">Research</a></li>
             <li><a href="glossary.html">Glossary</a></li>
             <li><a href="news.html">News</a></li>
-            <li><a href="scorecard.html">Scorecard</a></li>
             <li><a href="contact.html">Contact</a></li>
         </ul>
     </nav>
 
-    <!-- Action Bar — calendar-driven, current week only -->
-    <aside class="action-bar" role="region" aria-label="Senate passage of S.2198 Sub A">
+    <!-- Action Bar -->
+    <aside class="action-bar" role="region" aria-label="RIBPI 2027 agenda">
         <div class="action-bar-inner">
             <div class="action-bar-item action-bar-item--featured">
-                <span class="action-bar-when">Wed Jun 10</span>
-                <span class="action-bar-what"><strong>S.2198 Sub A passed the Rhode Island Senate unanimously.</strong> Rhode Island will form a 10-member Senate-led Special Legislative Commission to Study Blockchain and Cryptocurrency. Thank you to Sen. DiPalma and the Senate.</span>
-                <a href="#bill-h7956" class="action-bar-cta">Read more</a>
+                <span class="action-bar-when">Nov 17</span>
+                <span class="action-bar-what"><strong>RIBPI&rsquo;s 2027 agenda is out.</strong> Education for the Senate&rsquo;s study commission comes first, alongside three bills for introduction when the General Assembly convenes January 5.</span>
+                <a href="2027-agenda.html" class="action-bar-cta">Read the agenda</a>
             </div>
         </div>
     </aside>
 
-    <!-- Session ticker — Bloomberg-style strip showing every tracked bill -->
-    <div class="session-ticker" role="region" aria-label="Current bill statuses">
-        <div class="session-ticker-label">RI 2026</div>
+    <!-- Session ticker (rendered from js/bills-data.js) -->
+    <div class="session-ticker" role="region" aria-label="2027 agenda status">
+        <div class="session-ticker-label">RI 2027</div>
         <div class="session-ticker-track">
             <div class="session-ticker-inner">
-                <span class="session-ticker-item"><span class="session-ticker-bill">S.2198 Sub A</span> <span class="session-ticker-status-floor">PASSED SENATE UNANIMOUSLY &middot; JUN 10</span></span>
+                <span class="session-ticker-item"><span class="session-ticker-bill">STUDY COMMISSION</span> <span class="session-ticker-status-floor">INTERIM REPORT DUE JAN 5, 2027</span></span>
                 <span class="session-ticker-sep">&bull;</span>
-                <span class="session-ticker-item"><span class="session-ticker-bill">S.2021</span> <span class="session-ticker-status-held">HELD FOR FURTHER STUDY &middot; JUN 8</span></span>
-                <span class="session-ticker-sep">&bull;</span>
-                <span class="session-ticker-item"><span class="session-ticker-bill">H.7956</span> <span class="session-ticker-status-held">HELD &middot; MAR 5</span></span>
-                <span class="session-ticker-sep">&bull;</span>
-                <span class="session-ticker-item"><span class="session-ticker-bill">H.7957 / S.2196</span> <span class="session-ticker-status-held">HELD</span></span>
-                <span class="session-ticker-sep">&bull;</span>
-                <span class="session-ticker-item"><span class="session-ticker-bill">H.7413</span> <span class="session-ticker-status-held">HELD &middot; FEB 3</span></span>
-                <span class="session-ticker-sep">&bull;</span>
-                <span class="session-ticker-item"><span class="session-ticker-bill">H.7843</span> <span class="session-ticker-status-held">HELD &middot; APR 2</span></span>
-                <span class="session-ticker-sep">&bull;</span>
-                <span class="session-ticker-item"><span class="session-ticker-bill">H.7955 / S.2648</span> <span class="session-ticker-status-held">HELD</span></span>
-                <span class="session-ticker-sep">&bull;</span>
-                <span class="session-ticker-item">SINE DIE APPROX. JUN 28</span>
-                <span class="session-ticker-sep">&bull;</span>
-                <!-- duplicate for seamless scroll -->
-                <span class="session-ticker-item"><span class="session-ticker-bill">S.2198 Sub A</span> <span class="session-ticker-status-floor">PASSED SENATE UNANIMOUSLY &middot; JUN 10</span></span>
-                <span class="session-ticker-sep">&bull;</span>
-                <span class="session-ticker-item"><span class="session-ticker-bill">S.2021</span> <span class="session-ticker-status-held">HELD FOR FURTHER STUDY &middot; JUN 8</span></span>
-                <span class="session-ticker-sep">&bull;</span>
-                <span class="session-ticker-item"><span class="session-ticker-bill">H.7956</span> <span class="session-ticker-status-held">HELD &middot; MAR 5</span></span>
-                <span class="session-ticker-sep">&bull;</span>
-                <span class="session-ticker-item"><span class="session-ticker-bill">H.7957 / S.2196</span> <span class="session-ticker-status-held">HELD</span></span>
-                <span class="session-ticker-sep">&bull;</span>
-                <span class="session-ticker-item"><span class="session-ticker-bill">H.7413</span> <span class="session-ticker-status-held">HELD &middot; FEB 3</span></span>
-                <span class="session-ticker-sep">&bull;</span>
-                <span class="session-ticker-item"><span class="session-ticker-bill">H.7843</span> <span class="session-ticker-status-held">HELD &middot; APR 2</span></span>
-                <span class="session-ticker-sep">&bull;</span>
-                <span class="session-ticker-item"><span class="session-ticker-bill">H.7955 / S.2648</span> <span class="session-ticker-status-held">HELD</span></span>
-                <span class="session-ticker-sep">&bull;</span>
-                <span class="session-ticker-item">SINE DIE APPROX. JUN 28</span>
+                <span class="session-ticker-item"><span class="session-ticker-bill">GENERAL ASSEMBLY</span> <span class="session-ticker-status-hearing">CONVENES JAN 5, 2027</span></span>
                 <span class="session-ticker-sep">&bull;</span>
             </div>
         </div>
@@ -130,8 +101,8 @@
             <div class="hero-overlay"></div>
             <div class="hero-content">
                 <h1 class="hero-title">Rhode Island Bitcoin &amp; Blockchain Legislation</h1>
-                <p class="hero-subtitle">Where we stand on every bill in the Rhode Island General Assembly.</p>
-                <p class="hero-subtitle" style="font-size: 0.85rem; opacity: 0.7; margin-top: 8px;">Last updated June 11, 2026 &middot; verified against status.rilegislature.gov</p>
+                <p class="hero-subtitle">What RIBPI is working on for 2027, the laws already on the books, and the record of past sessions.</p>
+                <p class="hero-subtitle" style="font-size: 0.85rem; opacity: 0.7; margin-top: 8px;">Last updated <span data-last-updated>November 17, 2026</span></p>
             </div>
         </section>
 
@@ -168,391 +139,89 @@
         <section class="leg-tracker" data-animate-on-scroll>
             <div class="container">
                 <div class="leg-tracker-header">
-                    <h2>2026 Session at a Glance</h2>
-                    <div class="session-badge"><span class="badge-dot"></span> 2025–2026 Legislative Session</div>
+                    <h2>The 2027 agenda at a glance</h2>
+                    <div class="session-badge"><span class="badge-dot"></span> 2027 Legislative Session</div>
                 </div>
-                <p class="leg-section-desc" style="margin-top: 4px; font-size: 0.85rem; opacity: 0.75;">Status as of June 11, 2026 &middot; General Assembly typically adjourns sine die in late June.</p>
+                <p class="leg-section-desc" style="margin-top: 4px; font-size: 0.85rem; opacity: 0.75;">Status as of <span data-last-updated>November 17, 2026</span> &middot; The General Assembly convenes January 5, 2027. Bill numbers will appear here once bills are filed.</p>
 
-                <div class="leg-tracker-grid">
-                    <a href="#bill-s2021" class="leg-tracker-card leg-tracker-card--strong-support">
-                        <div class="leg-tracker-bill">S.2021</div>
-                        <div class="leg-tracker-title">Bitcoin Tax De Minimis</div>
-                        <div class="leg-tracker-stance">Strong Support</div>
-                        <div class="leg-tracker-status">Held for Further Study &middot; Jun 8, 2026</div>
-                    </a>
-                    <a href="#bill-h7956" class="leg-tracker-card leg-tracker-card--strong-support">
+                <div class="leg-tracker-grid" data-bills-tracker>
+                    <a href="2027-agenda.html#education" class="leg-tracker-card leg-tracker-card--strong-support">
                         <div class="leg-tracker-bill">S.2198 Sub A</div>
-                        <div class="leg-tracker-title">Blockchain Study Commission</div>
-                        <div class="leg-tracker-stance">Strong Support</div>
-                        <div class="leg-tracker-status">Passed Senate Unanimously &middot; Jun 10, 2026</div>
+                        <div class="leg-tracker-title">Education for the Study Commission</div>
+                        <div class="leg-tracker-stance">First Priority</div>
+                        <div class="leg-tracker-status">Interim report due Jan 5, 2027</div>
                     </a>
-                    <a href="#bill-h7957" class="leg-tracker-card leg-tracker-card--strong-support">
-                        <div class="leg-tracker-bill">H.7957 / S.2196</div>
-                        <div class="leg-tracker-title">Private Key Protection</div>
-                        <div class="leg-tracker-stance">Strong Support</div>
-                        <div class="leg-tracker-status">Held for Further Study</div>
+                    <a href="2027-agenda.html#private-key" class="leg-tracker-card leg-tracker-card--strong-support">
+                        <div class="leg-tracker-title">Private Key Protection Act</div>
+                        <div class="leg-tracker-stance">For Introduction</div>
+                        <div class="leg-tracker-status">Returning &middot; heard in both chambers in 2026</div>
                     </a>
-                    <a href="#bill-h7413" class="leg-tracker-card leg-tracker-card--strong-support">
-                        <div class="leg-tracker-bill">H.7413</div>
-                        <div class="leg-tracker-title">Blockchain Economic Growth Act</div>
-                        <div class="leg-tracker-stance">Strong Support</div>
-                        <div class="leg-tracker-status">House Corp &middot; Held for Further Study</div>
+                    <a href="2027-agenda.html#de-minimis" class="leg-tracker-card leg-tracker-card--strong-support">
+                        <div class="leg-tracker-title">Bitcoin Payments De Minimis</div>
+                        <div class="leg-tracker-stance">For Introduction</div>
+                        <div class="leg-tracker-status">Revised after Senate Finance hearing</div>
                     </a>
-                    <a href="#bill-h7843" class="leg-tracker-card leg-tracker-card--support">
-                        <div class="leg-tracker-bill">H.7843</div>
-                        <div class="leg-tracker-title">DAO LLC Act</div>
-                        <div class="leg-tracker-stance">Support w/ Amendments</div>
-                        <div class="leg-tracker-status">House Corp &middot; Held for Further Study</div>
-                    </a>
-                    <a href="#bill-h7955" class="leg-tracker-card leg-tracker-card--concerns">
-                        <div class="leg-tracker-bill">H.7955 / S.2648</div>
-                        <div class="leg-tracker-title">Kiosk Definition Expansion</div>
-                        <div class="leg-tracker-stance">Concerns</div>
-                        <div class="leg-tracker-status">Held for Further Study</div>
-                    </a>
-                    <a href="#bill-enacted" class="leg-tracker-card leg-tracker-card--concerns">
-                        <div class="leg-tracker-bill">H.5121A / S.0016A</div>
-                        <div class="leg-tracker-title">Virtual Currency Kiosk Regulation</div>
-                        <div class="leg-tracker-stance">Concerns</div>
-                        <div class="leg-tracker-status">Enacted June 2025</div>
+                    <a href="2027-agenda.html#unclaimed" class="leg-tracker-card leg-tracker-card--strong-support">
+                        <div class="leg-tracker-title">Unclaimed Digital Assets</div>
+                        <div class="leg-tracker-stance">For Introduction</div>
+                        <div class="leg-tracker-status">New &middot; in drafting</div>
                     </a>
                 </div>
             </div>
         </section>
 
-        <!-- Active Bills — Detailed -->
-        <section class="leg-bills" data-animate-on-scroll>
+
+        <!-- 2027 Session -->
+        <section class="leg-bills" data-animate-on-scroll id="session-2027">
             <div class="container">
-                <h2>Active Bills — 2026 Session</h2>
-                <p class="leg-section-desc">Currently under consideration in the RI General Assembly. Click any bill number to read the full text.</p>
+                <h2>Education comes first in 2027, with three bills for introduction</h2>
+                <p class="leg-section-desc">The Senate created a study commission on blockchain and cryptocurrency in June 2026. RIBPI&rsquo;s first job this session is to brief its members and other lawmakers on what other states have tried. Alongside that work we will ask legislators to introduce the Private Key Protection Act, a revised Bitcoin payments de minimis exemption, and a new bill on unclaimed digital assets.</p>
+                <div class="bill-actions" style="margin: 0 0 28px;">
+                    <a href="2027-agenda.html" class="btn btn-primary">Read the full 2027 agenda <span class="link-arrow">&rarr;</span></a>
+                    <a href="2027-agenda.html#other-states" class="btn btn-secondary">What other states have done <span class="link-arrow">&rarr;</span></a>
+                </div>
 
-                <!-- S.2021 -->
-                <article class="leg-bill-card leg-bill-card--strong-support" id="bill-s2021">
-                    <div class="leg-bill-stance-bar">
-                        <span class="leg-stance-badge leg-stance-badge--strong-support">Strong Support</span>
-                    </div>
-                    <div class="leg-bill-content">
-                        <div class="leg-bill-header">
-                            <div>
-                                <a href="https://webserver.rilegislature.gov/Billtext/BillText26/SenateText26/S2021.pdf" target="_blank" rel="noopener noreferrer" class="leg-bill-number">S.2021 <span class="link-arrow">&#8599;</span></a>
-                                <h3 class="leg-bill-title">Reducing Friction for Digital Asset Payments</h3>
-                            </div>
-                            <span class="badge-committee">Senate Finance &middot; Held for Further Study (Jun 8)</span>
-                        </div>
-
-                        <div class="leg-bill-meta">
-                            <span>Sponsor: Sen. Peter A. Appollonio</span>
-                            <span>Introduced: January 9, 2026</span>
-                            <span>Builds on: 2025's S.0451</span>
-                        </div>
-
-                        <p class="leg-bill-summary">Establishes a simplified exemption from state income tax for small-scale Bitcoin transactions up to <strong>$5,000/month</strong> or <strong>$20,000/year</strong> per taxpayer. Designed to reduce friction for everyday Bitcoin payments and encourage small business adoption.</p>
-
-                        <div class="leg-bill-stance-detail">
-                            <h4>Why We Strongly Support This</h4>
-                            <p>Under current law, every Bitcoin transaction — regardless of size — triggers capital gains reporting. A $5 coffee purchase requires calculating and reporting the gain or loss. This is unreasonable and prevents Bitcoin from functioning as everyday currency. JP Morgan Chase Institute research shows the median lifetime crypto investment is approximately $620 — this bill targets regular Rhode Islanders, not large investors.</p>
-                        </div>
-
-                        <div class="leg-bill-highlights">
-                            <div class="leg-highlight">
-                                <span class="leg-highlight-label">Fiscal cost</span>
-                                <span class="leg-highlight-value">$500K–$2.5M/yr</span>
-                                <span class="leg-highlight-note">0.01–0.04% of general revenue</span>
-                            </div>
-                            <div class="leg-highlight">
-                                <span class="leg-highlight-label">Safeguard</span>
-                                <span class="leg-highlight-value">One-year pilot</span>
-                                <span class="leg-highlight-note">Automatic sunset Jan 1, 2028</span>
-                            </div>
-                            <div class="leg-highlight">
-                                <span class="leg-highlight-label">National context</span>
-                                <span class="leg-highlight-value">Largest live</span>
-                                <span class="leg-highlight-note">No state has a comparable threshold in force</span>
-                            </div>
-                        </div>
-
-                        <div class="bill-actions">
-                            <a href="https://webserver.rilegislature.gov/Billtext/BillText26/SenateText26/S2021.pdf" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">Read S.2021 <span class="link-arrow">&rarr;</span></a>
-                            <a href="https://vote.sos.ri.gov/Home/PollingPlaces?ActiveFlag=3#officials-search" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">Find your senator <span class="link-arrow">&rarr;</span></a>
-                            <a href="mailto:?subject=Support%20S.2021%20%E2%80%94%20Bitcoin%20De%20Minimis%20Exemption&amp;body=I%E2%80%99m%20writing%20to%20encourage%20the%20Senate%20Finance%20Committee%20to%20move%20S.2021%20forward.%20The%20bill%20was%20heard%20on%20June%208%20and%20held%20for%20further%20study.%20More%20at%20https%3A%2F%2Fribpi.com%2Flegislation%23bill-s2021" class="btn btn-secondary">Email your senator <span class="link-arrow">&rarr;</span></a>
-                            <a href="https://twitter.com/intent/tweet?text=Rhode%20Island%20S.2021%20%E2%80%94%20Bitcoin%20De%20Minimis%20Exemption%20%E2%80%94%20heard%20by%20Senate%20Finance%20June%208%2C%20held%20for%20further%20study.%20%40RIBTCPolicy%20https%3A%2F%2Fribpi.com%2Flegislation%23bill-s2021" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">Share <span class="link-arrow">&rarr;</span></a>
-                        </div>
-                    </div>
-                </article>
-
-                <!-- H.7956 / S.2198 -->
                 <article class="leg-bill-card leg-bill-card--strong-support" id="bill-h7956">
                     <div class="leg-bill-stance-bar">
-                        <span class="leg-stance-badge leg-stance-badge--strong-support">Strong Support</span>
+                        <span class="leg-stance-badge leg-stance-badge--strong-support">First Priority</span>
                     </div>
                     <div class="leg-bill-content">
                         <div class="leg-bill-header">
                             <div>
-                                <a href="https://webserver.rilegislature.gov/Billtext/BillText26/SenateText26/S2198A.pdf" target="_blank" rel="noopener noreferrer" class="leg-bill-number">S.2198 Sub A <span class="link-arrow">&#8599;</span></a> <a href="https://webserver.rilegislature.gov/Billtext/BillText26/HouseText26/H7956.pdf" target="_blank" rel="noopener noreferrer" class="leg-bill-number" style="font-size: 0.85em; opacity: 0.7; margin-left: 8px;">H.7956 (House companion) <span class="link-arrow">&#8599;</span></a>
-                                <h3 class="leg-bill-title">Studying Blockchain's Potential — Legislative Commission</h3>
+                                <a href="https://webserver.rilegislature.gov/BillText26/SenateText26/S2198A.pdf" target="_blank" rel="noopener noreferrer" class="leg-bill-number">S.2198 Sub A &middot; Resolution 403 <span class="link-arrow">&#8599;</span></a>
+                                <h3 class="leg-bill-title">Special Legislative Commission to Study Blockchain and Cryptocurrency</h3>
                             </div>
-                            <span class="badge-success">S.2198 Sub A &middot; Passed Senate Unanimously Jun 10, 2026</span>
+                            <span class="badge-success">Created June 2026</span>
                         </div>
 
                         <div class="leg-bill-meta">
-                            <span>House Sponsor (H.7956): Rep. Stephen M. Casey</span>
-                            <span>Senate Sponsors (S.2198): Sens. DiPalma, Gu, Burke, Urso, Paolino, Zurier</span>
-                            <span>Builds on: 2025's H.5810 / S.0373</span>
+                            <span>Sponsors: Sens. DiPalma, Gu, Burke, Urso, Paolino, Zurier</span>
+                            <span>Interim report: January 5, 2027</span>
+                            <span>Final report: January 5, 2028</span>
+                            <span>Expires: February 5, 2028</span>
                         </div>
 
-                        <p class="leg-bill-summary"><strong>Passed unanimously by the Rhode Island Senate on June 10, 2026.</strong> Sub A converted the bill from a joint commission to a Senate-led commission, so the Senate vote is the final required action. Rhode Island will now form a <strong>10-member Senate-led Special Legislative Commission to Study Blockchain and Cryptocurrency</strong> — evaluating applicability for voting, land registries, public records, tax implications, and economic opportunities. <strong>Interim report due January 5, 2027; final report January 5, 2028; commission expires February 5, 2028.</strong> RIBPI thanks Sen. DiPalma, the Senate AI &amp; Emerging Technology Committee, and the Rhode Island Senate.</p>
+                        <p class="leg-bill-summary">The commission has ten seats. Three go to senators, one to the Secretary of Commerce and one to the Director of the Department of Business Regulation. The other five go to members of the public with backgrounds in academia, banking, federal securities law, blockchain technology and cryptocurrency. The resolution asks the commission to review how other states treat these technologies, hear from experts, and recommend legislation that supports both economic growth and consumer protection. Its final report goes to the General Assembly, the Secretary of Commerce and the General Treasurer. Appointments had not been announced as of November 17, 2026.</p>
 
                         <div class="leg-bill-stance-detail">
-                            <h4>Why this matters</h4>
-                            <p>A study commission is the proper mechanism for informed policymaking. Wyoming launched a Blockchain Task Force in 2018 and has since enacted more than 30 digital-asset and blockchain-related laws and attracted major firms in the sector. Rhode Island will now do the same work — through a Senate-led commission bringing together legislators, executive-branch officials, academia, finance, and securities experts — and produce a record before the federal regulatory framework under the GENIUS Act and the pending CLARITY Act consolidates further.</p>
-                        </div>
-
-                        <div class="leg-bill-highlights">
-                            <div class="leg-highlight">
-                                <span class="leg-highlight-label">Status</span>
-                                <span class="leg-highlight-value">Passed Senate</span>
-                                <span class="leg-highlight-note">Unanimous &middot; June 10, 2026</span>
-                            </div>
-                            <div class="leg-highlight">
-                                <span class="leg-highlight-label">Membership</span>
-                                <span class="leg-highlight-value">10 members</span>
-                                <span class="leg-highlight-note">Senate-led; DBR, Commerce, academia, securities, finance</span>
-                            </div>
-                            <div class="leg-highlight">
-                                <span class="leg-highlight-label">Reports due</span>
-                                <span class="leg-highlight-value">Jan 5, 2027 &amp; 2028</span>
-                                <span class="leg-highlight-note">Interim, then final with draft legislation</span>
-                            </div>
+                            <h4>What RIBPI will provide</h4>
+                            <p>Most of the questions in front of the commission have been tested somewhere else, and the bills, vote counts and results are public. RIBPI will put that record in front of commissioners, legislators and staff in a form they can use.</p>
+                            <ul class="agenda-list">
+                                <li><strong>Briefings.</strong> Sessions for commissioners, legislators and committee staff on each topic in the commission&rsquo;s charge, in person or in writing, at their request.</li>
+                                <li><strong>State comparisons.</strong> For each policy question: which states acted, what the law says, how the vote went, and what happened afterward. The first set is <a href="2027-agenda.html#other-states">summarized below</a>.</li>
+                                <li><strong>Plain-language primers.</strong> <a href="bitcoin-101.html">Bitcoin 101 for legislators</a> and the <a href="glossary.html">glossary</a>, kept current through the session.</li>
+                                <li><strong>Witness suggestions.</strong> Regulators, academics and practitioners from states that have run these programs and can speak to how they worked.</li>
+                                <li><strong>Public materials.</strong> Everything RIBPI gives the commission will also be posted on this site.</li>
+                            </ul>
                         </div>
 
                         <div class="bill-actions">
-                            <a href="https://webserver.rilegislature.gov/Billtext/BillText26/SenateText26/S2198A.pdf" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">Read S.2198 Sub A <span class="link-arrow">&rarr;</span></a>
-                            <a href="https://webserver.rilegislature.gov/Billtext/BillText26/HouseText26/H7956.pdf" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">Read H.7956 <span class="link-arrow">&rarr;</span></a>
-                            <a href="https://vote.sos.ri.gov/Home/PollingPlaces?ActiveFlag=3#officials-search" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">Find your senator <span class="link-arrow">&rarr;</span></a>
-                            <a href="mailto:?subject=Support%20S.2198%20Sub%20A%20%E2%80%94%20Senate%20floor%20vote%20June%2010&amp;body=I%E2%80%99m%20writing%20in%20support%20of%20S.2198%20Sub%20A%2C%20the%20Blockchain%20Study%20Commission.%20Senate%20floor%20vote%20is%20Wednesday%20June%2010.%20More%20at%20https%3A%2F%2Fribpi.com%2Flegislation%23bill-h7956" class="btn btn-secondary">Email your senator <span class="link-arrow">&rarr;</span></a>
-                            <a href="https://twitter.com/intent/tweet?text=Rhode%20Island%20S.2198%20Sub%20A%20%E2%80%94%20Blockchain%20Study%20Commission%20%E2%80%94%20Senate%20floor%20vote%20Wed%20Jun%2010.%20%40RIBTCPolicy%20https%3A%2F%2Fribpi.com%2Flegislation%23bill-h7956" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">Share <span class="link-arrow">&rarr;</span></a>
+                            <a href="https://webserver.rilegislature.gov/BillText26/SenateText26/S2198A.pdf" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">Read the resolution <span class="link-arrow">&rarr;</span></a>
+                            <a href="mailto:dan@ribpi.com?subject=Briefing%20request" class="btn btn-secondary">Request a briefing <span class="link-arrow">&rarr;</span></a>
                         </div>
                     </div>
                 </article>
 
-                <!-- H.7957 / S.2196 -->
-                <article class="leg-bill-card leg-bill-card--strong-support" id="bill-h7957">
-                    <div class="leg-bill-stance-bar">
-                        <span class="leg-stance-badge leg-stance-badge--strong-support">Strong Support</span>
-                    </div>
-                    <div class="leg-bill-content">
-                        <div class="leg-bill-header">
-                            <div>
-                                <a href="https://webserver.rilegislature.gov/Billtext/BillText26/HouseText26/H7957.pdf" target="_blank" rel="noopener noreferrer" class="leg-bill-number">H.7957 + S.2196 <span class="link-arrow">&#8599;</span></a>
-                                <h3 class="leg-bill-title">Protecting Citizens' Private Keys</h3>
-                            </div>
-                            <span class="badge-committee">Held for Further Study</span>
-                        </div>
-
-                        <div class="leg-bill-meta">
-                            <span>House Sponsor (H.7957): Rep. Stephen M. Casey</span>
-                            <span>Senate Sponsors (S.2196): Sens. DiPalma, Gu, Burke, Urso, Paolino, Zurier</span>
-                            <span>Status: H.7957 held Mar 5 &middot; S.2196 held Apr 7</span>
-                        </div>
-
-                        <p class="leg-bill-summary">Prohibits compelling individuals to disclose their private cryptographic keys in legal proceedings related to digital assets or identities. Allows compelled disclosure <strong>only</strong> if a public key is unavailable or insufficient to access necessary information.</p>
-
-                        <div class="leg-bill-stance-detail">
-                            <h4>Why We Strongly Support This</h4>
-                            <p>A private key is not just access to one asset — it is a master key controlling assets, identities, and accounts simultaneously. Compelling someone to hand over a private key for a single transaction is like demanding the deed to someone's house when the court only needs their mailing address. This bill preserves all existing court and law enforcement authority while establishing that public keys should be used when sufficient.</p>
-                        </div>
-
-                        <div class="leg-bill-highlights">
-                            <div class="leg-highlight">
-                                <span class="leg-highlight-label">Analogy</span>
-                                <span class="leg-highlight-value">House Deed vs. Address</span>
-                                <span class="leg-highlight-note">Courts need the address, not the deed</span>
-                            </div>
-                            <div class="leg-highlight">
-                                <span class="leg-highlight-label">Preserves</span>
-                                <span class="leg-highlight-value">Full Court Authority</span>
-                                <span class="leg-highlight-note">Can still compel asset production</span>
-                            </div>
-                            <div class="leg-highlight">
-                                <span class="leg-highlight-label">Model</span>
-                                <span class="leg-highlight-value">WY HB0086</span>
-                                <span class="leg-highlight-note">Passed 31-0 Senate, 41-13 House (2023)</span>
-                            </div>
-                        </div>
-
-                        <div class="bill-actions">
-                            <a href="https://webserver.rilegislature.gov/Billtext/BillText26/HouseText26/H7957.pdf" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">Read H.7957 <span class="link-arrow">&rarr;</span></a>
-                            <a href="https://webserver.rilegislature.gov/Billtext/BillText26/SenateText26/S2196.pdf" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">Read S.2196 <span class="link-arrow">&rarr;</span></a>
-                            <a href="https://vote.sos.ri.gov/Home/PollingPlaces?ActiveFlag=3#officials-search" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">Find your legislator <span class="link-arrow">&rarr;</span></a>
-                            <a href="https://twitter.com/intent/tweet?text=Rhode%20Island%20H.7957%20%2F%20S.2196%20%E2%80%94%20Private%20Key%20Protection.%20Modeled%20on%20Wyoming%E2%80%99s%202023%20law.%20%40RIBTCPolicy%20https%3A%2F%2Fribpi.com%2Flegislation%23bill-h7957" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">Share <span class="link-arrow">&rarr;</span></a>
-                        </div>
-                    </div>
-                </article>
-
-                <!-- H.7413 -->
-                <article class="leg-bill-card leg-bill-card--strong-support" id="bill-h7413">
-                    <div class="leg-bill-stance-bar">
-                        <span class="leg-stance-badge leg-stance-badge--strong-support">Strong Support</span>
-                    </div>
-                    <div class="leg-bill-content">
-                        <div class="leg-bill-header">
-                            <div>
-                                <a href="https://webserver.rilegislature.gov/Billtext/BillText26/HouseText26/H7413.pdf" target="_blank" rel="noopener noreferrer" class="leg-bill-number">H.7413 <span class="link-arrow">&#8599;</span></a>
-                                <h3 class="leg-bill-title">Rhode Island Economic Growth Blockchain Act</h3>
-                            </div>
-                            <span class="badge-committee">House Corp &middot; Held for Further Study</span>
-                        </div>
-
-                        <div class="leg-bill-meta">
-                            <span>Sponsor: Rep. Place</span>
-                            <span>Introduced: January 30, 2026</span>
-                            <span>Heard &amp; Held for Further Study: Feb 3, 2026 (House Corporations)</span>
-                            <span>Builds on: 2025's H.5564</span>
-                        </div>
-
-                        <p class="leg-bill-summary">Establishes a regulatory sandbox and public-private partnerships to encourage blockchain innovation. Allows blockchain and digital asset companies to test innovative financial products with temporary regulatory exemptions. Creates <strong>Special Purpose Depository Institutions (SPDIs)</strong> requiring 100% liquid reserves.</p>
-
-                        <div class="leg-bill-stance-detail">
-                            <h4>Why We Strongly Support This</h4>
-                            <p>Only Wyoming and Nebraska currently have SPDIs. A regulatory sandbox attracts fintech companies as the U.S. regulatory environment turns favorable. Public-private partnerships could incentivize innovators to come to or stay in Rhode Island, helping diversify the state's economy and create high-quality jobs.</p>
-                        </div>
-
-                        <div class="leg-bill-highlights">
-                            <div class="leg-highlight">
-                                <span class="leg-highlight-label">Key Feature</span>
-                                <span class="leg-highlight-value">SPDIs</span>
-                                <span class="leg-highlight-note">100% liquid reserves required</span>
-                            </div>
-                            <div class="leg-highlight">
-                                <span class="leg-highlight-label">Sandbox</span>
-                                <span class="leg-highlight-value">Regulatory Relief</span>
-                                <span class="leg-highlight-note">Temporary exemptions for innovation</span>
-                            </div>
-                            <div class="leg-highlight">
-                                <span class="leg-highlight-label">Models</span>
-                                <span class="leg-highlight-value">WY + NE</span>
-                                <span class="leg-highlight-note">Wyoming HB74, Nebraska LB648</span>
-                            </div>
-                        </div>
-
-                        <div class="bill-actions">
-                            <a href="https://webserver.rilegislature.gov/Billtext/BillText26/HouseText26/H7413.pdf" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">Read H.7413 <span class="link-arrow">&rarr;</span></a>
-                            <a href="https://vote.sos.ri.gov/Home/PollingPlaces?ActiveFlag=3#officials-search" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">Find your rep <span class="link-arrow">&rarr;</span></a>
-                            <a href="https://twitter.com/intent/tweet?text=Rhode%20Island%20H.7413%20%E2%80%94%20Blockchain%20Economic%20Growth%20Act%20%E2%80%94%20regulatory%20sandbox%20%2B%20SPDIs.%20%40RIBTCPolicy%20https%3A%2F%2Fribpi.com%2Flegislation%23bill-h7413" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">Share <span class="link-arrow">&rarr;</span></a>
-                        </div>
-                    </div>
-                </article>
-
-                <!-- H.7843 -->
-                <article class="leg-bill-card leg-bill-card--support" id="bill-h7843">
-                    <div class="leg-bill-stance-bar">
-                        <span class="leg-stance-badge leg-stance-badge--support">Support w/ Amendments</span>
-                    </div>
-                    <div class="leg-bill-content">
-                        <div class="leg-bill-header">
-                            <div>
-                                <a href="https://webserver.rilegislature.gov/Billtext/BillText26/HouseText26/H7843.pdf" target="_blank" rel="noopener noreferrer" class="leg-bill-number">H.7843 <span class="link-arrow">&#8599;</span></a>
-                                <h3 class="leg-bill-title">Rhode Island Decentralized Autonomous Organization Act</h3>
-                            </div>
-                            <span class="badge-committee">House Corp &middot; Held for Further Study (Apr 2)</span>
-                        </div>
-
-                        <div class="leg-bill-meta">
-                            <span>Sponsor: Rep. Stephen M. Casey</span>
-                            <span>Introduced: February 27, 2026</span>
-                            <span>Heard &amp; Held for Further Study: April 2, 2026 (House Corporations)</span>
-                        </div>
-
-                        <p class="leg-bill-summary">Creates a legal framework for <strong>Decentralized Autonomous Organizations (DAOs)</strong> to operate as limited liability companies in Rhode Island. Provides for DAO formation, governance through smart contracts, limited liability protections, annual reporting to DBR, a <strong>regulatory sandbox</strong> for pilot projects, and capital formation through federally compliant private placements with full AML/KYC/FinCEN compliance.</p>
-
-                        <div class="leg-bill-stance-detail">
-                            <h4>Why We Support This With Amendments</h4>
-                            <p>The concept is sound and Rep. Casey's continued leadership on blockchain policy is commendable. Rhode Island would become the fifth state with a DAO framework, joining Wyoming, Vermont, Tennessee, and Utah. However, the bill as introduced has drafting gaps: no statutory definition of "DAO" or "smart contract," undefined relationship to existing LLC law (Ch. 16), vague regulatory sandbox parameters, no implementation runway for DBR, no provisions for smart contract failures, and no organizer identification requirements. These are fixable issues, and RIBPI has offered to assist in developing amendment language.</p>
-                        </div>
-
-                        <div class="leg-bill-highlights">
-                            <div class="leg-highlight">
-                                <span class="leg-highlight-label">Key Feature</span>
-                                <span class="leg-highlight-value">DAO as LLC</span>
-                                <span class="leg-highlight-note">Legal clarity for blockchain organizations</span>
-                            </div>
-                            <div class="leg-highlight">
-                                <span class="leg-highlight-label">Differentiator</span>
-                                <span class="leg-highlight-value">Regulatory Sandbox</span>
-                                <span class="leg-highlight-note">No other state DAO law includes one</span>
-                            </div>
-                            <div class="leg-highlight">
-                                <span class="leg-highlight-label">Precedent</span>
-                                <span class="leg-highlight-value">4 States</span>
-                                <span class="leg-highlight-note">WY (2021), VT (2018), TN (2022), UT (2023)</span>
-                            </div>
-                        </div>
-
-                        <div class="bill-actions">
-                            <a href="https://webserver.rilegislature.gov/Billtext/BillText26/HouseText26/H7843.pdf" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">Read H.7843 <span class="link-arrow">&rarr;</span></a>
-                            <a href="docs/H7843_Analysis.pdf" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">RIBPI analysis &amp; redline <span class="link-arrow">&rarr;</span></a>
-                            <a href="https://vote.sos.ri.gov/Home/PollingPlaces?ActiveFlag=3#officials-search" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">Find your rep <span class="link-arrow">&rarr;</span></a>
-                        </div>
-                    </div>
-                </article>
-
-                <!-- H.7955 / S.2648 -->
-                <article class="leg-bill-card leg-bill-card--concerns" id="bill-h7955">
-                    <div class="leg-bill-stance-bar">
-                        <span class="leg-stance-badge leg-stance-badge--concerns">Concerns</span>
-                    </div>
-                    <div class="leg-bill-content">
-                        <div class="leg-bill-header">
-                            <div>
-                                <a href="https://webserver.rilegislature.gov/Billtext/BillText26/HouseText26/H7955.pdf" target="_blank" rel="noopener noreferrer" class="leg-bill-number">H.7955 + S.2648 <span class="link-arrow">&#8599;</span></a>
-                                <h3 class="leg-bill-title">Expanding Virtual Currency Kiosk Definitions</h3>
-                            </div>
-                            <span class="badge-committee">Both Held for Further Study</span>
-                        </div>
-
-                        <div class="leg-bill-meta">
-                            <span>House Sponsors (H.7955): Casimiro, Donovan, Spears, Potter, Alzate, Shallcross Smith &mdash; held in House I.I.T. (Mar 5)</span>
-                            <span>Senate Sponsors (S.2648): Gu, Britto, Bell, Tikoian, Kallman &mdash; held in Senate Commerce (Apr 14)</span>
-                            <span>Amends: R.I. Gen. Laws &sect; 19-14.3-1.1 (Chapter 19-14.3 / P.L. 2025, ch. 113)</span>
-                        </div>
-
-                        <p class="leg-bill-summary">Expands the definitions of virtual currency kiosk "operator" and "transaction" to capture app-to-counter and voucher-at-register business models that circumvent the Chapter 19-14.3 regulatory framework enacted last session (S 0016 Sub A / H 5121 Sub A). Targets entities that use <strong>digital applications</strong> to direct customers to pay in person through a <strong>clerk or intermediary</strong> rather than at a physical kiosk machine.</p>
-
-                        <div class="leg-bill-stance-detail">
-                            <h4>Why We Have Concerns</h4>
-                            <p>We support the goal of closing regulatory arbitrage &mdash; but the bill as drafted is dangerously overbroad. The phrase "facilitates or enables" could sweep in software developers, retail chains, payment processors, and non-custodial service providers who bear no resemblance to the bad actors this bill targets. Critical terms like "digital product or application," "clerk or other intermediary," and "facilitates or enables" are left undefined. Every newly captured entity inherits the full Chapter 19-14.3 compliance stack &mdash; six mandated compliance programs (&sect;&nbsp;19-14.3-3.7), a full-time compliance officer and blockchain analytics (&sect;&nbsp;19-14.3-3.11), extensive disclosures (&sect;&nbsp;19-14.3-3.10), extended-hours live customer service (&sect;&nbsp;19-14.3-3.13), and money-transmitter licensing (&sect;&nbsp;19-14.3-3.9) &mdash; with zero implementation runway. The bill also collapses the custodial / non-custodial distinction, a departure from every major federal framework including the GENIUS Act.</p>
-                        </div>
-
-                        <div class="leg-bill-highlights">
-                            <div class="leg-highlight">
-                                <span class="leg-highlight-label">Core Issue</span>
-                                <span class="leg-highlight-value">Overbroad Language</span>
-                                <span class="leg-highlight-note">"Facilitates or enables" sweeps too wide</span>
-                            </div>
-                            <div class="leg-highlight">
-                                <span class="leg-highlight-label">Compliance Cost</span>
-                                <span class="leg-highlight-value">Low&ndash;Mid Six Figures / yr</span>
-                                <span class="leg-highlight-note">Full Chapter 19-14.3 stack inherited</span>
-                            </div>
-                            <div class="leg-highlight">
-                                <span class="leg-highlight-label">Implementation</span>
-                                <span class="leg-highlight-value">Zero Days</span>
-                                <span class="leg-highlight-note">Effective upon passage &mdash; no transition</span>
-                            </div>
-                        </div>
-
-                        <div class="leg-bill-stance-detail" style="border-left: 3px solid #C5A648; padding-left: 14px; margin-top: 16px;">
-                            <h4>Our Primary Ask</h4>
-                            <p><strong>Hold S.2648.</strong> RIBPI asks Senate Commerce to decline to advance kiosk expansion until the <a href="#bill-h7956">Blockchain Study Commission (S.2198, in Senate AI &amp; Emerging Technology / H.7956 in House)</a> has been enacted and has completed its work. We are not asking Commerce to pass the Study Commission &mdash; that is a different committee's jurisdiction. We are asking Commerce to sequence its own kiosk legislation after the Commission's expert record has been built. Rhode Island is legislating before it has studied; the drafting problems in S.2648 are the predictable result.</p>
-                        </div>
-
-                        <div class="bill-actions">
-                            <a href="https://webserver.rilegislature.gov/Billtext/BillText26/HouseText26/H7955.pdf" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">Read H.7955 <span class="link-arrow">&rarr;</span></a>
-                            <a href="https://webserver.rilegislature.gov/Billtext/BillText26/SenateText26/S2648.pdf" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">Read S.2648 <span class="link-arrow">&rarr;</span></a>
-                            <a href="docs/H7955_Policy_Brief.pdf" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">RIBPI policy brief <span class="link-arrow">&rarr;</span></a>
-                        </div>
-                    </div>
-                </article>
             </div>
         </section>
 
@@ -560,9 +229,9 @@
         <section class="leg-enacted" data-animate-on-scroll id="bill-enacted">
             <div class="container">
                 <h2>Enacted Laws</h2>
-                <p class="leg-section-desc">Legislation signed into law. We support the intent of protecting consumers but have concerns with the current framework.</p>
+                <p class="leg-section-desc">Legislation signed into law. We support the intent of protecting consumers and have concerns with how the current framework goes about it.</p>
 
-                <article class="leg-bill-card leg-bill-card--concerns">
+                <article class="leg-bill-card leg-bill-card--concerns" id="bill-h5121">
                     <div class="leg-bill-stance-bar">
                         <span class="leg-stance-badge leg-stance-badge--concerns">Concerns</span>
                     </div>
@@ -572,15 +241,15 @@
                                 <a href="https://webserver.rilegislature.gov/Billtext/BillText25/HouseText25/H5121A.pdf" target="_blank" rel="noopener noreferrer" class="leg-bill-number">S.0016A / H.5121A <span class="link-arrow">&#8599;</span></a>
                                 <h3 class="leg-bill-title">Virtual Currency Kiosk Regulation</h3>
                             </div>
-                            <span class="badge-success">Enacted June 2025</span>
+                            <span class="badge-success">Enacted June 23, 2025</span>
                         </div>
 
                         <div class="leg-bill-meta">
-                            <span>Signed: June 2025</span>
+                            <span>Signed: June 23, 2025 (P.L. 2025, ch. 113 and 114)</span>
                             <span>Sponsors: Victoria Gu, Julie Casimiro</span>
                         </div>
 
-                        <p class="leg-bill-summary">Creates a licensing and regulatory framework for virtual currency kiosk operators (Bitcoin ATMs) in Rhode Island. Establishes transaction limits, fee caps, mandatory on-screen fraud warnings, blockchain analytics requirements, compliance officer mandates, and refund obligations for scam victims. Rhode Island's first major crypto regulation.</p>
+                        <p class="leg-bill-summary">Creates a licensing and regulatory framework for virtual currency kiosk operators (Bitcoin ATMs) in Rhode Island. Sets daily transaction limits of $2,000 for new customers and $5,000 for existing customers, and requires fee disclosure, on-screen fraud warnings, blockchain analytics, a compliance officer, and refunds for scam victims. The law does not cap fees. No kiosk bill passed in 2026.</p>
 
                         <div class="leg-bill-stance-detail">
                             <h4>Why We Have Concerns</h4>
@@ -606,55 +275,39 @@
                         </div>
 
                         <div class="bill-actions">
-                            <a href="https://webserver.rilegislature.gov/Billtext/BillText25/HouseText25/H5121A.pdf" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">Read Bill <span class="link-arrow">&rarr;</span></a>
+                            <a href="https://webserver.rilegislature.gov/Billtext/BillText25/HouseText25/H5121A.pdf" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">Read the law <span class="link-arrow">&rarr;</span></a>
+                            <a href="2027-agenda.html#education" class="btn btn-secondary">Kiosk questions for the commission <span class="link-arrow">&rarr;</span></a>
+                            <a href="2026-session.html#bill-h7955" class="btn btn-secondary">2026 expansion bills <span class="link-arrow">&rarr;</span></a>
                         </div>
                     </div>
                 </article>
             </div>
         </section>
 
-        <!-- 2025 Session Historical Context -->
-        <section class="leg-history" data-animate-on-scroll>
+        <!-- Past Sessions -->
+        <section class="leg-history" data-animate-on-scroll id="past-sessions">
             <div class="container">
-                <h2>2025 Session — Historical Context</h2>
-                <p class="leg-section-desc">Previous session bills that laid the groundwork for the 2026 agenda.</p>
+                <h2>Past sessions</h2>
+                <p class="leg-section-desc">The full record of each session, with RIBPI&rsquo;s position on every bill.</p>
 
                 <div class="leg-history-grid">
-                    <div class="leg-history-card">
+                    <a href="2026-session.html" class="leg-history-card" style="text-decoration: none; display: block;">
                         <div class="leg-history-header">
-                            <span class="leg-history-bill">H.5810 + S.0373</span>
-                            <span class="badge-engrossed">Engrossed (50%)</span>
+                            <span class="leg-history-bill">2026 session</span>
+                            <span class="badge-engrossed">1 adopted &middot; 8 held</span>
                         </div>
-                        <h4>Studying Blockchain's Potential</h4>
-                        <p>Furthest-advancing bill of the 2025 session. Reintroduced in 2026 as <strong>H.7956 + S.2198</strong>.</p>
-                    </div>
+                        <h4>The Senate created the study commission</h4>
+                        <p>S.2198 Sub A was adopted 38&ndash;0 on June 10, 2026. The de minimis exemption, private key protection, the DAO LLC Act, the Economic Growth Blockchain Act and the kiosk expansion bills were held for further study and expired. <strong>Open the 2026 record &rarr;</strong></p>
+                    </a>
 
-                    <div class="leg-history-card">
+                    <a href="2026-session.html#session-2025" class="leg-history-card" style="text-decoration: none; display: block;">
                         <div class="leg-history-header">
-                            <span class="leg-history-bill">H.5564</span>
-                            <span class="badge-introduced">Died in Committee</span>
+                            <span class="leg-history-bill">2025 session</span>
+                            <span class="badge-engrossed">1 enacted</span>
                         </div>
-                        <h4>Blockchain Economic Growth Act</h4>
-                        <p>Regulatory sandbox and SPDIs. Reintroduced in 2026 as <strong>H.7413</strong>.</p>
-                    </div>
-
-                    <div class="leg-history-card">
-                        <div class="leg-history-header">
-                            <span class="leg-history-bill">H.5868 + S.0375</span>
-                            <span class="badge-introduced">Died in Committee</span>
-                        </div>
-                        <h4>Protecting Citizens' Private Keys</h4>
-                        <p>Reintroduced in 2026 as <strong>H.7957 + S.2196</strong>.</p>
-                    </div>
-
-                    <div class="leg-history-card">
-                        <div class="leg-history-header">
-                            <span class="leg-history-bill">S.0451</span>
-                            <span class="badge-introduced">Died in Chamber</span>
-                        </div>
-                        <h4>Digital Asset Tax De Minimis</h4>
-                        <p>Reintroduced in 2026 as <strong>S.2021</strong> with expanded thresholds.</p>
-                    </div>
+                        <h4>The kiosk law was enacted and the commission passed the Senate</h4>
+                        <p>H.5121A / S.0016A became law in June 2025. The first study commission resolution (S.0373) passed the Senate and received no House vote. <strong>Open the 2025 summary &rarr;</strong></p>
+                    </a>
                 </div>
             </div>
         </section>
@@ -734,9 +387,9 @@
                             <span class="st-status st-emerging">Emerging</span>
                         </div>
                         <div class="state-card-body">
-                            <p class="state-card-note">6 active bills in the 2026 session + 1 enacted</p>
+                            <p class="state-card-note">Study commission created in 2026, one law enacted, three bills planned for 2027</p>
                             <div class="state-checklist">
-                                <div class="state-check"><span class="sc-dot sc-yellow"></span> Study Commission <span class="sc-label">Proposed</span></div>
+                                <div class="state-check"><span class="sc-dot sc-green"></span> Study Commission <span class="sc-label">Created 2026</span></div>
                                 <div class="state-check"><span class="sc-dot sc-yellow"></span> Tax Exemption <span class="sc-label">Proposed</span></div>
                                 <div class="state-check"><span class="sc-dot sc-green"></span> Consumer Protection <span class="sc-label">Enacted</span></div>
                             </div>
@@ -795,7 +448,6 @@
                         <li><a href="research.html">Research</a></li>
                         <li><a href="glossary.html">Glossary</a></li>
                         <li><a href="news.html">News</a></li>
-                        <li><a href="scorecard.html">Scorecard</a></li>
                         <li><a href="contact.html">Contact</a></li>
                     </ul>
                 </div>
@@ -810,6 +462,17 @@
         </div>
     </footer>
 
+    <script>
+    /* 2026 bill anchors moved to the session archive. */
+    (function () {
+      var moved = ['#bill-s2021', '#bill-h7957', '#bill-h7413', '#bill-h7843', '#bill-h7955'];
+      if (moved.indexOf(window.location.hash) !== -1) {
+        window.location.replace('2026-session.html' + window.location.hash);
+      }
+    })();
+    </script>
+    <script src="js/bills-data.js"></script>
+    <script src="js/bills-render.js"></script>
     <script defer src="js/main.js"></script>
 </body>
 </html>

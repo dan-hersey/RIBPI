@@ -3828,3 +3828,294 @@ h1.gradient-text {
 .why-bitcoin-section { padding-block: var(--spacing-4xl); }
 .cta-section { padding-block: var(--spacing-2xl); }
 .contact-section { padding-block: var(--spacing-3xl); }
+
+/* ============================================================================
+   DYNAMIC LAYER (Jun 2026) — bill steppers, light theme, theme toggle,
+   stat meters & sparklines, anchor flash, hero motion, filter counts.
+   ============================================================================ */
+
+/* ---- Bill progress stepper ---- */
+.bill-stepper {
+  display: flex;
+  list-style: none;
+  margin: 14px 0 18px;
+  padding: 0;
+  counter-reset: step;
+}
+.bill-step {
+  flex: 1 1 0;
+  position: relative;
+  text-align: center;
+  padding: 0 4px;
+}
+.bill-step::before {
+  content: '';
+  position: absolute;
+  top: 11px;
+  left: -50%;
+  width: 100%;
+  height: 2px;
+  background: var(--border-color);
+  z-index: 0;
+}
+.bill-step:first-child::before { display: none; }
+.bill-step--done::before { background: var(--status-success); opacity: 0.55; }
+.bill-step--held::before,
+.bill-step--active::before { background: var(--ri-gold); opacity: 0.55; }
+.bill-step-dot {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  font-size: 0.62rem;
+  font-weight: 700;
+  background: var(--bg-tertiary);
+  border: 2px solid var(--border-color);
+  color: var(--text-tertiary);
+}
+.bill-step--done .bill-step-dot {
+  background: rgba(16, 185, 129, 0.18);
+  border-color: var(--status-success);
+  color: var(--status-success);
+}
+.bill-step--held .bill-step-dot {
+  background: rgba(197, 166, 72, 0.18);
+  border-color: var(--ri-gold);
+  color: var(--ri-gold);
+}
+.bill-step--active .bill-step-dot {
+  background: rgba(230, 122, 0, 0.2);
+  border-color: var(--bitcoin-orange);
+  color: var(--bitcoin-orange);
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+.bill-step-label {
+  display: block;
+  margin-top: 6px;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+}
+.bill-step--todo .bill-step-label { color: var(--text-tertiary); opacity: 0.7; }
+.bill-step--held .bill-step-label { color: var(--ri-gold-light); }
+.bill-step--done .bill-step-label { color: var(--text-primary); }
+.bill-step-note {
+  display: block;
+  margin-top: 2px;
+  font-size: 0.62rem;
+  color: var(--text-tertiary);
+}
+@media (max-width: 640px) {
+  .bill-step-note { display: none; }
+  .bill-step-label { font-size: 0.58rem; }
+}
+
+/* ---- Anchor flash — highlights the bill card you jumped to ---- */
+@keyframes anchorFlash {
+  0%   { box-shadow: 0 0 0 3px rgba(197, 166, 72, 0.9), var(--shadow-lg); }
+  70%  { box-shadow: 0 0 0 3px rgba(197, 166, 72, 0.45), var(--shadow-lg); }
+  100% { box-shadow: 0 0 0 0 rgba(197, 166, 72, 0), var(--shadow-lg); }
+}
+.anchor-flash { animation: anchorFlash 2.4s ease-out 1; }
+@media (prefers-reduced-motion: reduce) {
+  .anchor-flash { animation: none; box-shadow: 0 0 0 3px rgba(197, 166, 72, 0.6); }
+}
+
+/* ---- Live BTC ticker item ---- */
+.session-ticker-btc { color: var(--ri-gold-light); font-weight: 700; }
+
+/* ---- Stat meters (single-data-point visuals on data cards) ---- */
+.data-meter {
+  position: relative;
+  height: 6px;
+  margin-top: 12px;
+  border-radius: 3px;
+  background: rgba(255, 255, 255, 0.08);
+  overflow: hidden;
+}
+.data-meter-fill {
+  display: block;
+  height: 100%;
+  width: 0;
+  border-radius: 3px;
+  background: linear-gradient(90deg, var(--ri-gold), var(--bitcoin-orange));
+  transition: width 1.4s cubic-bezier(0.22, 1, 0.36, 1) 0.25s;
+}
+.visible .data-meter-fill { width: var(--meter, 0%); }
+.data-meter-caption {
+  display: block;
+  margin-top: 5px;
+  font-size: 0.66rem;
+  color: var(--text-tertiary);
+  letter-spacing: 0.03em;
+}
+@media (prefers-reduced-motion: reduce) {
+  .data-meter-fill { transition: none; width: var(--meter, 0%); }
+}
+
+/* ---- Sparkline (inline SVG trend) ---- */
+.data-spark { margin-top: 12px; }
+.data-spark svg { display: block; width: 100%; height: 44px; overflow: visible; }
+.data-spark .spark-line {
+  fill: none;
+  stroke: var(--bitcoin-orange);
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-dasharray: 220;
+  stroke-dashoffset: 220;
+  transition: stroke-dashoffset 1.6s ease-out 0.3s;
+}
+.visible .data-spark .spark-line { stroke-dashoffset: 0; }
+.data-spark .spark-dot { fill: var(--ri-gold); }
+.data-spark .spark-label {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  fill: var(--text-tertiary);
+}
+@media (prefers-reduced-motion: reduce) {
+  .data-spark .spark-line { transition: none; stroke-dashoffset: 0; }
+}
+
+/* ---- Hero ambient motion ---- */
+.hero::after {
+  background-size: 160% 160%;
+  animation: heroDrift 26s ease-in-out infinite alternate;
+}
+@keyframes heroDrift {
+  from { background-position: 0% 0%, 100% 100%; }
+  to   { background-position: 100% 60%, 0% 30%; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero::after { animation: none; }
+}
+
+/* ---- Filter result counts (glossary, news) ---- */
+.filter-count {
+  display: block;
+  margin: 10px 0 0;
+  font-size: 0.78rem;
+  font-family: var(--font-mono);
+  color: var(--text-secondary);
+}
+
+/* ---- Theme toggle ---- */
+.theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  margin-left: 12px;
+  flex: 0 0 auto;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  background: transparent;
+  color: var(--ri-gold-light);
+  cursor: pointer;
+  transition: border-color var(--transition-fast), color var(--transition-fast), transform var(--transition-fast);
+}
+.theme-toggle:hover { border-color: var(--ri-gold); color: var(--ri-gold); transform: rotate(15deg); }
+.theme-toggle svg { width: 17px; height: 17px; }
+.theme-toggle .icon-sun { display: none; }
+.theme-toggle .icon-moon { display: block; }
+[data-theme="light"] .theme-toggle .icon-sun { display: block; }
+[data-theme="light"] .theme-toggle .icon-moon { display: none; }
+
+/* ============================================================================
+   LIGHT THEME
+   Surfaces go light; nav bar, session ticker, and mobile overlay keep the
+   dark navy brand treatment. Gold + Bitcoin Orange accents are shared.
+   ============================================================================ */
+[data-theme="light"] {
+  --bg-primary: #f2f5f9;
+  --bg-secondary: #e8edf4;
+  --bg-tertiary: #dde5ef;
+  --bg-card: #ffffff;
+  --bg-card-hover: #f4f7fb;
+  --bg-overlay: rgba(242, 245, 249, 0.95);
+  --bg-overlay-light: rgba(242, 245, 249, 0.85);
+
+  --text-primary: #122a45;
+  --text-secondary: #3f5470;
+  --text-tertiary: #68798f;
+  --text-inverse: #f5f5f5;
+
+  --border-color: rgba(6, 47, 92, 0.16);
+  --border-light: rgba(230, 122, 0, 0.35);
+  --border-blue: rgba(10, 77, 140, 0.3);
+
+  --ri-gold: #9a7d22;
+  --ri-gold-light: #8a701f;
+  --bitcoin-orange-light: #d06e00;
+  --grade-b: #0e7490;
+  --grade-c: #b45309;
+  --status-warning: #b45309;
+
+  --shadow-sm: 0 1px 2px 0 rgba(18, 42, 69, 0.08);
+  --shadow-md: 0 4px 6px -1px rgba(18, 42, 69, 0.12);
+  --shadow-lg: 0 10px 15px -3px rgba(18, 42, 69, 0.14);
+  --shadow-xl: 0 20px 25px -5px rgba(18, 42, 69, 0.16);
+  --shadow-2xl: 0 25px 50px -12px rgba(18, 42, 69, 0.2);
+}
+
+/* Nav + ticker keep dark navy branding in light mode; restore the light
+   accent colors those dark strips need. */
+[data-theme="light"] .nav-bar,
+[data-theme="light"] .session-ticker-label {
+  --ri-gold: #C5A648;
+  --ri-gold-light: #d4ba6a;
+}
+[data-theme="light"] .session-ticker {
+  --ri-gold-light: #d4ba6a;
+  --bitcoin-orange-light: #f59215;
+  --text-secondary: #a0a0a0;
+  --text-tertiary: #8d9aa8;
+}
+[data-theme="light"] .nav-menu a { color: #d7dde5; }
+[data-theme="light"] .nav-menu a:hover,
+[data-theme="light"] .nav-menu a.active { color: var(--bitcoin-orange-light); }
+[data-theme="light"] .hamburger-btn span { background: #d7dde5; }
+
+/* Mobile nav overlay stays dark. */
+[data-theme="light"] .mobile-nav { --text-primary: #f0f0f0; --text-secondary: #a0a0a0; }
+
+/* Footer follows the dark brand treatment too. */
+[data-theme="light"] .footer {
+  background: var(--ri-blue-darker);
+  --text-primary: #f0f0f0;
+  --text-secondary: #a0a0a0;
+  --text-tertiary: #8d9aa8;
+  --border-color: rgba(255, 255, 255, 0.15);
+  --ri-gold: #C5A648;
+  --ri-gold-light: #d4ba6a;
+}
+
+/* Light-mode component adjustments */
+[data-theme="light"] .data-meter { background: rgba(6, 47, 92, 0.1); }
+
+/* Hero stays a dark navy brand strip in light mode, like the nav and ticker. */
+[data-theme="light"] .hero {
+  --bg-primary: #062f5c;
+  --text-primary: #f0f0f0;
+  --text-secondary: #c4cdd8;
+  --text-tertiary: #9fb0c2;
+  --ri-gold: #C5A648;
+  --ri-gold-light: #d4ba6a;
+  --bitcoin-orange-light: #f59215;
+  --border-color: rgba(255, 255, 255, 0.15);
+}
+[data-theme="light"] .action-bar { --text-primary: #f0f0f0; --text-secondary: #c4cdd8; }
+[data-theme="light"] .theme-toggle { border-color: rgba(255, 255, 255, 0.25); }
+[data-theme="light"] .data-card { background: var(--bg-card); box-shadow: var(--shadow-sm); }
+[data-theme="light"] .action-bar { --ri-gold: #C5A648; --ri-gold-light: #d4ba6a; --bitcoin-orange-light: #f59215; }
+
+/* Homepage agenda cards: four items read better as two rows of two. */
+.bills-grid[data-bills-grid] {
+  grid-template-columns: repeat(auto-fit, minmax(min(420px, 100%), 1fr));
+}

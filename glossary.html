@@ -5,6 +5,7 @@
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-ZYM5XCY723"></script>
     <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag("js",new Date());gtag("config","G-ZYM5XCY723");</script>
     <meta charset="UTF-8">
+    <script>try{var t=localStorage.getItem("ribpi-theme")||(window.matchMedia&&matchMedia("(prefers-color-scheme: light)").matches?"light":"dark");document.documentElement.setAttribute("data-theme",t)}catch(e){}</script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Bitcoin and Blockchain Glossary for Rhode Island legislators - Quick reference guide to key terms and concepts.">
     <meta name="keywords" content="glossary, Bitcoin, blockchain, cryptocurrency, terminology, definitions">
@@ -40,9 +41,9 @@
                 <li><a href="research.html">Research</a></li>
                 <li><a href="glossary.html" class="active">Glossary</a></li>
                 <li><a href="news.html">News</a></li>
-                <li><a href="scorecard.html">Scorecard</a></li>
                 <li><a href="contact.html">Contact</a></li>
             </ul>
+            <button class="theme-toggle" data-theme-toggle aria-label="Switch color theme"><svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg><svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg></button>
             <button class="hamburger-btn" data-hamburger aria-label="Toggle mobile menu">
                 <span></span><span></span><span></span>
             </button>
@@ -57,7 +58,6 @@
             <li><a href="research.html">Research</a></li>
             <li><a href="glossary.html" class="active">Glossary</a></li>
             <li><a href="news.html">News</a></li>
-            <li><a href="scorecard.html">Scorecard</a></li>
             <li><a href="contact.html">Contact</a></li>
         </ul>
     </nav>
@@ -82,6 +82,7 @@
             <button class="filter-btn" data-category="financial">Financial</button>
             <button class="filter-btn" data-category="policy">Policy & Legal</button>
         </div>
+        <p class="filter-count" id="glossaryCount" aria-live="polite"></p>
 
         <div class="alphabet-nav">
             <a href="#section-B">B</a>
@@ -306,7 +307,6 @@
                         <li><a href="research.html">Research</a></li>
                         <li><a href="glossary.html">Glossary</a></li>
                         <li><a href="news.html">News</a></li>
-                        <li><a href="scorecard.html">Scorecard</a></li>
                         <li><a href="contact.html">Contact</a></li>
                     </ul>
                 </div>
@@ -327,6 +327,16 @@
         const searchInput = document.getElementById('searchInput');
         const glossaryItems = document.querySelectorAll('.glossary-item');
         const filterBtns = document.querySelectorAll('.filter-btn');
+        const countEl = document.getElementById('glossaryCount');
+
+        function updateCount() {
+            if (!countEl) return;
+            const visible = document.querySelectorAll('.glossary-item:not(.hidden)').length;
+            countEl.textContent = visible === glossaryItems.length
+                ? `${glossaryItems.length} terms`
+                : `Showing ${visible} of ${glossaryItems.length} terms`;
+        }
+        updateCount();
 
         searchInput.addEventListener('input', (e) => {
             const query = e.target.value.toLowerCase();
@@ -346,6 +356,7 @@
             // Reset category filter when searching
             filterBtns.forEach(btn => btn.classList.remove('active'));
             document.querySelector('.filter-btn[data-category="all"]').classList.add('active');
+            updateCount();
         });
 
         // Category filter
@@ -366,6 +377,7 @@
 
                 // Clear search
                 searchInput.value = '';
+                updateCount();
             });
         });
     </script>
