@@ -552,3 +552,51 @@
     gap: var(--spacing-xs);
   }
 }
+
+/* ============================================================================
+   2027 AGENDA PAGE
+   ============================================================================ */
+
+.agenda-list {
+  margin: var(--spacing-md) 0 0;
+  padding-left: 1.2rem;
+  list-style: disc;
+  color: var(--text-secondary);
+  line-height: 1.7;
+  font-size: var(--font-size-sm);
+}
+
+.agenda-list li {
+  margin-bottom: 0.45rem;
+}
+
+.agenda-list li strong {
+  color: var(--text-primary);
+}
+
+.agenda-subhead {
+  font-family: var(--font-serif);
+  font-size: 1.25rem;
+  color: var(--text-primary);
+  margin: var(--spacing-2xl, 2.5rem) 0 0.4rem;
+}
+
+.leg-bill-header span.leg-bill-number {
+  cursor: default;
+}
+
+.state-table td a {
+  color: var(--ri-light-blue, #3a7cc2);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.agenda-questions {
+  grid-template-columns: repeat(auto-fit, minmax(330px, 1fr));
+}
+
+.agenda-questions .leg-history-card h4 {
+  font-size: 1.05rem;
+  line-height: 1.35;
+  margin-bottom: 0.5rem;
+}

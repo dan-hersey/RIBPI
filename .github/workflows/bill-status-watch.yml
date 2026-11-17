@@ -1,0 +1,55 @@
+# RIBPI — nightly bill-status watcher.
+#
+# Hashes each tracked bill's posted text on webserver.rilegislature.gov and
+# probes for new substitute versions. When something changes it opens a
+# GitHub issue so js/bills-data.js gets updated (which updates the ticker,
+# homepage cards, tracker grid, and steppers site-wide).
+#
+# First run seeds scripts/bill-status-cache.json; changes are reported from
+# the second run onward. Also runnable manually from the Actions tab.
+
+name: Bill status watch
+
+on:
+  schedule:
+    - cron: '17 9 * * *'   # nightly, ~4:17am ET
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  issues: write
+
+jobs:
+  watch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Check bill documents
+        run: node scripts/check-bill-status.mjs
+
+      - name: Open issue if anything changed
+        if: ${{ hashFiles('bill-status-changes.md') != '' }}
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh issue create \
+            --title "Bill status change detected — $(date -u +%Y-%m-%d)" \
+            --body-file bill-status-changes.md \
+            --label "bill-watch" || \
+          gh issue create \
+            --title "Bill status change detected — $(date -u +%Y-%m-%d)" \
+            --body-file bill-status-changes.md
+          rm bill-status-changes.md
+
+      - name: Commit updated cache
+        run: |
+          git config user.name "ribpi-bill-watcher"
+          git config user.email "actions@github.com"
+          git add scripts/bill-status-cache.json
+          git diff --cached --quiet || git commit -m "chore: update bill-status cache [skip ci]"
+          git push
