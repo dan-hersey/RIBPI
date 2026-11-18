@@ -5,1087 +5,189 @@
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-ZYM5XCY723"></script>
     <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag("js",new Date());gtag("config","G-ZYM5XCY723");</script>
     <meta charset="UTF-8">
-    <script>try{var t=localStorage.getItem("ribpi-theme")||(window.matchMedia&&matchMedia("(prefers-color-scheme: light)").matches?"light":"dark");document.documentElement.setAttribute("data-theme",t)}catch(e){}</script>
+    <script>try{var t=localStorage.getItem("ribpi-theme");if(t==="dark"||t==="light")document.documentElement.setAttribute("data-theme",t)}catch(e){}</script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="A practical guide for advancing Bitcoin policy in Democratic-leaning states. Messaging frameworks, bill archetypes, tactical playbooks, and objection handling.">
+    <meta name="description" content="What the Rhode Island Bitcoin Policy Initiative learned moving six bills in one session in a Democratic-led state: the framing, the bill types, the tactics and the objections.">
     <meta name="theme-color" content="#062f5c">
-    <title>Bitcoin Blueprint for Blue States | RIBPI</title>
-    <link rel="icon" type="image/jpeg" href="images/flavicon.jpg">
-    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/style.css">
-    <meta property="og:title" content="Bitcoin Blueprint for Blue States | RIBPI">
-    <meta property="og:description" content="A practical guide for advancing Bitcoin policy in Democratic-leaning states. Messaging frameworks, bill templates, and tactical playbooks.">
-    <meta property="og:type" content="article">
-    <meta property="og:url" content="https://ribpi.com/blueprint">
+    <meta property="og:title" content="The Bitcoin Blueprint for Blue States | RIBPI">
+    <meta property="og:description" content="What the Rhode Island Bitcoin Policy Initiative learned moving six bills in one session in a Democratic-led state: the framing, the bill types, the tactics and the objections.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://ribpi.com/blueprint.html">
     <meta property="og:image" content="https://ribpi.com/images/ribpi-banner.png">
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Bitcoin Blueprint for Blue States | RIBPI">
-    <meta name="twitter:description" content="A practical guide for advancing Bitcoin policy in Democratic-leaning states.">
+    <meta name="twitter:title" content="The Bitcoin Blueprint for Blue States | RIBPI">
+    <meta name="twitter:description" content="What the Rhode Island Bitcoin Policy Initiative learned moving six bills in one session in a Democratic-led state: the framing, the bill types, the tactics and the objections.">
     <meta name="twitter:image" content="https://ribpi.com/images/ribpi-banner.png">
     <meta name="twitter:site" content="@RIBTCPolicy">
-    <link rel="canonical" href="https://ribpi.com/blueprint">
-    <style>
-        /* ── Blueprint-specific styles ─────────────────────────────── */
-
-        /* Hero override — unique identity for the Blueprint */
-        .hero--blueprint {
-            min-height: 70vh;
-            background: linear-gradient(145deg, #0a2a4a 0%, #0a4d8c 50%, #062f5c 100%);
-            position: relative;
-            overflow: hidden;
-        }
-        .hero--blueprint::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background:
-                radial-gradient(ellipse at 20% 80%, rgba(197, 166, 72, 0.12) 0%, transparent 50%),
-                radial-gradient(ellipse at 80% 20%, rgba(230, 122, 0, 0.10) 0%, transparent 50%);
-            z-index: 1;
-        }
-        .hero--blueprint::after {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background-image:
-                linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
-            background-size: 40px 40px;
-            z-index: 1;
-        }
-        .hero--blueprint .hero-content {
-            position: relative;
-            z-index: 2;
-        }
-        .hero--blueprint .hero-eyebrow {
-            font-family: var(--font-sans);
-            font-size: 0.85rem;
-            font-weight: 600;
-            letter-spacing: 3px;
-            text-transform: uppercase;
-            color: var(--ri-gold);
-            margin-bottom: 1rem;
-        }
-        .hero--blueprint .hero-title {
-            font-size: clamp(2rem, 5vw, 3.2rem);
-            line-height: 1.15;
-            color: #fff;
-        }
-        .hero--blueprint .hero-title .accent-orange {
-            color: var(--bitcoin-orange);
-        }
-        .hero--blueprint .hero-subtitle {
-            font-size: clamp(1rem, 2.5vw, 1.25rem);
-            color: rgba(240, 240, 240, 0.85);
-            max-width: 720px;
-            margin: 1.25rem auto 0;
-            line-height: 1.6;
-        }
-        .hero--blueprint .hero-ctas {
-            margin-top: 2rem;
-            display: flex;
-            gap: 1rem;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-        .hero--blueprint .btn-download {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 0.875rem 2rem;
-            background: var(--bitcoin-orange);
-            color: #fff;
-            font-family: var(--font-sans);
-            font-weight: 700;
-            font-size: 1rem;
-            border: none;
-            border-radius: var(--radius-md);
-            text-decoration: none;
-            transition: all var(--transition-normal);
-            cursor: pointer;
-        }
-        .hero--blueprint .btn-download:hover {
-            background: #ff8c1a;
-            transform: translateY(-2px);
-            box-shadow: 0 8px 24px rgba(230, 122, 0, 0.3);
-        }
-        .hero--blueprint .btn-download svg {
-            width: 18px; height: 18px;
-        }
-        .hero--blueprint .btn-explore {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 0.875rem 2rem;
-            background: transparent;
-            color: rgba(240, 240, 240, 0.9);
-            font-family: var(--font-sans);
-            font-weight: 600;
-            font-size: 1rem;
-            border: 1.5px solid rgba(240, 240, 240, 0.3);
-            border-radius: var(--radius-md);
-            text-decoration: none;
-            transition: all var(--transition-normal);
-        }
-        .hero--blueprint .btn-explore:hover {
-            border-color: var(--ri-gold);
-            color: var(--ri-gold);
-            transform: translateY(-2px);
-        }
-        .hero-meta {
-            margin-top: 1.5rem;
-            font-family: var(--font-sans);
-            font-size: 0.8rem;
-            color: rgba(240, 240, 240, 0.5);
-            letter-spacing: 0.5px;
-        }
-
-        /* ── Quick Stats Bar ──────────────────────────────────────── */
-        .stats-bar {
-            background: var(--ri-blue-darker);
-            border-bottom: 1px solid rgba(197, 166, 72, 0.2);
-            padding: 2.5rem 0;
-        }
-        .stats-bar .container {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 1.5rem;
-            text-align: center;
-        }
-        .stat-item .stat-number {
-            font-family: var(--font-serif);
-            font-size: clamp(1.5rem, 3vw, 2rem);
-            font-weight: 700;
-            color: var(--bitcoin-orange);
-            line-height: 1.2;
-        }
-        .stat-item .stat-desc {
-            font-family: var(--font-sans);
-            font-size: 0.75rem;
-            color: rgba(240, 240, 240, 0.6);
-            margin-top: 0.35rem;
-            line-height: 1.4;
-        }
-        @media (max-width: 768px) {
-            .stats-bar .container {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 1.25rem;
-            }
-        }
-
-        /* ── Section styles ───────────────────────────────────────── */
-        .bp-section {
-            padding: 5rem 0;
-        }
-        .bp-section + .bp-section {
-            border-top: 1px solid var(--border-default);
-        }
-        .bp-section-header {
-            text-align: center;
-            margin-bottom: 3rem;
-        }
-        .bp-section-header .part-label {
-            font-family: var(--font-sans);
-            font-size: 0.75rem;
-            font-weight: 700;
-            letter-spacing: 3px;
-            text-transform: uppercase;
-            color: var(--bitcoin-orange);
-            margin-bottom: 0.5rem;
-        }
-        .bp-section-header h2 {
-            font-family: var(--font-serif);
-            font-size: clamp(1.5rem, 3vw, 2rem);
-            color: var(--text-primary);
-            margin-bottom: 0.75rem;
-        }
-        .bp-section-header .section-desc {
-            font-family: var(--font-sans);
-            font-size: 0.95rem;
-            color: var(--text-secondary);
-            max-width: 600px;
-            margin: 0 auto;
-            line-height: 1.6;
-        }
-
-        /* ── Messaging Cards (Part 1) ─────────────────────────────── */
-        .messaging-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 1.25rem;
-        }
-        .messaging-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border-default);
-            border-radius: var(--radius-lg);
-            padding: 1.5rem;
-            transition: all var(--transition-normal);
-        }
-        .messaging-card:hover {
-            border-color: var(--ri-gold);
-            transform: translateY(-3px);
-            box-shadow: var(--shadow-lg);
-        }
-        .messaging-card .card-icon {
-            font-size: 1.5rem;
-            margin-bottom: 0.75rem;
-        }
-        .messaging-card h3 {
-            font-family: var(--font-serif);
-            font-size: 1.1rem;
-            color: var(--text-primary);
-            margin-bottom: 0.5rem;
-        }
-        .messaging-card p {
-            font-family: var(--font-sans);
-            font-size: 0.875rem;
-            color: var(--text-secondary);
-            line-height: 1.6;
-        }
-        .messaging-card .card-stat {
-            display: inline-block;
-            margin-top: 0.75rem;
-            padding: 0.35rem 0.75rem;
-            background: rgba(230, 122, 0, 0.1);
-            border: 1px solid rgba(230, 122, 0, 0.2);
-            border-radius: var(--radius-sm);
-            font-family: var(--font-sans);
-            font-size: 0.8rem;
-            font-weight: 600;
-            color: var(--bitcoin-orange);
-        }
-
-        /* ── The 1971 Frame callout ───────────────────────────────── */
-        .frame-callout {
-            background: linear-gradient(135deg, rgba(10, 42, 74, 0.06) 0%, rgba(10, 77, 140, 0.06) 100%);
-            border: 1px solid var(--border-default);
-            border-left: 4px solid var(--ri-gold);
-            border-radius: var(--radius-md);
-            padding: 1.75rem;
-            margin-top: 2rem;
-        }
-        .frame-callout h3 {
-            font-family: var(--font-serif);
-            font-size: 1.15rem;
-            color: var(--text-primary);
-            margin-bottom: 0.75rem;
-        }
-        .frame-callout p {
-            font-family: var(--font-sans);
-            font-size: 0.9rem;
-            color: var(--text-secondary);
-            line-height: 1.6;
-            margin-bottom: 1rem;
-        }
-        .frame-callout p:last-child { margin-bottom: 0; }
-        .frame-stats {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 1rem;
-            margin-top: 1.25rem;
-        }
-        .frame-stat {
-            text-align: center;
-        }
-        .frame-stat .fs-number {
-            font-family: var(--font-serif);
-            font-weight: 700;
-            font-size: 1.1rem;
-            color: var(--bitcoin-orange);
-        }
-        .frame-stat .fs-label {
-            font-family: var(--font-sans);
-            font-size: 0.7rem;
-            color: var(--text-tertiary);
-            margin-top: 0.25rem;
-            line-height: 1.3;
-        }
-        @media (max-width: 480px) {
-            .frame-stats {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 1.25rem 1rem;
-            }
-            .frame-stat .fs-number {
-                font-size: 1rem;
-            }
-            .frame-stat .fs-label {
-                font-size: 0.65rem;
-            }
-        }
-
-        /* ── Policy Menu (Part 2) ─────────────────────────────────── */
-        .policy-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 1.25rem;
-        }
-        @media (max-width: 992px) {
-            .policy-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-        .policy-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border-default);
-            border-radius: var(--radius-lg);
-            padding: 1.5rem;
-            display: flex;
-            flex-direction: column;
-            transition: all var(--transition-normal);
-        }
-        .policy-card:hover {
-            border-color: var(--ri-gold);
-            transform: translateY(-3px);
-            box-shadow: var(--shadow-lg);
-        }
-        .policy-card .card-top {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            margin-bottom: 1rem;
-        }
-        .policy-card .archetype-num {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 36px;
-            height: 36px;
-            border-radius: var(--radius-full);
-            background: var(--ri-blue);
-            color: #fff;
-            font-family: var(--font-serif);
-            font-weight: 700;
-            font-size: 0.9rem;
-            flex-shrink: 0;
-        }
-        .policy-card h3 {
-            font-family: var(--font-serif);
-            font-size: 1.05rem;
-            color: var(--text-primary);
-        }
-        .policy-card .card-desc {
-            font-family: var(--font-sans);
-            font-size: 0.85rem;
-            color: var(--text-secondary);
-            line-height: 1.6;
-            flex-grow: 1;
-        }
-        .policy-card .card-footer {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-top: 1rem;
-            padding-top: 0.75rem;
-            border-top: 1px solid var(--border-default);
-        }
-        .policy-card .difficulty {
-            font-family: var(--font-sans);
-            font-size: 0.75rem;
-            font-weight: 600;
-            padding: 0.2rem 0.6rem;
-            border-radius: var(--radius-sm);
-        }
-        .difficulty-low {
-            background: rgba(16, 185, 129, 0.1);
-            color: var(--grade-a);
-        }
-        .difficulty-med {
-            background: rgba(197, 166, 72, 0.1);
-            color: var(--ri-gold);
-        }
-        .difficulty-high {
-            background: rgba(239, 68, 68, 0.1);
-            color: #ef4444;
-        }
-        .policy-card .ri-example {
-            font-family: var(--font-sans);
-            font-size: 0.75rem;
-            color: var(--text-tertiary);
-        }
-
-        /* ── Playbook Steps (Part 3) ──────────────────────────────── */
-        .playbook-steps {
-            display: grid;
-            gap: 1.5rem;
-            max-width: 700px;
-            margin: 0 auto;
-        }
-        .playbook-step {
-            display: flex;
-            gap: 1.25rem;
-            align-items: flex-start;
-        }
-        .step-number {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 40px;
-            height: 40px;
-            border-radius: var(--radius-full);
-            background: linear-gradient(135deg, var(--ri-blue), var(--ri-blue-dark));
-            color: #fff;
-            font-family: var(--font-serif);
-            font-weight: 700;
-            font-size: 1rem;
-            flex-shrink: 0;
-        }
-        .step-content h3 {
-            font-family: var(--font-serif);
-            font-size: 1.05rem;
-            color: var(--text-primary);
-            margin-bottom: 0.35rem;
-        }
-        .step-content p {
-            font-family: var(--font-sans);
-            font-size: 0.875rem;
-            color: var(--text-secondary);
-            line-height: 1.6;
-        }
-
-        /* ── Objection Handling (Part 5) ──────────────────────────── */
-        .objection-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 1rem;
-        }
-        .objection-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border-default);
-            border-radius: var(--radius-md);
-            padding: 1.25rem;
-            transition: all var(--transition-normal);
-        }
-        .objection-card:hover {
-            border-color: var(--ri-gold);
-        }
-        .objection-card .objection-q {
-            font-family: var(--font-sans);
-            font-size: 0.9rem;
-            font-weight: 700;
-            font-style: italic;
-            color: var(--text-primary);
-            margin-bottom: 0.65rem;
-            padding-bottom: 0.5rem;
-            border-bottom: 1px solid var(--border-default);
-        }
-        .objection-card .objection-q::before {
-            content: '\201C ';
-            color: var(--bitcoin-orange);
-            font-size: 1rem;
-            font-style: normal;
-        }
-        .objection-card .objection-q::after {
-            content: ' \201D';
-            color: var(--bitcoin-orange);
-            font-size: 1rem;
-            font-style: normal;
-        }
-        .objection-card .objection-a {
-            font-family: var(--font-sans);
-            font-size: 0.85rem;
-            color: var(--text-secondary);
-            line-height: 1.6;
-            padding-left: 0.75rem;
-            border-left: 2px solid var(--ri-gold);
-        }
-
-        /* ── CTA Section ──────────────────────────────────────────── */
-        .bp-cta {
-            background: linear-gradient(145deg, #0a2a4a, #0a4d8c);
-            padding: 5rem 0;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-        .bp-cta::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background:
-                radial-gradient(ellipse at 30% 50%, rgba(197, 166, 72, 0.08) 0%, transparent 60%),
-                radial-gradient(ellipse at 70% 50%, rgba(230, 122, 0, 0.06) 0%, transparent 60%);
-        }
-        .bp-cta .container {
-            position: relative;
-            z-index: 1;
-        }
-        .bp-cta h2 {
-            font-family: var(--font-serif);
-            font-size: clamp(1.5rem, 3vw, 2rem);
-            color: #fff;
-            margin-bottom: 1rem;
-        }
-        .bp-cta p {
-            font-family: var(--font-sans);
-            font-size: 1rem;
-            color: rgba(240, 240, 240, 0.8);
-            max-width: 580px;
-            margin: 0 auto 2rem;
-            line-height: 1.6;
-        }
-        .bp-cta .btn-download {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 1rem 2.5rem;
-            background: var(--bitcoin-orange);
-            color: #fff;
-            font-family: var(--font-sans);
-            font-weight: 700;
-            font-size: 1.05rem;
-            border: none;
-            border-radius: var(--radius-md);
-            text-decoration: none;
-            transition: all var(--transition-normal);
-        }
-        .bp-cta .btn-download:hover {
-            background: #ff8c1a;
-            transform: translateY(-2px);
-            box-shadow: 0 8px 24px rgba(230, 122, 0, 0.3);
-        }
-        .bp-cta .cta-contact {
-            margin-top: 1.25rem;
-            font-family: var(--font-sans);
-            font-size: 0.85rem;
-            color: rgba(240, 240, 240, 0.5);
-        }
-        .bp-cta .cta-contact a {
-            color: var(--ri-gold);
-            text-decoration: none;
-        }
-        .bp-cta .cta-contact a:hover {
-            text-decoration: underline;
-        }
-
-        /* ── Table of Contents / Jump Links ───────────────────────── */
-        .toc-section {
-            padding: var(--space-xl) 0 var(--space-lg);
-            border-bottom: 1px solid var(--border-default);
-        }
-        .toc-strip {
-            display: flex;
-            justify-content: center;
-            gap: 0.5rem;
-            flex-wrap: wrap;
-        }
-        .toc-strip a {
-            display: inline-block;
-            padding: 0.4rem 1rem;
-            font-family: var(--font-sans);
-            font-size: 0.8rem;
-            font-weight: 600;
-            color: var(--text-secondary);
-            border: 1px solid var(--border-default);
-            border-radius: var(--radius-full);
-            text-decoration: none;
-            transition: all var(--transition-fast);
-        }
-        .toc-strip a:hover {
-            color: var(--bitcoin-orange);
-            border-color: var(--bitcoin-orange);
-        }
-
-        /* ── Blue-State Gap Table ─────────────────────────────────── */
-        .gap-table {
-            width: 100%;
-            border-collapse: collapse;
-            font-family: var(--font-sans);
-            font-size: 0.85rem;
-            margin-top: 1.5rem;
-        }
-        .gap-table thead th {
-            background: var(--ri-blue-dark);
-            color: #fff;
-            font-weight: 600;
-            padding: 0.7rem 0.75rem;
-            text-align: left;
-            font-size: 0.8rem;
-        }
-        .gap-table tbody td {
-            padding: 0.6rem 0.75rem;
-            border-bottom: 1px solid var(--border-default);
-            color: var(--text-secondary);
-        }
-        .gap-table tbody tr:nth-child(even) td {
-            background: rgba(10, 45, 92, 0.03);
-        }
-        .gap-table .gap-badge {
-            display: inline-block;
-            padding: 0.15rem 0.5rem;
-            border-radius: var(--radius-sm);
-            font-size: 0.7rem;
-            font-weight: 600;
-        }
-        .gap-open {
-            background: rgba(239, 68, 68, 0.1);
-            color: #ef4444;
-        }
-        .gap-leading {
-            background: rgba(16, 185, 129, 0.1);
-            color: var(--grade-a);
-        }
-        /* Mobile: stack table into cards */
-        @media (max-width: 600px) {
-            .gap-table thead { display: none; }
-            .gap-table tbody tr {
-                display: block;
-                margin-bottom: 0.75rem;
-                background: var(--bg-card);
-                border: 1px solid var(--border-default);
-                border-radius: var(--radius-md);
-                padding: 1rem;
-            }
-            .gap-table tbody tr:nth-child(even) td {
-                background: transparent;
-            }
-            .gap-table tbody td {
-                display: block;
-                border-bottom: none;
-                padding: 0.2rem 0;
-                font-size: 0.85rem;
-            }
-            .gap-table tbody td:first-child {
-                font-weight: 700;
-                font-size: 0.95rem;
-                color: var(--text-primary);
-                margin-bottom: 0.35rem;
-            }
-            .gap-table tbody td:nth-child(2)::before { content: "Red/Purple: "; font-weight: 600; color: var(--text-tertiary); font-size: 0.75rem; display: inline; }
-            .gap-table tbody td:nth-child(3)::before { content: "Blue: "; font-weight: 600; color: var(--text-tertiary); font-size: 0.75rem; display: inline; }
-        }
-
-        /* ── Responsive ───────────────────────────────────────────── */
-        @media (max-width: 768px) {
-            .hero--blueprint {
-                min-height: auto;
-                padding-top: 100px;
-                padding-bottom: 3rem;
-            }
-            .policy-grid {
-                grid-template-columns: 1fr;
-            }
-            .gap-table {
-                font-size: 0.78rem;
-            }
-            .gap-table thead th,
-            .gap-table tbody td {
-                padding: 0.5rem;
-            }
-            .toc-section {
-                padding: var(--space-lg) 0;
-            }
-            .toc-strip a {
-                font-size: 0.75rem;
-                padding: 0.35rem 0.85rem;
-            }
-        }
-        @media (max-width: 480px) {
-            .messaging-grid {
-                grid-template-columns: 1fr;
-            }
-            .objection-grid {
-                grid-template-columns: 1fr;
-            }
-            .objection-card .objection-a {
-                padding-left: 0.5rem;
-            }
-            .policy-card .card-desc {
-                font-size: 0.82rem;
-            }
-        }
-    </style>
+    <link rel="canonical" href="https://ribpi.com/blueprint.html">
+    <link rel="icon" type="image/jpeg" href="images/flavicon.jpg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Courier+Prime&family=STIX+Two+Text:ital,wght@0,400;0,600;0,700;1,400;1,600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/site.css">
+    <title>The Bitcoin Blueprint for Blue States | RIBPI</title>
 </head>
-<body class="dark-theme">
-    <!-- Navigation -->
-    <nav class="nav-bar">
-        <div class="nav-content">
-            <a href="index.html" class="nav-logo">
-                <img src="images/ribpi-logo.png" alt="RIBPI Logo">
-            </a>
-            <ul class="nav-menu">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="about.html">About</a></li>
-                <li><a href="legislation.html">Legislation</a></li>
-                <li><a href="bitcoin-101.html">Bitcoin 101</a></li>
-                <li><a href="research.html">Research</a></li>
-                <li><a href="glossary.html">Glossary</a></li>
-                <li><a href="news.html">News</a></li>
-                <li><a href="contact.html">Contact</a></li>
-            </ul>
-            <button class="theme-toggle" data-theme-toggle aria-label="Switch color theme"><svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg><svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg></button>
-            <button class="hamburger-btn" data-hamburger aria-label="Toggle mobile menu">
-                <span></span><span></span><span></span>
-            </button>
+<body>
+    <a href="#main" class="skip">Skip to the text</a>
+    <header class="top">
+        <a href="index.html" class="logo"><img src="images/ribpi-logo-396.png" alt="Rhode Island Bitcoin Policy Initiative" width="132" height="52"></a>
+        <button class="menu-btn" data-menu aria-controls="site-nav" aria-expanded="false">Menu</button>
+        <nav class="nav" id="site-nav" aria-label="Site">
+            <a href="2027-agenda.html">2027 Agenda</a>
+            <a href="legislation.html">Legislation</a>
+            <a href="bitcoin-101.html">Bitcoin 101</a>
+            <a href="research.html" aria-current="page">Research</a>
+            <a href="glossary.html">Glossary</a>
+            <a href="news.html">News</a>
+            <a href="about.html">About</a>
+            <a href="contact.html">Contact</a>
+            <button class="theme" data-theme-toggle>Dark</button>
+        </nav>
+    </header>
+    <hr class="top-rule">
+    <div class="cal" data-calendar><b>2027 Legislative Session.</b> The General Assembly convenes January 5, 2027. The study commission&rsquo;s interim report is due the same day.</div>
+    <hr class="cal-rule">
+
+    <main class="doc" id="main">
+        <div class="dochead">
+            <div class="head">
+                <div class="org">Rhode Island Bitcoin Policy Initiative</div>
+                <hr>
+                <h1><span class="act">Bitcoin Blueprint</span><span class="rel">For blue states: what RIBPI learned moving six bills in one session</span></h1>
+            </div>
+            <div class="docdate"><b>27 pages</b>Published April 2026<br><a class="go" href="docs/Bitcoin_Blueprint_for_Blue_States.pdf">Download the PDF</a></div>
         </div>
-    </nav>
-    <nav class="mobile-nav" data-mobile-nav>
-        <ul>
-            <li><a href="index.html">Home</a></li>
-            <li><a href="about.html">About</a></li>
-            <li><a href="legislation.html">Legislation</a></li>
-            <li><a href="bitcoin-101.html">Bitcoin 101</a></li>
-            <li><a href="research.html">Research</a></li>
-            <li><a href="glossary.html">Glossary</a></li>
-            <li><a href="news.html">News</a></li>
-            <li><a href="contact.html">Contact</a></li>
-        </ul>
-    </nav>
 
-    <!-- Hero -->
-    <section class="hero hero--blueprint" data-hero>
-        <div class="hero-content" data-hero-content>
-            <p class="hero-eyebrow">RIBPI &middot; 2026</p>
-            <h1 class="hero-title">Bitcoin Blueprint<br>for <span class="accent-orange">Blue States</span></h1>
-            <p class="hero-subtitle">A practical guide for anyone advancing Bitcoin policy in Democratic-leaning states. Messaging frameworks, bill templates, tactical playbooks, and real-world precedent from Rhode Island.</p>
-            <div class="hero-ctas">
-                <a href="docs/Bitcoin_Blueprint_for_Blue_States.pdf" class="btn-download" download>
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2M7 10l5 5m0 0l5-5m-5 5V3"/></svg>
-                    Download PDF
-                </a>
-                <a href="#overview" class="btn-explore">Explore the Guide</a>
-            </div>
-            <p class="hero-meta">27 pages &middot; Free &middot; No email required</p>
-        </div>
-    </section>
-
-    <!-- Quick Stats -->
-    <div class="stats-bar">
-        <div class="container">
-            <div class="stat-item">
-                <div class="stat-number">5</div>
-                <div class="stat-desc">Bill archetypes<br>ready to adapt</div>
-            </div>
-            <div class="stat-item">
-                <div class="stat-number">7</div>
-                <div class="stat-desc">Common objections<br>with rebuttals</div>
-            </div>
-            <div class="stat-item">
-                <div class="stat-number">6</div>
-                <div class="stat-desc">RI bills as<br>worked examples</div>
-            </div>
-            <div class="stat-item">
-                <div class="stat-number">50</div>
-                <div class="stat-desc">State precedents<br>referenced</div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Main Content -->
-    <main id="overview">
-
-        <!-- ═══ Messaging Framework ═══ -->
-        <section class="bp-section" id="messaging" data-animate-on-scroll>
-            <div class="container">
-                <div class="bp-section-header">
-                    <h2>The Messaging Framework</h2>
-                    <p class="section-desc">Bitcoin is not a partisan issue. Here are four frames that resonate with progressive lawmakers.</p>
-                </div>
-
-                <div class="messaging-grid">
-                    <div class="messaging-card">
-                        <div class="card-icon">&#9878;</div>
-                        <h3>Wealth Inequality</h3>
-                        <p>The Cantillon Effect transfers wealth from wage earners to asset holders every time new money is printed. Sound money protects the purchasing power of wages.</p>
-                        <span class="card-stat">Top 1% wealth: 35% (1971) &rarr; 50% (2024)</span>
-                    </div>
-                    <div class="messaging-card">
-                        <div class="card-icon">&#127758;</div>
-                        <h3>Financial Inclusion</h3>
-                        <p>1.4 billion adults worldwide remain unbanked. Bitcoin requires no bank account, no credit score, and no permission. Lightning remittances cost $2-4 vs. ~$19.50 traditional.</p>
-                        <span class="card-stat">Median crypto holding: ~$620</span>
-                    </div>
-                    <div class="messaging-card">
-                        <div class="card-icon">&#128269;</div>
-                        <h3>Transparency</h3>
-                        <p>Bitcoin's public ledger is the most auditable monetary system ever created. Every transaction is verifiable. Financial surveillance of the powerful, not the powerless.</p>
-                        <span class="card-stat">100% publicly auditable</span>
-                    </div>
-                    <div class="messaging-card">
-                        <div class="card-icon">&#9889;</div>
-                        <h3>Energy &amp; Environment</h3>
-                        <p>52.4% of Bitcoin mining uses sustainable energy. Coal is down to 8.9%. Miners monetize stranded and waste energy that would otherwise be flared or curtailed.</p>
-                        <span class="card-stat">Coal: 36.6% (2022) &rarr; 8.9% (2025)</span>
-                    </div>
-                </div>
-
-                <!-- 1971 Frame -->
-                <div class="frame-callout">
-                    <h3>The 1971 Frame: Your Opening Argument</h3>
-                    <p>The most powerful data in your arsenal: what happened after the U.S. severed the dollar's link to gold. These numbers aren't about Bitcoin &mdash; they're about what happens when money can be created without limit.</p>
-                    <div class="frame-stats">
-                        <div class="frame-stat">
-                            <div class="fs-number">2.4x &rarr; 5.6x</div>
-                            <div class="fs-label">Home price-to-income</div>
-                        </div>
-                        <div class="frame-stat">
-                            <div class="fs-number">12% &rarr; 40%</div>
-                            <div class="fs-label">College cost as % of income</div>
-                        </div>
-                        <div class="frame-stat">
-                            <div class="fs-number">5% &rarr; 18%</div>
-                            <div class="fs-label">Healthcare as % of GDP</div>
-                        </div>
-                        <div class="frame-stat">
-                            <div class="fs-number">35% &rarr; 50%</div>
-                            <div class="fs-label">Top 1% share of wealth</div>
-                        </div>
-                    </div>
-                </div>
+        <section class="sec">
+            <div class="lines">
+                <p>This page summarizes the paper. It is written for people working on Bitcoin policy in states with Democratic legislatures, where few bills have been tried. The figures and state lists are as of April 2026, when the paper was published. For what has happened since, see the <a href="2027-agenda.html#other-states">record from other states</a> in the 2027 agenda.</p>
             </div>
         </section>
 
-        <!-- ═══ Policy Menu ═══ -->
-        <section class="bp-section" id="policy-menu" data-animate-on-scroll>
-            <div class="container">
-                <div class="bp-section-header">
-                    <h2>The Policy Menu</h2>
-                    <p class="section-desc">Five bill archetypes ordered from easiest to pass to most ambitious. Each includes a Rhode Island worked example.</p>
-                </div>
+        <h2 class="chap">Part I. Four ways to frame it<small>Bitcoin is not a partisan issue</small></h2>
 
-                <div class="policy-grid">
-                    <div class="policy-card">
-                        <div class="card-top">
-                            <span class="archetype-num">1</span>
-                            <h3>Blockchain Study Commission</h3>
-                        </div>
-                        <p class="card-desc">The safest starting point. Commits the state to studying blockchain &mdash; no policy risk. Wyoming's commission led to 50+ laws. Creates an institutional home for the conversation.</p>
-                        <div class="card-footer">
-                            <span class="difficulty difficulty-low">Low Difficulty</span>
-                            <span class="ri-example">RI: H.7956 / S.2198</span>
-                        </div>
-                    </div>
-
-                    <div class="policy-card">
-                        <div class="card-top">
-                            <span class="archetype-num">2</span>
-                            <h3>Tax De Minimis Exemption</h3>
-                        </div>
-                        <p class="card-desc">Exempt small bitcoin transactions (e.g., under $1,000) from state capital gains. Removes a barrier that punishes everyday use. Fiscal impact: $500K&ndash;$2.5M/yr (0.01&ndash;0.04% of revenue).</p>
-                        <div class="card-footer">
-                            <span class="difficulty difficulty-med">Medium</span>
-                            <span class="ri-example">RI: S.2021</span>
-                        </div>
-                    </div>
-
-                    <div class="policy-card">
-                        <div class="card-top">
-                            <span class="archetype-num">3</span>
-                            <h3>Private Key Protection</h3>
-                        </div>
-                        <p class="card-desc">Prohibit compelled disclosure of private keys. Maps to Fourth Amendment digital property rights. Wyoming passed 31-0 in the Senate. A civil liberties bill, not a crypto bill.</p>
-                        <div class="card-footer">
-                            <span class="difficulty difficulty-med">Medium</span>
-                            <span class="ri-example">RI: H.7957 / S.2196</span>
-                        </div>
-                    </div>
-
-                    <div class="policy-card">
-                        <div class="card-top">
-                            <span class="archetype-num">4</span>
-                            <h3>Regulatory Sandbox / SPDIs</h3>
-                        </div>
-                        <p class="card-desc">Create a controlled environment for blockchain innovation with temporary regulatory exemptions, plus Special Purpose Depository Institutions with 100% reserves. Only WY and NE have SPDIs today.</p>
-                        <div class="card-footer">
-                            <span class="difficulty difficulty-med">Med-High</span>
-                            <span class="ri-example">RI: H.7413</span>
-                        </div>
-                    </div>
-
-                    <div class="policy-card">
-                        <div class="card-top">
-                            <span class="archetype-num">5</span>
-                            <h3>Strategic Bitcoin Reserve</h3>
-                        </div>
-                        <p class="card-desc">The most ambitious archetype. NH, TX, and AZ have signed bills into law. Blue-state strategy: use seized/unclaimed assets (Arizona route) or cap allocation of existing funds (Massachusetts route).</p>
-                        <div class="card-footer">
-                            <span class="difficulty difficulty-high">High</span>
-                            <span class="ri-example">Not yet introduced</span>
-                        </div>
-                    </div>
-                </div>
+        <section class="sec">
+            <div class="lines">
+                <p><span class="run">SECTION 1. Wealth inequality.</span> When new money is created, it reaches asset holders before it reaches wage earners, an effect named for the economist Richard Cantillon. Sound money protects the purchasing power of wages. The top 1 percent held 35 percent of wealth in 1971 and 50 percent in 2024.</p>
+                <p><span class="run">SECTION 2. Financial inclusion.</span> About 1.4 billion adults worldwide have no bank account. Bitcoin requires no account, credit score or permission. A remittance over the Lightning network costs $2 to $4, against about $19.50 by traditional means.</p>
+                <p><span class="run">SECTION 3. Transparency.</span> Every transaction on Bitcoin&rsquo;s ledger can be verified by anyone, which makes it the most auditable monetary system there is.</p>
+                <p><span class="run">SECTION 4. Energy.</span> 52.4 percent of mining runs on sustainable energy, and coal&rsquo;s share fell from 36.6 percent in 2022 to 8.9 percent in 2025. Miners use energy that would otherwise be flared or curtailed.</p>
             </div>
         </section>
 
-        <!-- ═══ Blue-State Gap ═══ -->
-        <section class="bp-section" id="gap" data-animate-on-scroll>
-            <div class="container">
-                <div class="bp-section-header">
-                    <h2>The Blue-State Gap</h2>
-                    <p class="section-desc">Blue states are dramatically underrepresented in Bitcoin policy. That's not a weakness &mdash; it's a first-mover advantage.</p>
-                </div>
-
-                <table class="gap-table">
-                    <thead>
-                        <tr>
-                            <th>Policy Area</th>
-                            <th>Red/Purple States</th>
-                            <th>Blue States</th>
-                        </tr>
-                    </thead>
+        <section class="sec gap">
+            <div class="scroll">
+                <table class="tbl">
+                    <caption>The opening argument: what changed after the dollar&rsquo;s link to gold ended in 1971. These numbers are about what happens when money can be created without limit.</caption>
+                    <thead><tr><th>Measure</th><th>1971</th><th>2024</th></tr></thead>
                     <tbody>
-                        <tr>
-                            <td>Strategic Reserve</td>
-                            <td>NH, TX, AZ + 13 exploring</td>
-                            <td>MA (pending), IL (exploratory)</td>
-                        </tr>
-                        <tr>
-                            <td>Mining Protections</td>
-                            <td>TX, KY (128-0), OK, NE, MT</td>
-                            <td>None significant</td>
-                        </tr>
-                        <tr>
-                            <td>Study Commissions</td>
-                            <td>WY (led to 50+ laws), AL</td>
-                            <td>IL (task force), VA</td>
-                        </tr>
-                        <tr>
-                            <td>Tax Treatment</td>
-                            <td>MO (full exemption)</td>
-                            <td>None</td>
-                        </tr>
-                        <tr>
-                            <td>Private Key Protection</td>
-                            <td>WY (31-0 Senate)</td>
-                            <td>None</td>
-                        </tr>
-                        <tr>
-                            <td>Regulatory Sandbox</td>
-                            <td>AZ, WY, UT, WV, NE</td>
-                            <td>None</td>
-                        </tr>
+                        <tr><td>Home price to income</td><td>2.4 times</td><td>5.6 times</td></tr>
+                        <tr><td>College cost as a share of income</td><td>12%</td><td>40%</td></tr>
+                        <tr><td>Health care as a share of GDP</td><td>5%</td><td>18%</td></tr>
+                        <tr><td>Top 1 percent share of wealth</td><td>35%</td><td>50%</td></tr>
                     </tbody>
                 </table>
             </div>
         </section>
 
-        <!-- ═══ PART 3: Tactical Playbook ═══ -->
-        <section class="bp-section" id="playbook" data-animate-on-scroll>
-            <div class="container">
-                <div class="bp-section-header">
-                    <h2>The Tactical Playbook</h2>
-                    <p class="section-desc">From first contact to committee hearing. What RIBPI learned moving six bills in one session.</p>
-                </div>
+        <h2 class="chap">Part II. Five kinds of bill<small>From easiest to pass to most ambitious</small></h2>
 
-                <div class="playbook-steps">
-                    <div class="playbook-step">
-                        <span class="step-number">1</span>
-                        <div class="step-content">
-                            <h3>Find the Right Sponsors</h3>
-                            <p>Prioritize committee alignment over enthusiasm. Seek bipartisan pairs &mdash; a Democratic primary sponsor with a Republican co-sponsor signals nonpartisanship. Target tech-curious and finance-committee members.</p>
-                        </div>
-                    </div>
-                    <div class="playbook-step">
-                        <span class="step-number">2</span>
-                        <div class="step-content">
-                            <h3>Build Coalitions Beyond Bitcoin</h3>
-                            <p>Partner with civil liberties groups (for private key protection), small business associations (for de minimis), and economic development organizations (for sandbox/SPDI). The bill should have more non-Bitcoin supporters than Bitcoin supporters.</p>
-                        </div>
-                    </div>
-                    <div class="playbook-step">
-                        <span class="step-number">3</span>
-                        <div class="step-content">
-                            <h3>Deliver Effective Testimony</h3>
-                            <p>Use the 6-part structure: establish credibility, state your position, name the problem, present the solution with precedent, pre-empt objections, and close with a call to action. Never read from a script. Keep it under 5 minutes.</p>
-                        </div>
-                    </div>
-                    <div class="playbook-step">
-                        <span class="step-number">4</span>
-                        <div class="step-content">
-                            <h3>Work the Staffers</h3>
-                            <p>Committee staff and legislative counsel shape bills behind the scenes. Provide one-pagers, fiscal impact analysis, and section-by-section breakdowns. Make their job easier and they become your allies.</p>
-                        </div>
-                    </div>
-                    <div class="playbook-step">
-                        <span class="step-number">5</span>
-                        <div class="step-content">
-                            <h3>Control the Narrative</h3>
-                            <p>Lead with data, not ideology. Use the Messaging Litmus Test: Does it lead with data? Does it name a real problem? Does it offer a concrete solution? Would a skeptic find it reasonable? If any answer is no, revise.</p>
-                        </div>
-                    </div>
-                </div>
+        <section class="sec">
+            <div class="wide scroll">
+                <table class="tbl stack">
+                    <thead><tr><th>Bill</th><th>What it does</th><th>Difficulty</th><th>Rhode Island example</th></tr></thead>
+                    <tbody>
+                        <tr><td>Study commission</td><td>Commits the state to studying the subject and gives the conversation an institutional home. Wyoming&rsquo;s led to more than fifty laws.</td><td>Low</td><td class="nw">H.7956, S.2198</td></tr>
+                        <tr><td>Tax de minimis exemption</td><td>Exempts small bitcoin transactions from state capital gains tax. RIBPI&rsquo;s estimate for Rhode Island was $500,000 to $2.5 million a year.</td><td>Medium</td><td class="nw">S.2021</td></tr>
+                        <tr><td>Private key protection</td><td>Bars compelled disclosure of private keys. It is a civil liberties bill. Wyoming&rsquo;s Senate passed it <span class="nb">31&ndash;0</span>.</td><td>Medium</td><td class="nw">H.7957, S.2196</td></tr>
+                        <tr><td>Sandbox and special charters</td><td>Temporary regulatory exemptions for testing, plus depository institutions holding 100 percent reserves. Only Wyoming and Nebraska have the charter.</td><td>Medium to high</td><td class="nw">H.7413</td></tr>
+                        <tr><td>Strategic Bitcoin reserve</td><td>New Hampshire, Texas and Arizona have signed reserve laws. In a blue state, start from seized or unclaimed assets, or cap an allocation of existing funds.</td><td>High</td><td>Not introduced</td></tr>
+                    </tbody>
+                </table>
             </div>
         </section>
 
-        <!-- ═══ PART 5: Objection Handling ═══ -->
-        <section class="bp-section" id="objections" data-animate-on-scroll>
-            <div class="container">
-                <div class="bp-section-header">
-                    <h2>Objection Handling</h2>
-                    <p class="section-desc">The seven objections you'll hear most &mdash; and how to respond with data, not deflection.</p>
-                </div>
+        <h2 class="chap">Part III. Where blue states stand<small>As of April 2026</small></h2>
 
-                <div class="objection-grid">
-                    <div class="objection-card">
-                        <p class="objection-q">Bitcoin wastes too much energy.</p>
-                        <p class="objection-a">52.4% sustainable energy; coal down from 36.6% to 8.9% in three years. Mining uses 0.7-0.8% of global electricity and increasingly monetizes stranded/waste energy.</p>
-                    </div>
-                    <div class="objection-card">
-                        <p class="objection-q">It's only used by criminals.</p>
-                        <p class="objection-a">Illicit activity is 0.34% of on-chain volume (Chainalysis 2024). The transparent ledger makes Bitcoin one of the worst tools for crime &mdash; the Colonial Pipeline ransom was traced and recovered within days.</p>
-                    </div>
-                    <div class="objection-card">
-                        <p class="objection-q">It's too volatile for serious policy.</p>
-                        <p class="objection-a">Volatility is decreasing as the market matures. De minimis exemptions, study commissions, and private key bills don't require the state to hold any bitcoin. Separate the policy from the price.</p>
-                    </div>
-                    <div class="objection-card">
-                        <p class="objection-q">Only wealthy speculators benefit.</p>
-                        <p class="objection-a">74% of Bitcoin owners hold less than 0.01 BTC. Median lifetime crypto investment is ~$620. The de minimis exemption specifically targets small, everyday transactions &mdash; not whales.</p>
-                    </div>
-                    <div class="objection-card">
-                        <p class="objection-q">We should wait for federal guidance.</p>
-                        <p class="objection-a">Wyoming didn't wait &mdash; and passed 50+ laws that became the national model. States that lead shape the federal framework. States that wait adopt someone else's rules on someone else's timeline.</p>
-                    </div>
-                    <div class="objection-card">
-                        <p class="objection-q">We don't have the expertise.</p>
-                        <p class="objection-a">That's exactly the argument for a study commission. Archetype 1 exists for this reason &mdash; it commits the state to learning, not to policy. You don't need expertise to study something.</p>
-                    </div>
-                </div>
+        <section class="sec">
+            <div class="scroll">
+                <table class="tbl stack">
+                    <thead><tr><th>Policy</th><th>Red and purple states</th><th>Blue states</th></tr></thead>
+                    <tbody>
+                        <tr><td>Strategic reserve</td><td>New Hampshire, Texas, Arizona, and 13 exploring</td><td>Massachusetts (pending), Illinois (exploratory)</td></tr>
+                        <tr><td>Mining protections</td><td>Texas, Kentucky (<span class="nb">128&ndash;0</span>), Oklahoma, Nebraska, Montana</td><td>None significant</td></tr>
+                        <tr><td>Study commissions</td><td>Wyoming, Alabama</td><td>Illinois (task force), Virginia</td></tr>
+                        <tr><td>Tax treatment</td><td>Missouri (full exemption)</td><td>None</td></tr>
+                        <tr><td>Private key protection</td><td>Wyoming</td><td>None</td></tr>
+                        <tr><td>Regulatory sandbox</td><td>Arizona, Wyoming, Utah, West Virginia, Nebraska</td><td>None</td></tr>
+                    </tbody>
+                </table>
             </div>
         </section>
 
-        <!-- ═══ CTA ═══ -->
-        <section class="bp-cta" id="download">
-            <div class="container">
-                <h2>Ready to Build Bitcoin Policy in Your State?</h2>
-                <p>Download the full 27-page Blueprint &mdash; with bill archetypes, testimony structures, objection scripts, and the complete data appendix.</p>
-                <a href="docs/Bitcoin_Blueprint_for_Blue_States.pdf" class="btn-download" download>
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" width="18" height="18"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2M7 10l5 5m0 0l5-5m-5 5V3"/></svg>
-                    Download the Blueprint (PDF)
-                </a>
-                <p class="cta-contact">Questions? Reach out at <a href="mailto:dan@ribpi.com">dan@ribpi.com</a> or <a href="https://x.com/RIBTCPolicy" target="_blank" rel="noopener">@RIBTCPolicy</a></p>
+        <h2 class="chap">Part IV. From first contact to committee hearing</h2>
+
+        <section class="sec">
+            <div class="lines">
+                <p><span class="run">SECTION 5. Find the right sponsors.</span> Committee assignment matters more than enthusiasm. A Democratic primary sponsor with a Republican co-sponsor shows the bill is nonpartisan. Look for members of finance committees and members who are curious about technology.</p>
+                <p><span class="run">SECTION 6. Build a coalition beyond Bitcoin.</span> Work with civil liberties groups on private key protection, small business associations on the de minimis exemption, and economic development organizations on sandboxes and charters. A bill should have more supporters from outside Bitcoin than from inside it.</p>
+                <p><span class="run">SECTION 7. Testify well.</span> Establish who you are, state your position, name the problem, present the solution with precedent, answer the likely objections and close with what you are asking for. Do not read from a script, and keep it under five minutes.</p>
+                <p><span class="run">SECTION 8. Work with staff.</span> Committee staff and legislative counsel shape bills. Give them one-pagers, fiscal analyses and section-by-section summaries, and make their job easier.</p>
+                <p><span class="run">SECTION 9. Lead with data.</span> Before you publish anything, check that it leads with data, names a real problem, offers a concrete solution, and would strike a skeptic as reasonable. If it fails any of the four, revise it.</p>
             </div>
         </section>
 
+        <h2 class="chap">Part V. The objections you will hear</h2>
+
+        <section class="sec">
+            <div class="lines">
+                <h3>Bitcoin wastes too much energy.</h3>
+                <p>Mining is 52.4 percent sustainable, and coal fell from 36.6 percent to 8.9 percent in three years. Mining uses 0.7 to 0.8 percent of the world&rsquo;s electricity and increasingly runs on energy that would otherwise be wasted.</p>
+                <h3>It is only used by criminals.</h3>
+                <p>Illicit activity was 0.34 percent of on-chain volume in 2024, according to Chainalysis. The public ledger makes Bitcoin a poor tool for crime. The Colonial Pipeline ransom was traced and recovered within days.</p>
+                <h3>It is too volatile for serious policy.</h3>
+                <p>Volatility is falling as the market matures. A de minimis exemption, a study commission and a private key bill do not require the state to hold any bitcoin, so the policy can be judged apart from the price.</p>
+                <h3>Only wealthy speculators benefit.</h3>
+                <p>74 percent of Bitcoin owners hold less than 0.01 BTC, and the median amount people have put into digital assets is about $620. The de minimis exemption is aimed at small everyday transactions.</p>
+                <h3>We should wait for federal guidance.</h3>
+                <p>Wyoming did not wait, and its laws became the national model. States that act early help shape the federal framework.</p>
+                <h3>We do not have the expertise.</h3>
+                <p>That is the argument for a study commission, which commits the state to learning before it commits to policy.</p>
+            </div>
+        </section>
+
+        <section class="sec gap">
+            <p class="acts"><a class="go" href="docs/Bitcoin_Blueprint_for_Blue_States.pdf">Download the full Blueprint (PDF)</a> <a class="go" href="mailto:dan@ribpi.com">Ask Dan a question</a></p>
+        </section>
     </main>
 
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-grid">
-                <div class="footer-section footer-brand">
-                    <span class="footer-name">RIBPI</span>
-                    <p class="footer-tagline">Shaping sensible Bitcoin policy in Rhode Island</p>
-                </div>
-                <div class="footer-section footer-links">
-                    <h4>Quick Links</h4>
-                    <ul>
-                        <li><a href="index.html">Home</a></li>
-                        <li><a href="legislation.html">Legislation</a></li>
-                        <li><a href="bitcoin-101.html">Bitcoin 101</a></li>
-                        <li><a href="research.html">Research</a></li>
-                    </ul>
-                </div>
-                <div class="footer-section footer-contact">
-                    <h4>Contact</h4>
-                    <ul>
-                        <li><a href="mailto:dan@ribpi.com">dan@ribpi.com</a></li>
-                        <li><a href="https://x.com/RIBTCPolicy" target="_blank" rel="noopener noreferrer">@RIBTCPolicy</a></li>
-                    </ul>
-                </div>
+    <footer class="end">
+        <hr class="end-rule">
+        <div class="end-grid">
+            <div>
+                <b>Rhode Island Bitcoin Policy Initiative.</b> Nonpartisan research and education on Bitcoin and digital asset policy at the Rhode Island General Assembly, founded in 2025 by Dan Hersey. Small state, big ideas. Bitcoin = money.
+                <nav aria-label="Footer">
+                    <a href="index.html">Home</a>
+                    <a href="2027-agenda.html">2027 Agenda</a>
+                    <a href="legislation.html">Legislation</a>
+                    <a href="bitcoin-101.html">Bitcoin 101</a>
+                    <a href="research.html">Research</a>
+                    <a href="glossary.html">Glossary</a>
+                    <a href="news.html">News</a>
+                    <a href="about.html">About</a>
+                    <a href="contact.html">Contact</a>
+                    <a href="2026-session.html">2026 record</a>
+                </nav>
+            </div>
+            <div>
+                <a href="mailto:dan@ribpi.com">dan@ribpi.com</a><br>
+                <a href="https://x.com/RIBTCPolicy" target="_blank" rel="noopener noreferrer">@RIBTCPolicy</a> on X
+                <div class="pg">ribpi.com/blueprint &middot; &copy; 2026</div>
             </div>
         </div>
     </footer>
 
-    <script src="js/main.js"></script>
+    <script src="js/bills-data.js"></script>
+    <script src="js/site.js"></script>
 </body>
 </html>

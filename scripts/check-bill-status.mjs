@@ -99,7 +99,7 @@ if (changes.length) {
     '',
     ...changes,
     '',
-    'Verify the current status at https://status.rilegislature.gov and update `js/bills-data.js` (statuses, ticker text, stepper states, and `lastUpdated`).'
+    'Verify the current status at https://status.rilegislature.gov and update `js/bills-data.js` (the `status` of each bill, the `calendar` sentences, and `lastUpdated`); past-session history lives in `js/bills-data-2026.js`.'
   ].join('\n');
   writeFileSync(CHANGES_PATH, body + '\n');
   console.log('CHANGES DETECTED:\n' + body);

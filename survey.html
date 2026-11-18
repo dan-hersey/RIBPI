@@ -6,7 +6,7 @@
     <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag("js",new Date());gtag("config","G-ZYM5XCY723");</script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Rhode Island Bitcoin & Blockchain Policy Survey — 2026 Legislative Session. Share your views on Bitcoin policy in Rhode Island.">
+    <meta name="description" content="Rhode Island Bitcoin & Blockchain Policy Survey, 2026 Legislative Session. Share your views on Bitcoin policy in Rhode Island.">
     <meta name="theme-color" content="#062f5c">
     <meta property="og:title" content="2026 Legislative Survey | RIBPI">
     <meta property="og:description" content="Help shape smart Bitcoin & blockchain policy in Rhode Island. Take the 2026 legislative session survey.">
@@ -14,7 +14,7 @@
     <meta property="og:url" content="https://ribpi.com/survey.html">
     <meta property="og:image" content="https://ribpi.com/images/ribpi-banner.png">
     <link rel="icon" type="image/jpeg" href="images/flavicon.jpg">
-    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=STIX+Two+Text:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Symbols+Outlined" rel="stylesheet">
     <title>2026 Legislative Survey | RIBPI</title>
     <style>
@@ -494,6 +494,51 @@
                 font-size: 13px;
             }
         }
+        /* ===========================================
+           2026-11 redesign: the survey set as a printed form.
+           Overrides only; the wizard logic and form values are unchanged.
+           =========================================== */
+        body { font-family: 'STIX Two Text', 'Times New Roman', serif; background: #ffffff; color: #062f5c; padding: 28px 16px; font-size: 18px; }
+        .survey-container { max-width: 680px; border-radius: 0; box-shadow: none; border: 1px solid #062f5c; }
+        .survey-header { background: #ffffff; color: #062f5c; border-bottom: 1px solid #062f5c; padding: 30px 32px 22px; }
+        .survey-logo img { background: none; padding: 0; border-radius: 0; height: 52px; }
+        .survey-header h1 { font-family: inherit; font-size: 26px; letter-spacing: 0.02em; }
+        .survey-header .survey-subtitle { font-size: 17px; opacity: 1; color: #34527a; }
+        .survey-header .survey-session { background: none; border: 0; border-radius: 0; padding: 0; margin-top: 8px; color: #062f5c; font-size: 15px; letter-spacing: 0.12em; }
+        .progress-container { background: #ffffff; border-bottom: 1px solid #c6d2e1; }
+        .progress-track { height: 3px; border-radius: 0; background: #c6d2e1; }
+        .progress-fill { background: #062f5c !important; border-radius: 0; }
+        .progress-meta { font-size: 15px; color: #34527a; }
+        .section-badge { display: none; }
+        .survey-step h2 { font-family: inherit; font-size: 23px; line-height: 1.3; color: #062f5c; }
+        .survey-step .step-description { font-size: 18px; line-height: 1.55; color: #062f5c; }
+        .survey-step .step-hint { font-size: 15px; font-style: italic; color: #34527a; text-transform: none; letter-spacing: 0; }
+        .option-card { border-radius: 0; border: 1px solid #c6d2e1; background: #ffffff; box-shadow: none; }
+        .option-card:hover { border-color: #062f5c; background: #f3f6fa; transform: none; box-shadow: none; }
+        .option-card.selected { border-color: #062f5c; background: rgba(197, 166, 72, 0.22); box-shadow: none; }
+        .option-card .radio-indicator, .option-card .check-indicator { border-color: #062f5c; }
+        .option-card.selected .radio-indicator { border-color: #062f5c; }
+        .option-card.selected .radio-indicator::after { background: #062f5c; }
+        .option-card .check-indicator { border-radius: 0; }
+        .option-card.selected .check-indicator { background: #062f5c; border-color: #062f5c; }
+        .option-card .option-label { font-size: 17.5px; color: #062f5c; }
+        .contact-fields label { font-size: 17px; color: #062f5c; }
+        .contact-fields input, .contact-fields textarea { border-radius: 0; border: 1px solid #062f5c; font-family: inherit; font-size: 18px; color: #062f5c; }
+        .contact-fields input:focus, .contact-fields textarea:focus { outline: 2px solid #e67a00; outline-offset: 2px; box-shadow: none; border-color: #062f5c; }
+        .survey-nav { background: #ffffff; border-top: 1px solid #c6d2e1; }
+        .btn-back, .btn-next { border-radius: 0; font-family: inherit; font-size: 18px; font-weight: 700; box-shadow: none; }
+        .btn-back { background: none; color: #34527a; border: 0; }
+        .btn-next { background: #ffffff; color: #062f5c; border: 1.5px solid #062f5c; border-bottom: 4px solid #e67a00; }
+        .btn-next:hover { background: rgba(197, 166, 72, 0.28); transform: none; box-shadow: none; }
+        .btn-next:disabled { opacity: 0.45; }
+        .thank-you-icon { display: none; }
+        .thank-you-screen h2 { font-family: inherit; color: #062f5c; }
+        .thank-you-screen .btn-home { border-radius: 0; background: #ffffff; color: #062f5c; border: 1.5px solid #062f5c; border-bottom: 4px solid #e67a00; }
+        .thank-you-screen .btn-home:hover { background: rgba(197, 166, 72, 0.28); }
+        .contact-fields input::placeholder, .contact-fields textarea::placeholder { color: #56708f; }
+        .thank-you-screen .btn-home, .thank-you-screen .btn-home:hover, .btn-next:hover, .btn-back:hover { box-shadow: none; transform: none; }
+        .option-card .check-indicator .material-symbols-outlined { font-size: 14px; }
+        ::selection { background: #C5A648; color: #062f5c; }
     </style>
 </head>
 <body>
@@ -501,7 +546,7 @@
         <!-- Header -->
         <div class="survey-header">
             <div class="survey-logo">
-                <img src="images/ribpi-logo.png" alt="RIBPI">
+                <img src="images/ribpi-logo-396.png" alt="RIBPI">
             </div>
             <h1>Bitcoin &amp; Blockchain Policy Survey</h1>
             <p class="survey-subtitle">Help shape smart, forward-looking Bitcoin and blockchain policy in Rhode Island</p>
@@ -550,11 +595,11 @@
                 <p class="step-description">Should Rhode Island exempt small Bitcoin transactions (e.g., purchases under $200) from state capital gains taxes to encourage everyday use?</p>
                 <div class="step-hint">Select one</div>
                 <div class="options-list" data-type="radio">
-                    <label class="option-card"><input type="radio" name="q_tax_exempt" value="Strongly support — I would sponsor or co-sponsor this type of legislation"><div class="radio-indicator"></div><span class="option-label">Strongly support — I would sponsor or co-sponsor</span></label>
-                    <label class="option-card"><input type="radio" name="q_tax_exempt" value="Support — I would vote in favor if it reached the floor"><div class="radio-indicator"></div><span class="option-label">Support — I would vote in favor</span></label>
+                    <label class="option-card"><input type="radio" name="q_tax_exempt" value="Strongly support — I would sponsor or co-sponsor this type of legislation"><div class="radio-indicator"></div><span class="option-label">Strongly support: I would sponsor or co-sponsor</span></label>
+                    <label class="option-card"><input type="radio" name="q_tax_exempt" value="Support — I would vote in favor if it reached the floor"><div class="radio-indicator"></div><span class="option-label">Support: I would vote in favor</span></label>
                     <label class="option-card"><input type="radio" name="q_tax_exempt" value="Neutral / Need more information"><div class="radio-indicator"></div><span class="option-label">Neutral / Need more information</span></label>
-                    <label class="option-card"><input type="radio" name="q_tax_exempt" value="Oppose — I have concerns about lost revenue or tax fairness"><div class="radio-indicator"></div><span class="option-label">Oppose — concerns about lost revenue or tax fairness</span></label>
-                    <label class="option-card"><input type="radio" name="q_tax_exempt" value="Strongly oppose — I would actively work against this type of legislation"><div class="radio-indicator"></div><span class="option-label">Strongly oppose — I would actively work against</span></label>
+                    <label class="option-card"><input type="radio" name="q_tax_exempt" value="Oppose — I have concerns about lost revenue or tax fairness"><div class="radio-indicator"></div><span class="option-label">Oppose: concerns about lost revenue or tax fairness</span></label>
+                    <label class="option-card"><input type="radio" name="q_tax_exempt" value="Strongly oppose — I would actively work against this type of legislation"><div class="radio-indicator"></div><span class="option-label">Strongly oppose: I would actively work against</span></label>
                 </div>
             </div>
 
@@ -565,11 +610,11 @@
                 <p class="step-description">Should Rhode Island clarify and simplify state tax treatment when digital assets are used as payment for goods and services?</p>
                 <div class="step-hint">Select one</div>
                 <div class="options-list" data-type="radio">
-                    <label class="option-card"><input type="radio" name="q_tax_treatment" value="Strongly support — Rhode Island should lead in making digital asset payments practical"><div class="radio-indicator"></div><span class="option-label">Strongly support — RI should lead</span></label>
-                    <label class="option-card"><input type="radio" name="q_tax_treatment" value="Support — Reasonable simplification would be beneficial"><div class="radio-indicator"></div><span class="option-label">Support — reasonable simplification</span></label>
+                    <label class="option-card"><input type="radio" name="q_tax_treatment" value="Strongly support — Rhode Island should lead in making digital asset payments practical"><div class="radio-indicator"></div><span class="option-label">Strongly support: RI should lead</span></label>
+                    <label class="option-card"><input type="radio" name="q_tax_treatment" value="Support — Reasonable simplification would be beneficial"><div class="radio-indicator"></div><span class="option-label">Support: reasonable simplification</span></label>
                     <label class="option-card"><input type="radio" name="q_tax_treatment" value="Neutral / Need more information"><div class="radio-indicator"></div><span class="option-label">Neutral / Need more information</span></label>
-                    <label class="option-card"><input type="radio" name="q_tax_treatment" value="Oppose — Current tax treatment is appropriate"><div class="radio-indicator"></div><span class="option-label">Oppose — current treatment is appropriate</span></label>
-                    <label class="option-card"><input type="radio" name="q_tax_treatment" value="Strongly oppose — Digital assets should not receive any special tax treatment"><div class="radio-indicator"></div><span class="option-label">Strongly oppose — no special tax treatment</span></label>
+                    <label class="option-card"><input type="radio" name="q_tax_treatment" value="Oppose — Current tax treatment is appropriate"><div class="radio-indicator"></div><span class="option-label">Oppose: current treatment is appropriate</span></label>
+                    <label class="option-card"><input type="radio" name="q_tax_treatment" value="Strongly oppose — Digital assets should not receive any special tax treatment"><div class="radio-indicator"></div><span class="option-label">Strongly oppose: no special tax treatment</span></label>
                 </div>
             </div>
 
@@ -580,11 +625,11 @@
                 <p class="step-description">Would you support legislation creating a regulatory sandbox to attract blockchain businesses and foster innovation in Rhode Island?</p>
                 <div class="step-hint">Select one</div>
                 <div class="options-list" data-type="radio">
-                    <label class="option-card"><input type="radio" name="q_econ_growth" value="Strongly support — I would sponsor or co-sponsor this type of legislation"><div class="radio-indicator"></div><span class="option-label">Strongly support — I would sponsor or co-sponsor</span></label>
-                    <label class="option-card"><input type="radio" name="q_econ_growth" value="Support — I would vote in favor if it reached the floor"><div class="radio-indicator"></div><span class="option-label">Support — I would vote in favor</span></label>
+                    <label class="option-card"><input type="radio" name="q_econ_growth" value="Strongly support — I would sponsor or co-sponsor this type of legislation"><div class="radio-indicator"></div><span class="option-label">Strongly support: I would sponsor or co-sponsor</span></label>
+                    <label class="option-card"><input type="radio" name="q_econ_growth" value="Support — I would vote in favor if it reached the floor"><div class="radio-indicator"></div><span class="option-label">Support: I would vote in favor</span></label>
                     <label class="option-card"><input type="radio" name="q_econ_growth" value="Neutral / Need more information"><div class="radio-indicator"></div><span class="option-label">Neutral / Need more information</span></label>
-                    <label class="option-card"><input type="radio" name="q_econ_growth" value="Oppose — I have concerns about regulatory risk"><div class="radio-indicator"></div><span class="option-label">Oppose — concerns about regulatory risk</span></label>
-                    <label class="option-card"><input type="radio" name="q_econ_growth" value="Strongly oppose — I would actively work against this type of legislation"><div class="radio-indicator"></div><span class="option-label">Strongly oppose — I would actively work against</span></label>
+                    <label class="option-card"><input type="radio" name="q_econ_growth" value="Oppose — I have concerns about regulatory risk"><div class="radio-indicator"></div><span class="option-label">Oppose: concerns about regulatory risk</span></label>
+                    <label class="option-card"><input type="radio" name="q_econ_growth" value="Strongly oppose — I would actively work against this type of legislation"><div class="radio-indicator"></div><span class="option-label">Strongly oppose: I would actively work against</span></label>
                 </div>
             </div>
 
@@ -595,8 +640,8 @@
                 <p class="step-description">Several states have formed bipartisan commissions to study the economic and regulatory implications of blockchain technology before drafting legislation. A Rhode Island commission would bring together legislators, academics, and industry experts to produce nonpartisan policy recommendations.</p>
                 <div class="step-hint">Select one</div>
                 <div class="options-list" data-type="radio">
-                    <label class="option-card"><input type="radio" name="q_study_commission" value="Strongly support — I would sponsor or co-sponsor"><div class="radio-indicator"></div><span class="option-label">Strongly support — I would sponsor or co-sponsor</span></label>
-                    <label class="option-card"><input type="radio" name="q_study_commission" value="Support — I would vote in favor"><div class="radio-indicator"></div><span class="option-label">Support — I would vote in favor</span></label>
+                    <label class="option-card"><input type="radio" name="q_study_commission" value="Strongly support — I would sponsor or co-sponsor"><div class="radio-indicator"></div><span class="option-label">Strongly support: I would sponsor or co-sponsor</span></label>
+                    <label class="option-card"><input type="radio" name="q_study_commission" value="Support — I would vote in favor"><div class="radio-indicator"></div><span class="option-label">Support: I would vote in favor</span></label>
                     <label class="option-card"><input type="radio" name="q_study_commission" value="Neutral / Need more information"><div class="radio-indicator"></div><span class="option-label">Neutral / Need more information</span></label>
                     <label class="option-card"><input type="radio" name="q_study_commission" value="Oppose"><div class="radio-indicator"></div><span class="option-label">Oppose</span></label>
                     <label class="option-card"><input type="radio" name="q_study_commission" value="Strongly oppose"><div class="radio-indicator"></div><span class="option-label">Strongly oppose</span></label>
@@ -622,7 +667,7 @@
             <div class="survey-step" data-step="7">
                 <span class="section-badge">Consumer Protection</span>
                 <h2>Crypto-ATM Consumer Protection</h2>
-                <p class="step-description">Rhode Island recently passed a law capping crypto-ATM fees and requiring disclosures. How do you feel about the current law?</p>
+                <p class="step-description">Rhode Island passed a law in 2025 that sets daily limits and requires fee disclosures at crypto ATMs. How do you feel about the current law?</p>
                 <div class="step-hint">Select one</div>
                 <div class="options-list" data-type="radio">
                     <label class="option-card"><input type="radio" name="q_atm" value="The law is well-balanced"><div class="radio-indicator"></div><span class="option-label">The law is well-balanced</span></label>
@@ -636,13 +681,13 @@
             <div class="survey-step" data-step="8">
                 <span class="section-badge">Consumer Protection</span>
                 <h2>Private Key Protection &amp; Self-Custody</h2>
-                <p class="step-description">"Self-custody" means individuals hold the cryptographic keys to their own digital assets — much like keeping cash in a personal safe rather than a bank. Several states are considering bills to protect this right, ensuring residents aren't forced to rely on third-party custodians who could be hacked, go bankrupt, or freeze accounts.</p>
+                <p class="step-description">"Self-custody" means individuals hold the cryptographic keys to their own digital assets, much like keeping cash in a personal safe rather than a bank. Several states are considering bills to protect this right, ensuring residents aren't forced to rely on third-party custodians who could be hacked, go bankrupt, or freeze accounts.</p>
                 <div class="step-hint">Select one</div>
                 <div class="options-list" data-type="radio">
-                    <label class="option-card"><input type="radio" name="q_self_custody" value="Strongly support — Self-custody is a fundamental financial right"><div class="radio-indicator"></div><span class="option-label">Strongly support — a fundamental financial right</span></label>
-                    <label class="option-card"><input type="radio" name="q_self_custody" value="Support — With appropriate anti-money-laundering safeguards"><div class="radio-indicator"></div><span class="option-label">Support — with AML safeguards</span></label>
+                    <label class="option-card"><input type="radio" name="q_self_custody" value="Strongly support — Self-custody is a fundamental financial right"><div class="radio-indicator"></div><span class="option-label">Strongly support: a fundamental financial right</span></label>
+                    <label class="option-card"><input type="radio" name="q_self_custody" value="Support — With appropriate anti-money-laundering safeguards"><div class="radio-indicator"></div><span class="option-label">Support: with AML safeguards</span></label>
                     <label class="option-card"><input type="radio" name="q_self_custody" value="Neutral / Need more information"><div class="radio-indicator"></div><span class="option-label">Neutral / Need more information</span></label>
-                    <label class="option-card"><input type="radio" name="q_self_custody" value="Oppose — Third-party custody should be required for consumer protection"><div class="radio-indicator"></div><span class="option-label">Oppose — third-party custody should be required</span></label>
+                    <label class="option-card"><input type="radio" name="q_self_custody" value="Oppose — Third-party custody should be required for consumer protection"><div class="radio-indicator"></div><span class="option-label">Oppose: third-party custody should be required</span></label>
                     <label class="option-card"><input type="radio" name="q_self_custody" value="Strongly oppose"><div class="radio-indicator"></div><span class="option-label">Strongly oppose</span></label>
                 </div>
             </div>
@@ -651,13 +696,13 @@
             <div class="survey-step" data-step="9">
                 <span class="section-badge">Digital Infrastructure</span>
                 <h2>Digital Commons Resolution</h2>
-                <p class="step-description">A "digital commons" resolution would formally recognize open-source technologies like the Bitcoin network as shared public infrastructure — similar to how the internet itself began as a public resource. This is a non-binding resolution that signals Rhode Island's support for open, permissionless financial technology without imposing any regulations or spending.</p>
+                <p class="step-description">A "digital commons" resolution would formally recognize open-source technologies like the Bitcoin network as shared public infrastructure, similar to how the internet itself began as a public resource. This is a non-binding resolution that signals Rhode Island's support for open, permissionless financial technology without imposing any regulations or spending.</p>
                 <div class="step-hint">Select one</div>
                 <div class="options-list" data-type="radio">
-                    <label class="option-card"><input type="radio" name="q_digital_commons" value="Strongly support — I would sponsor or co-sponsor this resolution"><div class="radio-indicator"></div><span class="option-label">Strongly support — I would sponsor or co-sponsor</span></label>
-                    <label class="option-card"><input type="radio" name="q_digital_commons" value="Support — I would vote in favor"><div class="radio-indicator"></div><span class="option-label">Support — I would vote in favor</span></label>
+                    <label class="option-card"><input type="radio" name="q_digital_commons" value="Strongly support — I would sponsor or co-sponsor this resolution"><div class="radio-indicator"></div><span class="option-label">Strongly support: I would sponsor or co-sponsor</span></label>
+                    <label class="option-card"><input type="radio" name="q_digital_commons" value="Support — I would vote in favor"><div class="radio-indicator"></div><span class="option-label">Support: I would vote in favor</span></label>
                     <label class="option-card"><input type="radio" name="q_digital_commons" value="Neutral / Need more information"><div class="radio-indicator"></div><span class="option-label">Neutral / Need more information</span></label>
-                    <label class="option-card"><input type="radio" name="q_digital_commons" value="Oppose — I don't think this is an appropriate use of state resolutions"><div class="radio-indicator"></div><span class="option-label">Oppose — not appropriate use of resolutions</span></label>
+                    <label class="option-card"><input type="radio" name="q_digital_commons" value="Oppose — I don't think this is an appropriate use of state resolutions"><div class="radio-indicator"></div><span class="option-label">Oppose: not appropriate use of resolutions</span></label>
                     <label class="option-card"><input type="radio" name="q_digital_commons" value="Strongly oppose"><div class="radio-indicator"></div><span class="option-label">Strongly oppose</span></label>
                 </div>
             </div>
@@ -669,10 +714,10 @@
                 <p class="step-description">A CBDC is a government-issued digital dollar that, unlike cash, could allow authorities to track every transaction in real time or even restrict how money is spent. While no U.S. CBDC currently exists, multiple states have preemptively passed laws to protect residents' financial privacy. This question asks whether Rhode Island should take similar protective measures.</p>
                 <div class="step-hint">Select one</div>
                 <div class="options-list" data-type="radio">
-                    <label class="option-card"><input type="radio" name="q_cbdc" value="Strongly support — Rhode Island should proactively protect financial privacy from CBDC-related surveillance"><div class="radio-indicator"></div><span class="option-label">Strongly support — proactively protect financial privacy</span></label>
-                    <label class="option-card"><input type="radio" name="q_cbdc" value="Support — The state should study the issue and consider protective measures"><div class="radio-indicator"></div><span class="option-label">Support — study the issue and consider measures</span></label>
+                    <label class="option-card"><input type="radio" name="q_cbdc" value="Strongly support — Rhode Island should proactively protect financial privacy from CBDC-related surveillance"><div class="radio-indicator"></div><span class="option-label">Strongly support: proactively protect financial privacy</span></label>
+                    <label class="option-card"><input type="radio" name="q_cbdc" value="Support — The state should study the issue and consider protective measures"><div class="radio-indicator"></div><span class="option-label">Support: study the issue and consider measures</span></label>
                     <label class="option-card"><input type="radio" name="q_cbdc" value="Neutral / Need more information"><div class="radio-indicator"></div><span class="option-label">Neutral / Need more information</span></label>
-                    <label class="option-card"><input type="radio" name="q_cbdc" value="Oppose — This is a federal matter and not appropriate for state action"><div class="radio-indicator"></div><span class="option-label">Oppose — federal matter, not state action</span></label>
+                    <label class="option-card"><input type="radio" name="q_cbdc" value="Oppose — This is a federal matter and not appropriate for state action"><div class="radio-indicator"></div><span class="option-label">Oppose: federal matter, not state action</span></label>
                     <label class="option-card"><input type="radio" name="q_cbdc" value="Strongly oppose"><div class="radio-indicator"></div><span class="option-label">Strongly oppose</span></label>
                 </div>
             </div>
@@ -684,11 +729,11 @@
                 <p class="step-description">Bitcoin mining uses specialized computers to secure the network and process transactions. While it does consume electricity, mining operations increasingly use renewable or otherwise-curtailed energy, and can act as flexible load that stabilizes power grids. States like Texas and Wyoming have attracted mining facilities as economic development drivers.</p>
                 <div class="step-hint">Select one</div>
                 <div class="options-list" data-type="radio">
-                    <label class="option-card"><input type="radio" name="q_mining" value="Strongly support — Rhode Island should actively attract mining operations and protect miners' rights"><div class="radio-indicator"></div><span class="option-label">Strongly support — attract operations, protect rights</span></label>
-                    <label class="option-card"><input type="radio" name="q_mining" value="Support — Mining should be permitted with reasonable environmental standards"><div class="radio-indicator"></div><span class="option-label">Support — permit with environmental standards</span></label>
+                    <label class="option-card"><input type="radio" name="q_mining" value="Strongly support — Rhode Island should actively attract mining operations and protect miners' rights"><div class="radio-indicator"></div><span class="option-label">Strongly support: attract operations, protect rights</span></label>
+                    <label class="option-card"><input type="radio" name="q_mining" value="Support — Mining should be permitted with reasonable environmental standards"><div class="radio-indicator"></div><span class="option-label">Support: permit with environmental standards</span></label>
                     <label class="option-card"><input type="radio" name="q_mining" value="Neutral / Need more information"><div class="radio-indicator"></div><span class="option-label">Neutral / Need more information</span></label>
-                    <label class="option-card"><input type="radio" name="q_mining" value="Oppose — Mining's energy consumption outweighs economic benefits"><div class="radio-indicator"></div><span class="option-label">Oppose — energy consumption outweighs benefits</span></label>
-                    <label class="option-card"><input type="radio" name="q_mining" value="Strongly oppose — Mining should be restricted or banned in Rhode Island"><div class="radio-indicator"></div><span class="option-label">Strongly oppose — restrict or ban</span></label>
+                    <label class="option-card"><input type="radio" name="q_mining" value="Oppose — Mining's energy consumption outweighs economic benefits"><div class="radio-indicator"></div><span class="option-label">Oppose: energy consumption outweighs benefits</span></label>
+                    <label class="option-card"><input type="radio" name="q_mining" value="Strongly oppose — Mining should be restricted or banned in Rhode Island"><div class="radio-indicator"></div><span class="option-label">Strongly oppose: restrict or ban</span></label>
                 </div>
             </div>
 
@@ -699,11 +744,11 @@
                 <p class="step-description">How would you describe your overall position on blockchain and Bitcoin policy for Rhode Island?</p>
                 <div class="step-hint">Select one</div>
                 <div class="options-list" data-type="radio">
-                    <label class="option-card"><input type="radio" name="q_overall" value="Champion — I actively seek to make RI a national leader in blockchain policy"><div class="radio-indicator"></div><span class="option-label">Champion — make RI a national leader</span></label>
-                    <label class="option-card"><input type="radio" name="q_overall" value="Supportive — I'm open to pro-blockchain legislation when well-crafted"><div class="radio-indicator"></div><span class="option-label">Supportive — open to well-crafted legislation</span></label>
-                    <label class="option-card"><input type="radio" name="q_overall" value="Cautious — I want to see more data before taking positions"><div class="radio-indicator"></div><span class="option-label">Cautious — want more data first</span></label>
-                    <label class="option-card"><input type="radio" name="q_overall" value="Skeptical — I think the risks of blockchain/crypto outweigh the benefits"><div class="radio-indicator"></div><span class="option-label">Skeptical — risks outweigh benefits</span></label>
-                    <label class="option-card"><input type="radio" name="q_overall" value="Opposed — I believe Rhode Island should not encourage cryptocurrency activity"><div class="radio-indicator"></div><span class="option-label">Opposed — RI should not encourage crypto</span></label>
+                    <label class="option-card"><input type="radio" name="q_overall" value="Champion — I actively seek to make RI a national leader in blockchain policy"><div class="radio-indicator"></div><span class="option-label">Champion: make RI a national leader</span></label>
+                    <label class="option-card"><input type="radio" name="q_overall" value="Supportive — I'm open to pro-blockchain legislation when well-crafted"><div class="radio-indicator"></div><span class="option-label">Supportive: open to well-crafted legislation</span></label>
+                    <label class="option-card"><input type="radio" name="q_overall" value="Cautious — I want to see more data before taking positions"><div class="radio-indicator"></div><span class="option-label">Cautious: want more data first</span></label>
+                    <label class="option-card"><input type="radio" name="q_overall" value="Skeptical — I think the risks of blockchain/crypto outweigh the benefits"><div class="radio-indicator"></div><span class="option-label">Skeptical: risks outweigh benefits</span></label>
+                    <label class="option-card"><input type="radio" name="q_overall" value="Opposed — I believe Rhode Island should not encourage cryptocurrency activity"><div class="radio-indicator"></div><span class="option-label">Opposed: RI should not encourage crypto</span></label>
                 </div>
             </div>
 
@@ -724,7 +769,7 @@
                     <label class="option-card"><input type="checkbox" name="q_priorities" value="Digital Commons Resolution (recognizing Bitcoin as open infrastructure)"><div class="check-indicator"><span class="material-symbols-outlined">check</span></div><span class="option-label">Digital Commons Resolution</span></label>
                     <label class="option-card"><input type="checkbox" name="q_priorities" value="Financial privacy protections (CBDCs, surveillance concerns)"><div class="check-indicator"><span class="material-symbols-outlined">check</span></div><span class="option-label">Financial privacy protections</span></label>
                     <label class="option-card"><input type="checkbox" name="q_priorities" value="Public sector blockchain pilots (remittances, payments, recordkeeping)"><div class="check-indicator"><span class="material-symbols-outlined">check</span></div><span class="option-label">Public sector blockchain pilots</span></label>
-                    <label class="option-card"><input type="checkbox" name="q_priorities" value="None — blockchain policy should not be a state priority"><div class="check-indicator"><span class="material-symbols-outlined">check</span></div><span class="option-label">None — not a priority</span></label>
+                    <label class="option-card"><input type="checkbox" name="q_priorities" value="None — blockchain policy should not be a state priority"><div class="check-indicator"><span class="material-symbols-outlined">check</span></div><span class="option-label">None: not a priority</span></label>
                 </div>
             </div>
 
@@ -732,7 +777,7 @@
             <div class="survey-step" data-step="14">
                 <span class="section-badge">Final Thoughts</span>
                 <h2>Any additional comments or questions?</h2>
-                <div class="step-hint">Optional — feel free to skip</div>
+                <div class="step-hint">Optional</div>
                 <div class="contact-fields">
                     <div>
                         <textarea id="additionalComments" placeholder="Share any additional thoughts on Bitcoin or blockchain policy in Rhode Island..." rows="5"></textarea>
@@ -759,7 +804,7 @@
                 <span class="material-symbols-outlined">check</span>
             </div>
             <h2>Thank You, Legislator!</h2>
-            <p>Your responses have been recorded. RIBPI is a nonpartisan initiative — we value every perspective as we work to shape smart Bitcoin and blockchain policy for Rhode Island.</p>
+            <p>Your responses have been recorded. RIBPI is a nonpartisan initiative and values every perspective on Bitcoin and blockchain policy in Rhode Island.</p>
             <p>Our team may follow up to discuss specific policy areas in more detail.</p>
             <a href="index.html" class="btn-home">
                 Return to RIBPI.com
@@ -837,7 +882,7 @@
         function updateProgress() {
             var progress = ((currentStep - 1) / TOTAL_STEPS) * 100;
             progressFill.style.width = progress + '%';
-            stepIndicator.textContent = sectionLabels[currentStep - 1] + ' — ' + currentStep + ' of ' + TOTAL_STEPS;
+            stepIndicator.textContent = sectionLabels[currentStep - 1] + ', ' + currentStep + ' of ' + TOTAL_STEPS;
             percentComplete.textContent = Math.round(progress) + '% complete';
             prevBtn.style.visibility = currentStep === 1 ? 'hidden' : 'visible';
 

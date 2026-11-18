@@ -5,3 +5,8 @@
 .vscode/
 .idea/
 bill-status-changes.md
+
+# Design working files (not part of the published site)
+PRODUCT.md
+DESIGN.md
+.impeccable/

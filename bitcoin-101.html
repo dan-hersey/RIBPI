@@ -5,450 +5,204 @@
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-ZYM5XCY723"></script>
     <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag("js",new Date());gtag("config","G-ZYM5XCY723");</script>
     <meta charset="UTF-8">
-    <script>try{var t=localStorage.getItem("ribpi-theme")||(window.matchMedia&&matchMedia("(prefers-color-scheme: light)").matches?"light":"dark");document.documentElement.setAttribute("data-theme",t)}catch(e){}</script>
+    <script>try{var t=localStorage.getItem("ribpi-theme");if(t==="dark"||t==="light")document.documentElement.setAttribute("data-theme",t)}catch(e){}</script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Bitcoin 101 for Legislators - A nonpartisan guide to understanding Bitcoin and blockchain technology for Rhode Island policymakers.">
-    <meta name="keywords" content="Bitcoin, blockchain, Rhode Island, legislators, digital asset policy, virtual currency, sound money, RIBPI">
-    <meta property="og:title" content="Bitcoin 101 | RIBPI">
-    <meta property="og:description" content="A nonpartisan guide to understanding Bitcoin and blockchain technology for Rhode Island policymakers.">
-    <meta property="og:type" content="website">
-    <meta property="og:image" content="https://ribpi.com/images/ribpi-banner.png">
+    <meta name="description" content="A plain-language primer on Bitcoin for Rhode Island legislators and staff: what it is, how it works, mining and energy, and the questions committees ask most.">
     <meta name="theme-color" content="#062f5c">
-    <title>Bitcoin 101 | RIBPI</title>
-    <link rel="icon" type="image/jpeg" href="images/flavicon.jpg">
-    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/style.css">
-    <meta property="og:url" content="https://ribpi.com/bitcoin-101">
+    <meta property="og:title" content="Bitcoin 101 | RIBPI">
+    <meta property="og:description" content="A plain-language primer on Bitcoin for Rhode Island legislators and staff: what it is, how it works, mining and energy, and the questions committees ask most.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://ribpi.com/bitcoin-101.html">
+    <meta property="og:image" content="https://ribpi.com/images/ribpi-banner.png">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Bitcoin 101 | RIBPI">
-    <meta name="twitter:description" content="A nonpartisan guide to understanding Bitcoin and blockchain technology for Rhode Island policymakers.">
+    <meta name="twitter:description" content="A plain-language primer on Bitcoin for Rhode Island legislators and staff: what it is, how it works, mining and energy, and the questions committees ask most.">
     <meta name="twitter:image" content="https://ribpi.com/images/ribpi-banner.png">
     <meta name="twitter:site" content="@RIBTCPolicy">
-    <link rel="canonical" href="https://ribpi.com/bitcoin-101">
+    <link rel="canonical" href="https://ribpi.com/bitcoin-101.html">
+    <link rel="icon" type="image/jpeg" href="images/flavicon.jpg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Courier+Prime&family=STIX+Two+Text:ital,wght@0,400;0,600;0,700;1,400;1,600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/site.css">
+    <title>Bitcoin 101 | RIBPI</title>
 </head>
-<body class="dark-theme">
-    <a href="#main" class="skip-link">Skip to main content</a>
-    <nav class="nav-bar">
-        <div class="nav-content">
-            <a href="index.html" class="nav-logo">
-                <img src="images/ribpi-logo.png" alt="RIBPI Logo">
-            </a>
-            <ul class="nav-menu">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="about.html">About</a></li>
-                <li><a href="legislation.html">Legislation</a></li>
-                <li><a href="bitcoin-101.html" class="active">Bitcoin 101</a></li>
-                <li><a href="research.html">Research</a></li>
-                <li><a href="glossary.html">Glossary</a></li>
-                <li><a href="news.html">News</a></li>
-                <li><a href="contact.html">Contact</a></li>
+<body>
+    <a href="#main" class="skip">Skip to the text</a>
+    <header class="top">
+        <a href="index.html" class="logo"><img src="images/ribpi-logo-396.png" alt="Rhode Island Bitcoin Policy Initiative" width="132" height="52"></a>
+        <button class="menu-btn" data-menu aria-controls="site-nav" aria-expanded="false">Menu</button>
+        <nav class="nav" id="site-nav" aria-label="Site">
+            <a href="2027-agenda.html">2027 Agenda</a>
+            <a href="legislation.html">Legislation</a>
+            <a href="bitcoin-101.html" aria-current="page">Bitcoin 101</a>
+            <a href="research.html">Research</a>
+            <a href="glossary.html">Glossary</a>
+            <a href="news.html">News</a>
+            <a href="about.html">About</a>
+            <a href="contact.html">Contact</a>
+            <button class="theme" data-theme-toggle>Dark</button>
+        </nav>
+    </header>
+    <hr class="top-rule">
+    <div class="cal" data-calendar><b>2027 Legislative Session.</b> The General Assembly convenes January 5, 2027. The study commission&rsquo;s interim report is due the same day.</div>
+    <hr class="cal-rule">
+
+    <main class="doc" id="main">
+        <div class="dochead">
+            <div class="head">
+                <div class="org">Rhode Island Bitcoin Policy Initiative</div>
+                <hr>
+                <h1><span class="act">Bitcoin 101</span><span class="rel">A primer for legislators and staff on what Bitcoin is, how it works, and the questions committees ask most</span></h1>
+            </div>
+            <div class="docdate">Updated <span data-last-updated>November 17, 2026</span><br>About ten minutes to read</div>
+        </div>
+
+        <h2 class="chap">Part I. What Bitcoin is</h2>
+
+        <section class="sec">
+            <div class="lines">
+                <p><span class="run">SECTION 1. Digital money.</span> Bitcoin is a payment network, like Visa, and a form of money, like dollars or gold. It was created in 2009 and lets people send and receive value directly, without a bank in the middle. The network has settled more than $30 trillion in transactions over its lifetime.</p>
+                <p><span class="run">SECTION 2. No central operator.</span> No company or government runs Bitcoin. Every transaction can be checked on a public ledger kept by thousands of independent computers around the world.</p>
+                <p><span class="run">SECTION 3. A fixed supply.</span> The network&rsquo;s software limits the supply to 21 million coins, and that limit cannot change unless the people running the network agree to change it. This is why Bitcoin is often compared to gold.</p>
+            </div>
+            <aside class="note">
+                <p><b>A note on capitals.</b> We write Bitcoin with a capital B for the network and bitcoin in lowercase for the currency unit, the way one writes the Internet and internet traffic.</p>
+                <p>Unfamiliar term? See the <a href="glossary.html">glossary</a>.</p>
+            </aside>
+        </section>
+
+        <section class="sec gap">
+            <div class="scroll">
+                <table class="tbl stack">
+                    <caption>How Bitcoin compares with the dollar and with gold.</caption>
+                    <thead><tr><th></th><th>U.S. dollar</th><th>Gold</th><th>Bitcoin</th></tr></thead>
+                    <tbody>
+                        <tr><td>Supply</td><td>No fixed limit; set by the Federal Reserve</td><td>Limited, growing about 2% a year</td><td>Fixed at 21 million</td></tr>
+                        <tr><td>Issuer</td><td>Federal government</td><td>None; it is mined</td><td>None; a decentralized network</td></tr>
+                        <tr><td>Time to transfer</td><td>Hours to days</td><td>Days to weeks</td><td>Minutes</td></tr>
+                        <tr><td>Public record</td><td>Limited</td><td>None</td><td>Every transaction is public</td></tr>
+                        <tr><td>New supply</td><td>Varies with policy</td><td>About 2% a year from mining</td><td>Declines on a fixed schedule to zero</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <h2 class="chap">Part II. How it works</h2>
+
+        <section class="sec">
+            <div class="lines">
+                <p><span class="run">SECTION 4. Definitions.</span> As used in this primer:</p>
+                <ul>
+                    <li class="tight">(1) &ldquo;Wallet&rdquo; means software that stores the credentials for your bitcoin. It works like a bank account that you control directly.</li>
+                    <li class="tight">(2) &ldquo;Private key&rdquo; means the secret code that proves ownership and authorizes a transaction. It is like a PIN, secured by cryptography.</li>
+                    <li class="tight">(3) &ldquo;Blockchain&rdquo; means the public record of every transaction. It is permanent and cannot be quietly altered.</li>
+                    <li class="tight">(4) &ldquo;Mining&rdquo; means the computing work that verifies transactions, secures the network and issues new bitcoin.</li>
+                </ul>
+                <p><span class="run">SECTION 5. A transaction, step by step.</span></p>
+                <ul>
+                    <li class="tight">(a) Alice signs the transaction with her private key.</li>
+                    <li class="tight">(b) The transaction is broadcast to the network.</li>
+                    <li class="tight">(c) Miners verify that it is valid.</li>
+                    <li class="tight">(d) It is recorded on the blockchain permanently.</li>
+                    <li class="tight">(e) Bob receives the bitcoin, often within minutes.</li>
+                </ul>
+            </div>
+            <aside class="note">
+                <p><b>For legislators.</b> Because the ledger is public and permanent, Bitcoin is easier to trace than cash. Law enforcement agencies have solved major cases because the people involved used it.</p>
+            </aside>
+        </section>
+
+        <h2 class="chap">Part III. Mining and energy</h2>
+
+        <section class="sec">
+            <div class="lines">
+                <p><span class="run">SECTION 6. Security.</span> The cost of the computing work is what makes it uneconomic to attack or rewrite the network. Mining uses roughly 0.7 to 0.8 percent of the world&rsquo;s electricity, according to Cambridge data, and secures hundreds of billions of dollars in value.</p>
+                <p><span class="run">SECTION 7. Energy mix.</span> In its April 2025 report the Cambridge Centre for Alternative Finance found that 52.4 percent of mining ran on sustainable energy, 42.6 percent from renewables and 9.8 percent from nuclear. Earlier estimates were near 38 percent. Coal&rsquo;s share has fallen substantially over the same period.</p>
+                <p><span class="run">SECTION 8. The grid.</span> In Texas, the grid operator uses miners as flexible load. They shut down during peak demand and absorb cheap power during surpluses, and some run on gas that would otherwise be flared.</p>
+            </div>
+            <aside class="note">
+                <p>Source: <a href="https://www.jbs.cam.ac.uk/2025/cambridge-study-sustainable-energy-rising-in-bitcoin-mining/" target="_blank" rel="noopener noreferrer">Cambridge Digital Mining Industry Report</a>, April 2025.</p>
+            </aside>
+        </section>
+
+        <h2 class="chap">Part IV. Questions committees ask</h2>
+
+        <section class="sec">
+            <div class="lines">
+                <h3>Is Bitcoin mainly used for crime?</h3>
+                <p>Illicit activity accounts for less than 1 percent of Bitcoin transactions, and the dollar remains the main currency for money laundering. The public ledger helps investigators because it leaves a permanent record.</p>
+                <h3>Does Bitcoin waste energy?</h3>
+                <p>More than half of mining runs on sustainable energy, per the Cambridge figures above. A meaningful share uses energy that would otherwise go unused, such as flared gas and curtailed wind and solar.</p>
+                <h3>Is Bitcoin too volatile?</h3>
+                <p>Bitcoin is volatile, and it has become less so as the market has grown. It has produced positive returns over every completed four-year period in its history, though returns have moderated. BlackRock and Fidelity now offer Bitcoin products.</p>
+            </div>
+        </section>
+
+        <h2 class="chap">Part V. Why states are acting</h2>
+
+        <section class="sec">
+            <div class="lines">
+                <p><span class="run">SECTION 9. Business location.</span> Wyoming&rsquo;s blockchain laws drew Kraken&rsquo;s bank subsidiary, BitGo and dozens of financial technology firms to a state of 588,000 people. Rhode Island has roughly twice that population.</p>
+                <p><span class="run">SECTION 10. Tax clarity.</span> Every purchase made with bitcoin is a reportable capital gains event in Rhode Island, a $5 coffee included. RIBPI estimated that the 2026 exemption bill would have cost the state $500,000 to $2.5 million a year, under 0.04 percent of general revenue.</p>
+                <p><span class="run">SECTION 11. Digital property rights.</span> Wyoming&rsquo;s 2023 private key law, which passed its Senate <span class="nb">31&ndash;0</span>, is the model states use to protect a person&rsquo;s control of their own keys.</p>
+            </div>
+        </section>
+
+        <h2 class="chap">Part VI. What Rhode Island can do</h2>
+
+        <section class="sec">
+            <ul class="index">
+                <li><a href="2027-agenda.html#education">Educate the study commission</a><span class="when">S.2198 Sub A</span><small>The Senate created a ten-member commission on June 10, 2026. Its interim report is due January 5, 2027.</small></li>
+                <li><a href="2027-agenda.html#private-key">Protect private keys</a><span class="when">Returning in 2027</span><small>No compelled disclosure of a private key when a public key will do. Law in Wyoming and Utah.</small></li>
+                <li><a href="2027-agenda.html#de-minimis">Exempt small bitcoin payments</a><span class="when">Revised for 2027</span><small>Takes everyday purchases out of state income tax, as federal law already does for small foreign-currency purchases.</small></li>
+                <li><a href="2027-agenda.html#unclaimed">Hold unclaimed bitcoin as bitcoin</a><span class="when">New for 2027</span><small>So an owner who comes forward gets the asset back. Enacted in Virginia, Maine, Utah and Alabama in 2026.</small></li>
             </ul>
-            <button class="theme-toggle" data-theme-toggle aria-label="Switch color theme"><svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg><svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg></button>
-            <button class="hamburger-btn" data-hamburger aria-label="Toggle mobile menu">
-                <span></span><span></span><span></span>
-            </button>
-        </div>
-    </nav>
-    <nav class="mobile-nav" data-mobile-nav>
-        <ul>
-            <li><a href="index.html">Home</a></li>
-            <li><a href="about.html">About</a></li>
-            <li><a href="legislation.html">Legislation</a></li>
-            <li><a href="bitcoin-101.html" class="active">Bitcoin 101</a></li>
-            <li><a href="research.html">Research</a></li>
-            <li><a href="glossary.html">Glossary</a></li>
-            <li><a href="news.html">News</a></li>
-            <li><a href="contact.html">Contact</a></li>
-        </ul>
-    </nav>
-
-    <section class="hero" data-hero id="main">
-        <div class="hero-content">
-            <h1 class="hero-title">Bitcoin 101 for Legislators</h1>
-            <p class="hero-subtitle">Background a committee member can read in fifteen minutes. Plain English. Numbers cited. Written by RIBPI for the Rhode Island General Assembly.</p>
-        </div>
-    </section>
-
-    <main class="main-content">
-
-        <!-- What is Bitcoin Section -->
-        <section class="featured-bills-section" data-animate-on-scroll>
-            <div class="container">
-                <div class="section-header">
-                    <h2>What is Bitcoin?</h2>
-                    <p>A decentralized digital currency that lets people send and receive value directly — without a bank or intermediary</p>
-                </div>
-
-                <div class="bills-grid">
-                    <div class="card bill-card">
-                        <h3 class="card-title">Digital money</h3>
-                        <p class="card-description">A payment network like Visa, and a form of money like dollars or gold. Created in 2009. The network has settled more than $30 trillion in lifetime transaction volume.</p>
-                    </div>
-                    <div class="card bill-card">
-                        <h3 class="card-title">Decentralized</h3>
-                        <p class="card-description">No corporation or government runs Bitcoin. Every transaction is verifiable on a public ledger maintained by thousands of independent computers worldwide.</p>
-                    </div>
-                    <div class="card bill-card">
-                        <h3 class="card-title">Scarce by design</h3>
-                        <p class="card-description">The supply is fixed at 21 million coins by the network&rsquo;s own software rules. Cannot be changed without coordinated agreement from every participant. The reason it&rsquo;s often called &ldquo;digital gold.&rdquo;</p>
-                    </div>
-                </div>
-            </div>
         </section>
 
-        <!-- Comparison Table -->
-        <section class="featured-bills-section" data-animate-on-scroll>
-            <div class="container">
-                <div class="section-header">
-                    <h2>Bitcoin vs. Traditional Money</h2>
-                    <p>How Bitcoin compares to the US Dollar and gold</p>
-                </div>
-
-                <div class="state-table-wrap">
-                    <table class="state-table">
-                        <thead>
-                            <tr>
-                                <th></th>
-                                <th>US Dollar</th>
-                                <th>Gold</th>
-                                <th class="btc-col">Bitcoin</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td class="state-name">Supply</td>
-                                <td>Unlimited — controlled by Federal Reserve</td>
-                                <td>Limited but growing (~2% annually)</td>
-                                <td class="btc-col"><span class="st-status st-emerging">Fixed at 21M</span></td>
-                            </tr>
-                            <tr>
-                                <td class="state-name">Issuer</td>
-                                <td>Federal government</td>
-                                <td>Natural occurrence</td>
-                                <td class="btc-col">Decentralized network</td>
-                            </tr>
-                            <tr>
-                                <td class="state-name">Transfer Speed</td>
-                                <td>Hours to days</td>
-                                <td>Days to weeks</td>
-                                <td class="btc-col"><span class="st-status st-established">Minutes</span></td>
-                            </tr>
-                            <tr>
-                                <td class="state-name">Transparency</td>
-                                <td>Limited</td>
-                                <td>No public record</td>
-                                <td class="btc-col"><span class="st-status st-leading">Fully public</span></td>
-                            </tr>
-                            <tr>
-                                <td class="state-name">Inflation</td>
-                                <td>Subject to devaluation</td>
-                                <td>~2% from new mining</td>
-                                <td class="btc-col"><span class="st-status st-emerging">None — fixed supply</span></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
+        <section class="sec gap">
+            <div class="lines">
+                <p><span class="run">A 25-minute briefing.</span> For Rhode Island legislators and staff, Dan will walk through whichever bills matter most to your committee, in person at the State House or by phone.</p>
+                <p class="acts"><a class="go" href="mailto:dan@ribpi.com?subject=Briefing%20request">Email Dan for a briefing</a> <a class="go" href="research.html">Read the source documents</a></p>
             </div>
-        </section>
-
-        <!-- Why States Are Acting -->
-        <section class="featured-bills-section" data-animate-on-scroll>
-            <div class="container">
-                <div class="section-header">
-                    <h2>Why states are acting</h2>
-                    <p>The federal regulatory framework is taking shape. States that have already done the work attract investment first.</p>
-                </div>
-
-                <div class="bills-grid" style="grid-template-columns: 1fr 1fr;">
-                    <div class="card bill-card">
-                        <h3 class="card-title">Innovation capital</h3>
-                        <p class="card-description">Wyoming&rsquo;s blockchain framework pulled Kraken&rsquo;s bank subsidiary, BitGo, and dozens of fintech firms into a state of 588K people. Rhode Island has roughly twice the population. Wyoming pivoted with sustained policy work; RI&rsquo;s six 2026 bills are the start of similar work.</p>
-                    </div>
-                    <div class="card bill-card">
-                        <h3 class="card-title">Tax clarity</h3>
-                        <p class="card-description">Every Bitcoin transaction currently triggers a capital-gains reportable event in RI &mdash; a $5 coffee included. Clarity here costs the state $500K&ndash;$2.5M annually (under 0.04% of general revenue) and removes the friction that prevents Bitcoin from working as everyday money.</p>
-                    </div>
-                    <div class="card bill-card">
-                        <h3 class="card-title">Digital property rights</h3>
-                        <p class="card-description">A central bank digital currency would let the federal government freeze any citizen&rsquo;s account programmatically. Wyoming&rsquo;s 2023 private-key protection law (Senate 31&ndash;0) is the model states use to preempt that capacity at the property-rights level.</p>
-                    </div>
-                    <div class="card bill-card">
-                        <h3 class="card-title">Energy and grid</h3>
-                        <p class="card-description">Bitcoin mining as flexible load is being used to monetize curtailed wind in Texas and stranded gas in Montana and North Dakota. Rhode Island&rsquo;s offshore wind buildout creates the same curtailment problem; mining co-location is one of the few demand-response tools available at scale.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- How Bitcoin Works -->
-        <section class="featured-bills-section" data-animate-on-scroll>
-            <div class="container">
-                <div class="section-header">
-                    <h2>How Bitcoin Works</h2>
-                    <p>Bitcoin runs on blockchain — a public ledger maintained by thousands of computers worldwide</p>
-                </div>
-
-                <div class="b101-basics-grid">
-                    <div class="b101-basics-card">
-                        <span class="b101-basics-num">01</span>
-                        <h3>Wallets</h3>
-                        <p>Software that stores your Bitcoin credentials — like a digital bank account you control directly.</p>
-                    </div>
-                    <div class="b101-basics-card">
-                        <span class="b101-basics-num">02</span>
-                        <h3>Private Keys</h3>
-                        <p>Secret codes that prove ownership and authorize transactions — like a PIN, but cryptographically secure.</p>
-                    </div>
-                    <div class="b101-basics-card">
-                        <span class="b101-basics-num">03</span>
-                        <h3>Blockchain</h3>
-                        <p>The public record of all transactions — transparent, permanent, and tamper-proof.</p>
-                    </div>
-                    <div class="b101-basics-card">
-                        <span class="b101-basics-num">04</span>
-                        <h3>Mining</h3>
-                        <p>The process that verifies transactions, secures the network, and creates new Bitcoin through computational work.</p>
-                    </div>
-                </div>
-
-                <div class="key-point" style="margin-top: var(--spacing-2xl);">
-                    <h4>Why This Matters for Legislators</h4>
-                    <p>Bitcoin's transparent blockchain actually makes it <strong>easier</strong> to trace transactions than cash. Law enforcement agencies have solved major cases specifically because criminals used Bitcoin, which leaves a permanent public record.</p>
-                </div>
-
-                <!-- Transaction Flow -->
-                <div class="b101-flow">
-                    <h3 style="text-align:center; margin-bottom: var(--spacing-lg); color: var(--text-primary);">How a Transaction Works</h3>
-                    <div class="b101-flow-steps">
-                        <div class="b101-step">
-                            <span class="b101-step-num">1</span>
-                            <p>Alice signs the transaction with her private key</p>
-                        </div>
-                        <div class="b101-step-arrow">→</div>
-                        <div class="b101-step">
-                            <span class="b101-step-num">2</span>
-                            <p>Transaction broadcasts to the network</p>
-                        </div>
-                        <div class="b101-step-arrow">→</div>
-                        <div class="b101-step">
-                            <span class="b101-step-num">3</span>
-                            <p>Miners verify the transaction is valid</p>
-                        </div>
-                        <div class="b101-step-arrow">→</div>
-                        <div class="b101-step">
-                            <span class="b101-step-num">4</span>
-                            <p>Recorded on the blockchain permanently</p>
-                        </div>
-                        <div class="b101-step-arrow">→</div>
-                        <div class="b101-step">
-                            <span class="b101-step-num">5</span>
-                            <p>Bob receives Bitcoin — often in minutes</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Mining Section -->
-        <section class="featured-bills-section" data-animate-on-scroll>
-            <div class="container">
-                <div class="section-header">
-                    <h2>Mining & Energy</h2>
-                    <p>How Bitcoin's security model works — and why the energy narrative is changing</p>
-                </div>
-
-                <div class="bills-grid">
-                    <div class="card bill-card">
-                        <h3 class="card-title">Security</h3>
-                        <p class="card-description">Mining&rsquo;s computational cost is what makes attacking or rewriting the network economically infeasible. Roughly 0.7&ndash;0.8% of global electricity, per Cambridge data, secures hundreds of billions in value.</p>
-                    </div>
-                    <div class="card bill-card">
-                        <h3 class="card-title">Sustainable energy</h3>
-                        <p class="card-description">52.4% of mining ran on sustainable energy in 2025 (Cambridge Centre for Alternative Finance, April 2025), up from earlier estimates near 38%. Coal share has dropped substantially over the same period.</p>
-                    </div>
-                    <div class="card bill-card">
-                        <h3 class="card-title">Grid stability</h3>
-                        <p class="card-description">Texas ERCOT uses miners as flexible load: they shut down during peak demand events and absorb cheap power during surpluses, smoothing the grid for everyone else.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Myth vs Fact Section -->
-        <section class="featured-bills-section" data-animate-on-scroll>
-            <div class="container">
-                <div class="section-header">
-                    <h2>Myth vs. Fact</h2>
-                    <p>Addressing the concerns legislators most frequently raise</p>
-                </div>
-
-                <div class="mvf-grid">
-                    <div class="mvf-card">
-                        <div class="mvf-myth">
-                            <span class="mvf-label mvf-label--myth">Myth</span>
-                            <p>"Bitcoin is mainly used for crime"</p>
-                        </div>
-                        <div class="mvf-fact">
-                            <span class="mvf-label mvf-label--fact">Fact</span>
-                            <p>Illicit activity represents less than 1% of Bitcoin transactions. The US dollar remains the dominant currency for money laundering. Bitcoin's transparent ledger actually <strong>helps</strong> law enforcement — it leaves a permanent public record.</p>
-                        </div>
-                    </div>
-
-                    <div class="mvf-card">
-                        <div class="mvf-myth">
-                            <span class="mvf-label mvf-label--myth">Myth</span>
-                            <p>"Bitcoin wastes energy"</p>
-                        </div>
-                        <div class="mvf-fact">
-                            <span class="mvf-label mvf-label--fact">Fact</span>
-                            <p>52.4% of Bitcoin mining runs on sustainable energy as of early 2025 per the <a href="https://www.jbs.cam.ac.uk/2025/cambridge-study-sustainable-energy-rising-in-bitcoin-mining/" target="_blank" rel="noopener noreferrer">Cambridge Centre for Alternative Finance Digital Mining Industry Report (April 2025)</a> — 42.6% from renewables and 9.8% from nuclear. A significant share of mining uses stranded energy &mdash; flared gas, curtailed renewables &mdash; that would otherwise be wasted.</p>
-                        </div>
-                    </div>
-
-                    <div class="mvf-card">
-                        <div class="mvf-myth">
-                            <span class="mvf-label mvf-label--myth">Myth</span>
-                            <p>"Bitcoin is too volatile"</p>
-                        </div>
-                        <div class="mvf-fact">
-                            <span class="mvf-label mvf-label--fact">Fact</span>
-                            <p>Bitcoin has produced positive returns over every completed 4-year rolling window in its history, though returns have moderated as the asset has matured. Realized volatility has steadily declined as market cap and adoption have grown &mdash; daily 10%+ moves are far less common than a decade ago. Major institutions like BlackRock and Fidelity now offer Bitcoin products.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- What Can RI Do Section -->
-        <section class="featured-bills-section" data-animate-on-scroll>
-            <div class="container">
-                <div class="section-header">
-                    <h2>What Can Rhode Island Do?</h2>
-                    <p>What RIBPI is working on for the 2027 session</p>
-                </div>
-
-                <div class="bills-grid">
-                    <a href="2027-agenda.html#education" class="card bill-card">
-                        <div class="bill-detail-header" style="margin-bottom: var(--spacing-md);">
-                            <span class="bill-numbers">S.2198 Sub A</span>
-                        </div>
-                        <h3 class="card-title">Study commission</h3>
-                        <p class="card-description">The Senate created a ten-member commission to study blockchain and cryptocurrency on June 10, 2026. Its interim report is due January 5, 2027. Educating its members and other lawmakers is RIBPI&rsquo;s first priority.</p>
-                    </a>
-                    <a href="2027-agenda.html#private-key" class="card bill-card">
-                        <div class="bill-detail-header" style="margin-bottom: var(--spacing-md);">
-                            <span class="bill-numbers">Returning in 2027</span>
-                        </div>
-                        <h3 class="card-title">Private key protection</h3>
-                        <p class="card-description">Prohibits compelled disclosure of private cryptographic keys when a public key suffices. Modeled on Wyoming&rsquo;s 2023 law (Senate 31&ndash;0) and Utah&rsquo;s 2024 law (House 72&ndash;0).</p>
-                    </a>
-                    <a href="2027-agenda.html#de-minimis" class="card bill-card">
-                        <div class="bill-detail-header" style="margin-bottom: var(--spacing-md);">
-                            <span class="bill-numbers">Revised for 2027</span>
-                        </div>
-                        <h3 class="card-title">Payments de minimis</h3>
-                        <p class="card-description">Takes small everyday purchases made with bitcoin out of state income tax, the way federal law already treats small purchases made in a foreign currency.</p>
-                    </a>
-                    <a href="2027-agenda.html#unclaimed" class="card bill-card">
-                        <div class="bill-detail-header" style="margin-bottom: var(--spacing-md);">
-                            <span class="bill-numbers">New for 2027</span>
-                        </div>
-                        <h3 class="card-title">Unclaimed digital assets</h3>
-                        <p class="card-description">Abandoned bitcoin would reach the General Treasurer as bitcoin, so an owner who comes forward gets the asset back. Virginia, Maine, Utah and Alabama enacted this in 2026.</p>
-                    </a>
-                </div>
-
-                <div class="key-point" style="margin-top: var(--spacing-2xl);">
-                    <h4>Why Act Now?</h4>
-                    <p>Rhode Island ranks 46th on CNBC's 2025 America's Top States for Business (tied with Louisiana) and 40th on the Tax Foundation 2026 State Tax Competitiveness Index. RIPEC projects a five-year structural deficit of $537M. Bitcoin and digital asset policy is one of the few areas where a small state can lead and where Rhode Island already has a head start through the Department of Business Regulation's existing virtual currency licensing.</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- Resources -->
-        <section class="featured-bills-section resources-section" data-animate-on-scroll>
-            <div class="container">
-                <div class="section-header">
-                    <h2>Further Resources</h2>
-                    <p>Trusted sources for learning more about Bitcoin and blockchain policy</p>
-                </div>
-
-                <div class="resources-grid">
-                    <a href="https://bitcoin.org" target="_blank" rel="noopener noreferrer" class="resource-card">
-                        <div class="resource-icon"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v12M9 9h4.5a2.5 2.5 0 010 5H9"/></svg></div>
-                        <h3 class="resource-title">bitcoin.org</h3>
-                        <p class="resource-desc">Official Bitcoin documentation and resources</p>
-                        <span class="resource-arrow">→</span>
-                    </a>
-                    <a href="glossary.html" class="resource-card">
-                        <div class="resource-icon"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/><path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/></svg></div>
-                        <h3 class="resource-title">RIBPI Glossary</h3>
-                        <p class="resource-desc">Bitcoin and blockchain terminology guide</p>
-                        <span class="resource-arrow">→</span>
-                    </a>
-                    <a href="legislation.html" class="resource-card">
-                        <div class="resource-icon"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/></svg></div>
-                        <h3 class="resource-title">Our Legislation</h3>
-                        <p class="resource-desc">Track active bills in the RI General Assembly</p>
-                        <span class="resource-arrow">→</span>
-                    </a>
-                </div>
-            </div>
-        </section>
-
-        <!-- CTA Section -->
-        <section class="cta-section" data-animate-on-scroll>
-            <div class="container">
-                <div class="section-header">
-                    <h2>Need a 25-minute briefing?</h2>
-                    <p>For Rhode Island legislators and staff: Dan walks through whichever 2026 bills are most relevant to your committee. In person at the State House or by phone.</p>
-                </div>
-                <div class="cta-buttons">
-                    <a href="mailto:dan@ribpi.com?subject=Briefing%20request" class="btn btn-primary">
-                        Email Dan for a briefing
-                        <span class="link-arrow">&rarr;</span>
-                    </a>
-                    <a href="research.html" class="btn btn-secondary">
-                        Read the source documents
-                        <span class="link-arrow">&rarr;</span>
-                    </a>
-                </div>
-            </div>
+            <aside class="note">
+                <p><b>Further reading</b></p>
+                <ul>
+                    <li><a href="https://bitcoin.org" target="_blank" rel="noopener noreferrer">bitcoin.org</a></li>
+                    <li><a href="glossary.html">RIBPI glossary</a></li>
+                    <li><a href="legislation.html">Legislation record</a></li>
+                </ul>
+            </aside>
         </section>
     </main>
 
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-grid">
-                <div class="footer-section footer-brand">
-                    <span class="footer-name">RIBPI</span>
-                    <p class="footer-tagline">Small state, big ideas. Bitcoin = money.</p>
-                    <p class="footer-sub" style="font-size: 0.78rem; color: var(--text-tertiary); margin-top: 6px;">Rhode Island Bitcoin Policy Initiative &middot; Research &amp; Education &middot; &copy; 2026</p>
-                </div>
-                <div class="footer-section footer-links">
-                    <h4>Sitemap</h4>
-                    <ul>
-                        <li><a href="index.html">Home</a></li>
-                        <li><a href="about.html">About</a></li>
-                        <li><a href="legislation.html">Legislation</a></li>
-                        <li><a href="bitcoin-101.html">Bitcoin 101</a></li>
-                        <li><a href="research.html">Research</a></li>
-                        <li><a href="glossary.html">Glossary</a></li>
-                        <li><a href="news.html">News</a></li>
-                        <li><a href="contact.html">Contact</a></li>
-                    </ul>
-                </div>
-                <div class="footer-section footer-contact">
-                    <h4>Contact</h4>
-                    <ul>
-                        <li><a href="mailto:dan@ribpi.com">dan@ribpi.com</a></li>
-                        <li><a href="https://x.com/RIBTCPolicy" target="_blank" rel="noopener noreferrer">@RIBTCPolicy</a></li>
-                    </ul>
-                </div>
+    <footer class="end">
+        <hr class="end-rule">
+        <div class="end-grid">
+            <div>
+                <b>Rhode Island Bitcoin Policy Initiative.</b> Nonpartisan research and education on Bitcoin and digital asset policy at the Rhode Island General Assembly, founded in 2025 by Dan Hersey. Small state, big ideas. Bitcoin = money.
+                <nav aria-label="Footer">
+                    <a href="index.html">Home</a>
+                    <a href="2027-agenda.html">2027 Agenda</a>
+                    <a href="legislation.html">Legislation</a>
+                    <a href="bitcoin-101.html">Bitcoin 101</a>
+                    <a href="research.html">Research</a>
+                    <a href="glossary.html">Glossary</a>
+                    <a href="news.html">News</a>
+                    <a href="about.html">About</a>
+                    <a href="contact.html">Contact</a>
+                    <a href="2026-session.html">2026 record</a>
+                </nav>
+            </div>
+            <div>
+                <a href="mailto:dan@ribpi.com">dan@ribpi.com</a><br>
+                <a href="https://x.com/RIBTCPolicy" target="_blank" rel="noopener noreferrer">@RIBTCPolicy</a> on X
+                <div class="pg">ribpi.com/bitcoin-101 &middot; &copy; 2026</div>
             </div>
         </div>
     </footer>
 
-    <script defer src="js/main.js"></script>
+    <script src="js/bills-data.js"></script>
+    <script src="js/site.js"></script>
 </body>
 </html>

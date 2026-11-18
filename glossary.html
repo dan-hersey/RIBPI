@@ -5,381 +5,133 @@
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-ZYM5XCY723"></script>
     <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag("js",new Date());gtag("config","G-ZYM5XCY723");</script>
     <meta charset="UTF-8">
-    <script>try{var t=localStorage.getItem("ribpi-theme")||(window.matchMedia&&matchMedia("(prefers-color-scheme: light)").matches?"light":"dark");document.documentElement.setAttribute("data-theme",t)}catch(e){}</script>
+    <script>try{var t=localStorage.getItem("ribpi-theme");if(t==="dark"||t==="light")document.documentElement.setAttribute("data-theme",t)}catch(e){}</script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Bitcoin and Blockchain Glossary for Rhode Island legislators - Quick reference guide to key terms and concepts.">
-    <meta name="keywords" content="glossary, Bitcoin, blockchain, cryptocurrency, terminology, definitions">
-    <meta property="og:title" content="Glossary | RIBPI">
-    <meta property="og:description" content="Bitcoin and Blockchain Glossary - A quick reference guide to key terms for Rhode Island policymakers.">
-    <meta property="og:type" content="website">
-    <meta property="og:image" content="https://ribpi.com/images/ribpi-banner.png">
+    <meta name="description" content="Plain-language definitions of the Bitcoin and digital asset terms that come up in Rhode Island legislation, with notes on how each one matters for policy.">
     <meta name="theme-color" content="#062f5c">
-    <title>Bitcoin & Blockchain Glossary | RIBPI</title>
-    <link rel="icon" type="image/jpeg" href="images/flavicon.jpg">
-    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/style.css">
-    <meta property="og:url" content="https://ribpi.com/glossary">
+    <meta property="og:title" content="Glossary | RIBPI">
+    <meta property="og:description" content="Plain-language definitions of the Bitcoin and digital asset terms that come up in Rhode Island legislation, with notes on how each one matters for policy.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://ribpi.com/glossary.html">
+    <meta property="og:image" content="https://ribpi.com/images/ribpi-banner.png">
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Bitcoin & Blockchain Glossary | RIBPI">
-    <meta name="twitter:description" content="Quick reference guide to Bitcoin and blockchain terminology for Rhode Island legislators.">
+    <meta name="twitter:title" content="Glossary | RIBPI">
+    <meta name="twitter:description" content="Plain-language definitions of the Bitcoin and digital asset terms that come up in Rhode Island legislation, with notes on how each one matters for policy.">
     <meta name="twitter:image" content="https://ribpi.com/images/ribpi-banner.png">
     <meta name="twitter:site" content="@RIBTCPolicy">
-    <link rel="canonical" href="https://ribpi.com/glossary">
+    <link rel="canonical" href="https://ribpi.com/glossary.html">
+    <link rel="icon" type="image/jpeg" href="images/flavicon.jpg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Courier+Prime&family=STIX+Two+Text:ital,wght@0,400;0,600;0,700;1,400;1,600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/site.css">
+    <title>Glossary | RIBPI</title>
 </head>
-<body class="dark-theme">
-    <a href="#main" class="skip-link">Skip to main content</a>
-    <nav class="nav-bar">
-        <div class="nav-content">
-            <a href="index.html" class="nav-logo">
-                <img src="images/ribpi-logo.png" alt="RIBPI Logo">
-            </a>
-            <ul class="nav-menu">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="about.html">About</a></li>
-                <li><a href="legislation.html">Legislation</a></li>
-                <li><a href="bitcoin-101.html">Bitcoin 101</a></li>
-                <li><a href="research.html">Research</a></li>
-                <li><a href="glossary.html" class="active">Glossary</a></li>
-                <li><a href="news.html">News</a></li>
-                <li><a href="contact.html">Contact</a></li>
-            </ul>
-            <button class="theme-toggle" data-theme-toggle aria-label="Switch color theme"><svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg><svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg></button>
-            <button class="hamburger-btn" data-hamburger aria-label="Toggle mobile menu">
-                <span></span><span></span><span></span>
-            </button>
-        </div>
-    </nav>
-    <nav class="mobile-nav" data-mobile-nav>
-        <ul>
-            <li><a href="index.html">Home</a></li>
-            <li><a href="about.html">About</a></li>
-            <li><a href="legislation.html">Legislation</a></li>
-            <li><a href="bitcoin-101.html">Bitcoin 101</a></li>
-            <li><a href="research.html">Research</a></li>
-            <li><a href="glossary.html" class="active">Glossary</a></li>
-            <li><a href="news.html">News</a></li>
-            <li><a href="contact.html">Contact</a></li>
-        </ul>
-    </nav>
+<body>
+    <a href="#main" class="skip">Skip to the text</a>
+    <header class="top">
+        <a href="index.html" class="logo"><img src="images/ribpi-logo-396.png" alt="Rhode Island Bitcoin Policy Initiative" width="132" height="52"></a>
+        <button class="menu-btn" data-menu aria-controls="site-nav" aria-expanded="false">Menu</button>
+        <nav class="nav" id="site-nav" aria-label="Site">
+            <a href="2027-agenda.html">2027 Agenda</a>
+            <a href="legislation.html">Legislation</a>
+            <a href="bitcoin-101.html">Bitcoin 101</a>
+            <a href="research.html">Research</a>
+            <a href="glossary.html" aria-current="page">Glossary</a>
+            <a href="news.html">News</a>
+            <a href="about.html">About</a>
+            <a href="contact.html">Contact</a>
+            <button class="theme" data-theme-toggle>Dark</button>
+        </nav>
+    </header>
+    <hr class="top-rule">
+    <div class="cal" data-calendar><b>2027 Legislative Session.</b> The General Assembly convenes January 5, 2027. The study commission&rsquo;s interim report is due the same day.</div>
+    <hr class="cal-rule">
 
-    <section class="hero" data-hero id="main">
-        <div class="hero-content">
-            <h1 class="hero-title">Glossary</h1>
-            <p class="hero-subtitle">Bitcoin and digital asset terminology used in Rhode Island legislative materials. Plain English. With policy notes where the term shows up in current bills.</p>
-        </div>
-    </section>
-
-    <main class="main">
-        <div class="search-container">
-            <label for="searchInput" class="sr-only">Search glossary terms</label>
-            <input type="text" class="search-input" id="searchInput" placeholder="Search a term…" aria-label="Search glossary terms">
+    <main class="doc" id="main">
+        <div class="dochead">
+            <div class="head">
+                <div class="org">Rhode Island Bitcoin Policy Initiative</div>
+                <hr>
+                <h1><span class="act">Glossary</span><span class="rel">Relating to the terms used in Bitcoin and digital asset policy</span></h1>
+            </div>
+            <div class="docdate">Updated <span data-last-updated>November 17, 2026</span><br>22 terms</div>
         </div>
 
-        <div class="category-filters">
-            <button class="filter-btn active" data-category="all">All Terms</button>
-            <button class="filter-btn" data-category="basics">Basics</button>
-            <button class="filter-btn" data-category="technical">Technical</button>
-            <button class="filter-btn" data-category="financial">Financial</button>
-            <button class="filter-btn" data-category="policy">Policy & Legal</button>
-        </div>
-        <p class="filter-count" id="glossaryCount" aria-live="polite"></p>
-
-        <div class="alphabet-nav">
-            <a href="#section-B">B</a>
-            <a href="#section-C">C</a>
-            <a href="#section-D">D</a>
-            <a href="#section-H">H</a>
-            <a href="#section-M">M</a>
-            <a href="#section-P">P</a>
-            <a href="#section-S">S</a>
-            <a href="#section-T">T</a>
-            <a href="#section-W">W</a>
-        </div>
-
-        <!-- B Section -->
-        <div class="glossary-grid" id="section-B">
-            <h2>B</h2>
-
-            <div class="glossary-item" data-category="basics" data-terms="bitcoin btc cryptocurrency digital currency">
-                <div class="term-name">Bitcoin (BTC)</div>
-                <span class="term-category">Basics</span>
-                <p class="term-definition">A decentralized digital currency that enables peer-to-peer transactions without intermediaries. Created in 2009 by the pseudonymous Satoshi Nakamoto, Bitcoin has a fixed supply of 21 million coins.</p>
-                <div class="term-example"><strong>Analogy:</strong> Bitcoin is like digital gold—scarce, durable, and not controlled by any government, but it can be sent anywhere in the world instantly.</div>
+        <section class="sec">
+            <div class="form">
+                <label for="term-search">Search the definitions
+                    <input type="search" id="term-search" placeholder="For example, private key" data-filter-search="#terms" autocomplete="off">
+                </label>
+                <div class="filters" data-filter-group="#terms" role="group" aria-label="Filter definitions">
+                    <button data-filter="all" aria-pressed="true">All terms</button>
+                    <button data-filter="basics" aria-pressed="false">Basics</button>
+                    <button data-filter="technical" aria-pressed="false">Technical</button>
+                    <button data-filter="financial" aria-pressed="false">Financial</button>
+                    <button data-filter="policy" aria-pressed="false">Policy and legal</button>
+                </div>
             </div>
+        </section>
 
-            <div class="glossary-item" data-category="technical" data-terms="blockchain distributed ledger technology dlt">
-                <div class="term-name">Blockchain</div>
-                <span class="term-category">Technical</span>
-                <p class="term-definition">A distributed digital ledger that records transactions across many computers. Each "block" contains multiple transactions and is cryptographically linked to the previous block, creating an immutable chain.</p>
-                <div class="term-example"><strong>Analogy:</strong> Imagine a public notebook that everyone can read, where each page is numbered and sealed, and you can only add new pages—never erase or change old ones.</div>
+        <section class="sec gap">
+            <div class="lines">
+                <p>As used on this site:</p>
+                <ol class="defs" id="terms">
+                    <li data-category="basics" data-terms="bitcoin btc cryptocurrency digital currency"><b>&ldquo;Bitcoin&rdquo; (BTC)</b> means a decentralized digital currency that lets people transact directly, without an intermediary. It was created in 2009 by the pseudonymous Satoshi Nakamoto and has a fixed supply of 21 million coins. <span class="gl">It is often compared to gold: scarce, durable and not controlled by any government, but able to be sent anywhere in minutes.</span></li>
+                    <li data-category="technical" data-terms="block reward mining subsidy halving"><b>&ldquo;Block reward&rdquo;</b> means the new bitcoin paid to the miner who adds a block. It is cut in half about every four years. <span class="gl">The reward has been 3.125 BTC per block since April 2024 and will fall to about 1.56 BTC in 2028.</span></li>
+                    <li data-category="technical" data-terms="blockchain distributed ledger technology dlt"><b>&ldquo;Blockchain&rdquo;</b> means a digital ledger that records transactions across many computers. Each block holds a set of transactions and is cryptographically linked to the one before it, so the chain cannot be altered after the fact. <span class="gl">Picture a public notebook that anyone can read, where pages are numbered and sealed and new pages can be added but old ones cannot be changed.</span></li>
+                    <li data-category="financial" data-terms="cold storage cold wallet offline storage hardware wallet"><b>&ldquo;Cold storage&rdquo;</b> or <b>&ldquo;cold wallet&rdquo;</b> means keeping bitcoin offline, disconnected from the internet, to protect it from hacking, usually on a dedicated hardware device. <span class="gl">It is like keeping gold in a safe deposit box and not in your pocket.</span></li>
+                    <li data-category="basics" data-terms="cryptocurrency crypto digital asset altcoin"><b>&ldquo;Cryptocurrency&rdquo;</b> means any digital currency that uses cryptography for security. Bitcoin was the first, and thousands of others have followed. Most differ from Bitcoin in supply, decentralization, governance and security. <span class="gl">RIBPI usage: we say &ldquo;Bitcoin&rdquo; and &ldquo;digital assets&rdquo; and avoid &ldquo;crypto&rdquo; as a catch-all, because a fixed-supply decentralized network raises different policy questions than a corporate token or a stablecoin.</span></li>
+                    <li data-category="policy" data-terms="custodian qualified custodian institutional custody"><b>&ldquo;Custodian&rdquo;</b> or <b>&ldquo;qualified custodian&rdquo;</b> means a financial institution that holds and safeguards assets for clients. For bitcoin, qualified custodians such as Coinbase Custody, Fidelity Digital Assets and Anchorage provide institutional security, insurance and regulatory compliance. <span class="gl">Policy note: reserve and unclaimed property laws usually require that digital assets be held by a qualified custodian.</span></li>
+                    <li data-category="technical" data-terms="decentralized decentralization distributed no central authority"><b>&ldquo;Decentralized&rdquo;</b> means operating without a central authority or single point of control. Bitcoin is maintained by thousands of independent computers, called nodes, around the world. <span class="gl">A bank keeps one set of books. With Bitcoin, everyone in town keeps their own copy.</span></li>
+                    <li data-category="basics" data-terms="digital asset virtual asset token"><b>&ldquo;Digital asset&rdquo;</b> means any asset that exists in digital form, including Bitcoin, other cryptocurrencies, stablecoins, NFTs and tokenized securities. <span class="gl">Policy note: legislation often uses the term as a catch-all, and some bills narrow it with requirements such as a minimum market capitalization.</span></li>
+                    <li data-category="technical" data-terms="halving halvening bitcoin supply schedule"><b>&ldquo;Halving&rdquo;</b> means the event, about every four years, when the block reward is cut in half, slowing the creation of new bitcoin. The most recent was in April 2024. <span class="gl">The reward went from 50 BTC in 2009 to 25 in 2012, 12.5 in 2016, 6.25 in 2020 and 3.125 in 2024.</span></li>
+                    <li data-category="technical" data-terms="hash rate hashrate mining power computational power"><b>&ldquo;Hash rate&rdquo;</b> means the total computing power being used to mine and process Bitcoin transactions, measured in hashes per second. A higher hash rate means a more secure network.</li>
+                    <li data-category="financial" data-terms="hot wallet online wallet exchange wallet"><b>&ldquo;Hot wallet&rdquo;</b> means a wallet connected to the internet. It allows quick transactions and carries more risk than cold storage. <span class="gl">It is the cash in your pocket, as opposed to money in a vault.</span></li>
+                    <li data-category="technical" data-terms="mining miner proof of work pow bitcoin mining"><b>&ldquo;Mining&rdquo;</b> means the process by which transactions are verified and added to the blockchain. Miners run specialized computers to solve a mathematical problem, and the first to solve it adds the next block and receives the block reward. <span class="gl">Energy note: 52.4 percent of mining ran on sustainable energy in early 2025, 42.6 percent renewables and 9.8 percent nuclear, according to the Cambridge Centre for Alternative Finance (April 2025).</span></li>
+                    <li data-category="policy" data-terms="money transmitter mtl money services business msb"><b>&ldquo;Money transmitter&rdquo;</b> means a business that transfers money or monetary value for the public. Exchanges and some Bitcoin businesses may be classified as money transmitters and need a state license. <span class="gl">Policy note: Rhode Island&rsquo;s 2025 kiosk law requires kiosk operators to be licensed. See <a href="legislation.html#bill-h5121">Legislation</a>.</span></li>
+                    <li data-category="technical" data-terms="private key secret key cryptographic key ownership"><b>&ldquo;Private key&rdquo;</b> means the secret cryptographic code that proves ownership of bitcoin and authorizes transactions. Whoever controls the private key controls the bitcoin, so it must be kept secure and never shared. <span class="gl">Policy note: the Private Key Protection Act would protect Rhode Islanders from being compelled to disclose one. See the <a href="2027-agenda.html#private-key">2027 agenda</a>.</span></li>
+                    <li data-category="technical" data-terms="proof of work pow consensus mechanism security"><b>&ldquo;Proof of work&rdquo; (PoW)</b> means the mechanism Bitcoin uses to validate transactions and secure the network. Miners must spend computing energy to add a block, which makes attacking the network extremely costly.</li>
+                    <li data-category="technical" data-terms="public key address bitcoin address receive"><b>&ldquo;Public key&rdquo;</b> or <b>&ldquo;address&rdquo;</b> means a code derived from the private key that can be shared in order to receive bitcoin. <span class="gl">It is like a mailing address: people can send you things with it, but it does not let them into your house.</span></li>
+                    <li data-category="policy" data-terms="spdi special purpose depository institution crypto bank"><b>&ldquo;Special purpose depository institution&rdquo; (SPDI)</b> means a bank charter designed for digital asset businesses, which must hold 100 percent liquid reserves. Wyoming and Nebraska offer it. <span class="gl">Policy note: H.7413 would have created the charter in Rhode Island. See the <a href="2026-session.html#bill-h7413">2026 record</a>.</span></li>
+                    <li data-category="financial" data-terms="stablecoin usdc usdt tether dollar-pegged"><b>&ldquo;Stablecoin&rdquo;</b> means a digital currency designed to hold a stable value, usually one U.S. dollar. USDC and Tether (USDT) are examples. <span class="gl">Stablecoins are issued by companies and backed by traditional assets. They are not decentralized the way Bitcoin is.</span></li>
+                    <li data-category="policy" data-terms="strategic bitcoin reserve sbr state reserve treasury"><b>&ldquo;Strategic Bitcoin Reserve&rdquo; (SBR)</b> means a state or national holding of bitcoin kept as a reserve asset, as gold is. Texas, New Hampshire and Arizona passed reserve laws in 2025, and a federal reserve was established by executive order in March 2025. <span class="gl">Policy note: these laws usually cap the allocation, set custody requirements and limit eligible assets by market capitalization.</span></li>
+                    <li data-category="financial" data-terms="tokenization real world assets rwa securities"><b>&ldquo;Tokenization&rdquo;</b> means representing real-world assets such as real estate, stocks or bonds as digital tokens on a blockchain, which allows fractional ownership and easier transfer. <span class="gl">A $10 million building could be divided into 10,000 tokens.</span></li>
+                    <li data-category="policy" data-terms="unclaimed property escheat abandoned native form"><b>&ldquo;Unclaimed property&rdquo;</b> means property a business must turn over to the General Treasurer after the owner has been out of contact for a set period. <span class="gl">Policy note: the Unclaimed Digital Assets Act would have abandoned bitcoin delivered as bitcoin. See the <a href="2027-agenda.html#unclaimed">2027 agenda</a>.</span></li>
+                    <li data-category="basics" data-terms="wallet bitcoin wallet software storage"><b>&ldquo;Wallet&rdquo;</b> means the software or hardware that stores your private keys and lets you send and receive bitcoin. It can be hot (online) or cold (offline). <span class="gl">A wallet is closer to a keychain than to a billfold. It holds the keys that prove ownership, not the bitcoin.</span></li>
+                </ol>
+                <p data-filter-empty="#terms" hidden>No definition matches. Try a shorter word.</p>
             </div>
-
-            <div class="glossary-item" data-category="technical" data-terms="block reward mining subsidy halving">
-                <div class="term-name">Block Reward</div>
-                <span class="term-category">Technical</span>
-                <p class="term-definition">The amount of new Bitcoin given to miners for successfully adding a new block to the blockchain. This reward halves approximately every four years (an event called "halving").</p>
-                <div class="term-example"><strong>Example:</strong> The current block reward is 3.125 BTC per block (since the April 2024 halving) and will fall to roughly 1.56 BTC at the next halving in 2028.</div>
-            </div>
-        </div>
-
-        <!-- C Section -->
-        <div class="glossary-grid" id="section-C">
-            <h2>C</h2>
-
-            <div class="glossary-item" data-category="financial" data-terms="cold storage cold wallet offline storage hardware wallet">
-                <div class="term-name">Cold Storage / Cold Wallet</div>
-                <span class="term-category">Financial</span>
-                <p class="term-definition">A method of storing Bitcoin offline, disconnected from the internet, to protect against hacking. Often uses specialized hardware devices.</p>
-                <div class="term-example"><strong>Analogy:</strong> Like keeping gold in a safe deposit box rather than carrying it in your pocket.</div>
-            </div>
-
-            <div class="glossary-item" data-category="policy" data-terms="custodian qualified custodian institutional custody">
-                <div class="term-name">Custodian / Qualified Custodian</div>
-                <span class="term-category">Policy & Legal</span>
-                <p class="term-definition">A financial institution that holds and safeguards assets on behalf of clients. For Bitcoin, qualified custodians use enterprise-grade security, insurance, and regulatory compliance. Examples: Coinbase Custody, Fidelity Digital Assets, Anchorage.</p>
-                <div class="term-example"><strong>Policy Note:</strong> Strategic reserve legislation typically requires digital assets be held through qualified custodians with insurance and SOC 2 controls.</div>
-            </div>
-
-            <div class="glossary-item" data-category="basics" data-terms="cryptocurrency crypto digital asset altcoin">
-                <div class="term-name">Cryptocurrency</div>
-                <span class="term-category">Basics</span>
-                <p class="term-definition">A broad term for digital currencies that use cryptography for security. Bitcoin was the first; thousands of others (called "altcoins") have been created since. Most differ from Bitcoin in fundamental ways: supply schedule, decentralization, governance, and security model.</p>
-                <div class="term-example"><strong>RIBPI usage:</strong> We use "Bitcoin" and "digital assets" rather than "crypto" as a catch-all. The distinction matters in policy: a fixed-supply, decentralized network like Bitcoin raises very different questions than a corporate-issued token or a stablecoin.</div>
-            </div>
-        </div>
-
-        <!-- D Section -->
-        <div class="glossary-grid" id="section-D">
-            <h2>D</h2>
-
-            <div class="glossary-item" data-category="technical" data-terms="decentralized decentralization distributed no central authority">
-                <div class="term-name">Decentralized</div>
-                <span class="term-category">Technical</span>
-                <p class="term-definition">A system that operates without a central authority or single point of control. Bitcoin's network is maintained by thousands of independent computers (nodes) worldwide.</p>
-                <div class="term-example"><strong>Analogy:</strong> Unlike a bank where one entity controls your money, Bitcoin is like a town where everyone keeps their own copy of the financial records.</div>
-            </div>
-
-            <div class="glossary-item" data-category="basics" data-terms="digital asset virtual asset token">
-                <div class="term-name">Digital Asset</div>
-                <span class="term-category">Basics</span>
-                <p class="term-definition">A broad term encompassing any asset that exists in digital form. Includes Bitcoin, other cryptocurrencies, stablecoins, NFTs, and tokenized securities.</p>
-                <div class="term-example"><strong>Policy Note:</strong> Legislation often uses "digital asset" as a catch-all term. Some bills specify requirements like market capitalization thresholds.</div>
-            </div>
-        </div>
-
-        <!-- H Section -->
-        <div class="glossary-grid" id="section-H">
-            <h2>H</h2>
-
-            <div class="glossary-item" data-category="technical" data-terms="halving halvening bitcoin supply schedule">
-                <div class="term-name">Halving</div>
-                <span class="term-category">Technical</span>
-                <p class="term-definition">An event that occurs approximately every four years where the Bitcoin block reward is cut in half. This reduces the rate of new Bitcoin creation, contributing to its scarcity. The most recent halving was in April 2024.</p>
-                <div class="term-example"><strong>Example:</strong> Block rewards went from 50 BTC (2009) → 25 BTC (2012) → 12.5 BTC (2016) → 6.25 BTC (2020) → 3.125 BTC (2024).</div>
-            </div>
-
-            <div class="glossary-item" data-category="technical" data-terms="hash rate hashrate mining power computational power">
-                <div class="term-name">Hash Rate</div>
-                <span class="term-category">Technical</span>
-                <p class="term-definition">A measure of the total computational power being used to mine and process Bitcoin transactions. Higher hash rate equals a more secure network. Measured in hashes per second (often exahashes/second or EH/s).</p>
-                <div class="term-example"><strong>Context:</strong> Bitcoin's hash rate has grown consistently, making the network increasingly secure over time.</div>
-            </div>
-
-            <div class="glossary-item" data-category="financial" data-terms="hot wallet online wallet exchange wallet">
-                <div class="term-name">Hot Wallet</div>
-                <span class="term-category">Financial</span>
-                <p class="term-definition">A Bitcoin wallet that is connected to the internet, allowing for quick transactions but with higher security risk than cold storage.</p>
-                <div class="term-example"><strong>Analogy:</strong> Like cash in your physical wallet vs. money in a bank vault. Convenient but less secure.</div>
-            </div>
-        </div>
-
-        <!-- M Section -->
-        <div class="glossary-grid" id="section-M">
-            <h2>M</h2>
-
-            <div class="glossary-item" data-category="technical" data-terms="mining miner proof of work pow bitcoin mining">
-                <div class="term-name">Mining</div>
-                <span class="term-category">Technical</span>
-                <p class="term-definition">The process by which new Bitcoin transactions are verified and added to the blockchain. Miners use specialized computers to solve complex mathematical problems; the first to solve it gets to add the next block and receives the block reward.</p>
-                <div class="term-example"><strong>Energy Note:</strong> 52.4% of Bitcoin mining ran on sustainable energy in early 2025 (Cambridge Centre for Alternative Finance, Digital Mining Industry Report, April 2025) — 42.6% renewables plus 9.8% nuclear. A meaningful share uses "stranded" energy that would otherwise be wasted &mdash; flared methane, curtailed wind, off-peak hydro.</div>
-            </div>
-
-            <div class="glossary-item" data-category="policy" data-terms="money transmitter mtl money services business msb">
-                <div class="term-name">Money Transmitter</div>
-                <span class="term-category">Policy & Legal</span>
-                <p class="term-definition">A business that transfers money or monetary value on behalf of the public. Cryptocurrency exchanges and certain Bitcoin businesses may be classified as money transmitters and require state licensing.</p>
-                <div class="term-example"><strong>Policy Note:</strong> Rhode Island's enacted virtual currency kiosk law (H.5121A / S.0016A, 2025) requires operators to register as money transmitters. H.7955 + S.2648 (2026) would expand this framework; see <a href="legislation.html#bill-h7955">Legislation</a> for RIBPI's concerns.</div>
-            </div>
-        </div>
-
-        <!-- P Section -->
-        <div class="glossary-grid" id="section-P">
-            <h2>P</h2>
-
-            <div class="glossary-item" data-category="technical" data-terms="private key secret key cryptographic key ownership">
-                <div class="term-name">Private Key</div>
-                <span class="term-category">Technical</span>
-                <p class="term-definition">A secret cryptographic code that proves ownership of Bitcoin and authorizes transactions. Whoever controls the private key controls the Bitcoin. Must be kept secure and never shared.</p>
-                <div class="term-example"><strong>Analogy:</strong> Like the combination to a safe&mdash;anyone who knows it can access what's inside.<br><strong>Policy Note:</strong> H.7957 / S.2196 (2026) would protect Rhode Islanders from compelled disclosure of private keys. Modeled on Wyoming's 2023 law (passed 31&ndash;0 in the Senate). See <a href="legislation.html#bill-h7957">Legislation</a>.</div>
-            </div>
-
-            <div class="glossary-item" data-category="technical" data-terms="public key address bitcoin address receive">
-                <div class="term-name">Public Key / Address</div>
-                <span class="term-category">Technical</span>
-                <p class="term-definition">A cryptographic code derived from the private key that can be shared publicly to receive Bitcoin. Similar to an email address or bank account number.</p>
-                <div class="term-example"><strong>Analogy:</strong> Your public key is like your mailing address—you can share it so people can send you things, but it doesn't give them access to your house.</div>
-            </div>
-
-            <div class="glossary-item" data-category="technical" data-terms="proof of work pow consensus mechanism security">
-                <div class="term-name">Proof of Work (PoW)</div>
-                <span class="term-category">Technical</span>
-                <p class="term-definition">The consensus mechanism Bitcoin uses to validate transactions and secure the network. Miners must expend computational energy to add new blocks, making it extremely costly to attack or manipulate the network.</p>
-                <div class="term-example"><strong>Note:</strong> This energy expenditure is what secures the network and makes Bitcoin "digital gold"—value backed by real-world resources.</div>
-            </div>
-        </div>
-
-        <!-- S Section -->
-        <div class="glossary-grid" id="section-S">
-            <h2>S</h2>
-
-            <div class="glossary-item" data-category="financial" data-terms="stablecoin usdc usdt tether dollar-pegged">
-                <div class="term-name">Stablecoin</div>
-                <span class="term-category">Financial</span>
-                <p class="term-definition">A cryptocurrency designed to maintain a stable value, typically pegged 1:1 to the US dollar. Examples include USDC and Tether (USDT). Used for payments and trading without Bitcoin's price volatility.</p>
-                <div class="term-example"><strong>Note:</strong> Stablecoins are not decentralized like Bitcoin—they're issued by companies and backed by traditional assets.</div>
-            </div>
-
-            <div class="glossary-item" data-category="policy" data-terms="strategic bitcoin reserve sbr state reserve treasury">
-                <div class="term-name">Strategic Bitcoin Reserve (SBR)</div>
-                <span class="term-category">Policy & Legal</span>
-                <p class="term-definition">A state or national reserve of Bitcoin held as a strategic asset, similar to gold reserves. Texas, New Hampshire, and Arizona have passed SBR legislation. A federal Strategic Bitcoin Reserve was established by executive order in March 2025.</p>
-                <div class="term-example"><strong>Policy Note:</strong> SBR legislation typically includes allocation caps (e.g., 5-10% of funds), custody requirements, and market cap thresholds for eligible assets.</div>
-            </div>
-
-            <div class="glossary-item" data-category="policy" data-terms="spdi special purpose depository institution crypto bank">
-                <div class="term-name">Special Purpose Depository Institution (SPDI)</div>
-                <span class="term-category">Policy & Legal</span>
-                <p class="term-definition">A type of bank charter specifically designed to serve digital asset businesses. Requires 100% liquid reserves (no fractional reserve banking). Currently only available in Wyoming and Nebraska.</p>
-                <div class="term-example"><strong>Policy Note:</strong> Rhode Island's H.7413 (2026) would enable SPDIs and a regulatory sandbox, building on the framework Wyoming and Nebraska use to attract digital asset companies. See <a href="legislation.html#bill-h7413">Legislation</a>.</div>
-            </div>
-        </div>
-
-        <!-- T Section -->
-        <div class="glossary-grid" id="section-T">
-            <h2>T</h2>
-
-            <div class="glossary-item" data-category="financial" data-terms="tokenization real world assets rwa securities">
-                <div class="term-name">Tokenization</div>
-                <span class="term-category">Financial</span>
-                <p class="term-definition">The process of representing real-world assets (real estate, stocks, bonds) as digital tokens on a blockchain. Enables fractional ownership and easier transfer of traditionally illiquid assets.</p>
-                <div class="term-example"><strong>Example:</strong> A $10 million building could be divided into 10,000 tokens, allowing investors to own fractional shares.</div>
-            </div>
-        </div>
-
-        <!-- W Section -->
-        <div class="glossary-grid" id="section-W">
-            <h2>W</h2>
-
-            <div class="glossary-item" data-category="basics" data-terms="wallet bitcoin wallet software storage">
-                <div class="term-name">Wallet</div>
-                <span class="term-category">Basics</span>
-                <p class="term-definition">Software or hardware that stores your Bitcoin private keys and allows you to send and receive Bitcoin. Can be "hot" (online) or "cold" (offline).</p>
-                <div class="term-example"><strong>Analogy:</strong> A Bitcoin wallet is more like a keychain than a physical wallet—it doesn't hold Bitcoin itself, but rather the keys that prove ownership.</div>
-            </div>
-        </div>
+        </section>
     </main>
 
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-grid">
-                <div class="footer-section footer-brand">
-                    <span class="footer-name">RIBPI</span>
-                    <p class="footer-tagline">Small state, big ideas. Bitcoin = money.</p>
-                    <p class="footer-sub" style="font-size: 0.78rem; color: var(--text-tertiary); margin-top: 6px;">Rhode Island Bitcoin Policy Initiative &middot; Research &amp; Education &middot; &copy; 2026</p>
-                </div>
-                <div class="footer-section footer-links">
-                    <h4>Sitemap</h4>
-                    <ul>
-                        <li><a href="index.html">Home</a></li>
-                        <li><a href="about.html">About</a></li>
-                        <li><a href="legislation.html">Legislation</a></li>
-                        <li><a href="bitcoin-101.html">Bitcoin 101</a></li>
-                        <li><a href="research.html">Research</a></li>
-                        <li><a href="glossary.html">Glossary</a></li>
-                        <li><a href="news.html">News</a></li>
-                        <li><a href="contact.html">Contact</a></li>
-                    </ul>
-                </div>
-                <div class="footer-section footer-contact">
-                    <h4>Contact</h4>
-                    <ul>
-                        <li><a href="mailto:dan@ribpi.com">dan@ribpi.com</a></li>
-                        <li><a href="https://x.com/RIBTCPolicy" target="_blank" rel="noopener noreferrer">@RIBTCPolicy</a></li>
-                    </ul>
-                </div>
+    <footer class="end">
+        <hr class="end-rule">
+        <div class="end-grid">
+            <div>
+                <b>Rhode Island Bitcoin Policy Initiative.</b> Nonpartisan research and education on Bitcoin and digital asset policy at the Rhode Island General Assembly, founded in 2025 by Dan Hersey. Small state, big ideas. Bitcoin = money.
+                <nav aria-label="Footer">
+                    <a href="index.html">Home</a>
+                    <a href="2027-agenda.html">2027 Agenda</a>
+                    <a href="legislation.html">Legislation</a>
+                    <a href="bitcoin-101.html">Bitcoin 101</a>
+                    <a href="research.html">Research</a>
+                    <a href="glossary.html">Glossary</a>
+                    <a href="news.html">News</a>
+                    <a href="about.html">About</a>
+                    <a href="contact.html">Contact</a>
+                    <a href="2026-session.html">2026 record</a>
+                </nav>
+            </div>
+            <div>
+                <a href="mailto:dan@ribpi.com">dan@ribpi.com</a><br>
+                <a href="https://x.com/RIBTCPolicy" target="_blank" rel="noopener noreferrer">@RIBTCPolicy</a> on X
+                <div class="pg">ribpi.com/glossary &middot; &copy; 2026</div>
             </div>
         </div>
     </footer>
 
-    <script defer src="js/main.js"></script>
-    <script>
-        // Search functionality
-        const searchInput = document.getElementById('searchInput');
-        const glossaryItems = document.querySelectorAll('.glossary-item');
-        const filterBtns = document.querySelectorAll('.filter-btn');
-        const countEl = document.getElementById('glossaryCount');
-
-        function updateCount() {
-            if (!countEl) return;
-            const visible = document.querySelectorAll('.glossary-item:not(.hidden)').length;
-            countEl.textContent = visible === glossaryItems.length
-                ? `${glossaryItems.length} terms`
-                : `Showing ${visible} of ${glossaryItems.length} terms`;
-        }
-        updateCount();
-
-        searchInput.addEventListener('input', (e) => {
-            const query = e.target.value.toLowerCase();
-
-            glossaryItems.forEach(item => {
-                const terms = item.dataset.terms.toLowerCase();
-                const name = item.querySelector('.term-name').textContent.toLowerCase();
-                const definition = item.querySelector('.term-definition').textContent.toLowerCase();
-
-                if (terms.includes(query) || name.includes(query) || definition.includes(query)) {
-                    item.classList.remove('hidden');
-                } else {
-                    item.classList.add('hidden');
-                }
-            });
-
-            // Reset category filter when searching
-            filterBtns.forEach(btn => btn.classList.remove('active'));
-            document.querySelector('.filter-btn[data-category="all"]').classList.add('active');
-            updateCount();
-        });
-
-        // Category filter
-        filterBtns.forEach(btn => {
-            btn.addEventListener('click', () => {
-                filterBtns.forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
-
-                const category = btn.dataset.category;
-
-                glossaryItems.forEach(item => {
-                    if (category === 'all' || item.dataset.category === category) {
-                        item.classList.remove('hidden');
-                    } else {
-                        item.classList.add('hidden');
-                    }
-                });
-
-                // Clear search
-                searchInput.value = '';
-                updateCount();
-            });
-        });
-    </script>
+    <script src="js/bills-data.js"></script>
+    <script src="js/site.js"></script>
 </body>
 </html>
