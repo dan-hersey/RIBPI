@@ -5,174 +5,128 @@
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-ZYM5XCY723"></script>
     <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag("js",new Date());gtag("config","G-ZYM5XCY723");</script>
     <meta charset="UTF-8">
-    <script>try{var t=localStorage.getItem("ribpi-theme")||(window.matchMedia&&matchMedia("(prefers-color-scheme: light)").matches?"light":"dark");document.documentElement.setAttribute("data-theme",t)}catch(e){}</script>
+    <script>try{var t=localStorage.getItem("ribpi-theme");if(t==="dark"||t==="light")document.documentElement.setAttribute("data-theme",t)}catch(e){}</script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Contact RIBPI for policy inquiries, media requests, partnerships, or Bitcoin and digital asset policy research in Rhode Island.">
+    <meta name="description" content="Request a briefing, testimony or an answer to a policy question from the Rhode Island Bitcoin Policy Initiative.">
     <meta name="theme-color" content="#062f5c">
-    <title>Contact | RIBPI</title>
-    <link rel="icon" type="image/jpeg" href="images/flavicon.jpg">
-    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/style.css">
     <meta property="og:title" content="Contact | RIBPI">
-    <meta property="og:description" content="Get in touch with RIBPI for policy inquiries, media requests, or partnerships.">
+    <meta property="og:description" content="Request a briefing, testimony or an answer to a policy question from the Rhode Island Bitcoin Policy Initiative.">
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://ribpi.com/contact">
+    <meta property="og:url" content="https://ribpi.com/contact.html">
     <meta property="og:image" content="https://ribpi.com/images/ribpi-banner.png">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Contact | RIBPI">
-    <meta name="twitter:description" content="Get in touch with RIBPI for policy inquiries, media requests, or partnerships.">
+    <meta name="twitter:description" content="Request a briefing, testimony or an answer to a policy question from the Rhode Island Bitcoin Policy Initiative.">
     <meta name="twitter:image" content="https://ribpi.com/images/ribpi-banner.png">
     <meta name="twitter:site" content="@RIBTCPolicy">
-    <link rel="canonical" href="https://ribpi.com/contact">
+    <link rel="canonical" href="https://ribpi.com/contact.html">
+    <link rel="icon" type="image/jpeg" href="images/flavicon.jpg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Courier+Prime&family=STIX+Two+Text:ital,wght@0,400;0,600;0,700;1,400;1,600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/site.css">
+    <title>Contact | RIBPI</title>
 </head>
-<body class="dark-theme">
-    <a href="#main" class="skip-link">Skip to main content</a>
-    <!-- Navigation -->
-    <nav class="nav-bar">
-        <div class="nav-content">
-            <a href="index.html" class="nav-logo">
-                <img src="images/ribpi-logo.png" alt="RIBPI Logo">
-            </a>
-            <ul class="nav-menu">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="about.html">About</a></li>
-                <li><a href="legislation.html">Legislation</a></li>
-                <li><a href="bitcoin-101.html">Bitcoin 101</a></li>
-                <li><a href="research.html">Research</a></li>
-                <li><a href="glossary.html">Glossary</a></li>
-                <li><a href="news.html">News</a></li>
-                <li><a href="contact.html" class="active">Contact</a></li>
-            </ul>
-            <button class="theme-toggle" data-theme-toggle aria-label="Switch color theme"><svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg><svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg></button>
-            <button class="hamburger-btn" data-hamburger aria-label="Toggle mobile menu">
-                <span></span><span></span><span></span>
-            </button>
-        </div>
-    </nav>
-    <nav class="mobile-nav" data-mobile-nav>
-        <ul>
-            <li><a href="index.html">Home</a></li>
-            <li><a href="about.html">About</a></li>
-            <li><a href="legislation.html">Legislation</a></li>
-            <li><a href="bitcoin-101.html">Bitcoin 101</a></li>
-            <li><a href="research.html">Research</a></li>
-            <li><a href="glossary.html">Glossary</a></li>
-            <li><a href="news.html">News</a></li>
-            <li><a href="contact.html">Contact</a></li>
-        </ul>
-    </nav>
+<body>
+    <a href="#main" class="skip">Skip to the text</a>
+    <header class="top">
+        <a href="index.html" class="logo"><img src="images/ribpi-logo-396.png" alt="Rhode Island Bitcoin Policy Initiative" width="132" height="52"></a>
+        <button class="menu-btn" data-menu aria-controls="site-nav" aria-expanded="false">Menu</button>
+        <nav class="nav" id="site-nav" aria-label="Site">
+            <a href="2027-agenda.html">2027 Agenda</a>
+            <a href="legislation.html">Legislation</a>
+            <a href="bitcoin-101.html">Bitcoin 101</a>
+            <a href="research.html">Research</a>
+            <a href="glossary.html">Glossary</a>
+            <a href="news.html">News</a>
+            <a href="about.html">About</a>
+            <a href="contact.html" aria-current="page">Contact</a>
+            <button class="theme" data-theme-toggle>Dark</button>
+        </nav>
+    </header>
+    <hr class="top-rule">
+    <div class="cal" data-calendar><b>2027 Legislative Session.</b> The General Assembly convenes January 5, 2027. The study commission&rsquo;s interim report is due the same day.</div>
+    <hr class="cal-rule">
 
-    <!-- Hero Section -->
-    <section class="hero" data-hero id="main">
-        <div class="hero-content" data-hero-content>
-            <h1 class="hero-title">Contact RIBPI</h1>
-            <p class="hero-subtitle">Legislators, staff, journalists, and Rhode Islanders with a stake in Bitcoin policy. Reach Dan directly.</p>
-        </div>
-    </section>
-
-    <!-- Main Content -->
-    <main>
-        <section class="contact-section" data-animate-on-scroll>
-            <div class="container">
-                <div class="contact-grid">
-                    <!-- Contact Info Column -->
-                    <div class="contact-info">
-                        <div class="contact-info-card">
-                            <h3>Email</h3>
-                            <p><a href="mailto:dan@ribpi.com">dan@ribpi.com</a></p>
-                        </div>
-
-                        <div class="contact-info-card">
-                            <h3>Social</h3>
-                            <p>
-                                <a href="https://x.com/RIBTCPolicy" target="_blank" rel="noopener" class="social-link">
-                                    <svg class="x-logo" viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-                                    @RIBTCPolicy
-                                </a>
-                            </p>
-                        </div>
-                    </div>
-
-                    <!-- Contact Form Column -->
-                    <div class="contact-form">
-                        <form action="https://formsubmit.co/dan@ribpi.com" method="POST">
-                            <input type="hidden" name="_subject" value="New RIBPI Contact Form Submission">
-                            <input type="hidden" name="_captcha" value="false">
-                            <input type="hidden" name="_next" value="https://ribpi.com/contact.html">
-                            <input type="text" name="_honey" style="display:none">
-
-                            <div class="form-group">
-                                <label for="name">Name <span class="required">*</span></label>
-                                <input type="text" id="name" name="name" required>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="email">Email <span class="required">*</span></label>
-                                <input type="email" id="email" name="email" required>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="subject">Subject <span class="required">*</span></label>
-                                <select id="subject" name="subject" required>
-                                    <option value="">Select a subject</option>
-                                    <option value="Legislator Briefing Request">Legislator Briefing Request</option>
-                                    <option value="Testimony Request">Testimony Request</option>
-                                    <option value="Co-Sponsor Inquiry">Co-Sponsor Inquiry</option>
-                                    <option value="Media / Press">Media / Press</option>
-                                    <option value="Policy Question">Policy Question</option>
-                                    <option value="Volunteer">Volunteer</option>
-                                    <option value="General Inquiry">General Inquiry</option>
-                                </select>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="message">Message <span class="required">*</span></label>
-                                <textarea id="message" name="message" rows="6" required></textarea>
-                            </div>
-
-                            <button type="submit" class="btn btn-primary">Send Message</button>
-
-                            <p class="form-note">We typically respond within 48 hours.</p>
-                        </form>
-                    </div>
-                </div>
+    <main class="doc" id="main">
+        <div class="dochead">
+            <div class="head">
+                <div class="org">Rhode Island Bitcoin Policy Initiative</div>
+                <hr>
+                <h1><span class="act">Contact</span><span class="rel">Relating to briefings, testimony and questions</span></h1>
             </div>
+        </div>
+
+        <section class="sec">
+            <div class="lines">
+                <p>Legislators, staff and commission members can ask for a briefing on any bill or topic on this site. We also answer questions from reporters and from Rhode Islanders who want to help. Write to <a href="mailto:dan@ribpi.com">dan@ribpi.com</a> or use the form.</p>
+            </div>
+            <aside class="note">
+                <p><b>Email</b><br><a href="mailto:dan@ribpi.com">dan@ribpi.com</a></p>
+                <p><b>X</b><br><a href="https://x.com/RIBTCPolicy" target="_blank" rel="noopener noreferrer">@RIBTCPolicy</a></p>
+                <p>We usually reply within 48 hours.</p>
+            </aside>
+        </section>
+
+        <section class="sec gap">
+            <form class="form" action="https://formsubmit.co/dan@ribpi.com" method="POST">
+                <input type="hidden" name="_subject" value="New RIBPI Contact Form Submission">
+                <input type="hidden" name="_captcha" value="false">
+                <input type="hidden" name="_next" value="https://ribpi.com/contact.html">
+                <input type="text" name="_honey" hidden tabindex="-1" autocomplete="off">
+                <label for="name">Name
+                    <input type="text" id="name" name="name" autocomplete="name" required>
+                </label>
+                <label for="email">Email
+                    <input type="email" id="email" name="email" autocomplete="email" required>
+                </label>
+                <label for="subject">Subject
+                    <select id="subject" name="subject" required>
+                        <option value="">Select a subject</option>
+                        <option value="Legislator Briefing Request">Legislator briefing request</option>
+                        <option value="Testimony Request">Testimony request</option>
+                        <option value="Co-Sponsor Inquiry">Co-sponsor inquiry</option>
+                        <option value="Media / Press">Media or press</option>
+                        <option value="Policy Question">Policy question</option>
+                        <option value="Volunteer">Volunteer</option>
+                        <option value="General Inquiry">General inquiry</option>
+                    </select>
+                </label>
+                <label for="message">Message
+                    <textarea id="message" name="message" rows="6" required></textarea>
+                </label>
+                <button type="submit" class="btn">Send message</button>
+            </form>
         </section>
     </main>
 
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-grid">
-                <div class="footer-section footer-brand">
-                    <span class="footer-name">RIBPI</span>
-                    <p class="footer-tagline">Small state, big ideas. Bitcoin = money.</p>
-                    <p class="footer-sub" style="font-size: 0.78rem; color: var(--text-tertiary); margin-top: 6px;">Rhode Island Bitcoin Policy Initiative &middot; Research &amp; Education &middot; &copy; 2026</p>
-                </div>
-                <div class="footer-section footer-links">
-                    <h4>Sitemap</h4>
-                    <ul>
-                        <li><a href="index.html">Home</a></li>
-                        <li><a href="about.html">About</a></li>
-                        <li><a href="legislation.html">Legislation</a></li>
-                        <li><a href="bitcoin-101.html">Bitcoin 101</a></li>
-                        <li><a href="research.html">Research</a></li>
-                        <li><a href="glossary.html">Glossary</a></li>
-                        <li><a href="news.html">News</a></li>
-                        <li><a href="contact.html">Contact</a></li>
-                    </ul>
-                </div>
-                <div class="footer-section footer-contact">
-                    <h4>Contact</h4>
-                    <ul>
-                        <li><a href="mailto:dan@ribpi.com">dan@ribpi.com</a></li>
-                        <li><a href="https://x.com/RIBTCPolicy" target="_blank" rel="noopener noreferrer">@RIBTCPolicy</a></li>
-                    </ul>
-                </div>
+    <footer class="end">
+        <hr class="end-rule">
+        <div class="end-grid">
+            <div>
+                <b>Rhode Island Bitcoin Policy Initiative.</b> Nonpartisan research and education on Bitcoin and digital asset policy at the Rhode Island General Assembly, founded in 2025 by Dan Hersey. Small state, big ideas. Bitcoin = money.
+                <nav aria-label="Footer">
+                    <a href="index.html">Home</a>
+                    <a href="2027-agenda.html">2027 Agenda</a>
+                    <a href="legislation.html">Legislation</a>
+                    <a href="bitcoin-101.html">Bitcoin 101</a>
+                    <a href="research.html">Research</a>
+                    <a href="glossary.html">Glossary</a>
+                    <a href="news.html">News</a>
+                    <a href="about.html">About</a>
+                    <a href="contact.html">Contact</a>
+                    <a href="2026-session.html">2026 record</a>
+                </nav>
+            </div>
+            <div>
+                <a href="mailto:dan@ribpi.com">dan@ribpi.com</a><br>
+                <a href="https://x.com/RIBTCPolicy" target="_blank" rel="noopener noreferrer">@RIBTCPolicy</a> on X
+                <div class="pg">ribpi.com/contact &middot; &copy; 2026</div>
             </div>
         </div>
     </footer>
 
-    <script src="js/main.js"></script>
+    <script src="js/bills-data.js"></script>
+    <script src="js/site.js"></script>
 </body>
 </html>

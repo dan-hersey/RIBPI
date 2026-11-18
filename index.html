@@ -5,24 +5,26 @@
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-ZYM5XCY723"></script>
     <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag("js",new Date());gtag("config","G-ZYM5XCY723");</script>
     <meta charset="UTF-8">
-    <script>try{var t=localStorage.getItem("ribpi-theme")||(window.matchMedia&&matchMedia("(prefers-color-scheme: light)").matches?"light":"dark");document.documentElement.setAttribute("data-theme",t)}catch(e){}</script>
+    <script>try{var t=localStorage.getItem("ribpi-theme");if(t==="dark"||t==="light")document.documentElement.setAttribute("data-theme",t)}catch(e){}</script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="RIBPI is a nonpartisan research and education organization working on Bitcoin and digital asset policy at the Rhode Island General Assembly. See the 2027 agenda.">
+    <meta name="description" content="RIBPI is a nonpartisan research and education organization working on Bitcoin and digital asset policy at the Rhode Island General Assembly. Read the 2027 agenda.">
     <meta name="theme-color" content="#062f5c">
     <meta property="og:title" content="RIBPI | Rhode Island Bitcoin Policy Initiative">
-    <meta property="og:description" content="Bitcoin and digital asset policy for the Rhode Island General Assembly. 2027 agenda: education for the Senate study commission and three bills. Nonpartisan, founded by Dan Hersey.">
+    <meta property="og:description" content="RIBPI is a nonpartisan research and education organization working on Bitcoin and digital asset policy at the Rhode Island General Assembly. Read the 2027 agenda.">
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://ribpi.com">
+    <meta property="og:url" content="https://ribpi.com/">
     <meta property="og:image" content="https://ribpi.com/images/ribpi-banner.png">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="RIBPI | Rhode Island Bitcoin Policy Initiative">
-    <meta name="twitter:description" content="Educating legislators, drafting bills, and delivering testimony to advance sensible Bitcoin policy in Rhode Island.">
+    <meta name="twitter:description" content="RIBPI is a nonpartisan research and education organization working on Bitcoin and digital asset policy at the Rhode Island General Assembly. Read the 2027 agenda.">
     <meta name="twitter:image" content="https://ribpi.com/images/ribpi-banner.png">
     <meta name="twitter:site" content="@RIBTCPolicy">
-    <link rel="canonical" href="https://ribpi.com">
+    <link rel="canonical" href="https://ribpi.com/">
     <link rel="icon" type="image/jpeg" href="images/flavicon.jpg">
-    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=League+Gothic&family=Besley:ital,wght@0,400;0,600;0,800;1,400;1,500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/home.css">
     <title>RIBPI | Rhode Island Bitcoin Policy Initiative</title>
     <script type="application/ld+json">
     {
@@ -49,251 +51,128 @@
     }
     </script>
 </head>
-<body class="dark-theme">
-    <a href="#main" class="skip-link">Skip to main content</a>
-    <!-- Navigation -->
-    <nav class="nav-bar">
-        <div class="nav-content">
-            <a href="index.html" class="nav-logo">
-                <img src="images/ribpi-logo.png" alt="RIBPI Logo">
-            </a>
-            <ul class="nav-menu">
-                <li><a href="index.html" class="active">Home</a></li>
-                <li><a href="about.html">About</a></li>
-                <li><a href="legislation.html">Legislation</a></li>
-                <li><a href="bitcoin-101.html">Bitcoin 101</a></li>
-                <li><a href="research.html">Research</a></li>
-                <li><a href="glossary.html">Glossary</a></li>
-                <li><a href="news.html">News</a></li>
-                <li><a href="contact.html">Contact</a></li>
-            </ul>
-            <button class="theme-toggle" data-theme-toggle aria-label="Switch color theme"><svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg><svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg></button>
-            <button class="hamburger-btn" data-hamburger aria-label="Toggle mobile menu">
-                <span></span><span></span><span></span>
-            </button>
-        </div>
-    </nav>
-    <nav class="mobile-nav" data-mobile-nav>
-        <ul>
-            <li><a href="index.html" class="active">Home</a></li>
-            <li><a href="about.html">About</a></li>
-            <li><a href="legislation.html">Legislation</a></li>
-            <li><a href="bitcoin-101.html">Bitcoin 101</a></li>
-            <li><a href="research.html">Research</a></li>
-            <li><a href="glossary.html">Glossary</a></li>
-            <li><a href="news.html">News</a></li>
-            <li><a href="contact.html">Contact</a></li>
-        </ul>
-    </nav>
+<body class="home">
+    <a href="#main" class="skip">Skip to the text</a>
+    <div class="wrap">
+        <header class="top">
+            <a class="logo" href="index.html"><img src="images/ribpi-logo-396.png" alt="Rhode Island Bitcoin Policy Initiative" width="198" height="88"></a>
+            <button class="menu-btn" type="button" data-menu aria-controls="nav" aria-expanded="false">Menu</button>
+            <nav class="nav" id="nav" aria-label="Main">
+                <a href="2027-agenda.html">2027 Agenda</a>
+                <a href="legislation.html">Legislation</a>
+                <a href="bitcoin-101.html">Bitcoin 101</a>
+                <a href="research.html">Research</a>
+                <a href="news.html">News</a>
+                <a href="about.html">About</a>
+                <a class="cta" href="contact.html">Request a briefing</a>
+            </nav>
+        </header>
 
-    <!-- Action Bar -->
-    <aside class="action-bar" role="region" aria-label="RIBPI 2027 agenda">
-        <div class="action-bar-inner">
-            <div class="action-bar-item action-bar-item--featured">
-                <span class="action-bar-when">Nov 17</span>
-                <span class="action-bar-what"><strong>RIBPI&rsquo;s 2027 agenda is out.</strong> Education for the Senate&rsquo;s study commission comes first, alongside three bills for introduction when the General Assembly convenes January 5.</span>
-                <a href="2027-agenda.html" class="action-bar-cta">Read the agenda</a>
+        <main id="main">
+            <div class="shout">
+                <h1><span class="big"><i>Bitcoin</i> <i>Policy</i></span> <span class="side"><span class="a">for the</span> <span class="b">Ocean<br> State</span></span></h1>
+                <p class="c"><a href="2027-agenda.html">The 2027 <br>agenda is out</a></p>
             </div>
-        </div>
-    </aside>
 
-    <!-- Session ticker (rendered from js/bills-data.js) -->
-    <div class="session-ticker" role="region" aria-label="2027 agenda status">
-        <div class="session-ticker-label">RI 2027</div>
-        <div class="session-ticker-track">
-            <div class="session-ticker-inner">
-                <span class="session-ticker-item"><span class="session-ticker-bill">STUDY COMMISSION</span> <span class="session-ticker-status-floor">INTERIM REPORT DUE JAN 5, 2027</span></span>
-                <span class="session-ticker-sep">&bull;</span>
-                <span class="session-ticker-item"><span class="session-ticker-bill">GENERAL ASSEMBLY</span> <span class="session-ticker-status-hearing">CONVENES JAN 5, 2027</span></span>
-                <span class="session-ticker-sep">&bull;</span>
-            </div>
-        </div>
-    </div>
+            <figure class="band">
+                <img src="images/ri-state-house.jpg" alt="The Rhode Island State House in Providence" width="1080" height="810">
+                <figcaption>General Assembly convenes January 5</figcaption>
+            </figure>
 
-    <!-- Hero Section -->
-    <section class="hero hero--home" data-hero id="main">
-        <div class="hero-overlay"></div>
-        <div class="hero-content" data-hero-content>
-            <h1 class="hero-title">
-                Bitcoin Policy for the Ocean State
-            </h1>
-            <p class="hero-subtitle">
-                The Rhode Island Bitcoin Policy Initiative briefs lawmakers, drafts bills, writes fiscal analyses, and delivers testimony on digital asset policy at the Rhode Island General Assembly. Nonpartisan. Founded in 2025 by Dan Hersey.
-            </p>
-            <div class="session-badge">
-                <span class="badge-dot"></span>
-                2027 Legislative Session
-            </div>
-            <div class="hero-ctas">
-                <a href="2027-agenda.html" class="btn btn-primary">
-                    See the 2027 agenda
-                    <span class="link-arrow">&rarr;</span>
-                </a>
-                <a href="bitcoin-101.html" class="btn btn-secondary">
-                    Bitcoin 101 for legislators
-                    <span class="link-arrow">&rarr;</span>
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <!-- Featured Bills Section -->
-    <section class="featured-bills-section" data-animate-on-scroll>
-        <div class="container">
-            <div class="section-header">
-                <h2>The 2027 agenda</h2>
-                <p>Education for the Senate&rsquo;s study commission comes first, alongside three bills RIBPI will ask legislators to introduce &middot; status as of <span data-last-updated>November 17, 2026</span></p>
-            </div>
-            <div class="bills-grid" data-bills-grid>
-                <a href="2027-agenda.html#education" class="card bill-card">
-                    <div class="card-header">
-                        <div class="bill-numbers">S2198 Sub A</div>
-                        <span class="badge badge-success">Created June 10, 2026</span>
-                    </div>
-                    <h3 class="card-title">Study Commission Education</h3>
-                    <p class="card-meta">The Senate created a 10-member commission to study blockchain and cryptocurrency. Briefing its members and other lawmakers is RIBPI&rsquo;s first job in 2027. Interim report due January 5, 2027; final report January 5, 2028.</p>
-                </a>
-
-                <a href="2027-agenda.html#private-key" class="card bill-card">
-                    <div class="card-header">
-                        <div class="bill-numbers">2026: H7957 / S2196</div>
-                        <span class="badge badge-committee">Returning in 2027</span>
-                    </div>
-                    <h3 class="card-title">Private Key Protection</h3>
-                    <p class="card-meta">A court or agency could not force someone to hand over a private key when a public key or the asset itself would do. Wyoming (2023) and Utah (2024) have this law.</p>
-                </a>
-
-                <a href="2027-agenda.html#de-minimis" class="card bill-card">
-                    <div class="card-header">
-                        <div class="bill-numbers">2026: S2021</div>
-                        <span class="badge badge-committee">Revised for 2027</span>
-                    </div>
-                    <h3 class="card-title">Bitcoin Payments De Minimis</h3>
-                    <p class="card-meta">Small everyday purchases made with bitcoin would no longer trigger a state income tax calculation. Redrafted to answer the Division of Taxation&rsquo;s June 2026 letter on S.2021.</p>
-                </a>
-
-                <a href="2027-agenda.html#unclaimed" class="card bill-card">
-                    <div class="card-header">
-                        <div class="bill-numbers">Ch. 33-21.1</div>
-                        <span class="badge badge-committee">New for 2027</span>
-                    </div>
-                    <h3 class="card-title">Unclaimed Digital Assets</h3>
-                    <p class="card-meta">Abandoned bitcoin would reach the General Treasurer as bitcoin, the way abandoned stock arrives as stock, so the owner can get the asset back. Virginia, Maine, Utah and Alabama enacted this in 2026.</p>
-                </a>
-            </div>
-            <div class="section-footer">
-                <a href="2027-agenda.html" class="link-cta">
-                    Read the 2027 Agenda
-                    <span class="link-arrow">→</span>
-                </a>
-                <a href="2026-session.html" class="link-cta" style="margin-left: 24px;">
-                    2026 Session Record
-                    <span class="link-arrow">→</span>
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <!-- The Numbers — RIBPI's case in four data points -->
-    <section class="why-bitcoin-section" data-animate-on-scroll>
-        <div class="container">
-            <div class="section-header">
-                <h2>The numbers behind the case</h2>
-                <p>Why Rhode Island sound-money policy is the cheapest national policy win available.</p>
-            </div>
-            <div class="data-grid">
-                <article class="data-card">
-                    <div class="data-card-value">$<span data-counter data-target="500" data-suffix="K">500K</span>&ndash;$<span data-counter data-target="2.5" data-decimals="1" data-suffix="M">2.5M</span></div>
-                    <div class="data-card-label">RIBPI&rsquo;s estimate for the 2026 de minimis bill (S.2021)</div>
-                    <p class="data-card-note">0.01&ndash;0.04% of RI general revenue. <a href="research.html">Full analysis</a>.</p>
-                    <div class="data-meter" role="img" aria-label="Bar showing 0.04 percent of general revenue, drawn to scale"><span class="data-meter-fill" style="--meter: 0.04%;"></span></div>
-                    <span class="data-meter-caption">Share of general revenue, drawn to scale (0.04%)</span>
-                </article>
-                <article class="data-card">
-                    <div class="data-card-value"><span data-counter data-target="46">46</span><span style="font-size:0.55em; vertical-align:super;">th</span></div>
-                    <div class="data-card-label">RI on CNBC&rsquo;s 2025 business-climate index</div>
-                    <p class="data-card-note">Tied with Louisiana. 40<sup>th</sup> on the Tax Foundation 2026 index.</p>
-                    <div class="data-meter" role="img" aria-label="Position 46 of 50 states"><span class="data-meter-fill" style="--meter: 92%;"></span></div>
-                    <span class="data-meter-caption">Position among the 50 states (46 of 50)</span>
-                </article>
-                <article class="data-card">
-                    <div class="data-card-value">$<span data-counter data-target="537">537</span>M</div>
-                    <div class="data-card-label">Projected five-year RI structural deficit</div>
-                    <p class="data-card-note">RIPEC, March 2026. FY27 deficit projected at $101M.</p>
-                </article>
-                <article class="data-card">
-                    <div class="data-card-value"><span data-counter data-target="52.4" data-decimals="1" data-suffix="%">52.4%</span></div>
-                    <div class="data-card-label">Sustainable share of Bitcoin mining, 2025</div>
-                    <p class="data-card-note">Cambridge Centre for Alternative Finance, Digital Mining Industry Report (April 2025). 42.6% renewables plus 9.8% nuclear. Up from 37.6% in 2022 (Bitcoin Mining Council).</p>
-                    <div class="data-spark" role="img" aria-label="Trend from 37.6 percent in 2022 to 52.4 percent in 2025">
-                        <svg viewBox="0 0 220 44" xmlns="http://www.w3.org/2000/svg">
-                            <polyline class="spark-line" points="14,32 206,11"/>
-                            <circle class="spark-dot" cx="14" cy="32" r="3"/>
-                            <circle class="spark-dot" cx="206" cy="11" r="3"/>
-                            <text class="spark-label" x="14" y="43">37.6% &middot; 2022</text>
-                            <text class="spark-label" x="206" y="43" text-anchor="end">52.4% &middot; 2025</text>
-                        </svg>
-                    </div>
-                </article>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-grid">
-                <div class="footer-section footer-brand">
-                    <span class="footer-name">RIBPI</span>
-                    <p class="footer-tagline">Small state, big ideas. Bitcoin = money.</p>
-                    <p class="footer-sub" style="font-size: 0.78rem; color: var(--text-tertiary); margin-top: 6px;">Rhode Island Bitcoin Policy Initiative &middot; Research &amp; Education &middot; &copy; 2026</p>
+            <div class="cols">
+                <div class="when">
+                    <h2>Dates</h2>
+                    <p><strong>January 5, 2027</strong>The General Assembly convenes and the study commission&rsquo;s interim report is due.</p>
+                    <p><strong>January 5, 2028</strong>The commission&rsquo;s final report is due.</p>
+                    <p class="more"><a href="2027-agenda.html#dates">All the dates</a></p>
                 </div>
-                <div class="footer-section footer-links">
-                    <h4>Sitemap</h4>
-                    <ul>
-                        <li><a href="index.html">Home</a></li>
-                        <li><a href="about.html">About</a></li>
-                        <li><a href="legislation.html">Legislation</a></li>
-                        <li><a href="bitcoin-101.html">Bitcoin 101</a></li>
-                        <li><a href="research.html">Research</a></li>
-                        <li><a href="glossary.html">Glossary</a></li>
-                        <li><a href="news.html">News</a></li>
-                        <li><a href="contact.html">Contact</a></li>
-                    </ul>
+                <div class="lead">
+                    <h2>Education comes first</h2>
+                    <p class="txt">The Senate <a href="2027-agenda.html#education">created a commission</a> to study blockchain and cryptocurrency on June 10, 2026. RIBPI&rsquo;s first job this session is to brief its members and other lawmakers on what other states have tried, with the bills, the votes and the results. Alongside that work we will ask legislators to introduce three bills. Two are law in other states today, and the third follows a rule that federal law applies to foreign currency.</p>
                 </div>
-                <div class="footer-section footer-contact">
-                    <h4>Contact</h4>
-                    <ul>
-                        <li><a href="mailto:dan@ribpi.com">dan@ribpi.com</a></li>
-                        <li><a href="https://x.com/RIBTCPolicy" target="_blank" rel="noopener noreferrer">@RIBTCPolicy</a></li>
+                <div class="agenda">
+                    <h2>On the agenda</h2>
+                    <ul class="list">
+                        <li><a href="2027-agenda.html#education">Study commission education <span>first priority</span></a></li>
+                        <li><a href="2027-agenda.html#private-key">Private Key Protection Act <span>returning</span></a></li>
+                        <li><a href="2027-agenda.html#de-minimis">Bitcoin payments de&nbsp;minimis <span>revised</span></a></li>
+                        <li><a href="2027-agenda.html#unclaimed">Unclaimed Digital Assets Act <span>new</span></a></li>
                     </ul>
                 </div>
             </div>
-            <!-- Easter egg — interactive gold panning -->
+
+            <section class="tier" aria-label="The three bills">
+                <p class="key">In the three bills, <ins>underlined text is new for 2027</ins> and <del>struck text is what the 2026 bill said</del>.</p>
+                <div class="bills" data-draw>
+                    <article>
+                        <h3>Private Key Protection Act</h3>
+                        <p>A court or agency could not compel a person to hand over a private key when the public key, or an order to transfer the asset, would give it what it needs. The bill returns from 2026 with <ins>a definition of &ldquo;public key.&rdquo;</ins></p>
+                        <p class="st"><span data-status="private-key">Returning in 2027. Not yet filed.</span> <a href="2027-agenda.html#private-key">Read the section</a></p>
+                    </article>
+                    <article>
+                        <h3>Bitcoin payments de&nbsp;minimis exemption</h3>
+                        <p>Small purchases made with bitcoin would be exempt from state income tax. The 2026 bill covered <del>any transaction up to $5,000 a month</del>. The 2027 draft covers <ins>purchases of goods and services under a per-transaction threshold</ins> and answers the Division of Taxation&rsquo;s letter to Senate Finance.</p>
+                        <p class="st"><span data-status="de-minimis">Being redrafted for 2027. Not yet filed.</span> <a href="2027-agenda.html#de-minimis">Read the section</a></p>
+                    </article>
+                    <article>
+                        <h3>Unclaimed Digital Assets Act</h3>
+                        <p><ins>This bill is new for 2027.</ins> Abandoned bitcoin would reach the General Treasurer as bitcoin, the way abandoned stock arrives as stock. Virginia, Maine, Utah and Alabama enacted this rule in 2026.</p>
+                        <p class="st"><span data-status="unclaimed">New for 2027. In drafting.</span> <a href="2027-agenda.html#unclaimed">Read the section</a></p>
+                    </article>
+                </div>
+                <p class="acts"><a class="solid" href="2027-agenda.html">Read the full agenda</a> <a href="contact.html">Request a briefing</a></p>
+            </section>
+
+            <nav class="inside" aria-label="More on this site">
+                <a href="2026-session.html"><b>The 2026 session record</b><span>One resolution adopted and eight bills held for further study, with our position on each.</span></a>
+                <a href="bitcoin-101.html"><b>Bitcoin 101 for legislators</b><span>What Bitcoin is, how it works, and the questions committees ask most.</span></a>
+                <a href="research.html"><b>Research and fiscal analyses</b><span>Fiscal notes, policy briefs and the Blueprint for Blue States.</span></a>
+                <a href="about.html"><b>About RIBPI</b><span>Who we are, what we do and how we are funded.</span></a>
+            </nav>
+        </main>
+
+        <footer class="foot">
+            <div>
+                <p><b>Rhode Island Bitcoin Policy Initiative.</b> Nonpartisan research and education on Bitcoin and digital asset policy at the Rhode Island General Assembly, founded in 2025 by Dan Hersey. Small state, big ideas. Bitcoin = money.</p>
+                <nav aria-label="Footer">
+                    <a href="glossary.html">Glossary</a>
+                    <a href="news.html">News</a>
+                    <a href="legislation.html">Legislation</a>
+                    <a href="contact.html">Contact</a>
+                </nav>
+            </div>
+            <div class="r">
+                <a href="mailto:dan@ribpi.com">dan@ribpi.com</a><br>
+                <a href="https://x.com/RIBTCPolicy" target="_blank" rel="noopener noreferrer">@RIBTCPolicy</a> on X
+                <small>Updated <span data-last-updated>November 17, 2026</span> &middot; <button type="button" data-theme-toggle>Dark</button></small>
+            </div>
+        </footer>
+        <!-- Easter egg: interactive gold panning, invisible until hovered or touched -->
             <div class="ee-wrapper" id="eeWrapper">
                 <div class="ee-pan-zone" id="eePanZone" title="What's this?">
                     <canvas id="eeCanvas" width="280" height="120"></canvas>
-                    <div class="ee-prompt" id="eePrompt">⛏</div>
+                    <div class="ee-prompt" id="eePrompt"></div>
                 </div>
                 <a href="btcgoldrush/index.html" class="ee-reveal" id="eeReveal">
                     <span class="ee-reveal-text">You found gold!</span>
-                    <span class="ee-reveal-link">Explore the Bitcoin Gold Rush →</span>
+                    <span class="ee-reveal-link">Explore the Bitcoin Gold Rush</span>
                 </a>
             </div>
-        </div>
-    </footer>
+    </div>
 
     <style>
     .ee-wrapper {
-        text-align: center;
-        margin-top: 2.5rem;
         position: relative;
+        height: 0;
     }
     .ee-pan-zone {
-        display: inline-block;
-        position: relative;
+        display: block;
+        position: absolute;
+        left: 50%;
+        top: 0;
+        transform: translateX(-50%);
         cursor: grab;
-        opacity: 0.2;
+        opacity: 0;
         transition: opacity 0.6s;
         border-radius: 50%;
         padding: 0.25rem;
@@ -316,9 +195,11 @@
     .ee-reveal {
         display: flex;
         flex-direction: column;
-        align-items: center;
-        gap: 0.3rem;
-        margin-top: 0.8rem;
+                gap: 0.3rem;
+        position: absolute;
+        left: calc(50% + 160px);
+        top: 24px;
+        align-items: flex-start;
         opacity: 0;
         transform: translateY(8px);
         transition: opacity 0.8s ease, transform 0.8s ease;
@@ -331,20 +212,22 @@
         pointer-events: auto;
     }
     .ee-reveal-text {
-        font-family: 'Merriweather', Georgia, serif;
+        font-family: inherit;
         font-size: 0.78rem;
         font-weight: 700;
         color: #C5A648;
         letter-spacing: 1px;
     }
     .ee-reveal-link {
-        font-size: 0.68rem;
+        font-size: 14px;
         letter-spacing: 1.5px;
         text-transform: uppercase;
         color: #e67a00;
         transition: color 0.3s;
     }
     .ee-reveal:hover .ee-reveal-link { color: #C5A648; }
+    @media (max-width: 760px) { .ee-reveal { left: 50%; top: 64px; transform: translate(-50%, 8px); } .ee-reveal.visible { transform: translate(-50%, 0); } }
+    @media print { .ee-wrapper { display: none; } }
     </style>
 
     <script>
@@ -571,9 +454,7 @@
       draw();
     })();
     </script>
-
     <script src="js/bills-data.js"></script>
-    <script src="js/bills-render.js"></script>
-    <script src="js/main.js"></script>
+    <script src="js/site.js"></script>
 </body>
 </html>

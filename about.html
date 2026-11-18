@@ -5,260 +5,130 @@
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-ZYM5XCY723"></script>
     <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag("js",new Date());gtag("config","G-ZYM5XCY723");</script>
     <meta charset="UTF-8">
-    <script>try{var t=localStorage.getItem("ribpi-theme")||(window.matchMedia&&matchMedia("(prefers-color-scheme: light)").matches?"light":"dark");document.documentElement.setAttribute("data-theme",t)}catch(e){}</script>
+    <script>try{var t=localStorage.getItem("ribpi-theme");if(t==="dark"||t==="light")document.documentElement.setAttribute("data-theme",t)}catch(e){}</script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="About RIBPI: a nonpartisan Bitcoin and digital asset policy research organization based in Rhode Island. Founded by Dan Hersey. We educate legislators, draft bills, and deliver testimony.">
+    <meta name="description" content="Who runs the Rhode Island Bitcoin Policy Initiative, what it does, how it is funded, and a history of the work since 2025.">
     <meta name="theme-color" content="#062f5c">
     <meta property="og:title" content="About | RIBPI">
-    <meta property="og:description" content="The Rhode Island Bitcoin Policy Initiative: nonpartisan research and education on Bitcoin and digital asset legislation. Founded by Dan Hersey.">
+    <meta property="og:description" content="Who runs the Rhode Island Bitcoin Policy Initiative, what it does, how it is funded, and a history of the work since 2025.">
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://ribpi.com/about">
+    <meta property="og:url" content="https://ribpi.com/about.html">
     <meta property="og:image" content="https://ribpi.com/images/ribpi-banner.png">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="About | RIBPI">
-    <meta name="twitter:description" content="Learn about the Rhode Island Bitcoin Policy Initiative.">
+    <meta name="twitter:description" content="Who runs the Rhode Island Bitcoin Policy Initiative, what it does, how it is funded, and a history of the work since 2025.">
     <meta name="twitter:image" content="https://ribpi.com/images/ribpi-banner.png">
     <meta name="twitter:site" content="@RIBTCPolicy">
-    <link rel="canonical" href="https://ribpi.com/about">
+    <link rel="canonical" href="https://ribpi.com/about.html">
     <link rel="icon" type="image/jpeg" href="images/flavicon.jpg">
-    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Courier+Prime&family=STIX+Two+Text:ital,wght@0,400;0,600;0,700;1,400;1,600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/site.css">
     <title>About | RIBPI</title>
 </head>
-<body class="dark-theme">
-    <a href="#main" class="skip-link">Skip to main content</a>
-    <!-- Navigation -->
-    <nav class="nav-bar">
-        <div class="nav-content">
-            <a href="index.html" class="nav-logo">
-                <img src="images/ribpi-logo.png" alt="RIBPI Logo">
-            </a>
-            <ul class="nav-menu">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="about.html" class="active">About</a></li>
-                <li><a href="legislation.html">Legislation</a></li>
-                <li><a href="bitcoin-101.html">Bitcoin 101</a></li>
-                <li><a href="research.html">Research</a></li>
-                <li><a href="glossary.html">Glossary</a></li>
-                <li><a href="news.html">News</a></li>
-                <li><a href="contact.html">Contact</a></li>
-            </ul>
-            <button class="theme-toggle" data-theme-toggle aria-label="Switch color theme"><svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg><svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg></button>
-            <button class="hamburger-btn" data-hamburger aria-label="Toggle mobile menu">
-                <span></span><span></span><span></span>
-            </button>
+<body>
+    <a href="#main" class="skip">Skip to the text</a>
+    <header class="top">
+        <a href="index.html" class="logo"><img src="images/ribpi-logo-396.png" alt="Rhode Island Bitcoin Policy Initiative" width="132" height="52"></a>
+        <button class="menu-btn" data-menu aria-controls="site-nav" aria-expanded="false">Menu</button>
+        <nav class="nav" id="site-nav" aria-label="Site">
+            <a href="2027-agenda.html">2027 Agenda</a>
+            <a href="legislation.html">Legislation</a>
+            <a href="bitcoin-101.html">Bitcoin 101</a>
+            <a href="research.html">Research</a>
+            <a href="glossary.html">Glossary</a>
+            <a href="news.html">News</a>
+            <a href="about.html" aria-current="page">About</a>
+            <a href="contact.html">Contact</a>
+            <button class="theme" data-theme-toggle>Dark</button>
+        </nav>
+    </header>
+    <hr class="top-rule">
+    <div class="cal" data-calendar><b>2027 Legislative Session.</b> The General Assembly convenes January 5, 2027. The study commission&rsquo;s interim report is due the same day.</div>
+    <hr class="cal-rule">
+
+    <main class="doc" id="main">
+        <div class="dochead">
+            <div class="head">
+                <div class="org">Rhode Island Bitcoin Policy Initiative</div>
+                <hr>
+                <h1><span class="act">About RIBPI</span><span class="rel">Relating to who we are, what we do and how we are funded</span></h1>
+            </div>
+            <div class="docdate">Updated <span data-last-updated>November 17, 2026</span></div>
         </div>
-    </nav>
-    <nav class="mobile-nav" data-mobile-nav>
-        <ul>
-            <li><a href="index.html">Home</a></li>
-            <li><a href="about.html" class="active">About</a></li>
-            <li><a href="legislation.html">Legislation</a></li>
-            <li><a href="bitcoin-101.html">Bitcoin 101</a></li>
-            <li><a href="research.html">Research</a></li>
-            <li><a href="glossary.html">Glossary</a></li>
-            <li><a href="news.html">News</a></li>
-            <li><a href="contact.html">Contact</a></li>
-        </ul>
-    </nav>
 
-    <!-- Hero Section -->
-    <section class="hero hero--about" data-hero id="main">
-        <div class="hero-overlay"></div>
-    </section>
-
-    <!-- Page Title Section -->
-    <section class="page-title-section" data-animate-on-scroll>
-        <div class="container">
-            <h1 class="page-title">About RIBPI</h1>
-            <p class="page-title-subtitle">
-                Founded in 2025 by Dan Hersey. Nonpartisan. Rhode Island-first. Research and education on Bitcoin and digital asset policy.
-            </p>
-        </div>
-    </section>
-
-    <!-- Mission Section -->
-    <section class="mission-section text-center" data-animate-on-scroll>
-        <div class="container">
-            <h2>Our Mission</h2>
-            <p>
-                RIBPI works with Rhode Island lawmakers on Bitcoin and digital asset policy. We draft bills, write fiscal analyses, and deliver committee testimony. The work is nonpartisan and Rhode Island-first. We currently operate as an unincorporated grassroots research initiative.
-            </p>
-        </div>
-    </section>
-
-    <!-- Leadership Section -->
-    <section class="featured-bills-section" data-animate-on-scroll>
-        <div class="container">
-            <div class="section-header">
-                <h2>Leadership</h2>
-                <p>Who runs RIBPI and how to reach them.</p>
+        <section class="sec">
+            <div class="lines">
+                <p><span class="run">SECTION 1. Mission.</span> RIBPI works with Rhode Island lawmakers on Bitcoin and digital asset policy. We brief legislators and their staff, draft bills, write fiscal analyses and testify in committee. The work is nonpartisan and it starts with Rhode Island.</p>
+                <p><span class="run">SECTION 2. Founder.</span> Dan Hersey founded RIBPI in 2025. He drafts the bills, writes the fiscal analyses and delivers the testimony. In the 2026 session he testified before House Innovation, Internet &amp; Technology, House Corporations, Senate Artificial Intelligence &amp; Emerging Technologies and Senate Commerce on every bill RIBPI tracked. His background is in technology and policy, and the RIBPI work is unpaid.</p>
+                <p><span class="run">SECTION 3. Funding and status.</span> RIBPI is unincorporated and operates as a grassroots research and education initiative. It has no outside funding and no paid lobbyists, and it makes no political contributions. If we incorporate or accept funding, we will say so on this page within seven days.</p>
             </div>
-            <div class="leadership-grid" style="grid-template-columns: minmax(0, 720px); justify-content: start;">
-                <article class="leadership-card leadership-card--with-photo">
-                    <div class="leadership-photo">
-                        <img src="images/dan-hersey.jpg" alt="Dan Hersey, RIBPI founder, on stage speaking" loading="lazy" width="220" height="280">
-                    </div>
-                    <div class="leadership-body">
-                        <div class="leadership-role">Founder</div>
-                        <h3 class="leadership-name">Dan Hersey</h3>
-                        <p class="leadership-bio">Founded RIBPI in 2025. Drafts the bills, writes the fiscal analyses, and delivers the testimony. Has appeared before House Innovation Internet &amp; Technology, House Corporations, Senate AI &amp; Emerging Technology, and Senate Commerce on every RIBPI-tracked bill this session. Background in technology and policy outside Rhode Island; current work is unpaid.</p>
-                        <p style="margin-top: 12px;"><a href="mailto:dan@ribpi.com">dan@ribpi.com</a> &middot; <a href="https://x.com/DanHerseyRI" target="_blank" rel="noopener noreferrer">@DanHerseyRI</a></p>
-                    </div>
-                </article>
+            <aside class="note">
+                <figure class="plate">
+                    <img src="images/dan-hersey-720.jpg" alt="Dan Hersey, RIBPI founder, speaking on stage" width="720" height="900" loading="lazy">
+                    <figcaption>Dan Hersey, founder.</figcaption>
+                </figure>
+                <p><a href="mailto:dan@ribpi.com">dan@ribpi.com</a><br><a href="https://x.com/DanHerseyRI" target="_blank" rel="noopener noreferrer">@DanHerseyRI</a> on X</p>
+            </aside>
+        </section>
+
+        <h2 class="chap">What we do</h2>
+
+        <section class="sec">
+            <div class="lines">
+                <p><span class="run">SECTION 4. Education and outreach.</span> We sit with committee members and their staff one at a time and answer the questions that come up between hearings. Six bills in the 2026 session can be traced to conversations that started over coffee.</p>
+                <p><span class="run">SECTION 5. Drafting and testimony.</span> S.2021, H.7956, H.7957, H.7413 and H.7843 each carried RIBPI material in some form, and Dan testified on every one. We also wrote the policy brief that raised concerns about the kiosk bills, H.7955 and S.2648.</p>
+                <p><span class="run">SECTION 6. Research.</span> We publish white papers and one-pagers with a source for every claim. They are on the <a href="research.html">Research page</a> and are used by bill sponsors, opposing counsel and State House reporters.</p>
             </div>
-            <div class="key-point" style="margin-top: 32px;">
-                <h4>Funding &amp; status</h4>
-                <p>RIBPI is currently unincorporated and operates as a grassroots research and education initiative. No outside funding, no paid lobbyists, no political contributions. If we incorporate or accept funding in the future, we will publish that here within seven days.</p>
+        </section>
+
+        <h2 class="chap">History</h2>
+
+        <section class="sec">
+            <ol class="hist">
+                <li><span>2025</span><span>RIBPI founded. S.0451, a de minimis tax exemption, drafted with its sponsor. S.0373, the first study commission resolution, passed the Senate <span class="nb">38&ndash;0</span> and received no House vote.</span></li>
+                <li><span>January to April 2026</span><span>Six bills introduced with RIBPI involvement. Dan testified on each. Coverage in RI Current, Bitcoin Magazine, Route Fifty and CoinCentral.</span></li>
+                <li><span>June 8, 2026</span><span>Senate Finance heard S.2021 and held it for further study.</span></li>
+                <li><span>June 10, 2026</span><span>The Senate adopted S.2198 Sub A <span class="nb">38&ndash;0</span>, creating the Special Legislative Commission to Study Blockchain and Cryptocurrency. <a href="2026-session.html">Full 2026 record</a>.</span></li>
+                <li><span>November 17, 2026</span><span><a href="2027-agenda.html">2027 agenda</a> published.</span></li>
+                <li><span>January 5, 2027</span><span>The General Assembly convenes, and the commission&rsquo;s interim report is due.</span></li>
+                <li><span>In progress</span><span>Briefing materials and state comparisons for the study commission, and outreach to all 113 Rhode Island lawmakers.</span></li>
+            </ol>
+        </section>
+
+        <section class="sec gap">
+            <p class="acts"><a class="go" href="2027-agenda.html">Read the 2027 agenda</a> <a class="go" href="https://vote.sos.ri.gov/Home/PollingPlaces?ActiveFlag=3#officials-search" target="_blank" rel="noopener noreferrer">Find your legislator</a> <a class="go" href="mailto:dan@ribpi.com?subject=Briefing%20request">Email Dan for a briefing</a></p>
+        </section>
+    </main>
+
+    <footer class="end">
+        <hr class="end-rule">
+        <div class="end-grid">
+            <div>
+                <b>Rhode Island Bitcoin Policy Initiative.</b> Nonpartisan research and education on Bitcoin and digital asset policy at the Rhode Island General Assembly, founded in 2025 by Dan Hersey. Small state, big ideas. Bitcoin = money.
+                <nav aria-label="Footer">
+                    <a href="index.html">Home</a>
+                    <a href="2027-agenda.html">2027 Agenda</a>
+                    <a href="legislation.html">Legislation</a>
+                    <a href="bitcoin-101.html">Bitcoin 101</a>
+                    <a href="research.html">Research</a>
+                    <a href="glossary.html">Glossary</a>
+                    <a href="news.html">News</a>
+                    <a href="about.html">About</a>
+                    <a href="contact.html">Contact</a>
+                    <a href="2026-session.html">2026 record</a>
+                </nav>
             </div>
-        </div>
-    </section>
-
-    <!-- What We Do Section -->
-    <section class="featured-bills-section" data-animate-on-scroll>
-        <div class="container">
-            <div class="section-header">
-                <h2>What We Do</h2>
-                <p>Three pillars of the Rhode Island Bitcoin Policy Initiative</p>
-            </div>
-            <div class="bills-grid">
-                <div class="card bill-card">
-                    <h3 class="card-title">Education &amp; outreach</h3>
-                    <p class="card-description">
-                        Briefings with Rhode Island lawmakers and their staff. We sit with committee members one-on-one and answer the questions that come up between hearings. Six bills in the 2026 session can be traced to conversations that started over coffee.
-                    </p>
-                </div>
-
-                <div class="card bill-card">
-                    <h3 class="card-title">Drafting &amp; testimony</h3>
-                    <p class="card-description">
-                        S.2021, H.7956, H.7957, H.7413, and H.7843 each carry RIBPI material in some form. Dan delivered live testimony on every one this session. We also wrote the redline opposing H.7955 and S.2648 from the same policy seat.
-                    </p>
-                </div>
-
-                <div class="card bill-card">
-                    <h3 class="card-title">Policy research</h3>
-                    <p class="card-description">
-                        White papers and one-pagers, every claim sourced. Material lives on the <a href="research.html">Research page</a> and is used by bill sponsors, opposition counsel, and statehouse reporters.
-                    </p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Timeline Section -->
-    <section class="timeline-section" data-animate-on-scroll>
-        <div class="container">
-            <div class="section-header">
-                <h2>Our Timeline</h2>
-                <p>Milestones in the Rhode Island Bitcoin Policy Initiative</p>
-            </div>
-            <div class="timeline">
-                <div class="timeline-item">
-                    <div class="timeline-dot"></div>
-                    <div class="timeline-content">
-                        <h3 class="timeline-date">2025</h3>
-                        <p>RIBPI founded by Dan Hersey. First conversations with RI legislators on Bitcoin policy.</p>
-                        <p>S.0451 (de minimis tax exemption) drafted with sponsor; S.0373 (blockchain study commission) passed the Senate 38&ndash;0 but never received a House vote.</p>
-                    </div>
-                </div>
-
-                <div class="timeline-item">
-                    <div class="timeline-dot"></div>
-                    <div class="timeline-content">
-                        <h3 class="timeline-date">January &ndash; April 2026</h3>
-                        <p>Six 2026 bills introduced with RIBPI involvement: S.2021, H.7956 + S.2198, H.7957 + S.2196, H.7413, H.7843, plus a policy brief opposing H.7955 + S.2648 kiosk expansion.</p>
-                        <p>Dan delivered live testimony on each of the six. Coverage in RI Current, Bitcoin Magazine, Route Fifty, CoinCentral, and others.</p>
-                    </div>
-                </div>
-
-                <div class="timeline-item">
-                    <div class="timeline-dot"></div>
-                    <div class="timeline-content">
-                        <h3 class="timeline-date">June 2026</h3>
-                        <p>The Senate adopted S.2198 Sub A 38&ndash;0 on June 10, creating the Special Legislative Commission to Study Blockchain and Cryptocurrency.</p>
-                        <p>Senate Finance heard S.2021 on June 8 and held it for further study. The session&rsquo;s other bills were also held. <a href="2026-session.html">Full 2026 record</a>.</p>
-                    </div>
-                </div>
-
-                <div class="timeline-item">
-                    <div class="timeline-dot"></div>
-                    <div class="timeline-content">
-                        <h3 class="timeline-date">November 2026</h3>
-                        <p><a href="2027-agenda.html">2027 agenda</a> published: education for the study commission first, alongside three bills for introduction.</p>
-                        <p>The General Assembly convenes January 5, 2027, the day the commission&rsquo;s interim report is due.</p>
-                    </div>
-                </div>
-
-                <div class="timeline-item">
-                    <div class="timeline-dot"></div>
-                    <div class="timeline-content">
-                        <h3 class="timeline-date">In progress</h3>
-                        <p>Briefing materials and state comparisons for the study commission.</p>
-                        <p>Outreach to all 113 RI lawmakers. Expansion of the Bitcoin Banking Standard newsletter.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- CTA Section -->
-    <section class="cta-section" data-animate-on-scroll>
-        <div class="container">
-            <div class="section-header">
-                <h2>What you can do</h2>
-                <p>Three concrete actions Rhode Islanders can take right now.</p>
-            </div>
-            <div class="cta-buttons">
-                <a href="legislation.html" class="btn btn-primary">
-                    Read the 2026 bills
-                    <span class="link-arrow">&rarr;</span>
-                </a>
-                <a href="https://vote.sos.ri.gov/Home/PollingPlaces?ActiveFlag=3#officials-search" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">
-                    Find your legislator
-                    <span class="link-arrow">&rarr;</span>
-                </a>
-                <a href="mailto:dan@ribpi.com?subject=Briefing%20request" class="btn btn-secondary">
-                    Email Dan for a briefing
-                    <span class="link-arrow">&rarr;</span>
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-grid">
-                <div class="footer-section footer-brand">
-                    <span class="footer-name">RIBPI</span>
-                    <p class="footer-tagline">Small state, big ideas. Bitcoin = money.</p>
-                    <p class="footer-sub" style="font-size: 0.78rem; color: var(--text-tertiary); margin-top: 6px;">Rhode Island Bitcoin Policy Initiative &middot; Research &amp; Education &middot; &copy; 2026</p>
-                </div>
-                <div class="footer-section footer-links">
-                    <h4>Sitemap</h4>
-                    <ul>
-                        <li><a href="index.html">Home</a></li>
-                        <li><a href="about.html">About</a></li>
-                        <li><a href="legislation.html">Legislation</a></li>
-                        <li><a href="bitcoin-101.html">Bitcoin 101</a></li>
-                        <li><a href="research.html">Research</a></li>
-                        <li><a href="glossary.html">Glossary</a></li>
-                        <li><a href="news.html">News</a></li>
-                        <li><a href="contact.html">Contact</a></li>
-                    </ul>
-                </div>
-                <div class="footer-section footer-contact">
-                    <h4>Contact</h4>
-                    <ul>
-                        <li><a href="mailto:dan@ribpi.com">dan@ribpi.com</a></li>
-                        <li><a href="https://x.com/RIBTCPolicy" target="_blank" rel="noopener noreferrer">@RIBTCPolicy</a></li>
-                    </ul>
-                </div>
+            <div>
+                <a href="mailto:dan@ribpi.com">dan@ribpi.com</a><br>
+                <a href="https://x.com/RIBTCPolicy" target="_blank" rel="noopener noreferrer">@RIBTCPolicy</a> on X
+                <div class="pg">ribpi.com/about &middot; &copy; 2026</div>
             </div>
         </div>
     </footer>
 
-    <script src="js/main.js"></script>
+    <script src="js/bills-data.js"></script>
+    <script src="js/site.js"></script>
 </body>
 </html>

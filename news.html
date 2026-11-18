@@ -5,368 +5,116 @@
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-ZYM5XCY723"></script>
     <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag("js",new Date());gtag("config","G-ZYM5XCY723");</script>
     <meta charset="UTF-8">
-    <script>try{var t=localStorage.getItem("ribpi-theme")||(window.matchMedia&&matchMedia("(prefers-color-scheme: light)").matches?"light":"dark");document.documentElement.setAttribute("data-theme",t)}catch(e){}</script>
+    <script>try{var t=localStorage.getItem("ribpi-theme");if(t==="dark"||t==="light")document.documentElement.setAttribute("data-theme",t)}catch(e){}</script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="RIBPI in the news — press coverage of Rhode Island's Bitcoin and blockchain policy initiatives, from tax exemptions to private key protections.">
-    <meta name="keywords" content="RIBPI news, Bitcoin policy Rhode Island, blockchain legislation, cryptocurrency, press coverage">
-    <meta name="author" content="Rhode Island Bitcoin Policy Initiative">
-    <meta name="robots" content="index, follow">
-
-    <!-- Open Graph -->
-    <meta property="og:title" content="News & Press | RIBPI">
-    <meta property="og:description" content="Press coverage of RIBPI's work shaping Bitcoin and blockchain policy in Rhode Island.">
+    <meta name="description" content="Press coverage of the Rhode Island Bitcoin Policy Initiative&#x27;s bills, testimony and policy work, from the State House press to national Bitcoin media.">
+    <meta name="theme-color" content="#062f5c">
+    <meta property="og:title" content="Press | RIBPI">
+    <meta property="og:description" content="Press coverage of the Rhode Island Bitcoin Policy Initiative&#x27;s bills, testimony and policy work, from the State House press to national Bitcoin media.">
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://ribpi.com/news">
+    <meta property="og:url" content="https://ribpi.com/news.html">
     <meta property="og:image" content="https://ribpi.com/images/ribpi-banner.png">
-
-    <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="News & Press | RIBPI">
-    <meta name="twitter:description" content="Press coverage of RIBPI's work shaping Bitcoin and blockchain policy in Rhode Island.">
-    <meta name="twitter:site" content="@RIBTCPolicy">
-
-    <title>News & Press | RIBPI</title>
-    <link rel="icon" type="image/jpeg" href="images/flavicon.jpg">
-    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/style.css">
+    <meta name="twitter:title" content="Press | RIBPI">
+    <meta name="twitter:description" content="Press coverage of the Rhode Island Bitcoin Policy Initiative&#x27;s bills, testimony and policy work, from the State House press to national Bitcoin media.">
     <meta name="twitter:image" content="https://ribpi.com/images/ribpi-banner.png">
-    <link rel="canonical" href="https://ribpi.com/news">
+    <meta name="twitter:site" content="@RIBTCPolicy">
+    <link rel="canonical" href="https://ribpi.com/news.html">
+    <link rel="icon" type="image/jpeg" href="images/flavicon.jpg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Courier+Prime&family=STIX+Two+Text:ital,wght@0,400;0,600;0,700;1,400;1,600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/site.css">
+    <title>News | RIBPI</title>
 </head>
-<body class="dark-theme">
-    <a href="#main" class="skip-link">Skip to main content</a>
-    <!-- Navigation -->
-    <nav class="nav-bar">
-        <div class="nav-content">
-            <a href="index.html" class="nav-logo">
-                <img src="images/ribpi-logo.png" alt="RIBPI Logo">
-            </a>
-            <ul class="nav-menu">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="about.html">About</a></li>
-                <li><a href="legislation.html">Legislation</a></li>
-                <li><a href="bitcoin-101.html">Bitcoin 101</a></li>
-                <li><a href="research.html">Research</a></li>
-                <li><a href="glossary.html">Glossary</a></li>
-                <li><a href="news.html" class="active">News</a></li>
-                <li><a href="contact.html">Contact</a></li>
-            </ul>
-            <button class="theme-toggle" data-theme-toggle aria-label="Switch color theme"><svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg><svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg></button>
-            <button class="hamburger-btn" data-hamburger aria-label="Toggle mobile menu">
-                <span></span><span></span><span></span>
-            </button>
+<body>
+    <a href="#main" class="skip">Skip to the text</a>
+    <header class="top">
+        <a href="index.html" class="logo"><img src="images/ribpi-logo-396.png" alt="Rhode Island Bitcoin Policy Initiative" width="132" height="52"></a>
+        <button class="menu-btn" data-menu aria-controls="site-nav" aria-expanded="false">Menu</button>
+        <nav class="nav" id="site-nav" aria-label="Site">
+            <a href="2027-agenda.html">2027 Agenda</a>
+            <a href="legislation.html">Legislation</a>
+            <a href="bitcoin-101.html">Bitcoin 101</a>
+            <a href="research.html">Research</a>
+            <a href="glossary.html">Glossary</a>
+            <a href="news.html" aria-current="page">News</a>
+            <a href="about.html">About</a>
+            <a href="contact.html">Contact</a>
+            <button class="theme" data-theme-toggle>Dark</button>
+        </nav>
+    </header>
+    <hr class="top-rule">
+    <div class="cal" data-calendar><b>2027 Legislative Session.</b> The General Assembly convenes January 5, 2027. The study commission&rsquo;s interim report is due the same day.</div>
+    <hr class="cal-rule">
+
+    <main class="doc" id="main">
+        <div class="dochead">
+            <div class="head">
+                <div class="org">Rhode Island Bitcoin Policy Initiative</div>
+                <hr>
+                <h1><span class="act">News</span><span class="rel">Relating to press coverage of RIBPI&rsquo;s bills, testimony and policy work</span></h1>
+            </div>
+            <div class="docdate">Updated <span data-last-updated>November 17, 2026</span></div>
         </div>
-    </nav>
-    <nav class="mobile-nav" data-mobile-nav>
-        <ul>
-            <li><a href="index.html">Home</a></li>
-            <li><a href="about.html">About</a></li>
-            <li><a href="legislation.html">Legislation</a></li>
-            <li><a href="bitcoin-101.html">Bitcoin 101</a></li>
-            <li><a href="research.html">Research</a></li>
-            <li><a href="glossary.html">Glossary</a></li>
-            <li><a href="news.html" class="active">News</a></li>
-            <li><a href="contact.html">Contact</a></li>
-        </ul>
-    </nav>
 
-    <!-- Main Content -->
-    <main class="main-content" id="main">
-        <!-- Hero Section -->
-        <section class="hero" data-hero>
-            <div class="hero-overlay"></div>
-            <div class="hero-content" data-hero-content>
-                <h1 class="hero-title">Press</h1>
-                <p class="hero-subtitle">Coverage of RIBPI&rsquo;s bills, testimony, and policy work. Local statehouse press through national Bitcoin media.</p>
+        <section class="sec">
+            <div class="filters" data-filter-group="#press-list" role="group" aria-label="Filter coverage">
+                <button data-filter="all" aria-pressed="true">All</button>
+                <button data-filter="press" aria-pressed="false">Rhode Island</button>
+                <button data-filter="national" aria-pressed="false">National</button>
+                <button data-filter="background" aria-pressed="false">Background</button>
             </div>
+            <aside class="note">
+                <p><b>For journalists.</b> Dan does background calls, on-record interviews and fact-checks on Rhode Island Bitcoin and digital asset bills, usually within a day.</p>
+                <p><a href="mailto:dan@ribpi.com?subject=Press%20inquiry">dan@ribpi.com</a>. Include your deadline and outlet.<br><a href="https://x.com/RIBTCPolicy" target="_blank" rel="noopener noreferrer">@RIBTCPolicy</a> on X, with direct messages open.</p>
+            </aside>
         </section>
 
-        <!-- RIBPI in the Press -->
-        <section class="featured-bills-section" data-animate-on-scroll>
-            <div class="container">
-                <div class="section-header">
-                    <h2>RIBPI in the Press</h2>
-                    <p>Coverage of our bills, testimony, and policy work</p>
-                </div>
-                <nav class="filter-tabs" aria-label="Coverage filters">
-                    <button class="filter-tab active" data-filter="all" aria-pressed="true">All</button>
-                    <button class="filter-tab" data-filter="press" aria-pressed="false">Local RI</button>
-                    <button class="filter-tab" data-filter="national" aria-pressed="false">National</button>
-                    <button class="filter-tab" data-filter="background" aria-pressed="false">Background</button>
-                </nav>
-                <p class="filter-count" id="newsCount" aria-live="polite"></p>
-
-                <!-- News Grid -->
-                <div class="news-grid">
-                    <!-- RI Current — 2026 session review -->
-                    <article class="news-card" data-category="press">
-                        <div class="news-card-header">
-                            <div class="news-meta">
-                                <span class="news-date">July 15, 2026</span>
-                                <span class="news-tag tag-ri">RI Current</span>
-                            </div>
-                            <h3 class="news-title">What Rhode Island Lawmakers Did and Didn&rsquo;t Do on AI, Crypto and Data Centers</h3>
-                        </div>
-                        <div class="news-card-body">
-                            <p class="news-excerpt">End-of-session review of the General Assembly&rsquo;s technology bills. Covers the Senate&rsquo;s creation of the blockchain and cryptocurrency study commission (S.2198) and quotes Dan Hersey on the commission as a foundation for digital asset policy in Rhode Island.</p>
-                            <div class="news-source">
-                                <span class="source-name">RI Current, via Route Fifty</span>
-                                <a href="https://www.route-fifty.com/artificial-intelligence/2026/07/what-rhode-island-lawmakers-did-and-didnt-do-ai-crypto-and-data-centers/414773/" target="_blank" rel="noopener noreferrer" class="read-more">Read article &rarr;</a>
-                            </div>
-                        </div>
-                    </article>
-
-                    <!-- Bitcoin 2026 Conference — State Policy Panel -->
-                    <article class="news-card" data-category="national">
-                        <div class="news-card-header">
-                            <div class="news-meta">
-                                <span class="news-date">May 7, 2026</span>
-                                <span class="news-tag tag-state">Bitcoin Magazine</span>
-                            </div>
-                            <h3 class="news-title">Making Impacts in Bitcoin Policy at the State Level | Bitcoin 2026</h3>
-                        </div>
-                        <div class="news-card-body">
-                            <p class="news-excerpt">Dan Hersey joined Colin Crossman (State of Wyoming) and Dana Criswell (Young Americans for Liberty) for a 26-minute panel at the Bitcoin 2026 conference, moderated by Dom Bei (Proof of Workforce). The panel walks through state-level Bitcoin legislation across 40+ states, the strongest privacy and self-custody bills, and the case for and against state Bitcoin reserves &mdash; with RIBPI&rsquo;s Rhode Island work as a recurring reference point.</p>
-                            <div class="news-source">
-                                <span class="source-name">Bitcoin Magazine</span>
-                                <a href="https://www.youtube.com/watch?v=KA1HHjAcgCg" target="_blank" rel="noopener noreferrer" class="read-more">Watch panel &rarr;</a>
-                            </div>
-                        </div>
-                    </article>
-
-                    <!-- RI Current — Private Keys -->
-                    <article class="news-card" data-category="press">
-                        <div class="news-card-header">
-                            <div class="news-meta">
-                                <span class="news-date">March 9, 2026</span>
-                                <span class="news-tag tag-ri">RI Current</span>
-                            </div>
-                            <h3 class="news-title">Lawmakers Consider Bill That Would Keep Private Keys Private in Rhode Island</h3>
-                        </div>
-                        <div class="news-card-body">
-                            <p class="news-excerpt">Statehouse coverage of RIBPI's Private Key Protection bill (H.7957 / S.2196). Quotes Dan Hersey's testimony before House Innovation, Internet &amp; Technology arguing that a private key is a master credential to assets, identities, and accounts &mdash; not a single password.</p>
-                            <div class="news-source">
-                                <span class="source-name">RI Current</span>
-                                <a href="https://rhodeislandcurrent.com/2026/03/09/lawmakers-consider-bill-that-would-keep-private-keys-private-in-rhode-island/" target="_blank" rel="noopener noreferrer" class="read-more">Read Article →</a>
-                            </div>
-                        </div>
-                    </article>
-
-                    <!-- Route Fifty / News From The States — Syndicated -->
-                    <article class="news-card" data-category="national">
-                        <div class="news-card-header">
-                            <div class="news-meta">
-                                <span class="news-date">March 2026</span>
-                                <span class="news-tag tag-state">Route Fifty</span>
-                            </div>
-                            <h3 class="news-title">Rhode Island Considers Keeping Private Cryptographic Keys Private</h3>
-                        </div>
-                        <div class="news-card-body">
-                            <p class="news-excerpt">Picked up by Route Fifty / News From The States from the RI Current original. Frames the private key debate as a fourth-amendment question that other state legislatures are likely to face next session.</p>
-                            <div class="news-source">
-                                <span class="source-name">Route Fifty</span>
-                                <a href="https://www.route-fifty.com/" target="_blank" rel="noopener noreferrer" class="read-more">Read on Route Fifty &rarr;</a>
-                            </div>
-                        </div>
-                    </article>
-
-                    <!-- Phemex — Blockchain Study Commission -->
-                    <article class="news-card" data-category="national">
-                        <div class="news-card-header">
-                            <div class="news-meta">
-                                <span class="news-date">January 26, 2026</span>
-                                <span class="news-tag tag-state">Phemex</span>
-                            </div>
-                            <h3 class="news-title">Rhode Island Proposes Commission to Study Bitcoin and Blockchain</h3>
-                        </div>
-                        <div class="news-card-body">
-                            <p class="news-excerpt">Reports on the introduction of H.7956 + S.2198 and notes Rhode Island is following Wyoming&rsquo;s 2018 task force model. Reads the bill as a credible signal that small states are still in the game on digital asset policy.</p>
-                            <div class="news-source">
-                                <span class="source-name">Phemex</span>
-                                <a href="https://phemex.com/blogs/rhode-island-proposes-commission-to-study-bitcoin-and-blockchain" target="_blank" rel="noopener noreferrer" class="read-more">Read article &rarr;</a>
-                            </div>
-                        </div>
-                    </article>
-
-                    <!-- Bitcoin Magazine — Tax Exemption -->
-                    <article class="news-card" data-category="national">
-                        <div class="news-card-header">
-                            <div class="news-meta">
-                                <span class="news-date">January 14, 2026</span>
-                                <span class="news-tag tag-state">Bitcoin Magazine</span>
-                            </div>
-                            <h3 class="news-title">Rhode Island Reintroduces Bitcoin Tax Exemption Bill</h3>
-                        </div>
-                        <div class="news-card-body">
-                            <p class="news-excerpt">Bitcoin Magazine&rsquo;s political desk on the S.2021 reintroduction. Calls the de minimis threshold ($5,000/month, $20,000/year) the most aggressive any state has tried and notes the one-year sunset that makes it a low-risk experiment.</p>
-                            <div class="news-source">
-                                <span class="source-name">Bitcoin Magazine</span>
-                                <a href="https://bitcoinmagazine.com/politics/rhode-island-reintroduces-bitcoin-tax-exemption-bill" target="_blank" rel="noopener noreferrer" class="read-more">Read article &rarr;</a>
-                            </div>
-                        </div>
-                    </article>
-
-                    <!-- State Affairs — Tax Exemption -->
-                    <article class="news-card" data-category="press">
-                        <div class="news-card-header">
-                            <div class="news-meta">
-                                <span class="news-date">January 2026</span>
-                                <span class="news-tag tag-ri">State Affairs Pro</span>
-                            </div>
-                            <h3 class="news-title">Rhode Island Considers Tax Exemption for Small Bitcoin Transactions</h3>
-                        </div>
-                        <div class="news-card-body">
-                            <p class="news-excerpt">State Affairs Pro&rsquo;s Rhode Island desk reads the bill as a deliberate business-climate move from a state ranked 46th nationally on CNBC&rsquo;s 2025 business climate index. Quotes Sen. Appollonio on the cost analysis.</p>
-                            <div class="news-source">
-                                <span class="source-name">State Affairs Pro</span>
-                                <a href="https://stateaffairs.com/government/finance/rhode-island-bitcoin-tax-exemption/" target="_blank" rel="noopener noreferrer" class="read-more">Read article &rarr;</a>
-                            </div>
-                        </div>
-                    </article>
-
-                    <!-- CoinCentral — Tax Exemption -->
-                    <article class="news-card" data-category="national">
-                        <div class="news-card-header">
-                            <div class="news-meta">
-                                <span class="news-date">January 14, 2026</span>
-                                <span class="news-tag tag-state">CoinCentral</span>
-                            </div>
-                            <h3 class="news-title">New Bitcoin Tax Exemption Bill in Rhode Island Targets Small Transactions</h3>
-                        </div>
-                        <div class="news-card-body">
-                            <p class="news-excerpt">Side-by-side of S.2021&rsquo;s thresholds against the failed federal Lummis-Gillibrand de minimis proposal and Wyoming&rsquo;s narrower tax treatment. Verdict: RI&rsquo;s threshold is the highest live proposal in the country.</p>
-                            <div class="news-source">
-                                <span class="source-name">CoinCentral</span>
-                                <a href="https://coincentral.com/new-bitcoin-tax-exemption-bill-in-rhode-island-targets-small-transactions/" target="_blank" rel="noopener noreferrer" class="read-more">Read article &rarr;</a>
-                            </div>
-                        </div>
-                    </article>
-
-                    <!-- Crypto Briefing — Tax Exemption -->
-                    <article class="news-card" data-category="national">
-                        <div class="news-card-header">
-                            <div class="news-meta">
-                                <span class="news-date">January 14, 2026</span>
-                                <span class="news-tag tag-state">Crypto Briefing</span>
-                            </div>
-                            <h3 class="news-title">Rhode Island Proposes Bill to Eliminate Taxes on Small Bitcoin Payments</h3>
-                        </div>
-                        <div class="news-card-body">
-                            <p class="news-excerpt">A trade-publication readout of the bill aimed at small businesses considering Bitcoin acceptance. Flags the one-year pilot structure as the part to watch &mdash; if utilization is real, other states will follow.</p>
-                            <div class="news-source">
-                                <span class="source-name">Crypto Briefing</span>
-                                <a href="https://cryptobriefing.com/rhode-island-bitcoin-tax-exemption-bill/" target="_blank" rel="noopener noreferrer" class="read-more">Read article &rarr;</a>
-                            </div>
-                        </div>
-                    </article>
-
-                    <!-- America's Future — Background -->
-                    <article class="news-card" data-category="background">
-                        <div class="news-card-header">
-                            <div class="news-meta">
-                                <span class="news-date">November 2023</span>
-                                <span class="news-tag tag-state">America's Future</span>
-                            </div>
-                            <h3 class="news-title">Rhode Island as a U.S. Blockchain Capital</h3>
-                        </div>
-                        <div class="news-card-body">
-                            <p class="news-excerpt">A 2023 think piece arguing that Rhode Island&rsquo;s small size, dense university footprint, and Boston-NYC proximity could be a competitive moat for digital asset firms. Predates RIBPI but maps the policy gaps the org has since taken on.</p>
-                            <div class="news-source">
-                                <span class="source-name">America&rsquo;s Future</span>
-                                <a href="https://americasfuture.org/rhode-island-as-a-u-s-blockchain-capital/" target="_blank" rel="noopener noreferrer" class="read-more">Read article &rarr;</a>
-                            </div>
-                        </div>
-                    </article>
-                </div>
-            </div>
-        </section>
-
-        <!-- Pitch a story -->
-        <section class="why-bitcoin-section" data-animate-on-scroll>
-            <div class="container">
-                <div class="section-header">
-                    <h2>For journalists</h2>
-                    <p>Dan does background calls, on-record interviews, and quick fact-checks on Rhode Island Bitcoin and digital asset bills. Usual response time under a day.</p>
-                </div>
-                <div class="benefits-grid" style="grid-template-columns: 1fr 1fr;">
-                    <a href="mailto:dan@ribpi.com?subject=Press%20inquiry" class="benefit-card">
-                        <h3 class="card-title">Email Dan</h3>
-                        <p class="card-description">dan@ribpi.com. Include your deadline and outlet. He&rsquo;ll reply with cell number if a call is faster.</p>
-                    </a>
-                    <a href="https://x.com/RIBTCPolicy" target="_blank" rel="noopener noreferrer" class="benefit-card">
-                        <h3 class="card-title">@RIBTCPolicy on X</h3>
-                        <p class="card-description">DMs open. Same-day responses on session days. Faster than email for breaking stuff.</p>
-                    </a>
-                </div>
-            </div>
+        <section class="sec">
+            <ul class="index" id="press-list">
+                <li data-category="press"><a href="https://www.route-fifty.com/artificial-intelligence/2026/07/what-rhode-island-lawmakers-did-and-didnt-do-ai-crypto-and-data-centers/414773/" target="_blank" rel="noopener noreferrer">What Rhode Island Lawmakers Did and Didn&rsquo;t Do on AI, Crypto and Data Centers</a><span class="when">July 15, 2026</span><small>RI Current, via Route Fifty. End-of-session review that covers the Senate&rsquo;s creation of the study commission and quotes Dan Hersey on what it means for digital asset policy in Rhode Island.</small></li>
+                <li data-category="national"><a href="https://www.youtube.com/watch?v=KA1HHjAcgCg" target="_blank" rel="noopener noreferrer">Making Impacts in Bitcoin Policy at the State Level</a><span class="when">May 7, 2026</span><small>Bitcoin Magazine, Bitcoin 2026 conference. A 26-minute panel with Dan Hersey, Colin Crossman of the State of Wyoming and Dana Criswell of Young Americans for Liberty, moderated by Dom Bei of Proof of Workforce.</small></li>
+                <li data-category="press"><a href="https://rhodeislandcurrent.com/2026/03/09/lawmakers-consider-bill-that-would-keep-private-keys-private-in-rhode-island/" target="_blank" rel="noopener noreferrer">Lawmakers Consider Bill That Would Keep Private Keys Private in Rhode Island</a><span class="when">March 9, 2026</span><small>RI Current. State House coverage of the Private Key Protection bills, quoting Dan&rsquo;s testimony before House Innovation, Internet &amp; Technology.</small></li>
+                <li data-category="national"><a href="https://www.route-fifty.com/" target="_blank" rel="noopener noreferrer">Rhode Island Considers Keeping Private Cryptographic Keys Private</a><span class="when">March 2026</span><small>Route Fifty. Republication of the RI Current story for a national state-government audience.</small></li>
+                <li data-category="national"><a href="https://phemex.com/blogs/rhode-island-proposes-commission-to-study-bitcoin-and-blockchain" target="_blank" rel="noopener noreferrer">Rhode Island Proposes Commission to Study Bitcoin and Blockchain</a><span class="when">January 26, 2026</span><small>Phemex. On the introduction of H.7956 and S.2198, with a comparison to Wyoming&rsquo;s 2018 task force.</small></li>
+                <li data-category="national"><a href="https://bitcoinmagazine.com/politics/rhode-island-reintroduces-bitcoin-tax-exemption-bill" target="_blank" rel="noopener noreferrer">Rhode Island Reintroduces Bitcoin Tax Exemption Bill</a><span class="when">January 14, 2026</span><small>Bitcoin Magazine. On S.2021, its $5,000 a month and $20,000 a year thresholds, and the one-year sunset.</small></li>
+                <li data-category="press"><a href="https://stateaffairs.com/government/finance/rhode-island-bitcoin-tax-exemption/" target="_blank" rel="noopener noreferrer">Rhode Island Considers Tax Exemption for Small Bitcoin Transactions</a><span class="when">January 2026</span><small>State Affairs Pro. Rhode Island desk coverage of S.2021, quoting Sen. Appollonio on the cost analysis.</small></li>
+                <li data-category="national"><a href="https://coincentral.com/new-bitcoin-tax-exemption-bill-in-rhode-island-targets-small-transactions/" target="_blank" rel="noopener noreferrer">New Bitcoin Tax Exemption Bill in Rhode Island Targets Small Transactions</a><span class="when">January 14, 2026</span><small>CoinCentral. Compares S.2021&rsquo;s thresholds with the federal de minimis proposal and Wyoming&rsquo;s tax treatment.</small></li>
+                <li data-category="national"><a href="https://cryptobriefing.com/rhode-island-bitcoin-tax-exemption-bill/" target="_blank" rel="noopener noreferrer">Rhode Island Proposes Bill to Eliminate Taxes on Small Bitcoin Payments</a><span class="when">January 14, 2026</span><small>Crypto Briefing. A trade-press summary of the bill for small businesses considering Bitcoin payments.</small></li>
+                <li data-category="background"><a href="https://americasfuture.org/rhode-island-as-a-u-s-blockchain-capital/" target="_blank" rel="noopener noreferrer">Rhode Island as a U.S. Blockchain Capital</a><span class="when">November 2023</span><small>America&rsquo;s Future. A 2023 essay on Rhode Island&rsquo;s size, universities and location as advantages for digital asset firms. It predates RIBPI.</small></li>
+            </ul>
+            <p data-filter-empty="#press-list" hidden>Nothing in this category yet.</p>
         </section>
     </main>
 
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-grid">
-                <div class="footer-section footer-brand">
-                    <span class="footer-name">RIBPI</span>
-                    <p class="footer-tagline">Small state, big ideas. Bitcoin = money.</p>
-                    <p class="footer-sub" style="font-size: 0.78rem; color: var(--text-tertiary); margin-top: 6px;">Rhode Island Bitcoin Policy Initiative &middot; Research &amp; Education &middot; &copy; 2026</p>
-                </div>
-                <div class="footer-section footer-links">
-                    <h4>Sitemap</h4>
-                    <ul>
-                        <li><a href="index.html">Home</a></li>
-                        <li><a href="about.html">About</a></li>
-                        <li><a href="legislation.html">Legislation</a></li>
-                        <li><a href="bitcoin-101.html">Bitcoin 101</a></li>
-                        <li><a href="research.html">Research</a></li>
-                        <li><a href="glossary.html">Glossary</a></li>
-                        <li><a href="news.html">News</a></li>
-                        <li><a href="contact.html">Contact</a></li>
-                    </ul>
-                </div>
-                <div class="footer-section footer-contact">
-                    <h4>Contact</h4>
-                    <ul>
-                        <li><a href="mailto:dan@ribpi.com">dan@ribpi.com</a></li>
-                        <li><a href="https://x.com/RIBTCPolicy" target="_blank" rel="noopener noreferrer">@RIBTCPolicy</a></li>
-                    </ul>
-                </div>
+    <footer class="end">
+        <hr class="end-rule">
+        <div class="end-grid">
+            <div>
+                <b>Rhode Island Bitcoin Policy Initiative.</b> Nonpartisan research and education on Bitcoin and digital asset policy at the Rhode Island General Assembly, founded in 2025 by Dan Hersey. Small state, big ideas. Bitcoin = money.
+                <nav aria-label="Footer">
+                    <a href="index.html">Home</a>
+                    <a href="2027-agenda.html">2027 Agenda</a>
+                    <a href="legislation.html">Legislation</a>
+                    <a href="bitcoin-101.html">Bitcoin 101</a>
+                    <a href="research.html">Research</a>
+                    <a href="glossary.html">Glossary</a>
+                    <a href="news.html">News</a>
+                    <a href="about.html">About</a>
+                    <a href="contact.html">Contact</a>
+                    <a href="2026-session.html">2026 record</a>
+                </nav>
+            </div>
+            <div>
+                <a href="mailto:dan@ribpi.com">dan@ribpi.com</a><br>
+                <a href="https://x.com/RIBTCPolicy" target="_blank" rel="noopener noreferrer">@RIBTCPolicy</a> on X
+                <div class="pg">ribpi.com/news &middot; &copy; 2026</div>
             </div>
         </div>
     </footer>
 
-    <script src="js/main.js"></script>
-    <script>
-        // Filter functionality for news categories
-        const newsCountEl = document.getElementById('newsCount');
-        function updateNewsCount() {
-            if (!newsCountEl) return;
-            const all = document.querySelectorAll('.news-card').length;
-            const visible = document.querySelectorAll('.news-card:not(.hidden)').length;
-            newsCountEl.textContent = visible === all ? `${all} stories` : `Showing ${visible} of ${all} stories`;
-        }
-        updateNewsCount();
-        document.querySelectorAll('.filter-tab').forEach(tab => {
-            tab.addEventListener('click', () => {
-                document.querySelectorAll('.filter-tab').forEach(t => {
-                    t.classList.remove('active');
-                    t.setAttribute('aria-pressed', 'false');
-                });
-                tab.classList.add('active');
-                tab.setAttribute('aria-pressed', 'true');
-
-                const filter = tab.dataset.filter;
-                document.querySelectorAll('.news-card').forEach(card => {
-                    if (filter === 'all' || card.dataset.category === filter) {
-                        card.classList.remove('hidden');
-                        card.style.display = '';
-                    } else {
-                        card.classList.add('hidden');
-                        card.style.display = 'none';
-                    }
-                });
-                updateNewsCount();
-            });
-        });
-    </script>
+    <script src="js/bills-data.js"></script>
+    <script src="js/site.js"></script>
 </body>
 </html>
