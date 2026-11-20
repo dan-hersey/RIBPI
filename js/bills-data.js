@@ -15,12 +15,12 @@
  * The final record of the 2026 session lives in js/bills-data-2026.js.
  */
 var RIBPI_BILLS_META = {
-  lastUpdated: 'November 17, 2026',
+  lastUpdated: 'November 19, 2026',
   session: '2027 Legislative Session',
   /* Plain sentences. Shown in order after the session name. */
   calendar: [
     'The General Assembly convenes January 5, 2027.',
-    'The study commission’s interim report is due the same day.'
+    'The study commission is expected to begin meeting soon.'
   ],
   verifiedAgainst: 'webserver.rilegislature.gov'
 };
@@ -30,7 +30,7 @@ var RIBPI_BILLS = [
     id: 'commission',
     numbers: 'S.2198 Sub A (Resolution 403)',
     title: 'Special Legislative Commission to Study Blockchain and Cryptocurrency',
-    status: 'Created June 10, 2026. Appointments not yet announced.',
+    status: 'Created June 10, 2026. Expected to begin meeting soon.',
     watchUrls: []
   },
   {
